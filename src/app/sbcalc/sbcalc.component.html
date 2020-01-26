@@ -1,1 +1,19 @@
-<p>sbcalc works!</p>
+<div>
+    <label>Magnitude</label>
+    <input (input)="onChangeMagnitude($event.target.value)" type="text" />
+</div>
+
+<div>
+    <label>Major axis</label>
+    <input (input)="onChangeMajorAxis($event.target.value)" type="text" />
+</div>
+
+<div>
+    <label>Minor axis</label>
+    <input (input)="onChangeMinorAxis($event.target.value)" type="text" />
+</div>
+
+<div>
+    <label>Surface brightness</label>
+    <input [value]="surfaceBrightness" type="text" readonly />
+</div>
