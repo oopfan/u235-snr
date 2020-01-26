@@ -1,19 +1,27 @@
-<div>
-    <label>Magnitude</label>
-    <input (input)="onChangeMagnitude($event.target.value)" type="text" />
-</div>
+<div class="container">
+    <div class="columns is-centered">
+        <div class="box column is-one-third">
+            <h1 class="title has-text-centered">Surface Brightness Calculator</h1>
 
-<div>
-    <label>Major axis</label>
-    <input (input)="onChangeMajorAxis($event.target.value)" type="text" />
-</div>
+            <div class="field">
+                <label>Magnitude</label>
+                <input (input)="onChangeMagnitude($event.target.value)" type="text" class="input" />
+            </div>
 
-<div>
-    <label>Minor axis</label>
-    <input (input)="onChangeMinorAxis($event.target.value)" type="text" />
-</div>
+            <div class="field">
+                <label>Major axis (arcmin)</label>
+                <input (input)="onChangeMajorAxis($event.target.value)" type="text" class="input" />
+            </div>
 
-<div>
-    <label>Surface brightness</label>
-    <input [value]="surfaceBrightness" type="text" readonly />
+            <div class="field">
+                <label>Minor axis (arcmin)</label>
+                <input (input)="onChangeMinorAxis($event.target.value)" type="text" class="input" />
+            </div>
+
+            <div class="box" *ngIf="surfaceBrightness">
+                <label>Surface Brightness (mag / sq. arcsec)</label>
+                <input [value]="surfaceBrightness" type="text" class="input" readonly />
+            </div>
+        </div>
+    </div>
 </div>
