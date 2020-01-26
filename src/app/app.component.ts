@@ -7,4 +7,8 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'snrcalc';
+
+  onSurfaceBrightness(value: number) {
+    console.log(`Surface Brightness: ${value}`);
+  }
 }

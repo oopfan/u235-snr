@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Output, EventEmitter, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-sbcalc',
@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./sbcalc.component.css']
 })
 export class SbcalcComponent implements OnInit {
+  @Output() notifySurfaceBrightness:EventEmitter<number> = new EventEmitter();
   magnitude = '';
   majorAxis = '';
   minorAxis = '';
@@ -29,11 +30,13 @@ export class SbcalcComponent implements OnInit {
   calculateSurfaceBrightness() {
     const sb = parseFloat(this.magnitude) + 2.5 * Math.log10(900 * Math.PI * parseFloat(this.majorAxis) * parseFloat(this.minorAxis));
     this.surfaceBrightness = !isNaN(sb) ? sb.toFixed(1) : '';
+    this.notifySurfaceBrightness.emit(sb);
   }
 
   constructor() { }
 
   ngOnInit() {
+    this.calculateSurfaceBrightness();
   }
 
 }
