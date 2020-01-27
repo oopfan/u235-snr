@@ -4,23 +4,23 @@
 
         <div class="field">
             <label>Magnitude</label>
-            <input (input)="onChangeMagnitude($event.target.value)" type="text" class="input" />
+            <input (input)="onChangeMagnitude($event.target.value)" type="text" class="input is-small" />
         </div>
 
         <div class="field">
             <label>Major axis <span class="is-size-7">(arcmin)</span></label>
-            <input (input)="onChangeMajorAxis($event.target.value)" type="text" class="input" />
+            <input (input)="onChangeMajorAxis($event.target.value)" type="text" class="input is-small" />
         </div>
 
         <div class="field">
             <label>Minor axis <span class="is-size-7">(arcmin)</span></label>
-            <input (input)="onChangeMinorAxis($event.target.value)" type="text" class="input" />
+            <input (input)="onChangeMinorAxis($event.target.value)" type="text" class="input is-small" />
         </div>
 
-        <div class="box has-background-info" *ngIf="surfaceBrightness">
+        <div class="box has-background-success" *ngIf="surfaceBrightness">
             <h2 class="subtitle has-text-light is-6">Surface Brightness <span class="is-size-7">(mag/arcsec<sup>2</sup>)</span></h2>
             <div class="field">
-                <input [value]="surfaceBrightness" type="text" class="input" readonly />
+                <input [value]="surfaceBrightness" type="text" class="input is-small" readonly />
             </div>
         </div>
     </div>
