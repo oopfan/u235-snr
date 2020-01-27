@@ -33,7 +33,7 @@ export class SbcalcComponent implements OnInit {
     this.notifySurfaceBrightness.emit(sb);
   }
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit() {
     this.calculateSurfaceBrightness();

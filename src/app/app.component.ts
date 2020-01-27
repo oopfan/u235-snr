@@ -7,22 +7,25 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'snrcalc';
-  userTargetProfiles = [
-    {
-      name: 'M51 Whirlpool Galaxy',
-      surfaceBrightness: '21.7'
-    },
-    {
-      name: "M81 Bode's Galaxy",
-      surfaceBrightness: '21.7'
-    },
-    {
-      name: "M94 Croc's Eye Galaxy",
-      surfaceBrightness: '22.4'
-    }
-  ];
+  userTargetProfiles = [];
+  nextId = 1;
 
-  onSurfaceBrightness(value: number) {
-    console.log(`Surface Brightness: ${value}`);
+  onNewTarget() {
+    const newTarget = {
+      id: this.nextId++,
+      name: '',
+      surfaceBrightness: ''
+    };
+    this.userTargetProfiles.unshift(newTarget);
+  }
+
+  onDeleteTarget(id: number) {
+    const index = this.userTargetProfiles.findIndex((element) => {
+      return element.id === id;
+    });
+    console.log(`id:${id} index:${index}`);
+    if (index >= 0) {
+      this.userTargetProfiles.splice(index, 1);
+    }
   }
 }
