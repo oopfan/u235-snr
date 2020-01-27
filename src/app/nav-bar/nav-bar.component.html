@@ -1,0 +1,21 @@
+<nav class="navbar bd-navbar has-shadow is-spaced" role="navigation" aria-label="main navigation">
+    <div class="container">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="/">
+                U235+SNR
+            </a>
+            <div class="navbar-burger burger" (click)="onClickBurger()" [ngClass]="{'is-active': toggleBurger}">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+            </div>
+        </div>
+        <div class="navbar-menu" [ngClass]="{'is-active': toggleBurger}">
+            <div class="navbar-start">
+                <a class="navbar-item" href="/">
+                    Home
+                </a>
+            </div>
+        </div>
+    </div>
+</nav>
