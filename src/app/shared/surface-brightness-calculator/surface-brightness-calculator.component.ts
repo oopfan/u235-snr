@@ -1,11 +1,11 @@
 import { Component, Output, EventEmitter, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-sbcalc',
-  templateUrl: './sbcalc.component.html',
-  styleUrls: ['./sbcalc.component.css']
+  selector: 'app-surface-brightness-calculator',
+  templateUrl: './surface-brightness-calculator.component.html',
+  styleUrls: ['./surface-brightness-calculator.component.css']
 })
-export class SbcalcComponent implements OnInit {
+export class SurfaceBrightnessCalculatorComponent implements OnInit {
   @Output() notifySurfaceBrightness:EventEmitter<number> = new EventEmitter();
   magnitude = '';
   majorAxis = '';

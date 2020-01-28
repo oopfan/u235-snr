@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SbcalcComponent } from './sbcalc.component';
+import { ObservatoriesHomeComponent } from './observatories-home.component';
 
-describe('SbcalcComponent', () => {
-  let component: SbcalcComponent;
-  let fixture: ComponentFixture<SbcalcComponent>;
+describe('ObservatoriesHomeComponent', () => {
+  let component: ObservatoriesHomeComponent;
+  let fixture: ComponentFixture<ObservatoriesHomeComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SbcalcComponent ]
+      declarations: [ ObservatoriesHomeComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SbcalcComponent);
+    fixture = TestBed.createComponent(ObservatoriesHomeComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

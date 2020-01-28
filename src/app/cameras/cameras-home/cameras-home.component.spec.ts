@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TpeditComponent } from './tpedit.component';
+import { CamerasHomeComponent } from './cameras-home.component';
 
-describe('TpeditComponent', () => {
-  let component: TpeditComponent;
-  let fixture: ComponentFixture<TpeditComponent>;
+describe('CamerasHomeComponent', () => {
+  let component: CamerasHomeComponent;
+  let fixture: ComponentFixture<CamerasHomeComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TpeditComponent ]
+      declarations: [ CamerasHomeComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TpeditComponent);
+    fixture = TestBed.createComponent(CamerasHomeComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

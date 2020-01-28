@@ -1,0 +1,15 @@
+<section class="section">
+    <div class="container">
+        <h1 class="title is-4">Your Targets</h1>
+        <div class="columns">
+            <div class="column">
+                <button class="button is-small is-success is-light is-rounded" (click)="onNewTarget()">NEW TARGET</button>
+            </div>
+        </div>
+        <div class="columns" *ngFor="let profile of userTargetProfiles">
+            <div class="box column is-three-fifths">
+                <app-target-item [id]="profile.id" [name]="profile.name" [surfaceBrightness]="profile.surfaceBrightness" (notifyDeleteTarget)="onDeleteTarget($event)"></app-target-item>
+            </div>
+        </div>
+    </div>
+</section>

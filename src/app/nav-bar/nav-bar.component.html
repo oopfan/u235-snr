@@ -1,7 +1,7 @@
 <nav class="navbar bd-navbar has-shadow is-spaced" role="navigation" aria-label="main navigation">
     <div class="container">
         <div class="navbar-brand">
-            <a class="navbar-item" href="/">
+            <a class="navbar-item" routerLink="/">
                 U235+SNR
             </a>
             <div class="navbar-burger burger" (click)="onClickBurger()" [ngClass]="{'is-active': toggleBurger}">
@@ -12,8 +12,17 @@
         </div>
         <div class="navbar-menu" [ngClass]="{'is-active': toggleBurger}">
             <div class="navbar-start">
-                <a class="navbar-item" href="/">
-                    Home
+                <a class="navbar-item" routerLink="/targets">
+                    Targets
+                </a>
+                <a class="navbar-item" routerLink="/telescopes">
+                    Telescopes
+                </a>
+                <a class="navbar-item" routerLink="/cameras">
+                    Cameras
+                </a>
+                <a class="navbar-item" routerLink="/observatories">
+                    Observatories
                 </a>
             </div>
         </div>

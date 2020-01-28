@@ -1,12 +1,17 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  selector: 'app-targets-home',
+  templateUrl: './targets-home.component.html',
+  styleUrls: ['./targets-home.component.css']
 })
-export class AppComponent {
-  /*
+export class TargetsHomeComponent implements OnInit {
+
+  constructor() { }
+
+  ngOnInit() {
+  }
+
   title = 'snrcalc';
   userTargetProfiles = [];
   nextId = 1;
@@ -29,5 +34,5 @@ export class AppComponent {
       this.userTargetProfiles.splice(index, 1);
     }
   }
-  */
+
 }

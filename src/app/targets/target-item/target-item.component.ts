@@ -1,11 +1,11 @@
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-tpedit',
-  templateUrl: './tpedit.component.html',
-  styleUrls: ['./tpedit.component.css']
+  selector: 'app-target-item',
+  templateUrl: './target-item.component.html',
+  styleUrls: ['./target-item.component.css']
 })
-export class TpeditComponent implements OnInit {
+export class TargetItemComponent implements OnInit {
   @Input() id:number = 0;
   @Input() name:string = '';
   @Input() surfaceBrightness:string = '';
