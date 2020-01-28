@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UserDataService } from 'src/app/user-data.service';
 
 @Component({
   selector: 'app-targets-home',
@@ -7,13 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TargetsHomeComponent implements OnInit {
 
-  constructor() { }
+  constructor(private userData: UserDataService) { }
 
   ngOnInit() {
   }
 
   title = 'snrcalc';
-  userTargetProfiles = [];
+  userTargetProfiles = this.userData.getAllTargets();
   nextId = 1;
 
   onNewTarget() {
