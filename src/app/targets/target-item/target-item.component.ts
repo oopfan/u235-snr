@@ -10,8 +10,27 @@ export class TargetItemComponent implements OnInit {
   @Input() name:string = '';
   @Input() surfaceBrightness:string = '';
   @Output() notifyDeleteTarget:EventEmitter<number> = new EventEmitter();
+  @Output() notifyUpdateTarget:EventEmitter<object> = new EventEmitter();
   calculatorButtonState = false;
   calculatorButtonText = 'SHOW CALCULATOR';
+
+  onChangeName(value: string) {
+    this.name = value;
+    this.emitUpdate();
+  }
+
+  onChangeSurfaceBrightness(value: string) {
+    this.surfaceBrightness = value;
+    this.emitUpdate();
+  }
+
+  private emitUpdate() {
+    this.notifyUpdateTarget.emit({
+      id: this.id,
+      name: this.name,
+      surfaceBrightness: this.surfaceBrightness
+    });
+  }
 
   onCalculatorButtonClick() {
     this.calculatorButtonState = !this.calculatorButtonState;

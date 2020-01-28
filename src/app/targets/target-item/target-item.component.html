@@ -1,7 +1,7 @@
 <div class="columns">
     <div class="column">
         <label>Name</label>
-        <input type="text" class="input is-small" [value]="name" required />
+        <input type="text" class="input is-small" [value]="name" (input)="onChangeName($event.target.value)" required />
     </div>
 </div>
 <div class="columns">
@@ -9,7 +9,7 @@
         <div class="columns">
             <div class="column">
                 <label>Surface&nbsp;Brightness&nbsp;<span class="is-size-7">(mag/arcsec<sup>2</sup>)</span></label>
-                <input type="text" class="input is-small" [value]="surfaceBrightness" required />
+                <input type="text" class="input is-small" [value]="surfaceBrightness" (input)="onChangeSurfaceBrightness($event.target.value)" required />
             </div>
         </div>
         <div class="columns">

@@ -15,25 +15,19 @@ export class TargetsHomeComponent implements OnInit {
 
   title = 'snrcalc';
   userTargetProfiles = this.userData.getAllTargets();
-  nextId = 1;
 
   onNewTarget() {
-    const newTarget = {
-      id: this.nextId++,
-      name: '',
-      surfaceBrightness: ''
-    };
-    this.userTargetProfiles.unshift(newTarget);
+    const target = this.userData.createTarget('', '');
+    this.userTargetProfiles = this.userData.getAllTargets();
+  }
+
+  onUpdateTarget(target: any) {
+    this.userData.updateTarget(target.id, target.name, target.surfaceBrightness);
   }
 
   onDeleteTarget(id: number) {
-    const index = this.userTargetProfiles.findIndex((element) => {
-      return element.id === id;
-    });
-    console.log(`id:${id} index:${index}`);
-    if (index >= 0) {
-      this.userTargetProfiles.splice(index, 1);
-    }
+    this.userData.deleteTarget(id);
+    this.userTargetProfiles = this.userData.getAllTargets();
   }
 
 }
