@@ -1,3 +1,4 @@
+import { Title } from '@angular/platform-browser';
 import { Component, OnInit } from '@angular/core';
 import { UserDataService } from 'src/app/user-data.service';
 
@@ -8,12 +9,12 @@ import { UserDataService } from 'src/app/user-data.service';
 })
 export class TargetsHomeComponent implements OnInit {
 
-  constructor(private userData: UserDataService) { }
+  constructor(private titleService: Title, private userData: UserDataService) { }
 
   ngOnInit() {
+    this.titleService.setTitle('Targets | U235+SNR');
   }
 
-  title = 'snrcalc';
   userTargetProfiles = this.userData.getAllTargets();
 
   onNewTarget() {
