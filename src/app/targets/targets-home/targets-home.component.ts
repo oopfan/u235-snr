@@ -21,6 +21,15 @@ export class TargetsHomeComponent implements OnInit {
     this.userTargetProfiles = this.userData.getAllTargets();
   }
 
+  onSaveAll() {
+    this.userData.saveTargets();
+  }
+
+  onDiscardChanges() {
+    this.userData.discardTargets();
+    this.userTargetProfiles = this.userData.getAllTargets();
+  }
+
   onUpdateTarget(target: any) {
     this.userData.updateTarget(target.id, target.name, target.surfaceBrightness);
   }

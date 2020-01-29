@@ -4,6 +4,8 @@
         <div class="columns">
             <div class="column">
                 <button class="button is-small is-success is-light is-rounded" (click)="onNewTarget()">NEW TARGET</button>
+                <button class="button is-small is-warning is-light is-rounded" (click)="onSaveAll()">SAVE ALL</button>
+                <button class="button is-small is-danger is-light is-rounded" (click)="onDiscardChanges()">DISCARD CHANGES</button>
             </div>
         </div>
         <div class="columns" *ngFor="let profile of userTargetProfiles">

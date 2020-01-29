@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { LocalStorageService, LocalStorage } from 'angular-web-storage';
 
 @Injectable({
   providedIn: 'root'
@@ -6,7 +7,21 @@ import { Injectable } from '@angular/core';
 export class UserDataService {
   targetsCache = null;
 
-  constructor() { }
+  constructor(private storage: LocalStorageService) { }
+
+  saveTargets() {
+    if (!this.targetsCache) {
+      this.initTargets();
+    }
+    this.storage.set('userTargets', this.targetsCache);
+  }
+
+  discardTargets() {
+    const obj = this.storage.get('userTargets');
+    if (obj) {
+      this.targetsCache = obj;
+    }
+  }
 
   getAllTargets() {
     if (!this.targetsCache) {
@@ -16,12 +31,8 @@ export class UserDataService {
   }
 
   private initTargets() {
-    this.targetsCache = { list: [], nextid: 0 };
-    this.targetsCache.list = [
-      { id: 0, name: 'M51 Whirlpool Galaxy', surfaceBrightness: '21.7'},
-      { id: 1, name: 'M82 Cigar Galaxy', surfaceBrightness: '21.2'}
-    ];
-    this.targetsCache.nextid = this.targetsCache.list.length;
+    const obj = this.storage.get('userTargets');
+    this.targetsCache = obj || { list: [], nextid: 0 };
   }
 
   createTarget(name: string, surfaceBrightness: string) {
