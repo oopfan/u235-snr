@@ -1,11 +1,14 @@
 <section class="section">
     <div class="container">
-        <h1 class="title is-4">Your Targets</h1>
+        <h1 class="title is-5">Your Targets</h1>
+        <hr />
         <div class="columns">
             <div class="column">
-                <button class="button is-small is-success is-light is-rounded" (click)="onNewTarget()">NEW TARGET</button>
-                <button class="button is-small is-warning is-light is-rounded" (click)="onSaveAll()">SAVE ALL</button>
-                <button class="button is-small is-danger is-light is-rounded" (click)="onDiscardChanges()">DISCARD CHANGES</button>
+                <div class="buttons">
+                    <button class="button is-success" (click)="onNewTarget()">New Target</button>
+                    <button class="button is-warning" (click)="onSaveAll()">Save All</button>
+                    <button class="button is-danger" (click)="onDiscardChanges()">Discard Changes</button>
+                </div>
             </div>
         </div>
         <div class="columns" *ngFor="let profile of userTargetProfiles">

@@ -14,7 +14,7 @@
         </div>
         <div class="columns">
             <div class="column">
-                <button class="button is-small is-success is-light is-rounded" (click)="onCalculatorButtonClick()">{{ calculatorButtonText }}</button>
+                <button class="button is-small is-success" (click)="onCalculatorButtonClick()">{{ calculatorButtonText }}</button>
             </div>
         </div>
         <div class="columns" *ngIf="calculatorButtonState">
@@ -27,6 +27,6 @@
 </div>
 <div class="columns">
     <div class="column">
-        <button class="button is-small is-danger is-light is-rounded" (click)="onDeleteButtonClick()">DELETE TARGET</button>
+        <button class="button is-small is-danger" (click)="onDeleteButtonClick()">Delete Target</button>
     </div>
 </div>
