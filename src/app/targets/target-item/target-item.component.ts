@@ -12,7 +12,7 @@ export class TargetItemComponent implements OnInit {
   @Output() notifyDeleteTarget:EventEmitter<number> = new EventEmitter();
   @Output() notifyUpdateTarget:EventEmitter<object> = new EventEmitter();
   calculatorButtonState = false;
-  calculatorButtonText = 'Show Calculator';
+  calculatorButtonText = 'show calculator';
 
   onChangeName(value: string) {
     this.name = value;
@@ -35,10 +35,10 @@ export class TargetItemComponent implements OnInit {
   onCalculatorButtonClick() {
     this.calculatorButtonState = !this.calculatorButtonState;
     if (this.calculatorButtonState) {
-      this.calculatorButtonText = 'Hide Calculator';
+      this.calculatorButtonText = 'hide calculator';
     }
     else {
-      this.calculatorButtonText = 'Show Calculator';
+      this.calculatorButtonText = 'show calculator';
     }
   }
 
