@@ -12,6 +12,7 @@ export class ObservatoryItemComponent implements OnInit {
   @Input() skyBrightness:string = '';
   @Output() notifyDeleteObservatory:EventEmitter<number> = new EventEmitter();
   @Output() notifyUpdateObservatory:EventEmitter<object> = new EventEmitter();
+  @Output() notifySaveObservatory:EventEmitter<number> = new EventEmitter();
 
   onChangeName(value: string) {
     this.name = value;
@@ -35,6 +36,10 @@ export class ObservatoryItemComponent implements OnInit {
       bortleClass: this.bortleClass,
       skyBrightness: this.skyBrightness
     });
+  }
+
+  onSaveButtonClick() {
+    this.notifySaveObservatory.emit(this.id);
   }
 
   onDeleteButtonClick() {

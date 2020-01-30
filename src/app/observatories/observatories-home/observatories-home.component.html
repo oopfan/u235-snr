@@ -3,11 +3,21 @@
         <h1 class="title is-5">Your Observatories</h1>
         <hr />
         <div class="columns">
-            <div class="column">
-                <div class="buttons are-small">
-                    <button class="button is-capitalized is-light is-success" (click)="onNewObservatory()">new observatory</button>
-                    <button class="button is-capitalized is-light is-warning" (click)="onSaveAll()">save all</button>
-                    <button class="button is-capitalized is-light is-danger" (click)="onDiscardChanges()">discard changes</button>
+            <div class="column is-three-fifths">
+                <div class="level is-mobile">
+                    <div class="level-left">
+                        <div class="level-item">
+                            <button class="button is-small is-rounded is-light is-uppercase" (click)="onNewObservatory()">new observatory</button>
+                        </div>
+                        <div class="level-item">
+                            <button class="button is-small is-rounded is-light is-uppercase" (click)="onSaveAll()">save all</button>
+                        </div>
+                    </div>
+                    <div class="level-right">
+                        <div class="level-item">
+                            <button class="button is-small is-rounded is-light is-uppercase" (click)="onDiscardChanges()">discard changes</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -18,6 +28,7 @@
                     [name]="profile.name"
                     [bortleClass]="profile.bortleClass"
                     [skyBrightness]="profile.skyBrightness"
+                    (notifySaveObservatory)="onSaveObservatory($event)"
                     (notifyDeleteObservatory)="onDeleteObservatory($event)"
                     (notifyUpdateObservatory)="onUpdateObservatory($event)">
                 </app-observatory-item>

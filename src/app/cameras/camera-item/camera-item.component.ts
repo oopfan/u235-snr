@@ -14,6 +14,7 @@ export class CameraItemComponent implements OnInit {
   @Input() quantumEfficiency:string = '';
   @Output() notifyDeleteCamera:EventEmitter<number> = new EventEmitter();
   @Output() notifyUpdateCamera:EventEmitter<object> = new EventEmitter();
+  @Output() notifySaveCamera:EventEmitter<number> = new EventEmitter();
 
   onChangeName(value: string) {
     this.name = value;
@@ -49,6 +50,10 @@ export class CameraItemComponent implements OnInit {
       darkCurrent: this.darkCurrent,
       quantumEfficiency: this.quantumEfficiency
     });
+  }
+
+  onSaveButtonClick() {
+    this.notifySaveCamera.emit(this.id);
   }
 
   onDeleteButtonClick() {

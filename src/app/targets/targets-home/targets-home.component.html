@@ -3,17 +3,27 @@
         <h1 class="title is-5">Your Targets</h1>
         <hr />
         <div class="columns">
-            <div class="column">
-                <div class="buttons are-small">
-                    <button class="button is-capitalized is-light is-success" (click)="onNewTarget()">new target</button>
-                    <button class="button is-capitalized is-light is-warning" (click)="onSaveAll()">save all</button>
-                    <button class="button is-capitalized is-light is-danger" (click)="onDiscardChanges()">discard changes</button>
+            <div class="column is-three-fifths">
+                <div class="level is-mobile">
+                    <div class="level-left">
+                        <div class="level-item">
+                            <button class="button is-small is-rounded is-light is-uppercase" (click)="onNewTarget()">new target</button>
+                        </div>
+                        <div class="level-item">
+                            <button class="button is-small is-rounded is-light is-uppercase" (click)="onSaveAll()">save all</button>
+                        </div>
+                    </div>
+                    <div class="level-right">
+                        <div class="level-item">
+                            <button class="button is-small is-rounded is-light is-uppercase" (click)="onDiscardChanges()">discard changes</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
         <div class="columns" *ngFor="let profile of userTargetProfiles">
             <div class="box column is-three-fifths">
-                <app-target-item [id]="profile.id" [name]="profile.name" [surfaceBrightness]="profile.surfaceBrightness" (notifyDeleteTarget)="onDeleteTarget($event)" (notifyUpdateTarget)="onUpdateTarget($event)"></app-target-item>
+                <app-target-item [id]="profile.id" [name]="profile.name" [surfaceBrightness]="profile.surfaceBrightness" (notifySaveTarget)="onSaveTarget($event)" (notifyDeleteTarget)="onDeleteTarget($event)" (notifyUpdateTarget)="onUpdateTarget($event)"></app-target-item>
             </div>
         </div>
     </div>

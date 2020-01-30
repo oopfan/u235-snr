@@ -11,6 +11,7 @@ export class TargetItemComponent implements OnInit {
   @Input() surfaceBrightness:string = '';
   @Output() notifyDeleteTarget:EventEmitter<number> = new EventEmitter();
   @Output() notifyUpdateTarget:EventEmitter<object> = new EventEmitter();
+  @Output() notifySaveTarget:EventEmitter<number> = new EventEmitter();
   calculatorButtonState = false;
   calculatorButtonText = 'show calculator';
 
@@ -40,6 +41,10 @@ export class TargetItemComponent implements OnInit {
     else {
       this.calculatorButtonText = 'show calculator';
     }
+  }
+
+  onSaveButtonClick() {
+    this.notifySaveTarget.emit(this.id);
   }
 
   onDeleteButtonClick() {

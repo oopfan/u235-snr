@@ -40,4 +40,9 @@ export class CamerasHomeComponent implements OnInit {
     this.userCameraProfiles = this.userData.getAllCameras();
   }
 
+  onSaveCamera(id: number) {
+    // Right now, can't save an individual camera to Local Storage, just all cameras.
+    this.userData.saveCameras();
+  }
+
 }

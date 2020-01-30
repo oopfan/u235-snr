@@ -40,4 +40,9 @@ export class TargetsHomeComponent implements OnInit {
     this.userTargetProfiles = this.userData.getAllTargets();
   }
 
+  onSaveTarget(id: number) {
+    // Right now, can't save an individual target to Local Storage, just all targets.
+    this.userData.saveTargets();
+  }
+
 }

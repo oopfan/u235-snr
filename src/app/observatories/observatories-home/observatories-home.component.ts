@@ -40,4 +40,9 @@ export class ObservatoriesHomeComponent implements OnInit {
     this.userObservatoryProfiles = this.userData.getAllObservatories();
   }
 
+  onSaveObservatory(id: number) {
+    // Right now, can't save an individual observatory to Local Storage, just all observatories.
+    this.userData.saveObservatories();
+  }
+
 }
