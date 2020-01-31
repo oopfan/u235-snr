@@ -1,6 +1,6 @@
 import { Title } from '@angular/platform-browser';
 import { Component, OnInit } from '@angular/core';
-import { UserObservatoryService } from 'src/app/user-observatory.service';
+import { UserObservatoryService } from 'src/app/services/user-observatory.service';
 
 @Component({
   selector: 'app-observatories-home',

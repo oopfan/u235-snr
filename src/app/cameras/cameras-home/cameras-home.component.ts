@@ -1,6 +1,6 @@
 import { Title } from '@angular/platform-browser';
 import { Component, OnInit } from '@angular/core';
-import { UserCameraService } from 'src/app/user-camera.service';
+import { UserCameraService } from 'src/app/services/user-camera.service';
 
 @Component({
   selector: 'app-cameras-home',
