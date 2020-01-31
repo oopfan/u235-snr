@@ -1,0 +1,19 @@
+<h2 class="title is-6">Please input:</h2>
+<div class="control">
+    <label>Total&nbsp;integration&nbsp;time&nbsp;<span class="is-size-7">(hours)&nbsp;</span></label>
+    <input type="number" min="0.1" max="100" step="0.1" [value]="totalIntegrationTime" (change)="onChangeTotalIntegrationTime($event.target.value)" />
+</div>
+<div class="control">
+    <label>Single&nbsp;sub&nbsp;exposure&nbsp;<span class="is-size-7">(seconds)&nbsp;</span></label>
+    <input type="number" min="1" max="1800" step="1" [value]="singleSubExposure" (change)="onChangeSingleSubExposure($event.target.value)" />
+</div>
+<br />
+<h2 class="title is-6">The answer is:</h2>
+<div class="control">
+    <label>Total&nbsp;signal-to-noise&nbsp;of&nbsp;stack&nbsp;</label>
+    <input type="text" [value]="signalToNoiseRatio" readonly />
+</div>
+<div class="control">
+    <label>Number&nbsp;of&nbsp;subs&nbsp;</label>
+    <input type="text" [value]="frameCount" readonly />
+</div>

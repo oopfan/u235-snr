@@ -1,1 +1,23 @@
-<p>calculators-home works!</p>
+<section class="section">
+    <div class="container">
+        <h1 class="title is-6">Choose a calculator:</h1>
+        <div class="columns">
+            <div class="column">
+                <div class="control">
+                    <label class="radio">
+                        <input type="radio" name="calcwhat" value="calcsnr" (change)="onChange($event.target.value)" >
+                        Calculate total signal-to-noise of stack given the total integration time and single sub exposure.
+                    </label>
+                </div>
+                <div class="control">
+                    <label class="radio">
+                        <input type="radio" name="calcwhat" value="calcfc" (change)="onChange($event.target.value)" >
+                        Calculate total integration time given the total signal-to-noise of stack and single sub exposure.
+                    </label>
+                </div>
+            </div>
+        </div>
+        <app-calculator-snr *ngIf="calcChoice == 'calcsnr'"></app-calculator-snr>
+        <app-calculator-fc  *ngIf="calcChoice == 'calcfc'"></app-calculator-fc>
+    </div>
+</section>

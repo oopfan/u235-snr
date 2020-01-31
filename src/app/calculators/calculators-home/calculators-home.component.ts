@@ -1,3 +1,4 @@
+import { Title } from '@angular/platform-browser';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -6,10 +7,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./calculators-home.component.css']
 })
 export class CalculatorsHomeComponent implements OnInit {
+  calcChoice = '';
 
-  constructor() { }
+  constructor(private titleService: Title) { }
 
   ngOnInit() {
+    this.titleService.setTitle('Calculators | U235+SNR');
   }
 
+  onChange(value: string) {
+    this.calcChoice = value;
+  }
 }
