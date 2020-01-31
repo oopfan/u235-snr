@@ -1,23 +1,68 @@
 <section class="section">
     <div class="container">
-        <h1 class="title is-6">Choose a calculator:</h1>
+        <h1 class="title is-6">Select a target, telescope, camera, and observatory</h1>
         <div class="columns">
             <div class="column">
+                <label>Target</label>
                 <div class="control">
-                    <label class="radio">
-                        <input type="radio" name="calcwhat" value="calcsnr" (change)="onChange($event.target.value)" >
-                        Calculate total signal-to-noise of stack given the total integration time and single sub exposure.
-                    </label>
+                    <select [value]="selectedTarget" (change)= "onChangeTarget($event.target.value)">
+                        <option value="-">Choose one...</option>
+                        <option *ngFor="let target of targets" [value]="target.id">{{ target.name }}</option>
+                    </select>
                 </div>
+            </div>
+            <div class="column">
+                <label>Telescope</label>
                 <div class="control">
-                    <label class="radio">
-                        <input type="radio" name="calcwhat" value="calcfc" (change)="onChange($event.target.value)" >
-                        Calculate total integration time given the total signal-to-noise of stack and single sub exposure.
-                    </label>
+                    <select [value]="selectedTelescope" (change)= "onChangeTelescope($event.target.value)">
+                        <option value="-">Choose one...</option>
+                        <option *ngFor="let telescope of telescopes" [value]="telescope.id">{{ telescope.name }}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="column">
+                <label>Camera</label>
+                <div class="control">
+                    <select [value]="selectedCamera" (change)= "onChangeCamera($event.target.value)">
+                        <option value="-">Choose one...</option>
+                        <option *ngFor="let camera of cameras" [value]="camera.id">{{ camera.name }}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="column">
+                <label>Observatory</label>
+                <div class="control">
+                    <select [value]="selectedObservatory" (change)= "onChangeObservatory($event.target.value)">
+                        <option>Choose one...</option>
+                        <option *ngFor="let observatory of observatories" [value]="observatory.id">{{ observatory.name }}</option>
+                    </select>
                 </div>
             </div>
         </div>
-        <app-calculator-snr *ngIf="calcChoice == 'calcsnr'"></app-calculator-snr>
-        <app-calculator-fc  *ngIf="calcChoice == 'calcfc'"></app-calculator-fc>
+        <div *ngIf="prerequisiteMet">
+            <h1 class="title is-6">Choose a calculator</h1>
+            <div class="columns">
+                <div class="column">
+                    <div class="control">
+                        <label class="radio">
+                            <input type="radio" name="calcwhat" value="calcsnr" (change)="onChangeCalculator($event.target.value)" >
+                            Calculate total signal-to-noise of stack given the total integration time and single sub exposure.
+                        </label>
+                    </div>
+                    <div class="control">
+                        <label class="radio">
+                            <input type="radio" name="calcwhat" value="calcfc" (change)="onChangeCalculator($event.target.value)" >
+                            Calculate total integration time given the total signal-to-noise of stack and single sub exposure.
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="calcChoice == 'calcsnr'">
+                <app-calculator-snr></app-calculator-snr>
+            </div>
+            <div *ngIf="calcChoice == 'calcfc'">
+                <app-calculator-fc></app-calculator-fc>
+            </div>
+        </div>
     </div>
 </section>

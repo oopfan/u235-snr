@@ -1,19 +1,26 @@
-<h2 class="title is-6">Please input:</h2>
-<div class="control">
-    <label>Total&nbsp;signal-to-noise&nbsp;of&nbsp;stack&nbsp;</label>
-    <input type="number" min="1" max="100" step="1" [value]="signalToNoiseRatio" (change)="onChangeSignalToNoiseRatio($event.target.value)" />
+<h1 class="title is-6">Please input</h1>
+<div class="columns">
+    <div class="column">
+        <div class="control">
+            <label>Total&nbsp;signal-to-noise&nbsp;of&nbsp;stack&nbsp;</label>
+            <input type="number" min="1" max="100" step="1" [value]="signalToNoiseRatio" (change)="onChangeSignalToNoiseRatio($event.target.value)" />
+        </div>
+        <div class="control">
+            <label>Single&nbsp;sub&nbsp;exposure&nbsp;<span class="is-size-7">(seconds)&nbsp;</span></label>
+            <input type="number" min="1" max="1800" step="1" [value]="singleSubExposure" (change)="onChangeSingleSubExposure($event.target.value)" />
+        </div>
+    </div>
 </div>
-<div class="control">
-    <label>Single&nbsp;sub&nbsp;exposure&nbsp;<span class="is-size-7">(seconds)&nbsp;</span></label>
-    <input type="number" min="1" max="1800" step="1" [value]="singleSubExposure" (change)="onChangeSingleSubExposure($event.target.value)" />
-</div>
-<br />
-<h2 class="title is-6">The answer is:</h2>
-<div class="control">
-    <label>Total&nbsp;integration&nbsp;time&nbsp;<span class="is-size-7">(hours)&nbsp;</span></label>
-    <input type="text" [value]="totalIntegrationTime" readonly />
-</div>
-<div class="control">
-    <label>Number&nbsp;of&nbsp;subs&nbsp;</label>
-    <input type="text" [value]="frameCount" readonly />
+<h1 class="title is-6">The answer is</h1>
+<div class="columns">
+    <div class="column">
+        <div class="control">
+            <label>Total&nbsp;integration&nbsp;time&nbsp;<span class="is-size-7">(hours)&nbsp;</span></label>
+            <input type="text" [value]="totalIntegrationTime" readonly />
+        </div>
+        <div class="control">
+            <label>Number&nbsp;of&nbsp;subs&nbsp;</label>
+            <input type="text" [value]="frameCount" readonly />
+        </div>
+    </div>
 </div>
