@@ -1,6 +1,39 @@
 <section class="section">
     <div class="container">
         <h1 class="title is-5">Your Telescopes</h1>
-        <hr />
+        <div class="columns">
+            <div class="column is-three-fifths">
+                <div class="level">
+                    <div class="level-left">
+                        <div class="level-item">
+                            <button class="button is-small is-rounded is-light is-uppercase" (click)="onNewTelescope()">new telescope</button>
+                        </div>
+                        <div class="level-item">
+                            <button class="button is-small is-rounded is-light is-uppercase" (click)="onSaveAll()">save all</button>
+                        </div>
+                    </div>
+                    <div class="level-right">
+                        <div class="level-item">
+                            <button class="button is-small is-rounded is-light is-uppercase" (click)="onDiscardChanges()">discard changes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="columns" *ngFor="let profile of userTelescopeProfiles">
+            <div class="box column is-three-fifths">
+                <app-telescope-item
+                    [id]="profile.id"
+                    [name]="profile.name"
+                    [aperture]="profile.aperture"
+                    [focalLength]="profile.focalLength"
+                    [totalReflectanceTransmittance] = "profile.totalReflectanceTransmittance"
+                    [centralObstruction]="profile.centralObstruction"
+                    (notifySaveTelescope)="onSaveTelescope($event)"
+                    (notifyDeleteTelescope)="onDeleteTelescope($event)"
+                    (notifyUpdateTelescope)="onUpdateTelescope($event)">
+                </app-telescope-item>
+            </div>
+        </div>
     </div>
 </section>

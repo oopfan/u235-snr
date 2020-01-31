@@ -8,6 +8,7 @@ export class UserDataService {
   targetsCache = null;
   camerasCache = null;
   observatoriesCache = null;
+  telescopesCache = null;
 
   constructor(private storage: LocalStorageService) { }
 
@@ -340,4 +341,125 @@ export class UserDataService {
   /*
   * END: OBSERVATORIES
   */
+
+  /*
+  * BEGIN: TELESCOPES
+  */
+  private initTelescopes() {
+    // get what is in local storage:
+    const obj = this.storage.get('userTelescopes');
+    // make sure its structure is compatible with downstream code:
+    let isOK = true;
+    if (!obj) {
+      isOK = false;
+    }
+    else {
+      if (!("nextid" in obj) || typeof obj.nextid !== 'number' || !isFinite(obj.nextid)) {
+        isOK = false;
+      }
+      else {
+        if (!("list" in obj) || !Array.isArray(obj.list)) {
+          isOK = false;
+        }
+        else {
+          obj.list.forEach((element: any) => {
+            if (typeof element !== 'object') {
+              isOK = false;
+            }
+            else {
+              if (!("name" in element) || typeof element.name !== 'string') {
+                isOK = false;
+              }
+              else {
+                if (!("aperture" in element) || typeof element.aperture !== 'string') {
+                  isOK = false;
+                }
+                else {
+                  if (!("focalLength" in element) || typeof element.focalLength !== 'string') {
+                    isOK = false;
+                  }
+                  else {
+                    if (!("centralObstruction" in element) || typeof element.centralObstruction !== 'string') {
+                      isOK = false;
+                    }
+                    else {
+                      if (!("totalReflectanceTransmittance" in element) || typeof element.totalReflectanceTransmittance !== 'string') {
+                        isOK = false;
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          });
+        }
+      }
+    }
+    this.telescopesCache = isOK ? obj : { list: [], nextid: 0 };
+  }
+
+  discardTelescopes() {
+    this.initTelescopes();
+  }
+
+  saveTelescopes() {
+    if (!this.telescopesCache) {
+      this.initTelescopes();
+    }
+    this.storage.set('userTelescopes', this.telescopesCache);
+  }
+
+  getAllTelescopes() {
+    if (!this.telescopesCache) {
+      this.initTelescopes();
+    }
+    return this.telescopesCache.list;
+  }
+
+  createTelescope(name: string, aperture: string, focalLength: string, centralObstruction: string, totalReflectanceTransmittance: string) {
+    if (!this.telescopesCache) {
+      this.initTelescopes();
+    }
+    const id = this.telescopesCache.nextid++;
+    const telescope = { id, name, aperture, focalLength, centralObstruction, totalReflectanceTransmittance };
+    this.telescopesCache.list.unshift(telescope);
+    return [ telescope ];
+  }
+
+  updateTelescope(id: number, name: string, aperture: string, focalLength: string, centralObstruction: string, totalReflectanceTransmittance: string) {
+    if (!this.telescopesCache) {
+      this.initTelescopes();
+    }
+    const index = this.telescopesCache.list.findIndex((element: any) => {
+      return element.id === id;
+    });
+    if (index >= 0) {
+      const telescope = this.telescopesCache.list[index];
+      telescope.name = name;
+      telescope.aperture = aperture;
+      telescope.focalLength = focalLength;
+      telescope.centralObstruction = centralObstruction;
+      telescope.totalReflectanceTransmittance = totalReflectanceTransmittance;
+      this.telescopesCache.list[index] = telescope;
+      return [ telescope ];
+    }
+    return [];
+  }
+
+  deleteTelescope(id: number) {
+    if (!this.telescopesCache) {
+      this.initTelescopes();
+    }
+    const index = this.telescopesCache.list.findIndex((element: any) => {
+      return element.id === id;
+    });
+    if (index >= 0) {
+      return this.telescopesCache.list.splice(index, 1);
+    }
+    return [];
+  }
+  /*
+  * END: TELESCOPES
+  */
+
 }
