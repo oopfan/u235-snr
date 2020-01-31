@@ -1,6 +1,6 @@
 import { Title } from '@angular/platform-browser';
 import { Component, OnInit } from '@angular/core';
-import { UserDataService } from 'src/app/user-data.service';
+import { UserTargetService } from 'src/app/user-target.service';
 
 @Component({
   selector: 'app-targets-home',
@@ -9,40 +9,40 @@ import { UserDataService } from 'src/app/user-data.service';
 })
 export class TargetsHomeComponent implements OnInit {
 
-  constructor(private titleService: Title, private userData: UserDataService) { }
+  constructor(private titleService: Title, private targetService: UserTargetService) { }
 
   ngOnInit() {
     this.titleService.setTitle('Targets | U235+SNR');
   }
 
-  userTargetProfiles = this.userData.getAllTargets();
+  targets = this.targetService.getAll();
 
-  onNewTarget() {
-    const target = this.userData.createTarget('', '');
-    this.userTargetProfiles = this.userData.getAllTargets();
+  onNew() {
+    this.targetService.create('', '');
+    this.targets = this.targetService.getAll();
   }
 
   onSaveAll() {
-    this.userData.saveTargets();
+    this.targetService.saveAll();
   }
 
-  onDiscardChanges() {
-    this.userData.discardTargets();
-    this.userTargetProfiles = this.userData.getAllTargets();
+  onDiscard() {
+    this.targetService.discard();
+    this.targets = this.targetService.getAll();
   }
 
-  onUpdateTarget(target: any) {
-    this.userData.updateTarget(target.id, target.name, target.surfaceBrightness);
+  onUpdate(target: any) {
+    this.targetService.update(target.id, target.name, target.surfaceBrightness);
   }
 
-  onDeleteTarget(id: number) {
-    this.userData.deleteTarget(id);
-    this.userTargetProfiles = this.userData.getAllTargets();
+  onDelete(id: number) {
+    this.targetService.delete(id);
+    this.targets = this.targetService.getAll();
   }
 
-  onSaveTarget(id: number) {
+  onSave(id: number) {
     // Right now, can't save an individual target to Local Storage, just all targets.
-    this.userData.saveTargets();
+    this.targetService.saveAll();
   }
 
 }

@@ -14,7 +14,7 @@
         </div>
         <div class="columns">
             <div class="column">
-                <button class="button is-small is-rounded is-light is-uppercase" (click)="onCalculatorButtonClick()">{{ calculatorButtonText }}</button>
+                <button class="button is-small is-rounded is-light is-uppercase" (click)="onCalculatorClick()">{{ calculatorButtonText }}</button>
             </div>
         </div>
         <div class="columns" *ngIf="calculatorButtonState">
@@ -29,12 +29,12 @@
         <div class="level is-mobile">
             <div class="level-left">
                 <div class="level-item">
-                    <button class="button is-small is-rounded is-light is-uppercase" (click)="onSaveButtonClick()">save all</button>
+                    <button class="button is-small is-rounded is-light is-uppercase" (click)="onSave()">save all</button>
                 </div>
             </div>
             <div class="level-right">
                 <div class="level-item">
-                    <button class="button is-small is-rounded is-light is-uppercase" (click)="onDeleteButtonClick()">delete target</button>
+                    <button class="button is-small is-rounded is-light is-uppercase" (click)="onDelete()">delete target</button>
                 </div>
             </div>
         </div>

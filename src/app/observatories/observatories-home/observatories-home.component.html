@@ -6,7 +6,7 @@
                 <div class="level">
                     <div class="level-left">
                         <div class="level-item">
-                            <button class="button is-small is-rounded is-light is-uppercase" (click)="onNewObservatory()">new observatory</button>
+                            <button class="button is-small is-rounded is-light is-uppercase" (click)="onNew()">new observatory</button>
                         </div>
                         <div class="level-item">
                             <button class="button is-small is-rounded is-light is-uppercase" (click)="onSaveAll()">save all</button>
@@ -14,22 +14,22 @@
                     </div>
                     <div class="level-right">
                         <div class="level-item">
-                            <button class="button is-small is-rounded is-light is-uppercase" (click)="onDiscardChanges()">discard changes</button>
+                            <button class="button is-small is-rounded is-light is-uppercase" (click)="onDiscard()">discard changes</button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="columns" *ngFor="let profile of userObservatoryProfiles">
+        <div class="columns" *ngFor="let observatory of observatories">
             <div class="box column is-three-fifths">
                 <app-observatory-item
-                    [id]="profile.id"
-                    [name]="profile.name"
-                    [bortleClass]="profile.bortleClass"
-                    [skyBrightness]="profile.skyBrightness"
-                    (notifySaveObservatory)="onSaveObservatory($event)"
-                    (notifyDeleteObservatory)="onDeleteObservatory($event)"
-                    (notifyUpdateObservatory)="onUpdateObservatory($event)">
+                    [id]="observatory.id"
+                    [name]="observatory.name"
+                    [bortleClass]="observatory.bortleClass"
+                    [skyBrightness]="observatory.skyBrightness"
+                    (notifySave)="onSave($event)"
+                    (notifyDelete)="onDelete($event)"
+                    (notifyUpdate)="onUpdate($event)">
                 </app-observatory-item>
             </div>
         </div>

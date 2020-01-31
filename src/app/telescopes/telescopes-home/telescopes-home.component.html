@@ -6,7 +6,7 @@
                 <div class="level">
                     <div class="level-left">
                         <div class="level-item">
-                            <button class="button is-small is-rounded is-light is-uppercase" (click)="onNewTelescope()">new telescope</button>
+                            <button class="button is-small is-rounded is-light is-uppercase" (click)="onNew()">new telescope</button>
                         </div>
                         <div class="level-item">
                             <button class="button is-small is-rounded is-light is-uppercase" (click)="onSaveAll()">save all</button>
@@ -14,24 +14,24 @@
                     </div>
                     <div class="level-right">
                         <div class="level-item">
-                            <button class="button is-small is-rounded is-light is-uppercase" (click)="onDiscardChanges()">discard changes</button>
+                            <button class="button is-small is-rounded is-light is-uppercase" (click)="onDiscard()">discard changes</button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="columns" *ngFor="let profile of userTelescopeProfiles">
+        <div class="columns" *ngFor="let telescope of telescopes">
             <div class="box column is-three-fifths">
                 <app-telescope-item
-                    [id]="profile.id"
-                    [name]="profile.name"
-                    [aperture]="profile.aperture"
-                    [focalLength]="profile.focalLength"
-                    [totalReflectanceTransmittance] = "profile.totalReflectanceTransmittance"
-                    [centralObstruction]="profile.centralObstruction"
-                    (notifySaveTelescope)="onSaveTelescope($event)"
-                    (notifyDeleteTelescope)="onDeleteTelescope($event)"
-                    (notifyUpdateTelescope)="onUpdateTelescope($event)">
+                    [id]="telescope.id"
+                    [name]="telescope.name"
+                    [aperture]="telescope.aperture"
+                    [focalLength]="telescope.focalLength"
+                    [centralObstruction]="telescope.centralObstruction"
+                    [totalReflectanceTransmittance]="telescope.totalReflectanceTransmittance"
+                    (notifySave)="onSave($event)"
+                    (notifyDelete)="onDelete($event)"
+                    (notifyUpdate)="onUpdate($event)">
                 </app-telescope-item>
             </div>
         </div>

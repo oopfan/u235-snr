@@ -12,9 +12,9 @@ export class TelescopeItemComponent implements OnInit {
   @Input() focalLength:string = '';
   @Input() centralObstruction:string = '';
   @Input() totalReflectanceTransmittance:string = '';
-  @Output() notifyDeleteTelescope:EventEmitter<number> = new EventEmitter();
-  @Output() notifyUpdateTelescope:EventEmitter<object> = new EventEmitter();
-  @Output() notifySaveTelescope:EventEmitter<number> = new EventEmitter();
+  @Output() notifySave:EventEmitter<number> = new EventEmitter();
+  @Output() notifyDelete:EventEmitter<number> = new EventEmitter();
+  @Output() notifyUpdate:EventEmitter<object> = new EventEmitter();
 
   onChangeName(value: string) {
     this.name = value;
@@ -42,7 +42,7 @@ export class TelescopeItemComponent implements OnInit {
   }
 
   private emitUpdate() {
-    this.notifyUpdateTelescope.emit({
+    this.notifyUpdate.emit({
       id: this.id,
       name: this.name,
       aperture: this.aperture,
@@ -52,12 +52,12 @@ export class TelescopeItemComponent implements OnInit {
     });
   }
 
-  onSaveButtonClick() {
-    this.notifySaveTelescope.emit(this.id);
+  onSave() {
+    this.notifySave.emit(this.id);
   }
 
-  onDeleteButtonClick() {
-    this.notifyDeleteTelescope.emit(this.id);
+  onDelete() {
+    this.notifyDelete.emit(this.id);
   }
 
   constructor() { }

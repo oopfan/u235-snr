@@ -1,6 +1,6 @@
 import { Title } from '@angular/platform-browser';
 import { Component, OnInit } from '@angular/core';
-import { UserDataService } from 'src/app/user-data.service';
+import { UserObservatoryService } from 'src/app/user-observatory.service';
 
 @Component({
   selector: 'app-observatories-home',
@@ -9,40 +9,40 @@ import { UserDataService } from 'src/app/user-data.service';
 })
 export class ObservatoriesHomeComponent implements OnInit {
 
-  constructor(private titleService: Title, private userData: UserDataService) { }
+  constructor(private titleService: Title, private observatoryService: UserObservatoryService) { }
 
   ngOnInit() {
     this.titleService.setTitle('Observatories | U235+SNR');
   }
 
-  userObservatoryProfiles = this.userData.getAllObservatories();
+  observatories = this.observatoryService.getAll();
 
-  onNewObservatory() {
-    const observatory = this.userData.createObservatory('', '', '');
-    this.userObservatoryProfiles = this.userData.getAllObservatories();
+  onNew() {
+    this.observatoryService.create('', '', '');
+    this.observatories = this.observatoryService.getAll();
   }
 
   onSaveAll() {
-    this.userData.saveObservatories();
+    this.observatoryService.saveAll();
   }
 
-  onDiscardChanges() {
-    this.userData.discardObservatories();
-    this.userObservatoryProfiles = this.userData.getAllObservatories();
+  onDiscard() {
+    this.observatoryService.discard();
+    this.observatories = this.observatoryService.getAll();
   }
 
-  onUpdateObservatory(observatory: any) {
-    this.userData.updateObservatory(observatory.id, observatory.name, observatory.bortleClass, observatory.skyBrightness);
+  onUpdate(observatory: any) {
+    this.observatoryService.update(observatory.id, observatory.name, observatory.bortleClass, observatory.skyBrightness);
   }
 
-  onDeleteObservatory(id: number) {
-    this.userData.deleteObservatory(id);
-    this.userObservatoryProfiles = this.userData.getAllObservatories();
+  onDelete(id: number) {
+    this.observatoryService.delete(id);
+    this.observatories = this.observatoryService.getAll();
   }
 
-  onSaveObservatory(id: number) {
+  onSave(id: number) {
     // Right now, can't save an individual observatory to Local Storage, just all observatories.
-    this.userData.saveObservatories();
+    this.observatoryService.saveAll();
   }
 
 }

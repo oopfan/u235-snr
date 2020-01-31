@@ -10,9 +10,9 @@ export class ObservatoryItemComponent implements OnInit {
   @Input() name:string = '';
   @Input() bortleClass:string = '';
   @Input() skyBrightness:string = '';
-  @Output() notifyDeleteObservatory:EventEmitter<number> = new EventEmitter();
-  @Output() notifyUpdateObservatory:EventEmitter<object> = new EventEmitter();
-  @Output() notifySaveObservatory:EventEmitter<number> = new EventEmitter();
+  @Output() notifySave:EventEmitter<number> = new EventEmitter();
+  @Output() notifyDelete:EventEmitter<number> = new EventEmitter();
+  @Output() notifyUpdate:EventEmitter<object> = new EventEmitter();
 
   onChangeName(value: string) {
     this.name = value;
@@ -30,7 +30,7 @@ export class ObservatoryItemComponent implements OnInit {
   }
 
   private emitUpdate() {
-    this.notifyUpdateObservatory.emit({
+    this.notifyUpdate.emit({
       id: this.id,
       name: this.name,
       bortleClass: this.bortleClass,
@@ -38,12 +38,12 @@ export class ObservatoryItemComponent implements OnInit {
     });
   }
 
-  onSaveButtonClick() {
-    this.notifySaveObservatory.emit(this.id);
+  onSave() {
+    this.notifySave.emit(this.id);
   }
 
-  onDeleteButtonClick() {
-    this.notifyDeleteObservatory.emit(this.id);
+  onDelete() {
+    this.notifyDelete.emit(this.id);
   }
 
   constructor() { }

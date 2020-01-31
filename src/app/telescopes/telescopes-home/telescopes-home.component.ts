@@ -1,6 +1,6 @@
 import { Title } from '@angular/platform-browser';
 import { Component, OnInit } from '@angular/core';
-import { UserDataService } from 'src/app/user-data.service';
+import { UserTelescopeService } from 'src/app/user-telescope.service';
 
 @Component({
   selector: 'app-telescopes-home',
@@ -9,40 +9,40 @@ import { UserDataService } from 'src/app/user-data.service';
 })
 export class TelescopesHomeComponent implements OnInit {
 
-  constructor(private titleService: Title, private userData: UserDataService) { }
+  constructor(private titleService: Title, private telescopeService: UserTelescopeService) { }
 
   ngOnInit() {
     this.titleService.setTitle('Telescopes | U235+SNR');
   }
 
-  userTelescopeProfiles = this.userData.getAllTelescopes();
+  telescopes = this.telescopeService.getAll();
 
-  onNewTelescope() {
-    const telescope = this.userData.createTelescope('', '', '', '', '');
-    this.userTelescopeProfiles = this.userData.getAllTelescopes();
+  onNew() {
+    this.telescopeService.create('', '', '', '', '');
+    this.telescopes = this.telescopeService.getAll();
   }
 
   onSaveAll() {
-    this.userData.saveTelescopes();
+    this.telescopeService.saveAll();
   }
 
-  onDiscardChanges() {
-    this.userData.discardTelescopes();
-    this.userTelescopeProfiles = this.userData.getAllTelescopes();
+  onDiscard() {
+    this.telescopeService.discard();
+    this.telescopes = this.telescopeService.getAll();
   }
 
-  onUpdateTelescope(telescope: any) {
-    this.userData.updateTelescope(telescope.id, telescope.name, telescope.aperture, telescope.focalLength, telescope.centralObstruction, telescope.totalReflectanceTransmittance);
+  onUpdate(telescope: any) {
+    this.telescopeService.update(telescope.id, telescope.name, telescope.aperture, telescope.focalLength, telescope.centralObstruction, telescope.totalReflectanceTransmittance);
   }
 
-  onDeleteTelescope(id: number) {
-    this.userData.deleteTelescope(id);
-    this.userTelescopeProfiles = this.userData.getAllTelescopes();
+  onDelete(id: number) {
+    this.telescopeService.delete(id);
+    this.telescopes = this.telescopeService.getAll();
   }
 
-  onSaveTelescope(id: number) {
+  onSave(id: number) {
     // Right now, can't save an individual telescope to Local Storage, just all telescopes.
-    this.userData.saveTelescopes();
+    this.telescopeService.saveAll();
   }
 
 }

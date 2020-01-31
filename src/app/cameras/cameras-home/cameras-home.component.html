@@ -6,7 +6,7 @@
                 <div class="level">
                     <div class="level-left">
                         <div class="level-item">
-                            <button class="button is-small is-rounded is-light is-uppercase" (click)="onNewCamera()">new camera</button>
+                            <button class="button is-small is-rounded is-light is-uppercase" (click)="onNew()">new camera</button>
                         </div>
                         <div class="level-item">
                             <button class="button is-small is-rounded is-light is-uppercase" (click)="onSaveAll()">save all</button>
@@ -14,24 +14,24 @@
                     </div>
                     <div class="level-right">
                         <div class="level-item">
-                            <button class="button is-small is-rounded is-light is-uppercase" (click)="onDiscardChanges()">discard changes</button>
+                            <button class="button is-small is-rounded is-light is-uppercase" (click)="onDiscard()">discard changes</button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="columns" *ngFor="let profile of userCameraProfiles">
+        <div class="columns" *ngFor="let camera of cameras">
             <div class="box column is-three-fifths">
                 <app-camera-item
-                    [id]="profile.id"
-                    [name]="profile.name"
-                    [pixelSize]="profile.pixelSize"
-                    [readNoise]="profile.readNoise"
-                    [darkCurrent]="profile.darkCurrent"
-                    [quantumEfficiency]="profile.quantumEfficiency"
-                    (notifySaveCamera)="onSaveCamera($event)"
-                    (notifyDeleteCamera)="onDeleteCamera($event)"
-                    (notifyUpdateCamera)="onUpdateCamera($event)">
+                    [id]="camera.id"
+                    [name]="camera.name"
+                    [pixelSize]="camera.pixelSize"
+                    [readNoise]="camera.readNoise"
+                    [darkCurrent]="camera.darkCurrent"
+                    [quantumEfficiency]="camera.quantumEfficiency"
+                    (notifySave)="onSave($event)"
+                    (notifyDelete)="onDelete($event)"
+                    (notifyUpdate)="onUpdate($event)">
                 </app-camera-item>
             </div>
         </div>

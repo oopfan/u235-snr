@@ -1,6 +1,6 @@
 import { Title } from '@angular/platform-browser';
 import { Component, OnInit } from '@angular/core';
-import { UserDataService } from 'src/app/user-data.service';
+import { UserCameraService } from 'src/app/user-camera.service';
 
 @Component({
   selector: 'app-cameras-home',
@@ -9,40 +9,40 @@ import { UserDataService } from 'src/app/user-data.service';
 })
 export class CamerasHomeComponent implements OnInit {
 
-  constructor(private titleService: Title, private userData: UserDataService) { }
+  constructor(private titleService: Title, private cameraService: UserCameraService) { }
 
   ngOnInit() {
     this.titleService.setTitle('Cameras | U235+SNR');
   }
 
-  userCameraProfiles = this.userData.getAllCameras();
+  cameras = this.cameraService.getAll();
 
-  onNewCamera() {
-    const camera = this.userData.createCamera('', '', '', '', '');
-    this.userCameraProfiles = this.userData.getAllCameras();
+  onNew() {
+    this.cameraService.create('', '', '', '', '');
+    this.cameras = this.cameraService.getAll();
   }
 
   onSaveAll() {
-    this.userData.saveCameras();
+    this.cameraService.saveAll();
   }
 
-  onDiscardChanges() {
-    this.userData.discardCameras();
-    this.userCameraProfiles = this.userData.getAllCameras();
+  onDiscard() {
+    this.cameraService.discard();
+    this.cameras = this.cameraService.getAll();
   }
 
-  onUpdateCamera(camera: any) {
-    this.userData.updateCamera(camera.id, camera.name, camera.pixelSize, camera.readNoise, camera.darkCurrent, camera.quantumEfficiency);
+  onUpdate(camera: any) {
+    this.cameraService.update(camera.id, camera.name, camera.pixelSize, camera.readNoise, camera.darkCurrent, camera.quantumEfficiency);
   }
 
-  onDeleteCamera(id: number) {
-    this.userData.deleteCamera(id);
-    this.userCameraProfiles = this.userData.getAllCameras();
+  onDelete(id: number) {
+    this.cameraService.delete(id);
+    this.cameras = this.cameraService.getAll();
   }
 
-  onSaveCamera(id: number) {
+  onSave(id: number) {
     // Right now, can't save an individual camera to Local Storage, just all cameras.
-    this.userData.saveCameras();
+    this.cameraService.saveAll();
   }
 
 }

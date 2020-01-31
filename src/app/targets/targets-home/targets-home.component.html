@@ -6,7 +6,7 @@
                 <div class="level">
                     <div class="level-left">
                         <div class="level-item">
-                            <button class="button is-small is-rounded is-light is-uppercase" (click)="onNewTarget()">new target</button>
+                            <button class="button is-small is-rounded is-light is-uppercase" (click)="onNew()">new target</button>
                         </div>
                         <div class="level-item">
                             <button class="button is-small is-rounded is-light is-uppercase" (click)="onSaveAll()">save all</button>
@@ -14,15 +14,22 @@
                     </div>
                     <div class="level-right">
                         <div class="level-item">
-                            <button class="button is-small is-rounded is-light is-uppercase" (click)="onDiscardChanges()">discard changes</button>
+                            <button class="button is-small is-rounded is-light is-uppercase" (click)="onDiscard()">discard changes</button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="columns" *ngFor="let profile of userTargetProfiles">
+        <div class="columns" *ngFor="let target of targets">
             <div class="box column is-three-fifths">
-                <app-target-item [id]="profile.id" [name]="profile.name" [surfaceBrightness]="profile.surfaceBrightness" (notifySaveTarget)="onSaveTarget($event)" (notifyDeleteTarget)="onDeleteTarget($event)" (notifyUpdateTarget)="onUpdateTarget($event)"></app-target-item>
+                <app-target-item
+                    [id]="target.id"
+                    [name]="target.name"
+                    [surfaceBrightness]="target.surfaceBrightness"
+                    (notifySave)="onSave($event)"
+                    (notifyDelete)="onDelete($event)"
+                    (notifyUpdate)="onUpdate($event)">
+                </app-target-item>
             </div>
         </div>
     </div>

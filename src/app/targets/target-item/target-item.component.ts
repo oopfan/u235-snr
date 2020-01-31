@@ -9,9 +9,9 @@ export class TargetItemComponent implements OnInit {
   @Input() id:number = 0;
   @Input() name:string = '';
   @Input() surfaceBrightness:string = '';
-  @Output() notifyDeleteTarget:EventEmitter<number> = new EventEmitter();
-  @Output() notifyUpdateTarget:EventEmitter<object> = new EventEmitter();
-  @Output() notifySaveTarget:EventEmitter<number> = new EventEmitter();
+  @Output() notifySave:EventEmitter<number> = new EventEmitter();
+  @Output() notifyDelete:EventEmitter<number> = new EventEmitter();
+  @Output() notifyUpdate:EventEmitter<object> = new EventEmitter();
   calculatorButtonState = false;
   calculatorButtonText = 'show calculator';
 
@@ -26,14 +26,14 @@ export class TargetItemComponent implements OnInit {
   }
 
   private emitUpdate() {
-    this.notifyUpdateTarget.emit({
+    this.notifyUpdate.emit({
       id: this.id,
       name: this.name,
       surfaceBrightness: this.surfaceBrightness
     });
   }
 
-  onCalculatorButtonClick() {
+  onCalculatorClick() {
     this.calculatorButtonState = !this.calculatorButtonState;
     if (this.calculatorButtonState) {
       this.calculatorButtonText = 'hide calculator';
@@ -43,12 +43,12 @@ export class TargetItemComponent implements OnInit {
     }
   }
 
-  onSaveButtonClick() {
-    this.notifySaveTarget.emit(this.id);
+  onSave() {
+    this.notifySave.emit(this.id);
   }
 
-  onDeleteButtonClick() {
-    this.notifyDeleteTarget.emit(this.id);
+  onDelete() {
+    this.notifyDelete.emit(this.id);
   }
 
   constructor() { }

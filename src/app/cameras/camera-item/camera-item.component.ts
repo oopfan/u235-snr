@@ -12,9 +12,9 @@ export class CameraItemComponent implements OnInit {
   @Input() readNoise:string = '';
   @Input() darkCurrent:string = '';
   @Input() quantumEfficiency:string = '';
-  @Output() notifyDeleteCamera:EventEmitter<number> = new EventEmitter();
-  @Output() notifyUpdateCamera:EventEmitter<object> = new EventEmitter();
-  @Output() notifySaveCamera:EventEmitter<number> = new EventEmitter();
+  @Output() notifySave:EventEmitter<number> = new EventEmitter();
+  @Output() notifyDelete:EventEmitter<number> = new EventEmitter();
+  @Output() notifyUpdate:EventEmitter<object> = new EventEmitter();
 
   onChangeName(value: string) {
     this.name = value;
@@ -42,7 +42,7 @@ export class CameraItemComponent implements OnInit {
   }
 
   private emitUpdate() {
-    this.notifyUpdateCamera.emit({
+    this.notifyUpdate.emit({
       id: this.id,
       name: this.name,
       pixelSize: this.pixelSize,
@@ -52,12 +52,12 @@ export class CameraItemComponent implements OnInit {
     });
   }
 
-  onSaveButtonClick() {
-    this.notifySaveCamera.emit(this.id);
+  onSave() {
+    this.notifySave.emit(this.id);
   }
 
-  onDeleteButtonClick() {
-    this.notifyDeleteCamera.emit(this.id);
+  onDelete() {
+    this.notifyDelete.emit(this.id);
   }
 
   constructor() { }
