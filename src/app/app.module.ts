@@ -9,6 +9,7 @@ import { TargetsModule } from './targets/targets.module';
 import { TelescopesModule } from './telescopes/telescopes.module';
 import { CamerasModule } from './cameras/cameras.module';
 import { ObservatoriesModule } from './observatories/observatories.module';
+import { CalculatorsModule } from './calculators/calculators.module';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { ObservatoriesModule } from './observatories/observatories.module';
     TargetsModule,
     TelescopesModule,
     CamerasModule,
-    ObservatoriesModule
+    ObservatoriesModule,
+    CalculatorsModule
   ],
   providers: [Title],
   bootstrap: [AppComponent]
