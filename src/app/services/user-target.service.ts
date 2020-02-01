@@ -65,6 +65,20 @@ export class UserTargetService {
     return this.cache.list;
   }
 
+  getItem(id: string) {
+    if (!this.cache) {
+      this.init();
+    }
+    const index = this.cache.list.findIndex((element: any) => {
+      return element.id == id;
+    });
+    if (index >= 0) {
+      const obj = this.cache.list[index];
+      return [ obj ];
+    }
+    return [];
+  }
+
   create(name: string, surfaceBrightness: string) {
     if (!this.cache) {
       this.init();

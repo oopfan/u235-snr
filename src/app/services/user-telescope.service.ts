@@ -80,6 +80,20 @@ export class UserTelescopeService {
     return this.cache.list;
   }
 
+  getItem(id: string) {
+    if (!this.cache) {
+      this.init();
+    }
+    const index = this.cache.list.findIndex((element: any) => {
+      return element.id == id;
+    });
+    if (index >= 0) {
+      const obj = this.cache.list[index];
+      return [ obj ];
+    }
+    return [];
+  }
+
   create(name: string, aperture: string, focalLength: string, centralObstruction: string, totalReflectanceTransmittance: string) {
     if (!this.cache) {
       this.init();

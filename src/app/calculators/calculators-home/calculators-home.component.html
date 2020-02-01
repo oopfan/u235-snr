@@ -33,14 +33,14 @@
                 <label>Observatory</label>
                 <div class="control">
                     <select [value]="selectedObservatory" (change)= "onChangeObservatory($event.target.value)">
-                        <option>Choose one...</option>
+                        <option value="-">Choose one...</option>
                         <option *ngFor="let observatory of observatories" [value]="observatory.id">{{ observatory.name }}</option>
                     </select>
                 </div>
             </div>
         </div>
         <div *ngIf="prerequisiteMet">
-            <h1 class="title is-6">Choose a calculator</h1>
+            <h1 class="title is-6">Choose a calculation</h1>
             <div class="columns">
                 <div class="column">
                     <div class="control">
@@ -58,7 +58,16 @@
                 </div>
             </div>
             <div *ngIf="calcChoice == 'calcsnr'">
-                <app-calculator-snr></app-calculator-snr>
+                <app-calculator-snr
+                    [targetId]="selectedTarget"
+                    [targetEvents]="targetSubject.asObservable()"
+                    [telescopeId]="selectedTelescope"
+                    [telescopeEvents]="telescopeSubject.asObservable()"
+                    [cameraId]="selectedCamera"
+                    [cameraEvents]="cameraSubject.asObservable()"
+                    [observatoryId]="selectedObservatory"
+                    [observatoryEvents]="observatorySubject.asObservable()">
+                </app-calculator-snr>
             </div>
             <div *ngIf="calcChoice == 'calcfc'">
                 <app-calculator-fc></app-calculator-fc>
