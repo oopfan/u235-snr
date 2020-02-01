@@ -1,28 +1,98 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy } from '@angular/core';
+import { Subscription, Observable } from 'rxjs';
+import { UserTargetService } from 'src/app/services/user-target.service';
+import { UserTelescopeService } from 'src/app/services/user-telescope.service';
+import { UserCameraService } from 'src/app/services/user-camera.service';
+import { UserObservatoryService } from 'src/app/services/user-observatory.service';
+import { CalculationService } from 'src/app/services/calculation.service';
 
 @Component({
   selector: 'app-calculator-fc',
   templateUrl: './calculator-fc.component.html',
   styleUrls: ['./calculator-fc.component.css']
 })
-export class CalculatorFcComponent implements OnInit {
+export class CalculatorFcComponent implements OnInit, OnDestroy {
+  @Input() targetId = "";
+  @Input() telescopeId = "";
+  @Input() cameraId = "";
+  @Input() observatoryId = "";
+  @Input() targetEvents: Observable<string>;
+  @Input() telescopeEvents: Observable<string>;
+  @Input() cameraEvents: Observable<string>;
+  @Input() observatoryEvents: Observable<string>;
+  
+  targetObj = null;
+  telescopeObj = null;
+  cameraObj = null;
+  observatoryObj = null;
 
   signalToNoiseRatio = '25';
   singleSubExposure = '120';
-  totalIntegrationTime = '5';
-  frameCount = '100';
+  totalIntegrationTime = 'n/a';
+  frameCount = 'n/a';
 
-  constructor() { }
+  private targetEventsSubscription: Subscription;
+  private telescopeEventsSubscription: Subscription;
+  private cameraEventsSubscription: Subscription;
+  private observatoryEventsSubscription: Subscription;
+
+  calculateFC() {
+    const result = this.calculationService.calculateFC(this.targetObj, this.telescopeObj, this.cameraObj, this.observatoryObj, this.signalToNoiseRatio, this.singleSubExposure);
+    this.totalIntegrationTime = result.totalIntegrationTime.toString();
+    this.frameCount = result.numberOfSubs.toString();
+  }
+
+  constructor(
+    private targetService: UserTargetService,
+    private telescopeService: UserTelescopeService,
+    private cameraService: UserCameraService,
+    private observatoryService: UserObservatoryService,
+    private calculationService: CalculationService) { }
 
   ngOnInit() {
+    this.targetObj = this.targetService.getItem(this.targetId)[0];
+    this.telescopeObj = this.telescopeService.getItem(this.telescopeId)[0];
+    this.cameraObj = this.cameraService.getItem(this.cameraId)[0];
+    this.observatoryObj = this.observatoryService.getItem(this.observatoryId)[0];
+    this.calculateFC();
+
+    this.targetEventsSubscription = this.targetEvents.subscribe((targetId: string) => {
+      this.targetId = targetId;
+      this.targetObj = this.targetService.getItem(this.targetId)[0];
+      this.calculateFC();
+    });
+    this.telescopeEventsSubscription = this.telescopeEvents.subscribe((telescopeId: string) => {
+      this.telescopeId = telescopeId;
+      this.telescopeObj = this.telescopeService.getItem(this.telescopeId)[0];
+      this.calculateFC();
+    });
+    this.cameraEventsSubscription = this.cameraEvents.subscribe((cameraId: string) => {
+      this.cameraId = cameraId;
+      this.cameraObj = this.cameraService.getItem(this.cameraId)[0];
+      this.calculateFC();
+    });
+    this.observatoryEventsSubscription = this.observatoryEvents.subscribe((observatoryId: string) => {
+      this.observatoryId = observatoryId;
+      this.observatoryObj = this.observatoryService.getItem(this.observatoryId)[0];
+      this.calculateFC();
+    });
+  }
+
+  ngOnDestroy() {
+    this.targetEventsSubscription.unsubscribe();
+    this.telescopeEventsSubscription.unsubscribe();
+    this.cameraEventsSubscription.unsubscribe();
+    this.observatoryEventsSubscription.unsubscribe();
   }
 
   onChangeSignalToNoiseRatio(value: string) {
     this.signalToNoiseRatio = value;
+    this.calculateFC();
   }
 
   onChangeSingleSubExposure(value: string) {
     this.singleSubExposure = value;
+    this.calculateFC();
   }
 
 }

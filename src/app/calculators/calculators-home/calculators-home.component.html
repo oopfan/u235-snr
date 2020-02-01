@@ -70,7 +70,16 @@
                 </app-calculator-snr>
             </div>
             <div *ngIf="calcChoice == 'calcfc'">
-                <app-calculator-fc></app-calculator-fc>
+                <app-calculator-fc
+                    [targetId]="selectedTarget"
+                    [targetEvents]="targetSubject.asObservable()"
+                    [telescopeId]="selectedTelescope"
+                    [telescopeEvents]="telescopeSubject.asObservable()"
+                    [cameraId]="selectedCamera"
+                    [cameraEvents]="cameraSubject.asObservable()"
+                    [observatoryId]="selectedObservatory"
+                    [observatoryEvents]="observatorySubject.asObservable()">
+                </app-calculator-fc>
             </div>
         </div>
     </div>
