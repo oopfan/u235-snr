@@ -20,24 +20,26 @@ export class CalculatorSnrComponent implements OnInit, OnDestroy {
   @Input() telescopeEvents: Observable<string>;
   @Input() cameraEvents: Observable<string>;
   @Input() observatoryEvents: Observable<string>;
+  
+  targetObj = null;
+  telescopeObj = null;
+  cameraObj = null;
+  observatoryObj = null;
+
   totalIntegrationTime = '5';
   singleSubExposure = '120';
-  signalToNoiseRatio = '25';
-  frameCount = "100";
-
+  signalToNoiseRatio = 'n/a';
+  frameCount = "n/a";
+  
   private targetEventsSubscription: Subscription;
   private telescopeEventsSubscription: Subscription;
   private cameraEventsSubscription: Subscription;
   private observatoryEventsSubscription: Subscription;
 
-  targetName = 'n/a';
-  telescopeName = 'n/a';
-  cameraName = 'n/a';
-  observatoryName = 'n/a';
-
-  calculate() {
-    const target = this.targetService.getItem(this.targetId);
-    console.log('target', target[0].name);
+  calculateSNR() {
+    const result = this.calculationService.calculateSNR(this.targetObj, this.telescopeObj, this.cameraObj, this.observatoryObj, this.totalIntegrationTime, this.singleSubExposure);
+    this.signalToNoiseRatio = result.totalSignalToNoiseOfStack.toString();
+    this.frameCount = result.numberOfSubs.toString();
   }
 
   constructor(
@@ -48,26 +50,31 @@ export class CalculatorSnrComponent implements OnInit, OnDestroy {
     private calculationService: CalculationService) { }
 
   ngOnInit() {
-    this.targetName = this.targetService.getItem(this.targetId)[0].name;
-    this.telescopeName = this.telescopeService.getItem(this.telescopeId)[0].name;
-    this.cameraName = this.cameraService.getItem(this.cameraId)[0].name;
-    this.observatoryName = this.observatoryService.getItem(this.observatoryId)[0].name;
+    this.targetObj = this.targetService.getItem(this.targetId)[0];
+    this.telescopeObj = this.telescopeService.getItem(this.telescopeId)[0];
+    this.cameraObj = this.cameraService.getItem(this.cameraId)[0];
+    this.observatoryObj = this.observatoryService.getItem(this.observatoryId)[0];
+    this.calculateSNR();
 
     this.targetEventsSubscription = this.targetEvents.subscribe((targetId: string) => {
       this.targetId = targetId;
-      this.targetName = this.targetService.getItem(this.targetId)[0].name;
+      this.targetObj = this.targetService.getItem(this.targetId)[0];
+      this.calculateSNR();
     });
     this.telescopeEventsSubscription = this.telescopeEvents.subscribe((telescopeId: string) => {
       this.telescopeId = telescopeId;
-      this.telescopeName = this.telescopeService.getItem(this.telescopeId)[0].name;
+      this.telescopeObj = this.telescopeService.getItem(this.telescopeId)[0];
+      this.calculateSNR();
     });
     this.cameraEventsSubscription = this.cameraEvents.subscribe((cameraId: string) => {
       this.cameraId = cameraId;
-      this.cameraName = this.cameraService.getItem(this.cameraId)[0].name;
-      });
+      this.cameraObj = this.cameraService.getItem(this.cameraId)[0];
+      this.calculateSNR();
+    });
     this.observatoryEventsSubscription = this.observatoryEvents.subscribe((observatoryId: string) => {
       this.observatoryId = observatoryId;
-      this.observatoryName = this.observatoryService.getItem(this.observatoryId)[0].name;
+      this.observatoryObj = this.observatoryService.getItem(this.observatoryId)[0];
+      this.calculateSNR();
     });
   }
 
@@ -80,10 +87,11 @@ export class CalculatorSnrComponent implements OnInit, OnDestroy {
 
   onChangeTotalIntegrationTime(value: string) {
     this.totalIntegrationTime = value;
-    this.calculate();
+    this.calculateSNR();
   }
 
   onChangeSingleSubExposure(value: string) {
     this.singleSubExposure = value;
+    this.calculateSNR();
   }
 }
