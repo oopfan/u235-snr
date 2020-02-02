@@ -5,6 +5,7 @@ import { UserTargetService } from 'src/app/services/user-target.service';
 import { UserTelescopeService } from 'src/app/services/user-telescope.service';
 import { UserCameraService } from 'src/app/services/user-camera.service';
 import { UserObservatoryService } from 'src/app/services/user-observatory.service';
+import { LocalStorageService } from 'angular-web-storage';
 import mapSort from 'mapsort';
 
 @Component({
@@ -23,6 +24,7 @@ export class CalculatorsHomeComponent implements OnInit {
   selectedTelescope = "-";
   selectedCamera = "-";
   selectedObservatory = "-";
+  localStorageCheck = true;
 
   targetSubject: Subject<string> = new Subject<string>();
   telescopeSubject: Subject<string> = new Subject<string>();
@@ -36,7 +38,8 @@ export class CalculatorsHomeComponent implements OnInit {
     private targetService: UserTargetService,
     private telescopeService: UserTelescopeService,
     private cameraService: UserCameraService,
-    private observatoryService: UserObservatoryService) { }
+    private observatoryService: UserObservatoryService,
+    private storage: LocalStorageService) { }
 
   ngOnInit() {
     this.titleService.setTitle('Calculators | U235+SNR');

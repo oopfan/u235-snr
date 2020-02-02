@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { LocalStorageService, LocalStorage } from 'angular-web-storage';
-import { parseTemplate } from '@angular/compiler';
 
 @Injectable({
   providedIn: 'root'
