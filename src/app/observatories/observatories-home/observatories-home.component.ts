@@ -11,11 +11,12 @@ export class ObservatoriesHomeComponent implements OnInit {
 
   constructor(private titleService: Title, private observatoryService: UserObservatoryService) { }
 
+  observatories = [];
+
   ngOnInit() {
     this.titleService.setTitle('Observatories | U235+SNR');
+    this.observatories = this.observatoryService.getAll();
   }
-
-  observatories = this.observatoryService.getAll();
 
   onNew() {
     this.observatoryService.create('', '', '');

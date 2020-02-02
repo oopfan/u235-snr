@@ -11,11 +11,12 @@ export class CamerasHomeComponent implements OnInit {
 
   constructor(private titleService: Title, private cameraService: UserCameraService) { }
 
+  cameras = [];
+
   ngOnInit() {
     this.titleService.setTitle('Cameras | U235+SNR');
+    this.cameras = this.cameraService.getAll();
   }
-
-  cameras = this.cameraService.getAll();
 
   onNew() {
     this.cameraService.create('', '', '', '', '');

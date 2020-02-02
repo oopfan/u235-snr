@@ -5,6 +5,7 @@ import { UserTargetService } from 'src/app/services/user-target.service';
 import { UserTelescopeService } from 'src/app/services/user-telescope.service';
 import { UserCameraService } from 'src/app/services/user-camera.service';
 import { UserObservatoryService } from 'src/app/services/user-observatory.service';
+import mapSort from 'mapsort';
 
 @Component({
   selector: 'app-calculators-home',
@@ -28,6 +29,46 @@ export class CalculatorsHomeComponent implements OnInit {
   cameraSubject: Subject<string> = new Subject<string>();
   observatorySubject: Subject<string> = new Subject<string>();
 
+  validateTarget = (element: any) => {
+    const surfaceBrightness = parseFloat(element.surfaceBrightness);
+    return (
+      !isNaN(surfaceBrightness)
+    );
+  };
+
+  validateTelescope = (element: any) => {
+    const aperture = parseFloat(element.aperture);
+    const focalLength = parseFloat(element.focalLength);
+    const centralObstruction = parseFloat(element.centralObstruction);
+    const totalReflectanceTransmittance = parseFloat(element.totalReflectanceTransmittance);
+    return (
+      !isNaN(aperture) && aperture > 0 && 
+      !isNaN(focalLength) && focalLength > 0 && 
+      !isNaN(centralObstruction) && centralObstruction >= 0 &&
+      !isNaN(totalReflectanceTransmittance) && totalReflectanceTransmittance >= 0 && totalReflectanceTransmittance <= 1
+      );
+  };
+
+  validateCamera = (element: any) => {
+    const pixelSize = parseFloat(element.pixelSize);
+    const readNoise = parseFloat(element.readNoise);
+    const darkCurrent = parseFloat(element.darkCurrent);
+    const quantumEfficiency = parseFloat(element.quantumEfficiency);
+    return (
+      !isNaN(pixelSize) && pixelSize > 0 &&
+      !isNaN(readNoise) && readNoise >= 0 &&
+      !isNaN(darkCurrent) && darkCurrent >= 0 &&
+      !isNaN(quantumEfficiency) && quantumEfficiency >= 0 && quantumEfficiency <= 100
+    );
+  };
+
+  validateObservatory = (element: any) => {
+    const skyBrightness = parseFloat(element.skyBrightness);
+    return (
+      !isNaN(skyBrightness)
+    );
+  }
+
   constructor(
     private titleService: Title, 
     private targetService: UserTargetService,
@@ -37,10 +78,10 @@ export class CalculatorsHomeComponent implements OnInit {
 
   ngOnInit() {
     this.titleService.setTitle('Calculators | U235+SNR');
-    this.targets = this.targetService.getAll();
-    this.telescopes = this.telescopeService.getAll();
-    this.cameras = this.cameraService.getAll();
-    this.observatories = this.observatoryService.getAll();
+    this.targets = mapSort(this.targetService.getAll().filter(this.validateTarget), element => element.name, (a, b) => a.localeCompare(b));
+    this.telescopes = mapSort(this.telescopeService.getAll().filter(this.validateTelescope), element => element.name, (a, b) => a.localeCompare(b));
+    this.cameras = mapSort(this.cameraService.getAll().filter(this.validateCamera), element => element.name, (a, b) => a.localeCompare(b));
+    this.observatories = mapSort(this.observatoryService.getAll().filter(this.validateObservatory), element => element.name, (a, b) => a.localeCompare(b));
   }
 
   onChangeCalculator(value: string) {

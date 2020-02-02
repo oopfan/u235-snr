@@ -11,11 +11,12 @@ export class TargetsHomeComponent implements OnInit {
 
   constructor(private titleService: Title, private targetService: UserTargetService) { }
 
+  targets = [];
+
   ngOnInit() {
     this.titleService.setTitle('Targets | U235+SNR');
+    this.targets = this.targetService.getAll();
   }
-
-  targets = this.targetService.getAll();
 
   onNew() {
     this.targetService.create('', '');

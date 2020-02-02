@@ -11,11 +11,12 @@ export class TelescopesHomeComponent implements OnInit {
 
   constructor(private titleService: Title, private telescopeService: UserTelescopeService) { }
 
+  telescopes = [];
+
   ngOnInit() {
     this.titleService.setTitle('Telescopes | U235+SNR');
+    this.telescopes = this.telescopeService.getAll();
   }
-
-  telescopes = this.telescopeService.getAll();
 
   onNew() {
     this.telescopeService.create('', '', '', '', '');

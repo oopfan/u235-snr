@@ -21,6 +21,7 @@
     "@angular/router": "~8.2.14",
     "angular-web-storage": "^7.0.0-beta.1",
     "bulma": "^0.8.0",
+    "mapsort": "^1.0.2",
     "rxjs": "~6.4.0",
     "tslib": "^1.10.0",
     "zone.js": "~0.9.1"

@@ -11,11 +11,13 @@ export class CalculationService {
     let totalIntegrationTime = 0;
     let result = this.calculateSNR(targetObj,telescopeObj, cameraObj, observatoryObj, totalIntegrationTime, singleSubExposure);
     let error1 = result.totalSignalToNoiseOfStack - totalSignalToNoiseOfStack;
+    console.log(error1);
     let endpointA = totalIntegrationTime;
     
     totalIntegrationTime = 200;   // Double of max value of number input control
     result = this.calculateSNR(targetObj,telescopeObj, cameraObj, observatoryObj, totalIntegrationTime, singleSubExposure);
     let error2 = result.totalSignalToNoiseOfStack - totalSignalToNoiseOfStack;
+    console.log(error2);
     let endpointB = totalIntegrationTime;
 
     if (Math.sign(error1) == Math.sign(error2)) {
@@ -25,7 +27,7 @@ export class CalculationService {
     }
 
     let errorA = error1;
-    const tolerance = 0.1;
+    const tolerance = 0.01;
     const maxIterations = 100;
 
     let N = 1;
@@ -34,6 +36,7 @@ export class CalculationService {
       console.log(`Midpoint C: ${midpointC}`);
       const result = this.calculateSNR(targetObj,telescopeObj, cameraObj, observatoryObj, midpointC, singleSubExposure);
       let errorC = result.totalSignalToNoiseOfStack - totalSignalToNoiseOfStack;
+      console.log(errorC);
       if (errorC == 0 || (endpointB - endpointA) / 2 < tolerance) {
         console.log(`Solution found after ${N} iterations.`);
         return { totalIntegrationTime: midpointC, numberOfSubs: result.numberOfSubs };
