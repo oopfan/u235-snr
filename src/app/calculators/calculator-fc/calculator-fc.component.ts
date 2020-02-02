@@ -42,6 +42,22 @@ export class CalculatorFcComponent implements OnInit, OnDestroy {
     this.frameCount = result.numberOfSubs.toString();
   }
 
+  getTarget() {
+    this.targetObj = this.targetService.parseItems(this.targetService.getItem(this.targetId))[0];
+  }
+
+  getTelescope() {
+    this.telescopeObj = this.telescopeService.parseItems(this.telescopeService.getItem(this.telescopeId))[0];
+  }
+
+  getCamera() {
+    this.cameraObj = this.cameraService.parseItems(this.cameraService.getItem(this.cameraId))[0];
+  }
+
+  getObservatory() {
+    this.observatoryObj = this.observatoryService.parseItems(this.observatoryService.getItem(this.observatoryId))[0];
+  }
+
   constructor(
     private targetService: UserTargetService,
     private telescopeService: UserTelescopeService,
@@ -50,30 +66,30 @@ export class CalculatorFcComponent implements OnInit, OnDestroy {
     private calculationService: CalculationService) { }
 
   ngOnInit() {
-    this.targetObj = this.targetService.getItem(this.targetId)[0];
-    this.telescopeObj = this.telescopeService.getItem(this.telescopeId)[0];
-    this.cameraObj = this.cameraService.getItem(this.cameraId)[0];
-    this.observatoryObj = this.observatoryService.getItem(this.observatoryId)[0];
+    this.getTarget();
+    this.getTelescope();
+    this.getCamera();
+    this.getObservatory();
     this.calculateFC();
 
     this.targetEventsSubscription = this.targetEvents.subscribe((targetId: string) => {
       this.targetId = targetId;
-      this.targetObj = this.targetService.getItem(this.targetId)[0];
+      this.getTarget();
       this.calculateFC();
     });
     this.telescopeEventsSubscription = this.telescopeEvents.subscribe((telescopeId: string) => {
       this.telescopeId = telescopeId;
-      this.telescopeObj = this.telescopeService.getItem(this.telescopeId)[0];
+      this.getTelescope();
       this.calculateFC();
     });
     this.cameraEventsSubscription = this.cameraEvents.subscribe((cameraId: string) => {
       this.cameraId = cameraId;
-      this.cameraObj = this.cameraService.getItem(this.cameraId)[0];
+      this.getCamera();
       this.calculateFC();
     });
     this.observatoryEventsSubscription = this.observatoryEvents.subscribe((observatoryId: string) => {
       this.observatoryId = observatoryId;
-      this.observatoryObj = this.observatoryService.getItem(this.observatoryId)[0];
+      this.getObservatory();
       this.calculateFC();
     });
   }

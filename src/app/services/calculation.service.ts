@@ -11,18 +11,18 @@ export class CalculationService {
     let totalIntegrationTime = 0;
     let result = this.calculateSNR(targetObj,telescopeObj, cameraObj, observatoryObj, totalIntegrationTime, singleSubExposure);
     let error1 = result.totalSignalToNoiseOfStack - totalSignalToNoiseOfStack;
-    console.log(error1);
+    //console.log(error1);
     let endpointA = totalIntegrationTime;
     
     totalIntegrationTime = 200;   // Double of max value of number input control
     result = this.calculateSNR(targetObj,telescopeObj, cameraObj, observatoryObj, totalIntegrationTime, singleSubExposure);
     let error2 = result.totalSignalToNoiseOfStack - totalSignalToNoiseOfStack;
-    console.log(error2);
+    //console.log(error2);
     let endpointB = totalIntegrationTime;
 
     if (Math.sign(error1) == Math.sign(error2)) {
-      console.log(`Could not find suitable endpoint for desired SNR: ${totalSignalToNoiseOfStack}`);
-      console.log(`Endpoint SNR: ${result.totalSignalToNoiseOfStack}`);
+      console.error(`Could not find suitable endpoint for desired SNR: ${totalSignalToNoiseOfStack}`);
+      console.error(`Endpoint SNR: ${result.totalSignalToNoiseOfStack}`);
       return { totalIntegrationTime: Number.NaN, numberOfSubs: Number.NaN };
     }
 
@@ -33,12 +33,12 @@ export class CalculationService {
     let N = 1;
     while (N <= maxIterations) {
       let midpointC = (endpointA + endpointB) / 2;
-      console.log(`Midpoint C: ${midpointC}`);
+      //console.log(`Midpoint C: ${midpointC}`);
       const result = this.calculateSNR(targetObj,telescopeObj, cameraObj, observatoryObj, midpointC, singleSubExposure);
       let errorC = result.totalSignalToNoiseOfStack - totalSignalToNoiseOfStack;
-      console.log(errorC);
+      //console.log(errorC);
       if (errorC == 0 || (endpointB - endpointA) / 2 < tolerance) {
-        console.log(`Solution found after ${N} iterations.`);
+        //console.log(`Solution found after ${N} iterations.`);
         return { totalIntegrationTime: midpointC, numberOfSubs: result.numberOfSubs };
       }
       N++;
@@ -50,7 +50,7 @@ export class CalculationService {
       }
     }
 
-    console.log(`Failed to find a solution in ${maxIterations} iterations.`);
+    console.error(`Failed to find a solution in ${maxIterations} iterations.`);
     return { totalIntegrationTime: Number.NaN, numberOfSubs: Number.NaN };
   }
 

@@ -87,6 +87,20 @@ export class UserTargetService {
     return [];
   }
 
+  parseItems = (items: any) => {
+    return items.map((item: any) => {
+      return {
+        id: item.id,
+        name: item.name,
+        surfaceBrightness: parseFloat(item.surfaceBrightness)
+      }
+    });
+  }
+
+  validate = (item: any) => {
+    return !isNaN(item.surfaceBrightness);
+  }
+
   create(name: string, surfaceBrightness: string) {
     if (!this.cache) {
       this.init();

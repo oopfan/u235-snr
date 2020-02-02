@@ -92,6 +92,23 @@ export class UserObservatoryService {
     return [];
   }
 
+  parseItems(items: any) {
+    return items.map((item: any) => {
+      return {
+        id: item.id,
+        name: item.name,
+        bortleClass: item.bortleClass,
+        skyBrightness: parseFloat(item.skyBrightness)
+      }
+    });
+  }
+
+  validate = (item: any) => {
+    return (
+      !isNaN(item.skyBrightness)
+    );
+  }
+
   create(name: string, bortleClass: string, skyBrightness:string) {
     if (!this.cache) {
       this.init();

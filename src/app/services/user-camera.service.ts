@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { LocalStorageService, LocalStorage } from 'angular-web-storage';
+import { parseTemplate } from '@angular/compiler';
 
 @Injectable({
   providedIn: 'root'
@@ -100,6 +101,28 @@ export class UserCameraService {
       return [ obj ];
     }
     return [];
+  }
+
+  parseItems(items: any) {
+    return items.map((item: any) => {
+      return {
+        id: item.id,
+        name: item.name,
+        pixelSize: parseFloat(item.pixelSize),
+        readNoise: parseFloat(item.readNoise),
+        darkCurrent: parseFloat(item.darkCurrent),
+        quantumEfficiency: parseFloat(item.quantumEfficiency)
+      }
+    });
+  }
+
+  validate = (item: any) => {
+    return (
+      !isNaN(item.pixelSize) && item.pixelSize > 0 &&
+      !isNaN(item.readNoise) && item.readNoise >= 0 &&
+      !isNaN(item.darkCurrent) && item.darkCurrent >= 0 &&
+      !isNaN(item.quantumEfficiency) && item.quantumEfficiency >= 0 && item.quantumEfficiency <= 100
+    );
   }
 
   create(name: string, pixelSize: string, readNoise:string, darkCurrent:string, quantumEfficiency:string) {

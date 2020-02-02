@@ -102,6 +102,28 @@ export class UserTelescopeService {
     return [];
   }
 
+  parseItems(items: any) {
+    return items.map((item: any) => {
+      return {
+        id: item.id,
+        name: item.name,
+        aperture: parseFloat(item.aperture),
+        focalLength: parseFloat(item.focalLength),
+        centralObstruction: parseFloat(item.centralObstruction),
+        totalReflectanceTransmittance: parseFloat(item.totalReflectanceTransmittance)
+      }
+    });
+  }
+
+  validate = (item: any) => {
+    return (
+      !isNaN(item.aperture) && item.aperture > 0 && 
+      !isNaN(item.focalLength) && item.focalLength > 0 && 
+      !isNaN(item.centralObstruction) && item.centralObstruction >= 0 &&
+      !isNaN(item.totalReflectanceTransmittance) && item.totalReflectanceTransmittance >= 0 && item.totalReflectanceTransmittance <= 1
+      );
+  }
+
   create(name: string, aperture: string, focalLength: string, centralObstruction: string, totalReflectanceTransmittance: string) {
     if (!this.cache) {
       this.init();
