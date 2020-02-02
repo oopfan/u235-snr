@@ -66,6 +66,14 @@ export class UserCameraService {
     this.init();
   }
 
+  sort() {
+    if (!this.cache) {
+      this.init();
+    }
+    this.cache.list.sort((a: any, b: any) => a.name.localeCompare(b.name));
+    this.storage.set('userCameras', this.cache);
+  }
+
   saveAll() {
     if (!this.cache) {
       this.init();

@@ -56,6 +56,14 @@ export class UserObservatoryService {
     this.init();
   }
 
+  sort() {
+    if (!this.cache) {
+      this.init();
+    }
+    this.cache.list.sort((a: any, b: any) => a.name.localeCompare(b.name));
+    this.storage.set('userObservatories', this.cache);
+  }
+
   saveAll() {
     if (!this.cache) {
       this.init();

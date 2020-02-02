@@ -15,6 +15,7 @@ export class CamerasHomeComponent implements OnInit {
 
   ngOnInit() {
     this.titleService.setTitle('Cameras | U235+SNR');
+    this.cameraService.sort();
     this.cameras = this.cameraService.getAll();
   }
 

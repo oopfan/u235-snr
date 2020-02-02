@@ -15,6 +15,7 @@ export class ObservatoriesHomeComponent implements OnInit {
 
   ngOnInit() {
     this.titleService.setTitle('Observatories | U235+SNR');
+    this.observatoryService.sort();
     this.observatories = this.observatoryService.getAll();
   }
 

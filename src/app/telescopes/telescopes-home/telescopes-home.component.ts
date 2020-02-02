@@ -15,6 +15,7 @@ export class TelescopesHomeComponent implements OnInit {
 
   ngOnInit() {
     this.titleService.setTitle('Telescopes | U235+SNR');
+    this.telescopeService.sort();
     this.telescopes = this.telescopeService.getAll();
   }
 

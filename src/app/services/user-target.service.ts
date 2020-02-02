@@ -51,6 +51,14 @@ export class UserTargetService {
     this.init();
   }
 
+  sort() {
+    if (!this.cache) {
+      this.init();
+    }
+    this.cache.list.sort((a: any, b: any) => a.name.localeCompare(b.name));
+    this.storage.set('userTargets', this.cache);
+  }
+
   saveAll() {
     if (!this.cache) {
       this.init();

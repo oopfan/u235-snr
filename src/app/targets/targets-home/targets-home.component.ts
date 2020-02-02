@@ -15,6 +15,7 @@ export class TargetsHomeComponent implements OnInit {
 
   ngOnInit() {
     this.titleService.setTitle('Targets | U235+SNR');
+    this.targetService.sort();
     this.targets = this.targetService.getAll();
   }
 
