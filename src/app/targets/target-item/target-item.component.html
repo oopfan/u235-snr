@@ -9,7 +9,20 @@
         <div class="columns">
             <div class="column">
                 <label>Surface&nbsp;Brightness&nbsp;<span class="is-size-7">(mag/arcsec<sup>2</sup>)</span></label>
-                <input type="text" class="input is-small" [value]="surfaceBrightness" (input)="onChangeSurfaceBrightness($event.target.value)" required />
+                <div class="level">
+                    <div class="level-left">
+                        <div class="left-item">
+                            <div class="field has-addons">
+                                <div class="control">
+                                    <input type="text" class="input is-small" [value]="surfaceBrightness" (input)="onChangeSurfaceBrightness($event.target.value)" required />
+                                </div>
+                                <div class="control">
+                                    <a class="tag is-link" [routerLink]="['/help', 'targets-surface-brightness']">Help</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="columns">

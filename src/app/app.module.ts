@@ -10,6 +10,7 @@ import { TelescopesModule } from './telescopes/telescopes.module';
 import { CamerasModule } from './cameras/cameras.module';
 import { ObservatoriesModule } from './observatories/observatories.module';
 import { CalculatorsModule } from './calculators/calculators.module';
+import { SharedModule } from './shared/shared.module';
 import { HelpModule } from './help/help.module';
 import { ErrorsModule } from './errors/errors.module';
 
@@ -27,6 +28,7 @@ import { ErrorsModule } from './errors/errors.module';
     CamerasModule,
     ObservatoriesModule,
     CalculatorsModule,
+    SharedModule,
     HelpModule,
     ErrorsModule
   ],
