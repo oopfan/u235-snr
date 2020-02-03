@@ -1,14 +1,2 @@
 <app-nav-bar></app-nav-bar>
-<article class="message is-danger" *ngIf="!localStorageCheck">
-    <div class="message-body">
-        LOCAL STORAGE required. Your browser is blocking this application from storing
-        data used to describe your telescope, camera, observatory, and targets. It can
-        not proceed without the necessary permissions. All browsers have a page for
-        adjusting permissions. Some call it <i>Options</i>, others call it <i>Settings</i>.
-        Look for something like 'Privacy & Security'. You may discover that your browser
-        has cookies turned off. In that case turn it on. Or some browsers allow you to block
-        storage for most but not all. In that case add this website's URL to that <i>whitelist</i>.
-        Once complete try refreshing this page to test.
-    </div>
-</article>
-<router-outlet *ngIf="localStorageCheck"></router-outlet>
+<router-outlet></router-outlet>

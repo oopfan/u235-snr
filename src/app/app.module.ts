@@ -9,6 +9,7 @@ import { TargetsModule } from './targets/targets.module';
 import { TelescopesModule } from './telescopes/telescopes.module';
 import { CamerasModule } from './cameras/cameras.module';
 import { ObservatoriesModule } from './observatories/observatories.module';
+import { ErrorsModule } from './errors/errors.module';
 import { CalculatorsModule } from './calculators/calculators.module';
 
 @NgModule({
@@ -24,6 +25,7 @@ import { CalculatorsModule } from './calculators/calculators.module';
     TelescopesModule,
     CamerasModule,
     ObservatoriesModule,
+    ErrorsModule,
     CalculatorsModule
   ],
   providers: [Title],
