@@ -199,7 +199,10 @@
         <div *ngIf="section == 'all-sections' || section == 'camera-overview'">
             <h2 class="subtitle is-5">Overview</h2>
             <div class="content">
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus, quaerat, ipsam nobis eum autem cumque optio, saepe aliquid officia amet expedita consequatur quam laborum aspernatur. Voluptate saepe minus nostrum reiciendis, neque voluptas non dolor perspiciatis quod nemo consequatur, illum dicta cupiditate ipsam molestias provident obcaecati culpa sunt dolorem. Temporibus autem velit unde perspiciatis optio aspernatur nesciunt illum animi quia assumenda voluptatum minus explicabo officiis praesentium aut, ratione, neque rem pariatur obcaecati nam delectus eos veritatis. Placeat rerum odit in voluptate ratione veritatis. Quod repudiandae similique, vel doloribus ratione fuga dolorum corporis itaque officia! Sit placeat magni iste magnam exercitationem. Nostrum.</p>
+                <p>
+                    Cameras have four essential properties that must be filled in before proceeding to the <i>Calculate!</i> tool but as is
+                    customary you can leave fields empty as you work towards gathering information.
+                </p>
                 <p></p>
             </div>
         </div>
@@ -207,8 +210,15 @@
         <div *ngIf="section == 'all-sections' || section == 'camera-pixel-size'">
             <h2 class="subtitle is-5">Pixel Size</h2>
             <div class="content">
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste molestias quibusdam est ullam quisquam? Perspiciatis inventore neque totam consectetur quidem numquam libero? Cupiditate eligendi suscipit rerum ea beatae? Laborum, sint deleniti dolor ratione officiis assumenda cumque vero et nemo sunt id earum eum quis accusantium, ea fugiat blanditiis, nostrum aliquid.</p>
-                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Modi itaque delectus incidunt? Ipsum expedita, facilis incidunt quos quisquam quasi dolorem voluptatibus vel libero ab explicabo harum illo inventore perspiciatis cumque. Nam, repellat! Aliquid omnis rem magni ab unde iste id quaerat. Minima, quam ad repudiandae illum reprehenderit autem repellat maiores quidem accusantium numquam neque velit quos blanditiis! Officia vitae earum, eum architecto aut recusandae corrupti accusamus amet molestias repellendus commodi perferendis ab aliquam aperiam iusto facilis mollitia quas possimus reprehenderit tenetur repellat maiores eligendi. Iste dignissimos dolorum ullam accusantium repudiandae ea, ratione corporis tenetur asperiores provident, deleniti sapiente corrupti incidunt.</p>
+                <p>
+                    Pixel Size is measured in microns which is one-thousandth of a millimeter, abbreviated <i>um</i>. CMOS cameras generally have smaller
+                    pixel sizes than do CCD cameras. 2 microns to 10 microns is not uncommon.
+                </p>
+                <p>
+                    Many cameras have square pixels but some have rectangular ones. Our <i>Pixel Size</i> property assumes a square pixel. If yours is
+                    rectangular, say for example 3um x 4um, then you need to run a simple calculation: <i>SQRT(width * height)</i>. So in our example you
+                    will calculate <i>SQRT(3 * 4)</i> which is 3.464. That is the value you should enter.
+                </p>
                 <p></p>
             </div>
         </div>
@@ -216,8 +226,10 @@
         <div *ngIf="section == 'all-sections' || section == 'camera-read-noise'">
             <h2 class="subtitle is-5">Read Noise</h2>
             <div class="content">
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste molestias quibusdam est ullam quisquam? Perspiciatis inventore neque totam consectetur quidem numquam libero? Cupiditate eligendi suscipit rerum ea beatae? Laborum, sint deleniti dolor ratione officiis assumenda cumque vero et nemo sunt id earum eum quis accusantium, ea fugiat blanditiis, nostrum aliquid.</p>
-                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Modi itaque delectus incidunt? Ipsum expedita, facilis incidunt quos quisquam quasi dolorem voluptatibus vel libero ab explicabo harum illo inventore perspiciatis cumque. Nam, repellat! Aliquid omnis rem magni ab unde iste id quaerat. Minima, quam ad repudiandae illum reprehenderit autem repellat maiores quidem accusantium numquam neque velit quos blanditiis! Officia vitae earum, eum architecto aut recusandae corrupti accusamus amet molestias repellendus commodi perferendis ab aliquam aperiam iusto facilis mollitia quas possimus reprehenderit tenetur repellat maiores eligendi. Iste dignissimos dolorum ullam accusantium repudiandae ea, ratione corporis tenetur asperiores provident, deleniti sapiente corrupti incidunt.</p>
+                <p>
+                    <i>Read Noise</i> is the amount of electronic noise added to an image after you read it from of the camera. It is measured in
+                    units of electrons (e-). Please refer to the manufacturer's datasheet. CMOS cameras generally have lower Read Noise than CCDs.
+                </p>
                 <p></p>
             </div>
         </div>
@@ -225,8 +237,13 @@
         <div *ngIf="section == 'all-sections' || section == 'camera-dark-current'">
             <h2 class="subtitle is-5">Dark Current</h2>
             <div class="content">
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste molestias quibusdam est ullam quisquam? Perspiciatis inventore neque totam consectetur quidem numquam libero? Cupiditate eligendi suscipit rerum ea beatae? Laborum, sint deleniti dolor ratione officiis assumenda cumque vero et nemo sunt id earum eum quis accusantium, ea fugiat blanditiis, nostrum aliquid.</p>
-                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Modi itaque delectus incidunt? Ipsum expedita, facilis incidunt quos quisquam quasi dolorem voluptatibus vel libero ab explicabo harum illo inventore perspiciatis cumque. Nam, repellat! Aliquid omnis rem magni ab unde iste id quaerat. Minima, quam ad repudiandae illum reprehenderit autem repellat maiores quidem accusantium numquam neque velit quos blanditiis! Officia vitae earum, eum architecto aut recusandae corrupti accusamus amet molestias repellendus commodi perferendis ab aliquam aperiam iusto facilis mollitia quas possimus reprehenderit tenetur repellat maiores eligendi. Iste dignissimos dolorum ullam accusantium repudiandae ea, ratione corporis tenetur asperiores provident, deleniti sapiente corrupti incidunt.</p>
+                <p>
+                    <i>Dark Current</i> is affected by the temperature of your camera's sensor. The higher the temperature the greater the current
+                    and consequently the noise. In an ideal world our camera is unaffected by temperature but to get close to ideal we must cool the
+                    sensor. Cameras that are designed for deep-sky astrophotography come with thermo-electric coolers that lower the sensor's
+                    temperature by nearly 40 degrees Celsius. Dark current at that temperature is virtually zero. If your camera's manufacturer has
+                    data on dark current then use it but if not feel free to enter zero in this field.
+                </p>
                 <p></p>
             </div>
         </div>
@@ -234,8 +251,12 @@
         <div *ngIf="section == 'all-sections' || section == 'camera-quantum-efficiency'">
             <h2 class="subtitle is-5">Quantum Efficiency</h2>
             <div class="content">
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste molestias quibusdam est ullam quisquam? Perspiciatis inventore neque totam consectetur quidem numquam libero? Cupiditate eligendi suscipit rerum ea beatae? Laborum, sint deleniti dolor ratione officiis assumenda cumque vero et nemo sunt id earum eum quis accusantium, ea fugiat blanditiis, nostrum aliquid.</p>
-                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Modi itaque delectus incidunt? Ipsum expedita, facilis incidunt quos quisquam quasi dolorem voluptatibus vel libero ab explicabo harum illo inventore perspiciatis cumque. Nam, repellat! Aliquid omnis rem magni ab unde iste id quaerat. Minima, quam ad repudiandae illum reprehenderit autem repellat maiores quidem accusantium numquam neque velit quos blanditiis! Officia vitae earum, eum architecto aut recusandae corrupti accusamus amet molestias repellendus commodi perferendis ab aliquam aperiam iusto facilis mollitia quas possimus reprehenderit tenetur repellat maiores eligendi. Iste dignissimos dolorum ullam accusantium repudiandae ea, ratione corporis tenetur asperiores provident, deleniti sapiente corrupti incidunt.</p>
+                <p>
+                    The primary job of your camera's sensor is to convert photons to electrons. If your camera can convert one photon to one electron
+                    then it is said to have 100% <i>Quantum Efficiency</i>. Reality is a different story. Most cameras have far less than 100%
+                    efficiency. My camera has a pitiful 43% efficiency. As always refer to the manufacturer's datasheet. If you are unsure then enter
+                    50 in this field.
+                </p>
                 <p></p>
             </div>
         </div>
