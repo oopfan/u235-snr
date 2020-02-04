@@ -5,7 +5,17 @@
         <div *ngIf="section == 'all-sections' || section == 'target-overview'">
             <h2 class="subtitle is-5">Overview</h2>
             <div class="content">
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus, quaerat, ipsam nobis eum autem cumque optio, saepe aliquid officia amet expedita consequatur quam laborum aspernatur. Voluptate saepe minus nostrum reiciendis, neque voluptas non dolor perspiciatis quod nemo consequatur, illum dicta cupiditate ipsam molestias provident obcaecati culpa sunt dolorem. Temporibus autem velit unde perspiciatis optio aspernatur nesciunt illum animi quia assumenda voluptatum minus explicabo officiis praesentium aut, ratione, neque rem pariatur obcaecati nam delectus eos veritatis. Placeat rerum odit in voluptate ratione veritatis. Quod repudiandae similique, vel doloribus ratione fuga dolorum corporis itaque officia! Sit placeat magni iste magnam exercitationem. Nostrum.</p>
+                <p>
+                    The term <i>Target</i> is synonymous with <i>Deep Sky Object</i> or <i>DSO</i> but less wordy and cryptic.
+                    Targets comprise of one essential field: <i>Surface Brightness</i>. You can read more about <i>Surface Brightness</i>
+                    in another section but just know that obtaining a proper value is an art form.
+                </p>
+                <p>
+                    This web application is forgiving of empty fields. In fact you can leave <i>Surface Brightness</i> and
+                    <i>Name</i> empty and come back later to fill them in. One thing to know is that the <i>Calculate!</i> tool
+                    is less forgiving. It <b>must</b> know the value of <i>Surface Brightness</i> in order to proceed and because
+                    of that it filters out invalid targets from its selection list.
+                </p>
                 <p></p>
             </div>
         </div>
@@ -13,27 +23,95 @@
         <div *ngIf="section == 'all-sections' || section == 'target-surface-brightness'">
             <h2 class="subtitle is-5">Surface Brightness</h2>
             <div class="content">
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste molestias quibusdam est ullam quisquam? Perspiciatis inventore neque totam consectetur quidem numquam libero? Cupiditate eligendi suscipit rerum ea beatae? Laborum, sint deleniti dolor ratione officiis assumenda cumque vero et nemo sunt id earum eum quis accusantium, ea fugiat blanditiis, nostrum aliquid.</p>
-                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Modi itaque delectus incidunt? Ipsum expedita, facilis incidunt quos quisquam quasi dolorem voluptatibus vel libero ab explicabo harum illo inventore perspiciatis cumque. Nam, repellat! Aliquid omnis rem magni ab unde iste id quaerat. Minima, quam ad repudiandae illum reprehenderit autem repellat maiores quidem accusantium numquam neque velit quos blanditiis! Officia vitae earum, eum architecto aut recusandae corrupti accusamus amet molestias repellendus commodi perferendis ab aliquam aperiam iusto facilis mollitia quas possimus reprehenderit tenetur repellat maiores eligendi. Iste dignissimos dolorum ullam accusantium repudiandae ea, ratione corporis tenetur asperiores provident, deleniti sapiente corrupti incidunt.</p>
+                <p>
+                    Determining the value of <i>Surface Brightness</i> is an art form. I use these three reliable sources:
+                </p>
+                <p>
+                    <a href="http://knightware.biz/" target="blank">Deep Sky Planner 7</a> directly offers Surface Brightness in units
+                    compatible with our web application (i.e. <i>magnitudes per square arc-second</i>) but the software is Windows-only
+                    and must be purchased.
+                </p>
+                <p>
+                    <a href="https://www.ap-i.net/skychart/en/start" target="blank">Cartes du Ciel (aka SkyChart)</a> also directly
+                    offers Surface Brightness but the units are not compatible. It gives <i>magnitudes per square arc-minutes</i> versus
+                    <i>arc-seconds</i>. You can use their value but only if you add 8.89 to it. Of course you can always use our
+                    <i>Surface Brightness Calculator</i>. More on that in a later section. <i>Cartes du Ciel</i> is freeware planetarium
+                    software and provides distributions for Linux, Mac, Raspberry Pi, as well as Windows.
+                </p>
+                <p>
+                    <a href="http://www.astrosurf.com/c2a/english/index.htm" target="blank">Computer Aided Astronomy (C2A)</a> does not
+                    offer Surface Brightness but it does give <i>Magnitude</i>, <i>Major Axis</i>, and <i>Minor Axis</i>. You can use
+                    our built-in <i>Surface Brightness Calculator</i> to calculate it. <i>C2A</i> is Windows-only planetarium software.
+                </p>
+                <p>
+                    Now to the definition of <i>Surface Brightness</i>. Try to visualize a galaxy. The galaxy's core is the brightest,
+                    followed by the arms, and then the elusive galactic halo. Now, imagine squeezing all of those photons from all areas
+                    into a tiny area the size of a single star. (Technically the size is 1 square arc-second.) How bright
+                    would it be? Surprisingly bright. The Andromeda Galaxy (M31) has a <i>magnitude</i> of 3.4 which would make it easily
+                    visible from the center of most large cities but the fact of the matter is all of those photons are spread out over
+                    a very large area, so because of that it is impossible to see M31 from New York City with the naked eye.
+                </p>
+                <p>
+                    If the magnitude of M31 is 3.4 then what is its <i>Surface Brightness</i>? To answer that question we need to
+                    know its dimensions. C2A lists it as 189.1 <i>arc-minutes</i> by 61.7 <i>arc-minutes</i>. Now let's plug those numbers into our
+                    <i>Surface Brightness Calculator</i>. The answer is 22.2 <i>magnitudes per square arc-second</i>. Remember that this is the
+                    <i>average</i> brightness over the entire area. Some parts will be brighter but overall it is a good
+                    measure of how much effort it takes to obtain a world-class image.
+                </p>
+                <p>
+                    To explain why the Andromeda Galaxy is not visible without the aid of a telescope from New York City, consider that
+                    the city's <i>Sky Brightness</i> is around 18 magnitudes per square arc-second. (We'll talk more about that in the
+                    section on <i>Observatories</i>). Now compare 18 to 22.2. That makes the galaxy 4.2 magnitudes fainter than the sky.
+                    I'm sorry but you are just not going to see it with the naked eye. You'll need a telescope.
+                </p>
+                <p>
+                    Earlier I spoke of <i>Surface Brightness</i> determination as an art form. The problem is that different information
+                    sources may give you significantly different values for magnitude, major axis, and minor axis depending on what
+                    criteria they use. I have seen deviations of up to 2 magnitudes per square arc-second. This is huge. I recommend that
+                    you choose a provider and stick with them. I've recommended three of them.
+                </p>
                 <p></p>
             </div>
     
             <h2 class="subtitle is-5">Surface Brightness Calculator</h2>
             <div class="content">
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste molestias quibusdam est ullam quisquam? Perspiciatis inventore neque totam consectetur quidem numquam libero? Cupiditate eligendi suscipit rerum ea beatae? Laborum, sint deleniti dolor ratione officiis assumenda cumque vero et nemo sunt id earum eum quis accusantium, ea fugiat blanditiis, nostrum aliquid.</p>
-                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Modi itaque delectus incidunt? Ipsum expedita, facilis incidunt quos quisquam quasi dolorem voluptatibus vel libero ab explicabo harum illo inventore perspiciatis cumque. Nam, repellat! Aliquid omnis rem magni ab unde iste id quaerat. Minima, quam ad repudiandae illum reprehenderit autem repellat maiores quidem accusantium numquam neque velit quos blanditiis! Officia vitae earum, eum architecto aut recusandae corrupti accusamus amet molestias repellendus commodi perferendis ab aliquam aperiam iusto facilis mollitia quas possimus reprehenderit tenetur repellat maiores eligendi. Iste dignissimos dolorum ullam accusantium repudiandae ea, ratione corporis tenetur asperiores provident, deleniti sapiente corrupti incidunt.</p>
+                <p>
+                    In case your information provider does not directly offer the value of <i>Surface Brightness</i> you can use this
+                    calculator, provided that you are given <i>magnitude</i>, <i>major axis</i>, and <i>minor axis</i>.
+                </p>
+                <p>
+                    Click the <i>SHOW CALCULATOR</i> button to reveal it, and then enter the three input values. A blue box will descend
+                    giving the answer. Use your keyboard and mouse to copy the value and paste it into the <i>Surface Brightness</i> field
+                    in your target. This copy-and-paste step is important. The calculated value will be lost when you hide the calculator.
+                </p>
                 <p></p>
             </div>
     
             <h3 class="subtitle is-6">Magnitude</h3>
             <div class="content">
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste molestias quibusdam est ullam quisquam? Perspiciatis inventore neque totam consectetur quidem numquam libero? Cupiditate eligendi suscipit rerum ea beatae? Laborum, sint deleniti dolor ratione officiis assumenda cumque vero et nemo sunt id earum eum quis accusantium, ea fugiat blanditiis, nostrum aliquid.</p>
+                <p>
+                    Magnitude is brightness measured on a logarithmic scale. Negative magnitude is very bright, the Sun is at -25 and the
+                    Full Moon at -12. Sirius, the brightest star besides our Sun, is magnitude -1.6. At night in the suburbs the faintest
+                    star you can see with the naked eye is around +5. With a small telescope and eyepiece you can see down to about +12.
+                    With a small telescope and a camera you can capture stars down to +18. With a large telescope and camera in dark rural
+                    skies you can see down to magnitude +25, give or take.
+                </p>
                 <p></p>
             </div>
     
             <h3 class="subtitle is-6">Major and Minor Axis</h3>
             <div class="content">
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste molestias quibusdam est ullam quisquam? Perspiciatis inventore neque totam consectetur quidem numquam libero? Cupiditate eligendi suscipit rerum ea beatae? Laborum, sint deleniti dolor ratione officiis assumenda cumque vero et nemo sunt id earum eum quis accusantium, ea fugiat blanditiis, nostrum aliquid.</p>
+                <p>
+                    By convention the ellipse is used to model a target's shape. An ellipse can be described by two properties: major axis
+                    and minor axis. It is similar in a way to a rectangle's width and height except that ellipses have curved edges.
+                </p>
+                <p>
+                    The units of measurement are angular, specifically arc-minutes. The Surface Brightness Calculator requires arc-minutes
+                    so make sure that your information provider is giving you values in arc-minutes. Unless it is spelled out a single
+                    apostrophe denotes arc-minutes whereas a double apostrophe, better known as quote marks, denotes arc-seconds. Galaxies
+                    are almost always quoted in arc-minutes but a lot of planetary nebulae are in arc-seconds. Be sure to divide arc-seconds
+                    by 60 in order to convert it to arc-minutes.
+                </p>
                 <p></p>
             </div>
         </div>
