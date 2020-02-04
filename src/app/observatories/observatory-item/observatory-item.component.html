@@ -9,13 +9,39 @@
         <div class="columns">
             <div class="column">
                 <label>Bortle&nbsp;class</label>
-                <input type="text" class="input is-small" [value]="bortleClass" (input)="onChangeBortleClass($event.target.value)" />
+                <div class="level">
+                    <div class="level-left">
+                        <div class="left-item">
+                            <div class="field has-addons">
+                                <div class="control">
+                                    <input type="text" class="input is-small" [value]="bortleClass" (input)="onChangeBortleClass($event.target.value)" />
+                                </div>
+                                <div class="control">
+                                    <a class="tag is-link" [routerLink]="['/help', 'observatory-bortle-class']">Help</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="columns">
             <div class="column">
                 <label>Sky&nbsp;brightness&nbsp;<span class="is-size-7">(mag/arcsec<sup>2</sup>)</span></label>
-                <input type="text" class="input is-small" [value]="skyBrightness" (input)="onChangeSkyBrightness($event.target.value)" />
+                <div class="level">
+                    <div class="level-left">
+                        <div class="left-item">
+                            <div class="field has-addons">
+                                <div class="control">
+                                    <input type="text" class="input is-small" [value]="skyBrightness" (input)="onChangeSkyBrightness($event.target.value)" />
+                                </div>
+                                <div class="control">
+                                    <a class="tag is-link" [routerLink]="['/help', 'observatory-sky-brightness']">Help</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

@@ -9,25 +9,77 @@
         <div class="columns">
             <div class="column">
                 <label>Aperture&nbsp;<span class="is-size-7">(mm)</span></label>
-                <input type="text" class="input is-small" [value]="aperture" (input)="onChangeAperture($event.target.value)" required />
+                <div class="level">
+                    <div class="level-left">
+                        <div class="left-item">
+                            <div class="field has-addons">
+                                <div class="control">
+                                    <input type="text" class="input is-small" [value]="aperture" (input)="onChangeAperture($event.target.value)" required />
+                                </div>
+                                <div class="control">
+                                    <a class="tag is-link" [routerLink]="['/help', 'telescope-aperture']">Help</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="columns">
             <div class="column">
                 <label>Focal&nbsp;length&nbsp;<span class="is-size-7">(mm)</span></label>
-                <input type="text" class="input is-small" [value]="focalLength" (input)="onChangeFocalLength($event.target.value)" required />
+                <div class="level">
+                    <div class="level-left">
+                        <div class="left-item">
+                            <div class="field has-addons">
+                                <div class="control">
+                                    <input type="text" class="input is-small" [value]="focalLength" (input)="onChangeFocalLength($event.target.value)" required />
+                                </div>
+                                <div class="control">
+                                    <a class="tag is-link" [routerLink]="['/help', 'telescope-focal-length']">Help</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="columns">
             <div class="column">
                 <label>Central&nbsp;obstruction&nbsp;<span class="is-size-7">(mm)</span></label>
-                <input type="text" class="input is-small" [value]="centralObstruction" (input)="onChangeCentralObstruction($event.target.value)" required />
+                <div class="level">
+                    <div class="level-left">
+                        <div class="left-item">
+                            <div class="field has-addons">
+                                <div class="control">
+                                    <input type="text" class="input is-small" [value]="centralObstruction" (input)="onChangeCentralObstruction($event.target.value)" required />
+                                </div>
+                                <div class="control">
+                                    <a class="tag is-link" [routerLink]="['/help', 'telescope-central-obstruction']">Help</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="columns">
             <div class="column">
                 <label>Total&nbsp;reflectance/transmittance&nbsp;<span class="is-size-7">(1.0=ideal,&nbsp;0=opaque)</span></label>
-                <input type="text" class="input is-small" [value]="totalReflectanceTransmittance" (input)="onChangeTotalReflectanceTransmittance($event.target.value)" required />
+                <div class="level">
+                    <div class="level-left">
+                        <div class="left-item">
+                            <div class="field has-addons">
+                                <div class="control">
+                                    <input type="text" class="input is-small" [value]="totalReflectanceTransmittance" (input)="onChangeTotalReflectanceTransmittance($event.target.value)" required />
+                                </div>
+                                <div class="control">
+                                    <a class="tag is-link" [routerLink]="['/help', 'telescope-total-reflectance-transmittance']">Help</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

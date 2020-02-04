@@ -1,8 +1,8 @@
-<section class="section" *ngIf="section == 'all-sections' || (section == 'targets-overview' || section == 'targets-surface-brightness')">
+<section class="section" *ngIf="section == 'all-sections' || (section == 'target-overview' || section == 'target-surface-brightness')">
     <div class="container">
-        <h1 class="title is-4">Targets</h1>
+        <h1 class="title is-4">Target</h1>
 
-        <div *ngIf="section == 'all-sections' || section == 'targets-overview'">
+        <div *ngIf="section == 'all-sections' || section == 'target-overview'">
             <h2 class="subtitle is-5">Overview</h2>
             <div class="content">
                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus, quaerat, ipsam nobis eum autem cumque optio, saepe aliquid officia amet expedita consequatur quam laborum aspernatur. Voluptate saepe minus nostrum reiciendis, neque voluptas non dolor perspiciatis quod nemo consequatur, illum dicta cupiditate ipsam molestias provident obcaecati culpa sunt dolorem. Temporibus autem velit unde perspiciatis optio aspernatur nesciunt illum animi quia assumenda voluptatum minus explicabo officiis praesentium aut, ratione, neque rem pariatur obcaecati nam delectus eos veritatis. Placeat rerum odit in voluptate ratione veritatis. Quod repudiandae similique, vel doloribus ratione fuga dolorum corporis itaque officia! Sit placeat magni iste magnam exercitationem. Nostrum.</p>
@@ -10,7 +10,7 @@
             </div>
         </div>
 
-        <div *ngIf="section == 'all-sections' || section == 'targets-surface-brightness'">
+        <div *ngIf="section == 'all-sections' || section == 'target-surface-brightness'">
             <h2 class="subtitle is-5">Surface Brightness</h2>
             <div class="content">
                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste molestias quibusdam est ullam quisquam? Perspiciatis inventore neque totam consectetur quidem numquam libero? Cupiditate eligendi suscipit rerum ea beatae? Laborum, sint deleniti dolor ratione officiis assumenda cumque vero et nemo sunt id earum eum quis accusantium, ea fugiat blanditiis, nostrum aliquid.</p>
@@ -40,52 +40,148 @@
     </div>
 </section>
 
-<section class="section" *ngIf="section == 'all-sections' || section == 'telescopes'">
+<section class="section" *ngIf="section == 'all-sections' || (section == 'telescope-overview' || section == 'telescope-aperture' || section == 'telescope-focal-length' || section == 'telescope-central-obstruction' || section == 'telescope-total-reflectance-transmittance')">
     <div class="container">
-        <h1 class="title is-5">Telescopes</h1>
-        <h2 class="subtitle is-6">Overview</h2>
-        <div class="content">
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus, quaerat, ipsam nobis eum autem cumque optio, saepe aliquid officia amet expedita consequatur quam laborum aspernatur. Voluptate saepe minus nostrum reiciendis, neque voluptas non dolor perspiciatis quod nemo consequatur, illum dicta cupiditate ipsam molestias provident obcaecati culpa sunt dolorem. Temporibus autem velit unde perspiciatis optio aspernatur nesciunt illum animi quia assumenda voluptatum minus explicabo officiis praesentium aut, ratione, neque rem pariatur obcaecati nam delectus eos veritatis. Placeat rerum odit in voluptate ratione veritatis. Quod repudiandae similique, vel doloribus ratione fuga dolorum corporis itaque officia! Sit placeat magni iste magnam exercitationem. Nostrum.</p>
+        <h1 class="title is-4">Telescope</h1>
+
+        <div *ngIf="section == 'all-sections' || section == 'telescope-overview'">
+            <h2 class="subtitle is-5">Overview</h2>
+            <div class="content">
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus, quaerat, ipsam nobis eum autem cumque optio, saepe aliquid officia amet expedita consequatur quam laborum aspernatur. Voluptate saepe minus nostrum reiciendis, neque voluptas non dolor perspiciatis quod nemo consequatur, illum dicta cupiditate ipsam molestias provident obcaecati culpa sunt dolorem. Temporibus autem velit unde perspiciatis optio aspernatur nesciunt illum animi quia assumenda voluptatum minus explicabo officiis praesentium aut, ratione, neque rem pariatur obcaecati nam delectus eos veritatis. Placeat rerum odit in voluptate ratione veritatis. Quod repudiandae similique, vel doloribus ratione fuga dolorum corporis itaque officia! Sit placeat magni iste magnam exercitationem. Nostrum.</p>
+                <p></p>
+            </div>
+        </div>
+
+        <div *ngIf="section == 'all-sections' || section == 'telescope-aperture'">
+            <h2 class="subtitle is-5">Aperture</h2>
+            <div class="content">
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste molestias quibusdam est ullam quisquam? Perspiciatis inventore neque totam consectetur quidem numquam libero? Cupiditate eligendi suscipit rerum ea beatae? Laborum, sint deleniti dolor ratione officiis assumenda cumque vero et nemo sunt id earum eum quis accusantium, ea fugiat blanditiis, nostrum aliquid.</p>
+                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Modi itaque delectus incidunt? Ipsum expedita, facilis incidunt quos quisquam quasi dolorem voluptatibus vel libero ab explicabo harum illo inventore perspiciatis cumque. Nam, repellat! Aliquid omnis rem magni ab unde iste id quaerat. Minima, quam ad repudiandae illum reprehenderit autem repellat maiores quidem accusantium numquam neque velit quos blanditiis! Officia vitae earum, eum architecto aut recusandae corrupti accusamus amet molestias repellendus commodi perferendis ab aliquam aperiam iusto facilis mollitia quas possimus reprehenderit tenetur repellat maiores eligendi. Iste dignissimos dolorum ullam accusantium repudiandae ea, ratione corporis tenetur asperiores provident, deleniti sapiente corrupti incidunt.</p>
+                <p></p>
+            </div>
+        </div>
+        
+        <div *ngIf="section == 'all-sections' || section == 'telescope-focal-length'">
+            <h2 class="subtitle is-5">Focal Length</h2>
+            <div class="content">
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste molestias quibusdam est ullam quisquam? Perspiciatis inventore neque totam consectetur quidem numquam libero? Cupiditate eligendi suscipit rerum ea beatae? Laborum, sint deleniti dolor ratione officiis assumenda cumque vero et nemo sunt id earum eum quis accusantium, ea fugiat blanditiis, nostrum aliquid.</p>
+                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Modi itaque delectus incidunt? Ipsum expedita, facilis incidunt quos quisquam quasi dolorem voluptatibus vel libero ab explicabo harum illo inventore perspiciatis cumque. Nam, repellat! Aliquid omnis rem magni ab unde iste id quaerat. Minima, quam ad repudiandae illum reprehenderit autem repellat maiores quidem accusantium numquam neque velit quos blanditiis! Officia vitae earum, eum architecto aut recusandae corrupti accusamus amet molestias repellendus commodi perferendis ab aliquam aperiam iusto facilis mollitia quas possimus reprehenderit tenetur repellat maiores eligendi. Iste dignissimos dolorum ullam accusantium repudiandae ea, ratione corporis tenetur asperiores provident, deleniti sapiente corrupti incidunt.</p>
+                <p></p>
+            </div>
+        </div>
+        
+        <div *ngIf="section == 'all-sections' || section == 'telescope-central-obstruction'">
+            <h2 class="subtitle is-5">Central Obstruction</h2>
+            <div class="content">
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste molestias quibusdam est ullam quisquam? Perspiciatis inventore neque totam consectetur quidem numquam libero? Cupiditate eligendi suscipit rerum ea beatae? Laborum, sint deleniti dolor ratione officiis assumenda cumque vero et nemo sunt id earum eum quis accusantium, ea fugiat blanditiis, nostrum aliquid.</p>
+                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Modi itaque delectus incidunt? Ipsum expedita, facilis incidunt quos quisquam quasi dolorem voluptatibus vel libero ab explicabo harum illo inventore perspiciatis cumque. Nam, repellat! Aliquid omnis rem magni ab unde iste id quaerat. Minima, quam ad repudiandae illum reprehenderit autem repellat maiores quidem accusantium numquam neque velit quos blanditiis! Officia vitae earum, eum architecto aut recusandae corrupti accusamus amet molestias repellendus commodi perferendis ab aliquam aperiam iusto facilis mollitia quas possimus reprehenderit tenetur repellat maiores eligendi. Iste dignissimos dolorum ullam accusantium repudiandae ea, ratione corporis tenetur asperiores provident, deleniti sapiente corrupti incidunt.</p>
+                <p></p>
+            </div>
+        </div>
+        
+        <div *ngIf="section == 'all-sections' || section == 'telescope-total-reflectance-transmittance'">
+            <h2 class="subtitle is-5">Total Reflectance/Transmittance</h2>
+            <div class="content">
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste molestias quibusdam est ullam quisquam? Perspiciatis inventore neque totam consectetur quidem numquam libero? Cupiditate eligendi suscipit rerum ea beatae? Laborum, sint deleniti dolor ratione officiis assumenda cumque vero et nemo sunt id earum eum quis accusantium, ea fugiat blanditiis, nostrum aliquid.</p>
+                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Modi itaque delectus incidunt? Ipsum expedita, facilis incidunt quos quisquam quasi dolorem voluptatibus vel libero ab explicabo harum illo inventore perspiciatis cumque. Nam, repellat! Aliquid omnis rem magni ab unde iste id quaerat. Minima, quam ad repudiandae illum reprehenderit autem repellat maiores quidem accusantium numquam neque velit quos blanditiis! Officia vitae earum, eum architecto aut recusandae corrupti accusamus amet molestias repellendus commodi perferendis ab aliquam aperiam iusto facilis mollitia quas possimus reprehenderit tenetur repellat maiores eligendi. Iste dignissimos dolorum ullam accusantium repudiandae ea, ratione corporis tenetur asperiores provident, deleniti sapiente corrupti incidunt.</p>
+                <p></p>
+            </div>
         </div>
     </div>
 </section>
 
-<section class="section" *ngIf="section == 'all-sections' || section == 'telescopes-aperture'">
+<section class="section" *ngIf="section == 'all-sections' || (section == 'camera-overview' || section == 'camera-pixel-size' || section == 'camera-read-noise' || section == 'camera-dark-current' || section == 'camera-quantum-efficiency')">
     <div class="container">
-        <h2 class="subtitle is-6">Aperture</h2>
-        <div class="content">
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste molestias quibusdam est ullam quisquam? Perspiciatis inventore neque totam consectetur quidem numquam libero? Cupiditate eligendi suscipit rerum ea beatae? Laborum, sint deleniti dolor ratione officiis assumenda cumque vero et nemo sunt id earum eum quis accusantium, ea fugiat blanditiis, nostrum aliquid.</p>
-            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Modi itaque delectus incidunt? Ipsum expedita, facilis incidunt quos quisquam quasi dolorem voluptatibus vel libero ab explicabo harum illo inventore perspiciatis cumque. Nam, repellat! Aliquid omnis rem magni ab unde iste id quaerat. Minima, quam ad repudiandae illum reprehenderit autem repellat maiores quidem accusantium numquam neque velit quos blanditiis! Officia vitae earum, eum architecto aut recusandae corrupti accusamus amet molestias repellendus commodi perferendis ab aliquam aperiam iusto facilis mollitia quas possimus reprehenderit tenetur repellat maiores eligendi. Iste dignissimos dolorum ullam accusantium repudiandae ea, ratione corporis tenetur asperiores provident, deleniti sapiente corrupti incidunt.</p>
+        <h1 class="title is-4">Camera</h1>
+
+        <div *ngIf="section == 'all-sections' || section == 'camera-overview'">
+            <h2 class="subtitle is-5">Overview</h2>
+            <div class="content">
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus, quaerat, ipsam nobis eum autem cumque optio, saepe aliquid officia amet expedita consequatur quam laborum aspernatur. Voluptate saepe minus nostrum reiciendis, neque voluptas non dolor perspiciatis quod nemo consequatur, illum dicta cupiditate ipsam molestias provident obcaecati culpa sunt dolorem. Temporibus autem velit unde perspiciatis optio aspernatur nesciunt illum animi quia assumenda voluptatum minus explicabo officiis praesentium aut, ratione, neque rem pariatur obcaecati nam delectus eos veritatis. Placeat rerum odit in voluptate ratione veritatis. Quod repudiandae similique, vel doloribus ratione fuga dolorum corporis itaque officia! Sit placeat magni iste magnam exercitationem. Nostrum.</p>
+                <p></p>
+            </div>
+        </div>
+
+        <div *ngIf="section == 'all-sections' || section == 'camera-pixel-size'">
+            <h2 class="subtitle is-5">Pixel Size</h2>
+            <div class="content">
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste molestias quibusdam est ullam quisquam? Perspiciatis inventore neque totam consectetur quidem numquam libero? Cupiditate eligendi suscipit rerum ea beatae? Laborum, sint deleniti dolor ratione officiis assumenda cumque vero et nemo sunt id earum eum quis accusantium, ea fugiat blanditiis, nostrum aliquid.</p>
+                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Modi itaque delectus incidunt? Ipsum expedita, facilis incidunt quos quisquam quasi dolorem voluptatibus vel libero ab explicabo harum illo inventore perspiciatis cumque. Nam, repellat! Aliquid omnis rem magni ab unde iste id quaerat. Minima, quam ad repudiandae illum reprehenderit autem repellat maiores quidem accusantium numquam neque velit quos blanditiis! Officia vitae earum, eum architecto aut recusandae corrupti accusamus amet molestias repellendus commodi perferendis ab aliquam aperiam iusto facilis mollitia quas possimus reprehenderit tenetur repellat maiores eligendi. Iste dignissimos dolorum ullam accusantium repudiandae ea, ratione corporis tenetur asperiores provident, deleniti sapiente corrupti incidunt.</p>
+                <p></p>
+            </div>
+        </div>
+        
+        <div *ngIf="section == 'all-sections' || section == 'camera-read-noise'">
+            <h2 class="subtitle is-5">Read Noise</h2>
+            <div class="content">
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste molestias quibusdam est ullam quisquam? Perspiciatis inventore neque totam consectetur quidem numquam libero? Cupiditate eligendi suscipit rerum ea beatae? Laborum, sint deleniti dolor ratione officiis assumenda cumque vero et nemo sunt id earum eum quis accusantium, ea fugiat blanditiis, nostrum aliquid.</p>
+                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Modi itaque delectus incidunt? Ipsum expedita, facilis incidunt quos quisquam quasi dolorem voluptatibus vel libero ab explicabo harum illo inventore perspiciatis cumque. Nam, repellat! Aliquid omnis rem magni ab unde iste id quaerat. Minima, quam ad repudiandae illum reprehenderit autem repellat maiores quidem accusantium numquam neque velit quos blanditiis! Officia vitae earum, eum architecto aut recusandae corrupti accusamus amet molestias repellendus commodi perferendis ab aliquam aperiam iusto facilis mollitia quas possimus reprehenderit tenetur repellat maiores eligendi. Iste dignissimos dolorum ullam accusantium repudiandae ea, ratione corporis tenetur asperiores provident, deleniti sapiente corrupti incidunt.</p>
+                <p></p>
+            </div>
+        </div>
+        
+        <div *ngIf="section == 'all-sections' || section == 'camera-dark-current'">
+            <h2 class="subtitle is-5">Dark Current</h2>
+            <div class="content">
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste molestias quibusdam est ullam quisquam? Perspiciatis inventore neque totam consectetur quidem numquam libero? Cupiditate eligendi suscipit rerum ea beatae? Laborum, sint deleniti dolor ratione officiis assumenda cumque vero et nemo sunt id earum eum quis accusantium, ea fugiat blanditiis, nostrum aliquid.</p>
+                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Modi itaque delectus incidunt? Ipsum expedita, facilis incidunt quos quisquam quasi dolorem voluptatibus vel libero ab explicabo harum illo inventore perspiciatis cumque. Nam, repellat! Aliquid omnis rem magni ab unde iste id quaerat. Minima, quam ad repudiandae illum reprehenderit autem repellat maiores quidem accusantium numquam neque velit quos blanditiis! Officia vitae earum, eum architecto aut recusandae corrupti accusamus amet molestias repellendus commodi perferendis ab aliquam aperiam iusto facilis mollitia quas possimus reprehenderit tenetur repellat maiores eligendi. Iste dignissimos dolorum ullam accusantium repudiandae ea, ratione corporis tenetur asperiores provident, deleniti sapiente corrupti incidunt.</p>
+                <p></p>
+            </div>
+        </div>
+        
+        <div *ngIf="section == 'all-sections' || section == 'camera-quantum-efficiency'">
+            <h2 class="subtitle is-5">Quantum Efficiency</h2>
+            <div class="content">
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste molestias quibusdam est ullam quisquam? Perspiciatis inventore neque totam consectetur quidem numquam libero? Cupiditate eligendi suscipit rerum ea beatae? Laborum, sint deleniti dolor ratione officiis assumenda cumque vero et nemo sunt id earum eum quis accusantium, ea fugiat blanditiis, nostrum aliquid.</p>
+                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Modi itaque delectus incidunt? Ipsum expedita, facilis incidunt quos quisquam quasi dolorem voluptatibus vel libero ab explicabo harum illo inventore perspiciatis cumque. Nam, repellat! Aliquid omnis rem magni ab unde iste id quaerat. Minima, quam ad repudiandae illum reprehenderit autem repellat maiores quidem accusantium numquam neque velit quos blanditiis! Officia vitae earum, eum architecto aut recusandae corrupti accusamus amet molestias repellendus commodi perferendis ab aliquam aperiam iusto facilis mollitia quas possimus reprehenderit tenetur repellat maiores eligendi. Iste dignissimos dolorum ullam accusantium repudiandae ea, ratione corporis tenetur asperiores provident, deleniti sapiente corrupti incidunt.</p>
+                <p></p>
+            </div>
         </div>
     </div>
 </section>
 
-<section class="section" *ngIf="section == 'all-sections' || section == 'telescopes-focal-length'">
+<section class="section" *ngIf="section == 'all-sections' || (section == 'observatory-overview' || section == 'observatory-bortle-class' || section == 'observatory-sky-brightness')">
     <div class="container">
-        <h2 class="subtitle is-6">Focal Length</h2>
-        <div class="content">
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste molestias quibusdam est ullam quisquam? Perspiciatis inventore neque totam consectetur quidem numquam libero? Cupiditate eligendi suscipit rerum ea beatae? Laborum, sint deleniti dolor ratione officiis assumenda cumque vero et nemo sunt id earum eum quis accusantium, ea fugiat blanditiis, nostrum aliquid.</p>
-            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Modi itaque delectus incidunt? Ipsum expedita, facilis incidunt quos quisquam quasi dolorem voluptatibus vel libero ab explicabo harum illo inventore perspiciatis cumque. Nam, repellat! Aliquid omnis rem magni ab unde iste id quaerat. Minima, quam ad repudiandae illum reprehenderit autem repellat maiores quidem accusantium numquam neque velit quos blanditiis! Officia vitae earum, eum architecto aut recusandae corrupti accusamus amet molestias repellendus commodi perferendis ab aliquam aperiam iusto facilis mollitia quas possimus reprehenderit tenetur repellat maiores eligendi. Iste dignissimos dolorum ullam accusantium repudiandae ea, ratione corporis tenetur asperiores provident, deleniti sapiente corrupti incidunt.</p>
+        <h1 class="title is-4">Observatory</h1>
+
+        <div *ngIf="section == 'all-sections' || section == 'observatory-overview'">
+            <h2 class="subtitle is-5">Overview</h2>
+            <div class="content">
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus, quaerat, ipsam nobis eum autem cumque optio, saepe aliquid officia amet expedita consequatur quam laborum aspernatur. Voluptate saepe minus nostrum reiciendis, neque voluptas non dolor perspiciatis quod nemo consequatur, illum dicta cupiditate ipsam molestias provident obcaecati culpa sunt dolorem. Temporibus autem velit unde perspiciatis optio aspernatur nesciunt illum animi quia assumenda voluptatum minus explicabo officiis praesentium aut, ratione, neque rem pariatur obcaecati nam delectus eos veritatis. Placeat rerum odit in voluptate ratione veritatis. Quod repudiandae similique, vel doloribus ratione fuga dolorum corporis itaque officia! Sit placeat magni iste magnam exercitationem. Nostrum.</p>
+                <p></p>
+            </div>
+        </div>
+
+        <div *ngIf="section == 'all-sections' || section == 'observatory-bortle-class'">
+            <h2 class="subtitle is-5">Bortle Class</h2>
+            <div class="content">
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste molestias quibusdam est ullam quisquam? Perspiciatis inventore neque totam consectetur quidem numquam libero? Cupiditate eligendi suscipit rerum ea beatae? Laborum, sint deleniti dolor ratione officiis assumenda cumque vero et nemo sunt id earum eum quis accusantium, ea fugiat blanditiis, nostrum aliquid.</p>
+                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Modi itaque delectus incidunt? Ipsum expedita, facilis incidunt quos quisquam quasi dolorem voluptatibus vel libero ab explicabo harum illo inventore perspiciatis cumque. Nam, repellat! Aliquid omnis rem magni ab unde iste id quaerat. Minima, quam ad repudiandae illum reprehenderit autem repellat maiores quidem accusantium numquam neque velit quos blanditiis! Officia vitae earum, eum architecto aut recusandae corrupti accusamus amet molestias repellendus commodi perferendis ab aliquam aperiam iusto facilis mollitia quas possimus reprehenderit tenetur repellat maiores eligendi. Iste dignissimos dolorum ullam accusantium repudiandae ea, ratione corporis tenetur asperiores provident, deleniti sapiente corrupti incidunt.</p>
+                <p></p>
+            </div>
+        </div>
+        
+        <div *ngIf="section == 'all-sections' || section == 'observatory-sky-brightness'">
+            <h2 class="subtitle is-5">Sky Brightness</h2>
+            <div class="content">
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste molestias quibusdam est ullam quisquam? Perspiciatis inventore neque totam consectetur quidem numquam libero? Cupiditate eligendi suscipit rerum ea beatae? Laborum, sint deleniti dolor ratione officiis assumenda cumque vero et nemo sunt id earum eum quis accusantium, ea fugiat blanditiis, nostrum aliquid.</p>
+                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Modi itaque delectus incidunt? Ipsum expedita, facilis incidunt quos quisquam quasi dolorem voluptatibus vel libero ab explicabo harum illo inventore perspiciatis cumque. Nam, repellat! Aliquid omnis rem magni ab unde iste id quaerat. Minima, quam ad repudiandae illum reprehenderit autem repellat maiores quidem accusantium numquam neque velit quos blanditiis! Officia vitae earum, eum architecto aut recusandae corrupti accusamus amet molestias repellendus commodi perferendis ab aliquam aperiam iusto facilis mollitia quas possimus reprehenderit tenetur repellat maiores eligendi. Iste dignissimos dolorum ullam accusantium repudiandae ea, ratione corporis tenetur asperiores provident, deleniti sapiente corrupti incidunt.</p>
+                <p></p>
+            </div>
         </div>
     </div>
 </section>
 
-<section class="section" *ngIf="section == 'all-sections' || section == 'telescopes-central-obstruction'">
+<section class="section" *ngIf="section == 'all-sections' || (section == 'calculate-overview')">
     <div class="container">
-        <h2 class="subtitle is-6">Central Obstruction</h2>
-        <div class="content">
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste molestias quibusdam est ullam quisquam? Perspiciatis inventore neque totam consectetur quidem numquam libero? Cupiditate eligendi suscipit rerum ea beatae? Laborum, sint deleniti dolor ratione officiis assumenda cumque vero et nemo sunt id earum eum quis accusantium, ea fugiat blanditiis, nostrum aliquid.</p>
-            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Modi itaque delectus incidunt? Ipsum expedita, facilis incidunt quos quisquam quasi dolorem voluptatibus vel libero ab explicabo harum illo inventore perspiciatis cumque. Nam, repellat! Aliquid omnis rem magni ab unde iste id quaerat. Minima, quam ad repudiandae illum reprehenderit autem repellat maiores quidem accusantium numquam neque velit quos blanditiis! Officia vitae earum, eum architecto aut recusandae corrupti accusamus amet molestias repellendus commodi perferendis ab aliquam aperiam iusto facilis mollitia quas possimus reprehenderit tenetur repellat maiores eligendi. Iste dignissimos dolorum ullam accusantium repudiandae ea, ratione corporis tenetur asperiores provident, deleniti sapiente corrupti incidunt.</p>
-        </div>
-    </div>
-</section>
+        <h1 class="title is-4">Calculate</h1>
 
-<section class="section" *ngIf="section == 'all-sections' || section == 'telescopes-total-reflectance-transmittance'">
-    <div class="container">
-        <h2 class="subtitle is-6">Total Reflectance/Transmittance</h2>
-        <div class="content">
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste molestias quibusdam est ullam quisquam? Perspiciatis inventore neque totam consectetur quidem numquam libero? Cupiditate eligendi suscipit rerum ea beatae? Laborum, sint deleniti dolor ratione officiis assumenda cumque vero et nemo sunt id earum eum quis accusantium, ea fugiat blanditiis, nostrum aliquid.</p>
-            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Modi itaque delectus incidunt? Ipsum expedita, facilis incidunt quos quisquam quasi dolorem voluptatibus vel libero ab explicabo harum illo inventore perspiciatis cumque. Nam, repellat! Aliquid omnis rem magni ab unde iste id quaerat. Minima, quam ad repudiandae illum reprehenderit autem repellat maiores quidem accusantium numquam neque velit quos blanditiis! Officia vitae earum, eum architecto aut recusandae corrupti accusamus amet molestias repellendus commodi perferendis ab aliquam aperiam iusto facilis mollitia quas possimus reprehenderit tenetur repellat maiores eligendi. Iste dignissimos dolorum ullam accusantium repudiandae ea, ratione corporis tenetur asperiores provident, deleniti sapiente corrupti incidunt.</p>
+        <div *ngIf="section == 'all-sections' || section == 'calculate-overview'">
+            <h2 class="subtitle is-5">Overview</h2>
+            <div class="content">
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus, quaerat, ipsam nobis eum autem cumque optio, saepe aliquid officia amet expedita consequatur quam laborum aspernatur. Voluptate saepe minus nostrum reiciendis, neque voluptas non dolor perspiciatis quod nemo consequatur, illum dicta cupiditate ipsam molestias provident obcaecati culpa sunt dolorem. Temporibus autem velit unde perspiciatis optio aspernatur nesciunt illum animi quia assumenda voluptatum minus explicabo officiis praesentium aut, ratione, neque rem pariatur obcaecati nam delectus eos veritatis. Placeat rerum odit in voluptate ratione veritatis. Quod repudiandae similique, vel doloribus ratione fuga dolorum corporis itaque officia! Sit placeat magni iste magnam exercitationem. Nostrum.</p>
+                <p></p>
+            </div>
         </div>
     </div>
 </section>

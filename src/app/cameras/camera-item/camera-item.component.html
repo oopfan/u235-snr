@@ -9,25 +9,77 @@
         <div class="columns">
             <div class="column">
                 <label>Pixel&nbsp;size&nbsp;<span class="is-size-7">(um)</span></label>
-                <input type="text" class="input is-small" [value]="pixelSize" (input)="onChangePixelSize($event.target.value)" />
+                <div class="level">
+                    <div class="level-left">
+                        <div class="left-item">
+                            <div class="field has-addons">
+                                <div class="control">
+                                    <input type="text" class="input is-small" [value]="pixelSize" (input)="onChangePixelSize($event.target.value)" />
+                                </div>
+                                <div class="control">
+                                    <a class="tag is-link" [routerLink]="['/help', 'camera-pixel-size']">Help</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="columns">
             <div class="column">
                 <label>Read&nbsp;noise&nbsp;<span class="is-size-7">(e-)</span></label>
-                <input type="text" class="input is-small" [value]="readNoise" (input)="onChangeReadNoise($event.target.value)" />
+                <div class="level">
+                    <div class="level-left">
+                        <div class="left-item">
+                            <div class="field has-addons">
+                                <div class="control">
+                                    <input type="text" class="input is-small" [value]="readNoise" (input)="onChangeReadNoise($event.target.value)" />
+                                </div>
+                                <div class="control">
+                                    <a class="tag is-link" [routerLink]="['/help', 'camera-read-noise']">Help</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="columns">
             <div class="column">
                 <label>Dark&nbsp;current&nbsp;<span class="is-size-7">(e-/s)</span></label>
-                <input type="text" class="input is-small" [value]="darkCurrent" (input)="onChangeDarkCurrent($event.target.value)" />
+                <div class="level">
+                    <div class="level-left">
+                        <div class="left-item">
+                            <div class="field has-addons">
+                                <div class="control">
+                                    <input type="text" class="input is-small" [value]="darkCurrent" (input)="onChangeDarkCurrent($event.target.value)" />
+                                </div>
+                                <div class="control">
+                                    <a class="tag is-link" [routerLink]="['/help', 'camera-dark-current']">Help</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="columns">
             <div class="column">
                 <label>Quantum&nbsp;efficiency&nbsp;<span class="is-size-7">(%)</span></label>
-                <input type="text" class="input is-small" [value]="quantumEfficiency" (input)="onChangeQuantumEfficiency($event.target.value)" />
+                <div class="level">
+                    <div class="level-left">
+                        <div class="left-item">
+                            <div class="field has-addons">
+                                <div class="control">
+                                    <input type="text" class="input is-small" [value]="quantumEfficiency" (input)="onChangeQuantumEfficiency($event.target.value)" />
+                                </div>
+                                <div class="control">
+                                    <a class="tag is-link" [routerLink]="['/help', 'camera-quantum-efficiency']">Help</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
