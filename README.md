@@ -1,4 +1,4 @@
-# u235-snrcalc
+# u235-snr
 Astrophotography Signal-to-Noise (SNR) Tool.
 
 See it in action [here](https://snrcalc.now.sh) at Zeit.
