@@ -120,7 +120,8 @@ export class UserTelescopeService {
       !isNaN(item.aperture) && item.aperture > 0 && 
       !isNaN(item.focalLength) && item.focalLength > 0 && 
       !isNaN(item.centralObstruction) && item.centralObstruction >= 0 &&
-      !isNaN(item.totalReflectanceTransmittance) && item.totalReflectanceTransmittance >= 0 && item.totalReflectanceTransmittance <= 1
+      !isNaN(item.totalReflectanceTransmittance) && item.totalReflectanceTransmittance >= 0 && item.totalReflectanceTransmittance <= 1 &&
+      item.centralObstruction < item.aperture
       );
   }
 
