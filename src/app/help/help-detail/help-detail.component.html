@@ -27,16 +27,16 @@
                     Determining the value of <i>Surface Brightness</i> is an art form. I use these three reliable sources:
                 </p>
                 <p>
-                    <a href="http://knightware.biz/" target="blank">Deep Sky Planner 7</a> directly offers Surface Brightness in units
+                    <a href="http://knightware.biz/" target="blank">Deep Sky Planner 7</a> offers Surface Brightness in units
                     compatible with our web application (i.e. <i>magnitudes per square arc-second</i>) but the software is Windows-only
                     and must be purchased.
                 </p>
                 <p>
-                    <a href="https://www.ap-i.net/skychart/en/start" target="blank">Cartes du Ciel (aka SkyChart)</a> also directly
-                    offers Surface Brightness. <i>Cartes du Ciel</i> is freeware planetarium software that provides distributions for
+                    <a href="https://www.ap-i.net/skychart/en/start" target="blank">Cartes du Ciel (aka SkyChart)</a> also
+                    offers Surface Brightness. It is freeware planetarium software that provides distributions for
                     Linux, Mac, Raspberry Pi, as well as Windows. <b>Note</b>: I recommend using <i>SAC</i> settings, not <i>ONGC</i>.
                     Select <i>Setup -> Catalog</i> then click on the <i>CdC deep sky</i> tab. Click the radio button for <i>SAC</i>.
-                    You will need to add 8.9 to SAC's <i>Surface Brightness</i> in order to convert it to the proper units.
+                    You will need to <b>add 8.9 to SAC's <i>Surface Brightness</i></b> in order to convert it to the proper units.
                 </p>
                 <p>
                     <a href="http://www.astrosurf.com/c2a/english/index.htm" target="blank">Computer Aided Astronomy (C2A)</a> does not
@@ -47,16 +47,16 @@
                 <p>
                     <b>Further Note</b>: All of the aforementioned sources offer <i>Magnitude</i>, <i>Major Axis</i>, and <i>Minor Axis</i>.
                     I recommend running those numbers through our <i>Surface Brightness Calculator</i> and then comparing it to the source's
-                    value, if the source provides one. Sometimes they disagree. One option is to take the average but I will leave that up to
-                    you to be optimistic or pessimistic. My only concern is that you will pass an opportunity because the integration time
+                    value. Sometimes they disagree. One option is to take the average but I will leave that up to you whether to be optimistic
+                    or pessimistic. My only concern is that you will pass up an opportunity because the integration time
                     looks too long. If the target is interesting it might be worthwhile to accept a lower SNR image than no image at all.
                 </p>
                 <p>
                     Now to the definition of <i>Surface Brightness</i>. Visualize a galaxy. Its core is the brightest,
                     followed by the arms, and then the elusive galactic halo. Now, imagine squeezing all of those photons from all areas
                     into a tiny area the size of a single star. (Technically the size is 1 square arc-second.) How bright
-                    would it be? Surprisingly bright. The Andromeda Galaxy (M31) is <i>magnitude</i> 3.4 which would make it easily
-                    visible from the center of most large cities but the fact of the matter is all of those photons are spread out over
+                    would it be? Surprisingly bright. The Andromeda Galaxy (M31) would be <i>magnitude</i> 3.4 which would make it easily
+                    visible from the center of most large cities but the fact of the matter is that all of those photons are spread out over
                     a very large area, so because of that it is impossible to see M31 from New York City with the naked eye.
                 </p>
                 <p>
@@ -84,8 +84,8 @@
             <h2 class="subtitle is-5">Surface Brightness Calculator</h2>
             <div class="content">
                 <p>
-                    In case your information provider does not directly offer the value of <i>Surface Brightness</i> you can use this
-                    calculator, provided that you are given <i>Magnitude</i>, <i>Major Axis</i>, and <i>Minor Axis</i>.
+                    In case your information provider does not offer <i>Surface Brightness</i> you can use this
+                    calculator provided that you are given <i>Magnitude</i>, <i>Major Axis</i>, and <i>Minor Axis</i>.
                 </p>
                 <p>
                     Click the <i>SHOW CALCULATOR</i> button to reveal it, and then enter the three input values. A blue box will descend
@@ -110,13 +110,13 @@
             <h3 class="subtitle is-6">Major and Minor Axis</h3>
             <div class="content">
                 <p>
-                    By convention the ellipse is used to model a target's shape. An ellipse can be described by two properties: major axis
-                    and minor axis. It is similar in a way to a rectangle's width and height except that ellipses have curved edges.
+                    By convention an ellipse is used to model a target's shape. An ellipse can be described by two properties: major axis
+                    and minor axis. It is similar to a rectangle's width and height except that an ellipse has a curved perimeter.
                 </p>
                 <p>
                     The units of measurement are angular, specifically arc-minutes. The Surface Brightness Calculator requires arc-minutes
                     so make sure that your information provider is giving you values in arc-minutes. Unless it is spelled out a single
-                    apostrophe denotes arc-minutes whereas a double apostrophe, better known as quote marks, denotes arc-seconds. Galaxies
+                    apostrophe denotes arc-minutes whereas a double apostrophe denotes arc-seconds. Galaxies
                     are almost always quoted in arc-minutes but a lot of planetary nebulae are in arc-seconds. Be sure to divide arc-seconds
                     by 60 in order to convert it to arc-minutes.
                 </p>
@@ -427,11 +427,11 @@
     </div>
 </section>
 
-<section class="section" *ngIf="section == 'all-sections'">
+<section class="section" *ngIf="section == 'all-sections' || (section == 'open-star-clusters')">
     <div class="container">
-        <h1 class="title is-4">Advanced Techniques: Open Star Clusters</h1>
+        <h1 class="title is-4">Advanced Technique: Open Star Clusters</h1>
 
-        <div *ngIf="section == 'all-sections'">
+        <div *ngIf="section == 'all-sections' || (section == 'open-star-clusters')">
             <h2 class="subtitle is-5">Overview</h2>
             <div class="content">
                 <p>
@@ -450,7 +450,7 @@
             <div class="content">
                 <p>
                     <b>Step 1</b>: Calculate the dynamic range of your camera. There is a formula for this:
-                    <i>2.5 * LOG10(Full Well Depth / Read Noise)</i>. For example the Full Well Depth (FWD) of my
+                    <i>2.5 * LOG10 (Full Well Depth / Read Noise)</i>. For example the Full Well Depth (FWD) of my
                     camera is 13400 electrons and the Read Noise is 5.3 electrons. Therefore the dynamic range is
                     8.5 magnitudes.
                 </p>

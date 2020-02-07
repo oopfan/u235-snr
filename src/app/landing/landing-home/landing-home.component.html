@@ -5,7 +5,7 @@
 
         <div class="content">
             <p>
-                Many of us view the incredible images by Top Imagers on AstroBin and wonder to ourselves can I achieve the same?
+                Many of us view the incredible images by Top Imagers at AstroBin and wonder to ourselves can I achieve the same?
                 There are many factors that need to be considered but the short answer is <b>We don't stack nearly enough</b>
                 but how much is enough?
             </p>
@@ -16,12 +16,12 @@
             <p>
                 As you know some deep-sky objects (what I call Targets) are brighter than others. The bright ones don't confound us
                 as much as the faint ones. The stressful part is that we know that the faint ones require more stacking but will
-                it take 5 hours, 10 hours or more? Are my equipment and skies good enough or should I just pass on it?
+                it take 5 hours, 10 hours or more? Are my skies and equipment good enough or should I just pass on it?
             </p>
             <p>
-                I highly recommend starting by reading the <a routerLink="/help">Help document</a>. It takes at most
-                15 minutes to read but it gives you a good foundation. Plus there is a section on advanced techniques for imaging
-                Open Star Clusters.
+                I highly recommend reading the <a routerLink="/help">Help document</a>. It takes 15 minutes to read
+                but it gives you a good foundation. Plus there is a section on advanced techniques for imaging
+                <a [routerLink]="['/help', 'open-star-clusters']">Open Star Clusters</a>.
             </p>
             <p>
                 It's all about the total signal-to-noise ratio of the final, stacked image. Here are some useful goals for different
@@ -38,10 +38,10 @@
                 <b>Advanced</b> imagers should go for SNR 30+.
             </p>
             <p>
-                Be creative! Don't settle for your current everyday seeing conditions. Take your equipment on the road. If you live
-                near city lights with Bortle 7 conditions, see what impact Bortle 4 has on your total integration time. You will
-                be pleasantly surprised. Also, please consider using this tool before making radically new telescope or camera
-                purchases. Avoid disappointment.
+                Be creative! Don't settle for your current everyday seeing conditions. Using this web application you can take your
+                equipment on the road. If you live near city lights with Bortle 7 conditions, see what impact Bortle 4 has on your
+                total integration time. You will be pleasantly surprised. Also, consider using this tool before making radically
+                new telescope or camera purchases. Avoid disappointment.
             </p>
             <p></p>
         </div>
@@ -49,17 +49,17 @@
         <h2 class="subtitle is-5">About this Web Application</h2>
         <div class="content">
             <p>
-                This is a Single Page Application (SPA). This means that it exists and runs in your browser's memory space so that
-                the user interface is highly responsive. Furthermore I've designed it so that it never needs to access the web server
-                again. The benefit is that you can travel with it on your smartphone or notebook to places where internet access is
+                This is a single page application which means that it exists and runs in your browser's memory so that
+                the user interface is highly responsive. Moreover I've designed it so that it never needs to access the web server
+                again. The benefit is that you can travel with it on your smartphone to places where internet access is
                 non-existent. Just keep your browser tab alive and don't hit the refresh button.
             </p>
             <p>
                 This application requires storage for when you enter details about your telescope, camera, observatory, and
                 targets. Conventional web applications write data to a database through the web server but since that violates my
-                design goal I chose to write it to <i>browser local storage</i> on your smartphone or notebook. The disadvantage of
-                this technique is that your data is accessible only from that browser on that device; you are not able to move to
-                another computer without having to re-enter the information.
+                design goal I chose to write it to <i>browser local storage</i>. The disadvantage of this technique is that your
+                data is accessible only from that browser on that device; you are not able to move to another computer without
+                having to re-enter information.
             </p>
             <p>
                 This is an open source project with the source code available at GitHub. See the footer for more details.
