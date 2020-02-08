@@ -28,8 +28,8 @@ export class CalculatorSnrComponent implements OnInit, OnDestroy {
 
   totalIntegrationTime = '5';
   singleSubExposure = '120';
-  signalToNoiseRatio = 'n/a';
-  frameCount = "n/a";
+  signalToNoiseRatio: number;
+  frameCount: number;
   
   private targetEventsSubscription: Subscription;
   private telescopeEventsSubscription: Subscription;
@@ -38,8 +38,8 @@ export class CalculatorSnrComponent implements OnInit, OnDestroy {
 
   calculateSNR() {
     const result = this.calculationService.calculateSNR(this.targetObj, this.telescopeObj, this.cameraObj, this.observatoryObj, this.totalIntegrationTime, this.singleSubExposure);
-    this.signalToNoiseRatio = result.totalSignalToNoiseOfStack.toString();
-    this.frameCount = result.numberOfSubs.toString();
+    this.signalToNoiseRatio = result.totalSignalToNoiseOfStack;
+    this.frameCount = Math.ceil(result.numberOfSubs);
   }
 
   constructor(

@@ -16,11 +16,11 @@
     <div class="column">
         <div class="control">
             <label>Total&nbsp;integration&nbsp;time&nbsp;<span class="is-size-7">(hours)&nbsp;</span></label>
-            <input type="text" [value]="totalIntegrationTime" readonly />
+            {{ totalIntegrationTime | number: '1.1-2' }}
         </div>
         <div class="control">
             <label>Number&nbsp;of&nbsp;subs&nbsp;</label>
-            <input type="text" [value]="frameCount" readonly />
+            {{ frameCount | number: '1.0-0' }}
         </div>
     </div>
 </div>

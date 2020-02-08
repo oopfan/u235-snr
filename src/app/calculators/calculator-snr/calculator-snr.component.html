@@ -16,11 +16,11 @@
     <div class="column">
         <div class="control">
             <label>Total&nbsp;signal-to-noise&nbsp;of&nbsp;stack&nbsp;</label>
-            <input type="text" [value]="signalToNoiseRatio" readonly />
+            {{ signalToNoiseRatio | number: '1.1-1' }}
         </div>
         <div class="control">
             <label>Number&nbsp;of&nbsp;subs&nbsp;</label>
-            <input type="text" [value]="frameCount" readonly />
+            {{ frameCount | number: '1.0-0' }}
         </div>
     </div>
 </div>

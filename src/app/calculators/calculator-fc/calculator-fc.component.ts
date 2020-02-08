@@ -28,8 +28,8 @@ export class CalculatorFcComponent implements OnInit, OnDestroy {
 
   signalToNoiseRatio = '25';
   singleSubExposure = '120';
-  totalIntegrationTime = 'n/a';
-  frameCount = 'n/a';
+  totalIntegrationTime: number;
+  frameCount: number;
 
   private targetEventsSubscription: Subscription;
   private telescopeEventsSubscription: Subscription;
@@ -38,8 +38,8 @@ export class CalculatorFcComponent implements OnInit, OnDestroy {
 
   calculateFC() {
     const result = this.calculationService.calculateFC(this.targetObj, this.telescopeObj, this.cameraObj, this.observatoryObj, this.signalToNoiseRatio, this.singleSubExposure);
-    this.totalIntegrationTime = result.totalIntegrationTime.toString();
-    this.frameCount = result.numberOfSubs.toString();
+    this.totalIntegrationTime = result.totalIntegrationTime;
+    this.frameCount = Math.ceil(result.numberOfSubs);
   }
 
   getTarget() {
