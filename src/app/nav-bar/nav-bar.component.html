@@ -1,7 +1,7 @@
 <nav class="navbar is-fixed-top is-dark" role="navigation" aria-label="main navigation">
     <div class="container">
         <div class="navbar-brand">
-            <a class="navbar-item" routerLink="/home">
+            <a class="navbar-item" routerLink="/home" routerLinkActive="is-active">
                 U235+SNR
             </a>
             <div class="navbar-burger burger" (click)="onClickBurger()" [ngClass]="{'is-active': toggleBurger}">
@@ -12,24 +12,24 @@
         </div>
         <div class="navbar-menu" [ngClass]="{'is-active': toggleBurger}">
             <div class="navbar-start">
-                <a class="navbar-item" routerLink="/targets">
+                <a class="navbar-item" routerLink="/targets" routerLinkActive="is-active">
                     <span class="is-size-7">Targets</span>
                 </a>
-                <a class="navbar-item" routerLink="/telescopes">
+                <a class="navbar-item" routerLink="/telescopes" routerLinkActive="is-active">
                     <span class="is-size-7">Telescopes</span>
                 </a>
-                <a class="navbar-item" routerLink="/cameras">
+                <a class="navbar-item" routerLink="/cameras" routerLinkActive="is-active">
                     <span class="is-size-7">Cameras</span>
                 </a>
-                <a class="navbar-item" routerLink="/observatories">
+                <a class="navbar-item" routerLink="/observatories" routerLinkActive="is-active">
                     <span class="is-size-7">Observatories</span>
                 </a>
-                <a class="navbar-item" routerLink="/calculators">
+                <a class="navbar-item" routerLink="/calculators" routerLinkActive="is-active">
                     <span class="is-size-7">Calculate!</span>
                 </a>
             </div>
             <div class="navbar-end">
-                <a class="navbar-item" routerLink="/help">
+                <a class="navbar-item" routerLink="/help" routerLinkActive="is-active">
                     <span class="is-size-7">Help</span>
                 </a>
             </div>
