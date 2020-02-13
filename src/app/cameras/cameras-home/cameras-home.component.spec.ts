@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 
 import { CamerasHomeComponent } from './cameras-home.component';
+import { routes } from '../cameras-routing.module';
 
 describe('CamerasHomeComponent', () => {
   let component: CamerasHomeComponent;
@@ -8,6 +10,7 @@ describe('CamerasHomeComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [RouterTestingModule.withRoutes(routes)],
       declarations: [ CamerasHomeComponent ]
     })
     .compileComponents();

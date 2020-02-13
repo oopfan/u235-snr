@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { TargetsHomeComponent } from './targets-home/targets-home.component';
 import { LocalStorageGuard } from 'src/app/shared/local-storage-guard';
 
-const routes: Routes = [
+export const routes: Routes = [
   { path: 'targets', component: TargetsHomeComponent, canActivate: [LocalStorageGuard] }
 ];
 

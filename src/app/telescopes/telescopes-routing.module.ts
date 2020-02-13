@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { TelescopesHomeComponent } from './telescopes-home/telescopes-home.component';
 import { LocalStorageGuard } from 'src/app/shared/local-storage-guard';
 
-const routes: Routes = [
+export const routes: Routes = [
   { path: 'telescopes', component: TelescopesHomeComponent, canActivate: [LocalStorageGuard] }
 ];
 

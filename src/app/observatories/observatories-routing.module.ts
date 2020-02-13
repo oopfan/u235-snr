@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { ObservatoriesHomeComponent } from './observatories-home/observatories-home.component';
 import { LocalStorageGuard } from 'src/app/shared/local-storage-guard';
 
-const routes: Routes = [
+export const routes: Routes = [
   { path: 'observatories', component: ObservatoriesHomeComponent, canActivate: [LocalStorageGuard] }
 ];
 
