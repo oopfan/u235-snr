@@ -1,6 +1,6 @@
 {
   "name": "u235-snr",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Astrophotography Signal-to-Noise (SNR) Tool",
   "author": "Brian Morgan",
   "license": "MIT",
