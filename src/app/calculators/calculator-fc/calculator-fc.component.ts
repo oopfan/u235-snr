@@ -6,6 +6,37 @@ import { UserCameraService } from 'src/app/services/user-camera.service';
 import { UserObservatoryService } from 'src/app/services/user-observatory.service';
 import { CalculationService } from 'src/app/services/calculation.service';
 
+interface TargetParsed {
+  id: number,
+  name: string,
+  surfaceBrightness: number
+}
+
+interface TelescopeParsed {
+  id: number,
+  name: string,
+  aperture: number,
+  focalLength: number,
+  centralObstruction: number,
+  totalReflectanceTransmittance: number
+}
+
+interface CameraParsed {
+  id: number,
+  name: string,
+  pixelSize: number,
+  readNoise: number,
+  darkCurrent: number,
+  quantumEfficiency: number
+}
+
+interface ObservatoryParsed {
+  id: number,
+  name: string,
+  bortleClass: string,
+  skyBrightness: number
+}
+
 @Component({
   selector: 'app-calculator-fc',
   templateUrl: './calculator-fc.component.html',
@@ -21,10 +52,10 @@ export class CalculatorFcComponent implements OnInit, OnDestroy {
   @Input() cameraEvents: Observable<string>;
   @Input() observatoryEvents: Observable<string>;
   
-  targetObj = null;
-  telescopeObj = null;
-  cameraObj = null;
-  observatoryObj = null;
+  targetObj: TargetParsed = null;
+  telescopeObj: TelescopeParsed = null;
+  cameraObj: CameraParsed = null;
+  observatoryObj: ObservatoryParsed = null;
 
   signalToNoiseRatio = '25';
   singleSubExposure = '120';
@@ -37,25 +68,51 @@ export class CalculatorFcComponent implements OnInit, OnDestroy {
   private observatoryEventsSubscription: Subscription;
 
   calculateFC() {
-    const result = this.calculationService.calculateFC(this.targetObj, this.telescopeObj, this.cameraObj, this.observatoryObj, this.signalToNoiseRatio, this.singleSubExposure);
-    this.totalIntegrationTime = result.totalIntegrationTime;
-    this.frameCount = Math.ceil(result.numberOfSubs);
+    if (this.targetObj && this.telescopeObj && this.cameraObj && this.observatoryObj) {
+      const result = this.calculationService.calculateFC(this.targetObj, this.telescopeObj, this.cameraObj, this.observatoryObj, this.signalToNoiseRatio, this.singleSubExposure);
+      this.totalIntegrationTime = result.totalIntegrationTime;
+      this.frameCount = Math.ceil(result.numberOfSubs);
+    }
   }
 
   getTarget() {
-    this.targetObj = this.targetService.parseItems(this.targetService.getItem(this.targetId))[0];
+    const id = parseInt(this.targetId);
+    if (!isNaN(id)) {
+      this.targetObj = this.targetService.parseItems(this.targetService.getItem(id))[0];
+    }
+    else {
+      this.targetObj = null;
+    }
   }
 
   getTelescope() {
-    this.telescopeObj = this.telescopeService.parseItems(this.telescopeService.getItem(this.telescopeId))[0];
+    const id = parseInt(this.telescopeId);
+    if (!isNaN(id)) {
+      this.telescopeObj = this.telescopeService.parseItems(this.telescopeService.getItem(id))[0];
+    }
+    else {
+      this.telescopeObj = null;
+    }
   }
 
   getCamera() {
-    this.cameraObj = this.cameraService.parseItems(this.cameraService.getItem(this.cameraId))[0];
+    const id = parseInt(this.cameraId);
+    if (!isNaN(id)) {
+      this.cameraObj = this.cameraService.parseItems(this.cameraService.getItem(id))[0];
+    }
+    else {
+      this.cameraObj = null;
+    }
   }
 
   getObservatory() {
-    this.observatoryObj = this.observatoryService.parseItems(this.observatoryService.getItem(this.observatoryId))[0];
+    const id = parseInt(this.observatoryId);
+    if (!isNaN(id)) {
+      this.observatoryObj = this.observatoryService.parseItems(this.observatoryService.getItem(id))[0];
+    }
+    else {
+      this.observatoryObj = null;
+    }
   }
 
   constructor(
@@ -72,33 +129,53 @@ export class CalculatorFcComponent implements OnInit, OnDestroy {
     this.getObservatory();
     this.calculateFC();
 
-    this.targetEventsSubscription = this.targetEvents.subscribe((targetId: string) => {
-      this.targetId = targetId;
-      this.getTarget();
-      this.calculateFC();
-    });
-    this.telescopeEventsSubscription = this.telescopeEvents.subscribe((telescopeId: string) => {
-      this.telescopeId = telescopeId;
-      this.getTelescope();
-      this.calculateFC();
-    });
-    this.cameraEventsSubscription = this.cameraEvents.subscribe((cameraId: string) => {
-      this.cameraId = cameraId;
-      this.getCamera();
-      this.calculateFC();
-    });
-    this.observatoryEventsSubscription = this.observatoryEvents.subscribe((observatoryId: string) => {
-      this.observatoryId = observatoryId;
-      this.getObservatory();
-      this.calculateFC();
-    });
+    if (this.targetEvents) {
+      this.targetEventsSubscription = this.targetEvents.subscribe((targetId: string) => {
+        this.targetId = targetId;
+        this.getTarget();
+        this.calculateFC();
+      });
+    }
+
+    if (this.telescopeEvents) {
+      this.telescopeEventsSubscription = this.telescopeEvents.subscribe((telescopeId: string) => {
+        this.telescopeId = telescopeId;
+        this.getTelescope();
+        this.calculateFC();
+      });
+    }
+
+    if (this.cameraEvents) {
+      this.cameraEventsSubscription = this.cameraEvents.subscribe((cameraId: string) => {
+        this.cameraId = cameraId;
+        this.getCamera();
+        this.calculateFC();
+      });
+    }
+
+    if (this.observatoryEvents) {
+      this.observatoryEventsSubscription = this.observatoryEvents.subscribe((observatoryId: string) => {
+        this.observatoryId = observatoryId;
+        this.getObservatory();
+        this.calculateFC();
+      });
+    }
+
   }
 
   ngOnDestroy() {
-    this.targetEventsSubscription.unsubscribe();
-    this.telescopeEventsSubscription.unsubscribe();
-    this.cameraEventsSubscription.unsubscribe();
-    this.observatoryEventsSubscription.unsubscribe();
+    if (this.targetEventsSubscription) {
+      this.targetEventsSubscription.unsubscribe();
+    }
+    if (this.telescopeEventsSubscription) {
+      this.telescopeEventsSubscription.unsubscribe();
+    }
+    if (this.cameraEventsSubscription) {
+      this.cameraEventsSubscription.unsubscribe();
+    }
+    if (this.observatoryEventsSubscription) {
+      this.observatoryEventsSubscription.unsubscribe();
+    }
   }
 
   onChangeSignalToNoiseRatio(value: string) {

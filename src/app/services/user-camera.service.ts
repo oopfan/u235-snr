@@ -1,11 +1,34 @@
 import { Injectable } from '@angular/core';
 import { LocalStorageService, LocalStorage } from 'angular-web-storage';
 
+interface CameraStored {
+  id: number,
+  name: string,
+  pixelSize: string,
+  readNoise: string,
+  darkCurrent: string,
+  quantumEfficiency: string
+}
+
+interface CameraParsed {
+  id: number,
+  name: string,
+  pixelSize: number,
+  readNoise: number,
+  darkCurrent: number,
+  quantumEfficiency: number
+}
+
+interface CameraCache {
+  nextid: number,
+  list: Array<CameraStored>
+}
+
 @Injectable({
   providedIn: 'root'
 })
 export class UserCameraService {
-  cache = null;
+  cache: CameraCache = null;
 
   constructor(private storage: LocalStorageService) { }
 
@@ -62,38 +85,38 @@ export class UserCameraService {
     this.cache = isOK ? obj : { list: [], nextid: 0 };
   }
 
-  discard() {
+  discard(): void {
     this.init();
   }
 
-  sort() {
+  sort(): void {
     if (!this.cache) {
       this.init();
     }
-    this.cache.list.sort((a: any, b: any) => a.name.localeCompare(b.name));
+    this.cache.list.sort((a: CameraStored, b: CameraStored) => a.name.localeCompare(b.name));
     this.storage.set('userCameras', this.cache);
   }
 
-  saveAll() {
+  saveAll(): void {
     if (!this.cache) {
       this.init();
     }
     this.storage.set('userCameras', this.cache);
   }
 
-  getAll() {
+  getAll(): Array<CameraStored> {
     if (!this.cache) {
       this.init();
     }
     return this.cache.list;
   }
 
-  getItem(id: string) {
+  getItem(id: number): Array<CameraStored> {
     if (!this.cache) {
       this.init();
     }
-    const index = this.cache.list.findIndex((element: any) => {
-      return element.id == id;
+    const index = this.cache.list.findIndex((element: CameraStored) => {
+      return element.id === id;
     });
     if (index >= 0) {
       const obj = this.cache.list[index];
@@ -102,8 +125,8 @@ export class UserCameraService {
     return [];
   }
 
-  parseItems(items: any) {
-    return items.map((item: any) => {
+  parseItems(items: Array<CameraStored>): Array<CameraParsed> {
+    return items.map((item: CameraStored) => {
       return {
         id: item.id,
         name: item.name,
@@ -115,7 +138,7 @@ export class UserCameraService {
     });
   }
 
-  validate = (item: any) => {
+  validate = (item: CameraParsed): boolean => {
     return (
       !isNaN(item.pixelSize) && item.pixelSize > 0 &&
       !isNaN(item.readNoise) && item.readNoise >= 0 &&
@@ -124,25 +147,25 @@ export class UserCameraService {
     );
   }
 
-  create(name: string, pixelSize: string, readNoise:string, darkCurrent:string, quantumEfficiency:string) {
+  create(name: string, pixelSize: string, readNoise:string, darkCurrent:string, quantumEfficiency:string): Array<CameraStored> {
     if (!this.cache) {
       this.init();
     }
     const id = this.cache.nextid++;
-    const obj = { id, name, pixelSize, readNoise, darkCurrent, quantumEfficiency };
+    const obj: CameraStored = { id, name, pixelSize, readNoise, darkCurrent, quantumEfficiency };
     this.cache.list.unshift(obj);
     return [ obj ];
   }
 
-  update(id: number, name: string, pixelSize: string, readNoise:string, darkCurrent:string, quantumEfficiency:string) {
+  update(id: number, name: string, pixelSize: string, readNoise:string, darkCurrent:string, quantumEfficiency:string): Array<CameraStored> {
     if (!this.cache) {
       this.init();
     }
-    const index = this.cache.list.findIndex((element: any) => {
+    const index = this.cache.list.findIndex((element: CameraStored) => {
       return element.id === id;
     });
     if (index >= 0) {
-      const obj = this.cache.list[index];
+      const obj: CameraStored = this.cache.list[index];
       obj.name = name;
       obj.pixelSize = pixelSize;
       obj.readNoise = readNoise;
@@ -154,11 +177,11 @@ export class UserCameraService {
     return [];
   }
 
-  delete(id: number) {
+  delete(id: number): Array<CameraStored> {
     if (!this.cache) {
       this.init();
     }
-    const index = this.cache.list.findIndex((element: any) => {
+    const index = this.cache.list.findIndex((element: CameraStored) => {
       return element.id === id;
     });
     if (index >= 0) {

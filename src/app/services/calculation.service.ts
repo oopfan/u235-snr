@@ -1,5 +1,36 @@
 import { Injectable } from '@angular/core';
 
+interface TargetParsed {
+  id: number,
+  name: string,
+  surfaceBrightness: number
+}
+
+interface TelescopeParsed {
+  id: number,
+  name: string,
+  aperture: number,
+  focalLength: number,
+  centralObstruction: number,
+  totalReflectanceTransmittance: number
+}
+
+interface CameraParsed {
+  id: number,
+  name: string,
+  pixelSize: number,
+  readNoise: number,
+  darkCurrent: number,
+  quantumEfficiency: number
+}
+
+interface ObservatoryParsed {
+  id: number,
+  name: string,
+  bortleClass: string,
+  skyBrightness: number
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -7,9 +38,9 @@ export class CalculationService {
 
   constructor() { }
 
-  calculateFC(targetObj: any, telescopeObj: any, cameraObj: any, observatoryObj: any, totalSignalToNoiseOfStack: any, singleSubExposure: any) {
+  calculateFC(targetObj: TargetParsed, telescopeObj: TelescopeParsed, cameraObj: CameraParsed, observatoryObj: ObservatoryParsed, totalSignalToNoiseOfStack: any, singleSubExposure: any) {
     let totalIntegrationTime = 0;
-    let result = this.calculateSNR(targetObj,telescopeObj, cameraObj, observatoryObj, totalIntegrationTime, singleSubExposure);
+    let result = this.calculateSNR(targetObj, telescopeObj, cameraObj, observatoryObj, totalIntegrationTime, singleSubExposure);
     let error1 = result.totalSignalToNoiseOfStack - totalSignalToNoiseOfStack;
     //console.log(error1);
     let endpointA = totalIntegrationTime;
@@ -54,7 +85,7 @@ export class CalculationService {
     return { totalIntegrationTime: Number.NaN, numberOfSubs: Number.NaN };
   }
 
-  calculateSNR(targetObj: any, telescopeObj: any, cameraObj: any, observatoryObj: any, totalIntegrationTime: any, singleSubExposure: any) {
+  calculateSNR(targetObj: TargetParsed, telescopeObj: TelescopeParsed, cameraObj: CameraParsed, observatoryObj: ObservatoryParsed, totalIntegrationTime: any, singleSubExposure: any) {
     const mag0flux = 879000;  // photons per second per cm^2 of magnitude 0 standard star
     const totalExposureSeconds = totalIntegrationTime * 3600;
     const numberOfSubs = totalExposureSeconds / singleSubExposure;
@@ -73,7 +104,13 @@ export class CalculationService {
     const totalNoisePerSub = Math.sqrt(cameraObj.readNoise * cameraObj.readNoise + shotNoise * shotNoise + skyNoise * skyNoise + darkNoise * darkNoise);
     const signalToNoisePerSub = targetElectronsPerSub / totalNoisePerSub;
     const totalSignalToNoiseOfStack = signalToNoisePerSub * Math.sqrt(numberOfSubs);
+
+    return { totalSignalToNoiseOfStack, numberOfSubs };
     /*
+    console.log('Target', targetObj);
+    console.log('Telescope', telescopeObj);
+    console.log('Camera', cameraObj);
+    console.log('Observatory', observatoryObj);
     console.log(`\nTarget: ${targetObj.name}`);
     console.log(`Telescope: ${telescopeObj.name}`);
     console.log(`Camera: ${cameraObj.name}`);
@@ -98,6 +135,5 @@ export class CalculationService {
     console.log(`Signal-to-noise per sub: ${signalToNoisePerSub}`);
     console.log(`Total signal-to-noise of stack: ${totalSignalToNoiseOfStack}`);
     */
-    return { totalSignalToNoiseOfStack, numberOfSubs };
   }
 }

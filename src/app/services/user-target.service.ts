@@ -1,11 +1,28 @@
 import { Injectable } from '@angular/core';
 import { LocalStorageService, LocalStorage } from 'angular-web-storage';
 
+interface TargetStored {
+  id: number,
+  name: string,
+  surfaceBrightness: string
+}
+
+interface TargetParsed {
+  id: number,
+  name: string,
+  surfaceBrightness: number
+}
+
+interface TargetCache {
+  nextid: number,
+  list: Array<TargetStored>
+}
+
 @Injectable({
   providedIn: 'root'
 })
 export class UserTargetService {
-  cache = null;
+  cache: TargetCache = null;
 
   constructor(private storage: LocalStorageService) { }
 
@@ -47,38 +64,38 @@ export class UserTargetService {
     this.cache = isOK ? obj : { list: [], nextid: 0 };
   }
 
-  discard() {
+  discard(): void {
     this.init();
   }
 
-  sort() {
+  sort(): void {
     if (!this.cache) {
       this.init();
     }
-    this.cache.list.sort((a: any, b: any) => a.name.localeCompare(b.name));
+    this.cache.list.sort((a: TargetStored, b: TargetStored) => a.name.localeCompare(b.name));
     this.storage.set('userTargets', this.cache);
   }
 
-  saveAll() {
+  saveAll(): void {
     if (!this.cache) {
       this.init();
     }
     this.storage.set('userTargets', this.cache);
   }
 
-  getAll() {
+  getAll(): Array<TargetStored> {
     if (!this.cache) {
       this.init();
     }
     return this.cache.list;
   }
 
-  getItem(id: string) {
+  getItem(id: number): Array<TargetStored> {
     if (!this.cache) {
       this.init();
     }
-    const index = this.cache.list.findIndex((element: any) => {
-      return element.id == id;
+    const index = this.cache.list.findIndex((element: TargetStored) => {
+      return element.id === id;
     });
     if (index >= 0) {
       const obj = this.cache.list[index];
@@ -87,8 +104,8 @@ export class UserTargetService {
     return [];
   }
 
-  parseItems = (items: any) => {
-    return items.map((item: any) => {
+  parseItems = (items: Array<TargetStored>): Array<TargetParsed> => {
+    return items.map((item: TargetStored) => {
       return {
         id: item.id,
         name: item.name,
@@ -97,7 +114,7 @@ export class UserTargetService {
     });
   }
 
-  validate = (item: any) => {
+  validate = (item: TargetParsed): boolean => {
     return !isNaN(item.surfaceBrightness);
   }
 
@@ -106,7 +123,7 @@ export class UserTargetService {
       this.init();
     }
     const id = this.cache.nextid++;
-    const obj = { id, name, surfaceBrightness };
+    const obj: TargetStored = { id, name, surfaceBrightness };
     this.cache.list.unshift(obj);
     return [ obj ];
   }
@@ -115,11 +132,11 @@ export class UserTargetService {
     if (!this.cache) {
       this.init();
     }
-    const index = this.cache.list.findIndex((element: any) => {
+    const index = this.cache.list.findIndex((element: TargetStored) => {
       return element.id === id;
     });
     if (index >= 0) {
-      const obj = this.cache.list[index];
+      const obj: TargetStored = this.cache.list[index];
       obj.name = name;
       obj.surfaceBrightness = surfaceBrightness;
       this.cache.list[index] = obj;
@@ -128,11 +145,11 @@ export class UserTargetService {
     return [];
   }
 
-  delete(id: number) {
+  delete(id: number): Array<TargetStored> {
     if (!this.cache) {
       this.init();
     }
-    const index = this.cache.list.findIndex((element: any) => {
+    const index = this.cache.list.findIndex((element: TargetStored) => {
       return element.id === id;
     });
     if (index >= 0) {

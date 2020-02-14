@@ -1,11 +1,30 @@
 import { Injectable } from '@angular/core';
 import { LocalStorageService, LocalStorage } from 'angular-web-storage';
 
+interface ObservatoryStored {
+  id: number,
+  name: string,
+  bortleClass: string,
+  skyBrightness: string
+}
+
+interface ObservatoryParsed {
+  id: number,
+  name: string,
+  bortleClass: string,
+  skyBrightness: number
+}
+
+interface ObservatoryCache {
+  nextid: number,
+  list: Array<ObservatoryStored>
+}
+
 @Injectable({
   providedIn: 'root'
 })
 export class UserObservatoryService {
-  cache = null;
+  cache: ObservatoryCache = null;
 
   constructor(private storage: LocalStorageService) { }
 
@@ -52,38 +71,38 @@ export class UserObservatoryService {
     this.cache = isOK ? obj : { list: [], nextid: 0 };
   }
 
-  discard() {
+  discard(): void {
     this.init();
   }
 
-  sort() {
+  sort(): void {
     if (!this.cache) {
       this.init();
     }
-    this.cache.list.sort((a: any, b: any) => a.name.localeCompare(b.name));
+    this.cache.list.sort((a: ObservatoryStored, b: ObservatoryStored) => a.name.localeCompare(b.name));
     this.storage.set('userObservatories', this.cache);
   }
 
-  saveAll() {
+  saveAll(): void {
     if (!this.cache) {
       this.init();
     }
     this.storage.set('userObservatories', this.cache);
   }
 
-  getAll() {
+  getAll(): Array<ObservatoryStored> {
     if (!this.cache) {
       this.init();
     }
     return this.cache.list;
   }
 
-  getItem(id: string) {
+  getItem(id: number): Array<ObservatoryStored> {
     if (!this.cache) {
       this.init();
     }
-    const index = this.cache.list.findIndex((element: any) => {
-      return element.id == id;
+    const index = this.cache.list.findIndex((element: ObservatoryStored) => {
+      return element.id === id;
     });
     if (index >= 0) {
       const obj = this.cache.list[index];
@@ -92,8 +111,8 @@ export class UserObservatoryService {
     return [];
   }
 
-  parseItems(items: any) {
-    return items.map((item: any) => {
+  parseItems(items: Array<ObservatoryStored>): Array<ObservatoryParsed> {
+    return items.map((item: ObservatoryStored) => {
       return {
         id: item.id,
         name: item.name,
@@ -103,31 +122,31 @@ export class UserObservatoryService {
     });
   }
 
-  validate = (item: any) => {
+  validate = (item: ObservatoryParsed): boolean => {
     return (
       !isNaN(item.skyBrightness)
     );
   }
 
-  create(name: string, bortleClass: string, skyBrightness:string) {
+  create(name: string, bortleClass: string, skyBrightness:string): Array<ObservatoryStored> {
     if (!this.cache) {
       this.init();
     }
     const id = this.cache.nextid++;
-    const obj = { id, name, bortleClass, skyBrightness };
+    const obj: ObservatoryStored = { id, name, bortleClass, skyBrightness };
     this.cache.list.unshift(obj);
     return [ obj ];
   }
 
-  update(id: number, name: string, bortleClass: string, skyBrightness: string) {
+  update(id: number, name: string, bortleClass: string, skyBrightness: string): Array<ObservatoryStored> {
     if (!this.cache) {
       this.init();
     }
-    const index = this.cache.list.findIndex((element: any) => {
+    const index = this.cache.list.findIndex((element: ObservatoryStored) => {
       return element.id === id;
     });
     if (index >= 0) {
-      const obj = this.cache.list[index];
+      const obj: ObservatoryStored = this.cache.list[index];
       obj.name = name;
       obj.bortleClass = bortleClass;
       obj.skyBrightness = skyBrightness;
@@ -137,11 +156,11 @@ export class UserObservatoryService {
     return [];
   }
 
-  delete(id: number) {
+  delete(id: number): Array<ObservatoryStored> {
     if (!this.cache) {
       this.init();
     }
-    const index = this.cache.list.findIndex((element: any) => {
+    const index = this.cache.list.findIndex((element: ObservatoryStored) => {
       return element.id === id;
     });
     if (index >= 0) {

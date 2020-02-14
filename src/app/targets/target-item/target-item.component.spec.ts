@@ -1,8 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 import { TargetItemComponent } from './target-item.component';
-import { routes } from '../targets-routing.module';
 
 describe('TargetItemComponent', () => {
   let component: TargetItemComponent;
@@ -10,7 +10,8 @@ describe('TargetItemComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [RouterTestingModule.withRoutes(routes)],
+      imports: [RouterTestingModule],
+      schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
       declarations: [ TargetItemComponent ]
     })
     .compileComponents();

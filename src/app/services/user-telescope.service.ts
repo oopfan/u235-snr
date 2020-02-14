@@ -1,15 +1,38 @@
 import { Injectable } from '@angular/core';
 import { LocalStorageService, LocalStorage } from 'angular-web-storage';
 
+interface TelescopeStored {
+  id: number,
+  name: string,
+  aperture: string,
+  focalLength: string,
+  centralObstruction: string,
+  totalReflectanceTransmittance: string
+}
+
+interface TelescopeParsed {
+  id: number,
+  name: string,
+  aperture: number,
+  focalLength: number,
+  centralObstruction: number,
+  totalReflectanceTransmittance: number
+}
+
+interface TelescopeCache {
+  nextid: number,
+  list: Array<TelescopeStored>
+}
+
 @Injectable({
   providedIn: 'root'
 })
 export class UserTelescopeService {
-  cache = null;
+  cache: TelescopeCache = null;
 
   constructor(private storage: LocalStorageService) { }
 
-  private init() {
+  private init(): void {
     // get what is in local storage:
     const obj = this.storage.get('userTelescopes');
     // make sure its structure is compatible with downstream code:
@@ -62,38 +85,38 @@ export class UserTelescopeService {
     this.cache = isOK ? obj : { list: [], nextid: 0 };
   }
 
-  discard() {
+  discard(): void {
     this.init();
   }
 
-  sort() {
+  sort(): void {
     if (!this.cache) {
       this.init();
     }
-    this.cache.list.sort((a: any, b: any) => a.name.localeCompare(b.name));
+    this.cache.list.sort((a: TelescopeStored, b: TelescopeStored) => a.name.localeCompare(b.name));
     this.storage.set('userTelescopes', this.cache);
   }
 
-  saveAll() {
+  saveAll(): void {
     if (!this.cache) {
       this.init();
     }
     this.storage.set('userTelescopes', this.cache);
   }
 
-  getAll() {
+  getAll(): Array<TelescopeStored> {
     if (!this.cache) {
       this.init();
     }
     return this.cache.list;
   }
 
-  getItem(id: string) {
+  getItem(id: number): Array<TelescopeStored> {
     if (!this.cache) {
       this.init();
     }
-    const index = this.cache.list.findIndex((element: any) => {
-      return element.id == id;
+    const index = this.cache.list.findIndex((element: TelescopeStored) => {
+      return element.id === id;
     });
     if (index >= 0) {
       const obj = this.cache.list[index];
@@ -102,8 +125,8 @@ export class UserTelescopeService {
     return [];
   }
 
-  parseItems(items: any) {
-    return items.map((item: any) => {
+  parseItems(items: Array<TelescopeStored>): Array<TelescopeParsed> {
+    return items.map((item: TelescopeStored) => {
       return {
         id: item.id,
         name: item.name,
@@ -115,7 +138,7 @@ export class UserTelescopeService {
     });
   }
 
-  validate = (item: any) => {
+  validate = (item: TelescopeParsed): boolean => {
     return (
       !isNaN(item.aperture) && item.aperture > 0 && 
       !isNaN(item.focalLength) && item.focalLength > 0 && 
@@ -125,25 +148,25 @@ export class UserTelescopeService {
       );
   }
 
-  create(name: string, aperture: string, focalLength: string, centralObstruction: string, totalReflectanceTransmittance: string) {
+  create(name: string, aperture: string, focalLength: string, centralObstruction: string, totalReflectanceTransmittance: string): Array<TelescopeStored> {
     if (!this.cache) {
       this.init();
     }
     const id = this.cache.nextid++;
-    const obj = { id, name, aperture, focalLength, centralObstruction, totalReflectanceTransmittance };
+    const obj: TelescopeStored = { id, name, aperture, focalLength, centralObstruction, totalReflectanceTransmittance };
     this.cache.list.unshift(obj);
     return [ obj ];
   }
 
-  update(id: number, name: string, aperture: string, focalLength: string, centralObstruction: string, totalReflectanceTransmittance: string) {
+  update(id: number, name: string, aperture: string, focalLength: string, centralObstruction: string, totalReflectanceTransmittance: string): Array<TelescopeStored> {
     if (!this.cache) {
       this.init();
     }
-    const index = this.cache.list.findIndex((element: any) => {
+    const index = this.cache.list.findIndex((element: TelescopeStored) => {
       return element.id === id;
     });
     if (index >= 0) {
-      const obj = this.cache.list[index];
+      const obj: TelescopeStored = this.cache.list[index];
       obj.name = name;
       obj.aperture = aperture;
       obj.focalLength = focalLength;
@@ -155,11 +178,11 @@ export class UserTelescopeService {
     return [];
   }
 
-  delete(id: number) {
+  delete(id: number): Array<TelescopeStored> {
     if (!this.cache) {
       this.init();
     }
-    const index = this.cache.list.findIndex((element: any) => {
+    const index = this.cache.list.findIndex((element: TelescopeStored) => {
       return element.id === id;
     });
     if (index >= 0) {
