@@ -10,18 +10,18 @@ interface TelescopeStored {
   totalReflectanceTransmittance: string
 }
 
-interface TelescopeParsed {
+interface TelescopeCache {
+  nextid: number,
+  list: Array<TelescopeStored>
+}
+
+export interface TelescopeParsed {
   id: number,
   name: string,
   aperture: number,
   focalLength: number,
   centralObstruction: number,
   totalReflectanceTransmittance: number
-}
-
-interface TelescopeCache {
-  nextid: number,
-  list: Array<TelescopeStored>
 }
 
 @Injectable({

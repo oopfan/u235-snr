@@ -1,41 +1,10 @@
 import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { Subscription, Observable } from 'rxjs';
-import { UserTargetService } from 'src/app/services/user-target.service';
-import { UserTelescopeService } from 'src/app/services/user-telescope.service';
-import { UserCameraService } from 'src/app/services/user-camera.service';
-import { UserObservatoryService } from 'src/app/services/user-observatory.service';
+import { UserTargetService, TargetParsed } from 'src/app/services/user-target.service';
+import { UserTelescopeService, TelescopeParsed } from 'src/app/services/user-telescope.service';
+import { UserCameraService, CameraParsed } from 'src/app/services/user-camera.service';
+import { UserObservatoryService, ObservatoryParsed } from 'src/app/services/user-observatory.service';
 import { CalculationService } from 'src/app/services/calculation.service';
-
-interface TargetParsed {
-  id: number,
-  name: string,
-  surfaceBrightness: number
-}
-
-interface TelescopeParsed {
-  id: number,
-  name: string,
-  aperture: number,
-  focalLength: number,
-  centralObstruction: number,
-  totalReflectanceTransmittance: number
-}
-
-interface CameraParsed {
-  id: number,
-  name: string,
-  pixelSize: number,
-  readNoise: number,
-  darkCurrent: number,
-  quantumEfficiency: number
-}
-
-interface ObservatoryParsed {
-  id: number,
-  name: string,
-  bortleClass: string,
-  skyBrightness: number
-}
 
 @Component({
   selector: 'app-calculator-fc',

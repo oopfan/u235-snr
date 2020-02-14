@@ -1,12 +1,10 @@
 import { TestBed } from '@angular/core/testing';
 
 import { CalculationService } from './calculation.service';
-
-interface TargetParsed {
-  id: number,
-  name: string,
-  surfaceBrightness: number
-}
+import { TargetParsed } from './user-target.service';
+import { TelescopeParsed } from './user-telescope.service';
+import { CameraParsed } from './user-camera.service';
+import { ObservatoryParsed } from './user-observatory.service';
 
 function createTarget(surfaceBrightness: number): TargetParsed {
   return {
@@ -14,15 +12,6 @@ function createTarget(surfaceBrightness: number): TargetParsed {
     name: 'n/a',
     surfaceBrightness
   };
-}
-
-interface TelescopeParsed {
-  id: number,
-  name: string,
-  aperture: number,
-  focalLength: number,
-  centralObstruction: number,
-  totalReflectanceTransmittance: number
 }
 
 function createTelescope(aperture: number, focalLength: number, centralObstruction: number, totalReflectanceTransmittance: number): TelescopeParsed {
@@ -36,15 +25,6 @@ function createTelescope(aperture: number, focalLength: number, centralObstructi
   };
 }
 
-interface CameraParsed {
-  id: number,
-  name: string,
-  pixelSize: number,
-  readNoise: number,
-  darkCurrent: number,
-  quantumEfficiency: number
-}
-
 function createCamera(pixelSize: number, readNoise: number, darkCurrent: number, quantumEfficiency: number): CameraParsed {
   return {
     id: 0,
@@ -54,13 +34,6 @@ function createCamera(pixelSize: number, readNoise: number, darkCurrent: number,
     darkCurrent,
     quantumEfficiency
   };
-}
-
-interface ObservatoryParsed {
-  id: number,
-  name: string,
-  bortleClass: string,
-  skyBrightness: number
 }
 
 function createObservatory(skyBrightness: number): ObservatoryParsed {
@@ -85,10 +58,16 @@ describe('CalculationService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should have correct SNR for M51, WO71, A314E, Bortle5, 2.5TIT, 180s', () => {
+  it('should calculate SNR 14.85 for M51, WO71, A314E, Bortle5, 2.5h, 180s', () => {
     const service: CalculationService = TestBed.get(CalculationService);
     const result = service.calculateSNR(M51, WO71, A314E, Bortle5, 2.5, 180);
     expect(result.totalSignalToNoiseOfStack).toBeCloseTo(14.85, 2);
+  });
+
+  it('should calculate 7.09h for M51, WO71, A314E, Bortle5, SNR 25, 180s', () => {
+    const service: CalculationService = TestBed.get(CalculationService);
+    const result = service.calculateFC(M51, WO71, A314E, Bortle5, 25, 180);
+    expect(result.totalIntegrationTime).toBeCloseTo(7.09, 2);
   });
 
 });

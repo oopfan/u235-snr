@@ -7,15 +7,15 @@ interface TargetStored {
   surfaceBrightness: string
 }
 
-interface TargetParsed {
-  id: number,
-  name: string,
-  surfaceBrightness: number
-}
-
 interface TargetCache {
   nextid: number,
   list: Array<TargetStored>
+}
+
+export interface TargetParsed {
+  id: number,
+  name: string,
+  surfaceBrightness: number
 }
 
 @Injectable({

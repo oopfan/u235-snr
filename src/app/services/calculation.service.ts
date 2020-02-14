@@ -1,35 +1,8 @@
 import { Injectable } from '@angular/core';
-
-interface TargetParsed {
-  id: number,
-  name: string,
-  surfaceBrightness: number
-}
-
-interface TelescopeParsed {
-  id: number,
-  name: string,
-  aperture: number,
-  focalLength: number,
-  centralObstruction: number,
-  totalReflectanceTransmittance: number
-}
-
-interface CameraParsed {
-  id: number,
-  name: string,
-  pixelSize: number,
-  readNoise: number,
-  darkCurrent: number,
-  quantumEfficiency: number
-}
-
-interface ObservatoryParsed {
-  id: number,
-  name: string,
-  bortleClass: string,
-  skyBrightness: number
-}
+import { TargetParsed } from './user-target.service';
+import { TelescopeParsed } from './user-telescope.service';
+import { CameraParsed } from './user-camera.service';
+import { ObservatoryParsed } from './user-observatory.service';
 
 @Injectable({
   providedIn: 'root'

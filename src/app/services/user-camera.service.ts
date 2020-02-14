@@ -10,18 +10,18 @@ interface CameraStored {
   quantumEfficiency: string
 }
 
-interface CameraParsed {
+interface CameraCache {
+  nextid: number,
+  list: Array<CameraStored>
+}
+
+export interface CameraParsed {
   id: number,
   name: string,
   pixelSize: number,
   readNoise: number,
   darkCurrent: number,
   quantumEfficiency: number
-}
-
-interface CameraCache {
-  nextid: number,
-  list: Array<CameraStored>
 }
 
 @Injectable({

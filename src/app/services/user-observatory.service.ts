@@ -8,16 +8,16 @@ interface ObservatoryStored {
   skyBrightness: string
 }
 
-interface ObservatoryParsed {
+interface ObservatoryCache {
+  nextid: number,
+  list: Array<ObservatoryStored>
+}
+
+export interface ObservatoryParsed {
   id: number,
   name: string,
   bortleClass: string,
   skyBrightness: number
-}
-
-interface ObservatoryCache {
-  nextid: number,
-  list: Array<ObservatoryStored>
 }
 
 @Injectable({
