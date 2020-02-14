@@ -104,8 +104,8 @@ export class CalculationService {
     const totalNoisePerSub = Math.sqrt(cameraObj.readNoise * cameraObj.readNoise + shotNoise * shotNoise + skyNoise * skyNoise + darkNoise * darkNoise);
     const signalToNoisePerSub = targetElectronsPerSub / totalNoisePerSub;
     const totalSignalToNoiseOfStack = signalToNoisePerSub * Math.sqrt(numberOfSubs);
-
     return { totalSignalToNoiseOfStack, numberOfSubs };
+
     /*
     console.log('Target', targetObj);
     console.log('Telescope', telescopeObj);
