@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-help-home',
@@ -6,10 +7,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./help-home.component.css']
 })
 export class HelpHomeComponent implements OnInit {
+  section: string = "all-sections";
 
-  constructor() { }
+  constructor(private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
+    const section = this.activatedRoute.snapshot.paramMap.get('section');
+    if (section) {
+      this.section = section;
+    }
   }
 
 }
