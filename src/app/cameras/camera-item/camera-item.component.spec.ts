@@ -1,6 +1,4 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
-
 import { CameraItemComponent } from './camera-item.component';
 
 describe('CameraItemComponent', () => {
@@ -9,7 +7,6 @@ describe('CameraItemComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [RouterTestingModule],
       declarations: [ CameraItemComponent ]
     })
     .compileComponents();

@@ -1,4 +1,5 @@
 import { Title } from '@angular/platform-browser';
+import { Router } from "@angular/router";
 import { Component, OnInit } from '@angular/core';
 import { UserCameraService } from 'src/app/services/user-camera.service';
 
@@ -9,7 +10,7 @@ import { UserCameraService } from 'src/app/services/user-camera.service';
 })
 export class CamerasHomeComponent implements OnInit {
 
-  constructor(private titleService: Title, private cameraService: UserCameraService) { }
+  constructor(private titleService: Title, private router: Router, private cameraService: UserCameraService) { }
 
   cameras = [];
 
@@ -17,6 +18,10 @@ export class CamerasHomeComponent implements OnInit {
     this.titleService.setTitle('Cameras | U235+SNR');
     this.cameraService.sort();
     this.cameras = this.cameraService.getAll();
+  }
+
+  onHelp(section: string) {
+    this.router.navigate(['/help', section]);
   }
 
   onNew() {

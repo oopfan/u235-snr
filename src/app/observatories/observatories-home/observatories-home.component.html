@@ -7,7 +7,7 @@
                 </div>
                 <div class="level-item">
                     <div class="control">
-                        <a class="tag is-link" [routerLink]="['/help', 'observatory-overview']">Help</a>
+                        <a class="tag is-link" (click)="onHelp('observatory-overview')">Help</a>
                     </div>
                 </div>
             </div>
@@ -38,6 +38,7 @@
                     [name]="observatory.name"
                     [bortleClass]="observatory.bortleClass"
                     [skyBrightness]="observatory.skyBrightness"
+                    (notifyHelp)="onHelp($event)"
                     (notifySave)="onSave($event)"
                     (notifyDelete)="onDelete($event)"
                     (notifyUpdate)="onUpdate($event)">

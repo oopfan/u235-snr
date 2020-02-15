@@ -1,4 +1,5 @@
 import { Title } from '@angular/platform-browser';
+import { Router } from "@angular/router";
 import { Component, OnInit } from '@angular/core';
 import { UserTargetService } from 'src/app/services/user-target.service';
 
@@ -9,7 +10,7 @@ import { UserTargetService } from 'src/app/services/user-target.service';
 })
 export class TargetsHomeComponent implements OnInit {
 
-  constructor(private titleService: Title, private targetService: UserTargetService) { }
+  constructor(private titleService: Title, private router: Router, private targetService: UserTargetService) { }
 
   targets = [];
 
@@ -17,6 +18,10 @@ export class TargetsHomeComponent implements OnInit {
     this.titleService.setTitle('Targets | U235+SNR');
     this.targetService.sort();
     this.targets = this.targetService.getAll();
+  }
+
+  onHelp(section: string) {
+    this.router.navigate(['/help', section]);
   }
 
   onNew() {

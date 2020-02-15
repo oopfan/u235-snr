@@ -7,7 +7,7 @@
                 </div>
                 <div class="level-item">
                     <div class="control">
-                        <a class="tag is-link" [routerLink]="['/help', 'target-overview']">Help</a>
+                        <a class="tag is-link" (click)="onHelp('target-overview')">Help</a>
                     </div>
                 </div>
             </div>
@@ -37,6 +37,7 @@
                     [id]="target.id"
                     [name]="target.name"
                     [surfaceBrightness]="target.surfaceBrightness"
+                    (notifyHelp)="onHelp($event)"
                     (notifySave)="onSave($event)"
                     (notifyDelete)="onDelete($event)"
                     (notifyUpdate)="onUpdate($event)">

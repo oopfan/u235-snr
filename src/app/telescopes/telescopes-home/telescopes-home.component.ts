@@ -1,4 +1,5 @@
 import { Title } from '@angular/platform-browser';
+import { Router } from "@angular/router";
 import { Component, OnInit } from '@angular/core';
 import { UserTelescopeService } from 'src/app/services/user-telescope.service';
 
@@ -9,7 +10,7 @@ import { UserTelescopeService } from 'src/app/services/user-telescope.service';
 })
 export class TelescopesHomeComponent implements OnInit {
 
-  constructor(private titleService: Title, private telescopeService: UserTelescopeService) { }
+  constructor(private titleService: Title, private router: Router, private telescopeService: UserTelescopeService) { }
 
   telescopes = [];
 
@@ -17,6 +18,10 @@ export class TelescopesHomeComponent implements OnInit {
     this.titleService.setTitle('Telescopes | U235+SNR');
     this.telescopeService.sort();
     this.telescopes = this.telescopeService.getAll();
+  }
+
+  onHelp(section: string) {
+    this.router.navigate(['/help', section]);
   }
 
   onNew() {

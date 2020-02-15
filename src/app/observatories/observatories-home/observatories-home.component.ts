@@ -1,4 +1,5 @@
 import { Title } from '@angular/platform-browser';
+import { Router } from "@angular/router";
 import { Component, OnInit } from '@angular/core';
 import { UserObservatoryService } from 'src/app/services/user-observatory.service';
 
@@ -9,7 +10,7 @@ import { UserObservatoryService } from 'src/app/services/user-observatory.servic
 })
 export class ObservatoriesHomeComponent implements OnInit {
 
-  constructor(private titleService: Title, private observatoryService: UserObservatoryService) { }
+  constructor(private titleService: Title, private router: Router, private observatoryService: UserObservatoryService) { }
 
   observatories = [];
 
@@ -17,6 +18,10 @@ export class ObservatoriesHomeComponent implements OnInit {
     this.titleService.setTitle('Observatories | U235+SNR');
     this.observatoryService.sort();
     this.observatories = this.observatoryService.getAll();
+  }
+
+  onHelp(section: string) {
+    this.router.navigate(['/help', section]);
   }
 
   onNew() {

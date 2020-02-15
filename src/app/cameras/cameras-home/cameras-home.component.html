@@ -7,7 +7,7 @@
                 </div>
                 <div class="level-item">
                     <div class="control">
-                        <a class="tag is-link" [routerLink]="['/help', 'camera-overview']">Help</a>
+                        <a class="tag is-link" (click)="onHelp('camera-overview')">Help</a>
                     </div>
                 </div>
             </div>
@@ -40,6 +40,7 @@
                     [readNoise]="camera.readNoise"
                     [darkCurrent]="camera.darkCurrent"
                     [quantumEfficiency]="camera.quantumEfficiency"
+                    (notifyHelp)="onHelp($event)"
                     (notifySave)="onSave($event)"
                     (notifyDelete)="onDelete($event)"
                     (notifyUpdate)="onUpdate($event)">

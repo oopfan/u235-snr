@@ -17,7 +17,7 @@
                                     <input type="text" class="input is-small" [value]="surfaceBrightness" (input)="onChangeSurfaceBrightness($event.target.value)" required />
                                 </div>
                                 <div class="control">
-                                    <a class="tag is-link" [routerLink]="['/help', 'target-surface-brightness']">Help</a>
+                                    <a class="tag is-link" (click)="onHelp('target-surface-brightness')">Help</a>
                                 </div>
                             </div>
                         </div>

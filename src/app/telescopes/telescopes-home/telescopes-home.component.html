@@ -7,7 +7,7 @@
                 </div>
                 <div class="level-item">
                     <div class="control">
-                        <a class="tag is-link" [routerLink]="['/help', 'telescope-overview']">Help</a>
+                        <a class="tag is-link" (click)="onHelp('telescope-overview')">Help</a>
                     </div>
                 </div>
             </div>
@@ -40,6 +40,7 @@
                     [focalLength]="telescope.focalLength"
                     [centralObstruction]="telescope.centralObstruction"
                     [totalReflectanceTransmittance]="telescope.totalReflectanceTransmittance"
+                    (notifyHelp)="onHelp($event)"
                     (notifySave)="onSave($event)"
                     (notifyDelete)="onDelete($event)"
                     (notifyUpdate)="onUpdate($event)">

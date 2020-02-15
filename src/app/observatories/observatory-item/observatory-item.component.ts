@@ -10,6 +10,7 @@ export class ObservatoryItemComponent implements OnInit {
   @Input() name:string = '';
   @Input() bortleClass:string = '';
   @Input() skyBrightness:string = '';
+  @Output() notifyHelp:EventEmitter<string> = new EventEmitter();
   @Output() notifySave:EventEmitter<number> = new EventEmitter();
   @Output() notifyDelete:EventEmitter<number> = new EventEmitter();
   @Output() notifyUpdate:EventEmitter<object> = new EventEmitter();
@@ -44,6 +45,10 @@ export class ObservatoryItemComponent implements OnInit {
 
   onDelete() {
     this.notifyDelete.emit(this.id);
+  }
+
+  onHelp(section: string) {
+    this.notifyHelp.emit(section);
   }
 
   constructor() { }

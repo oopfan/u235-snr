@@ -9,6 +9,7 @@ export class TargetItemComponent implements OnInit {
   @Input() id:number = 0;
   @Input() name:string = '';
   @Input() surfaceBrightness:string = '';
+  @Output() notifyHelp:EventEmitter<string> = new EventEmitter();
   @Output() notifySave:EventEmitter<number> = new EventEmitter();
   @Output() notifyDelete:EventEmitter<number> = new EventEmitter();
   @Output() notifyUpdate:EventEmitter<object> = new EventEmitter();
@@ -49,6 +50,10 @@ export class TargetItemComponent implements OnInit {
 
   onDelete() {
     this.notifyDelete.emit(this.id);
+  }
+
+  onHelp(section: string) {
+    this.notifyHelp.emit(section);
   }
 
   constructor() { }

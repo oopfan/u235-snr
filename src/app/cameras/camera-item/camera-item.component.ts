@@ -12,6 +12,7 @@ export class CameraItemComponent implements OnInit {
   @Input() readNoise:string = '';
   @Input() darkCurrent:string = '';
   @Input() quantumEfficiency:string = '';
+  @Output() notifyHelp:EventEmitter<string> = new EventEmitter();
   @Output() notifySave:EventEmitter<number> = new EventEmitter();
   @Output() notifyDelete:EventEmitter<number> = new EventEmitter();
   @Output() notifyUpdate:EventEmitter<object> = new EventEmitter();
@@ -58,6 +59,10 @@ export class CameraItemComponent implements OnInit {
 
   onDelete() {
     this.notifyDelete.emit(this.id);
+  }
+
+  onHelp(section: string) {
+    this.notifyHelp.emit(section);
   }
 
   constructor() { }

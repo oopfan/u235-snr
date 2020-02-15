@@ -17,7 +17,7 @@
                                     <input type="text" class="input is-small" [value]="pixelSize" (input)="onChangePixelSize($event.target.value)" />
                                 </div>
                                 <div class="control">
-                                    <a class="tag is-link" [routerLink]="['/help', 'camera-pixel-size']">Help</a>
+                                    <a class="tag is-link" (click)="onHelp('camera-pixel-size')">Help</a>
                                 </div>
                             </div>
                         </div>
@@ -36,7 +36,7 @@
                                     <input type="text" class="input is-small" [value]="readNoise" (input)="onChangeReadNoise($event.target.value)" />
                                 </div>
                                 <div class="control">
-                                    <a class="tag is-link" [routerLink]="['/help', 'camera-read-noise']">Help</a>
+                                    <a class="tag is-link" (click)="onHelp('camera-read-noise')">Help</a>
                                 </div>
                             </div>
                         </div>
@@ -55,7 +55,7 @@
                                     <input type="text" class="input is-small" [value]="darkCurrent" (input)="onChangeDarkCurrent($event.target.value)" />
                                 </div>
                                 <div class="control">
-                                    <a class="tag is-link" [routerLink]="['/help', 'camera-dark-current']">Help</a>
+                                    <a class="tag is-link" (click)="onHelp('camera-dark-current')">Help</a>
                                 </div>
                             </div>
                         </div>
@@ -74,7 +74,7 @@
                                     <input type="text" class="input is-small" [value]="quantumEfficiency" (input)="onChangeQuantumEfficiency($event.target.value)" />
                                 </div>
                                 <div class="control">
-                                    <a class="tag is-link" [routerLink]="['/help', 'camera-quantum-efficiency']">Help</a>
+                                    <a class="tag is-link" (click)="onHelp('camera-quantum-efficiency')">Help</a>
                                 </div>
                             </div>
                         </div>
