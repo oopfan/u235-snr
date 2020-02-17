@@ -1,0 +1,22 @@
+<form [formGroup]="telescopeForm" (ngSubmit)="onSubmit()">
+    <app-input-text label="Name" [control]="telescopeForm.get('name')"></app-input-text>
+    <app-input-number label="Aperture (mm)" [control]="telescopeForm.get('aperture')" min="1" step="1"></app-input-number>
+    <app-input-number label="Focal length (mm)" [control]="telescopeForm.get('focalLength')" min="1" step="1"></app-input-number>
+    <app-input-number label="Central obstruction (mm)" [control]="telescopeForm.get('centralObstruction')" min="0" step="1"></app-input-number>
+    <app-input-number label="Total reflectance/transmittance (1=ideal, 0=opaque)" [control]="telescopeForm.get('totalReflectanceTransmittance')" min="0" max="1" step="0.01"></app-input-number>
+    <div class="help is-danger field" *ngIf="telescopeForm.errors && telescopeForm.errors.apertureCheck">
+        Aperture must be greater than Central Obstruction
+    </div>
+    <div class="buttons">
+        <button type="submit" class="button is-primary" [disabled]="telescopeForm.invalid">Submit</button>
+        <button type="button" class="button is-warning" (click)="onReset()">Reset</button>
+    </div>
+</form>
+<!-- 
+<hr />
+<div>Form is valid: {{ telescopeForm.valid }}</div>
+<div>Form values: {{ telescopeForm.value | json }}</div>
+<div>Form errors: {{ telescopeForm.errors | json }}</div>
+<div>Errors around name: {{ telescopeForm.controls.name.errors | json }}</div>
+<div>Errors around aperture: {{ telescopeForm.controls.aperture.errors | json }}</div>
+-->

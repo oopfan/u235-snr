@@ -1,0 +1,17 @@
+<div class="field">
+    <label class="label">{{ label }}</label>
+    <div class="control">
+        <input type="number" class="input" [ngClass]="{'is-danger': showErrors()}" [min]="min" [max]="max" [step]="step" [formControl]="control" />
+    </div>
+    <ng-container *ngIf="showErrors()">
+        <div class="help is-danger" *ngIf="control.errors.required">
+            Value is required
+        </div>
+        <div class="help is-danger" *ngIf="control.errors.min">
+            Value you entered cannot be less than {{ control.errors.min.min }}
+        </div>
+        <div class="help is-danger" *ngIf="control.errors.max">
+            Value you entered cannot be greater than {{ control.errors.max.max }}
+        </div>
+    </ng-container>
+</div>
