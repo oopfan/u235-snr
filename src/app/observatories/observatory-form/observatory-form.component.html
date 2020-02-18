@@ -1,0 +1,16 @@
+<form [formGroup]="observatoryForm" (ngSubmit)="onSubmit()">
+    <app-input-text label="Name" [control]="observatoryForm.get('name')"></app-input-text>
+    <app-input-text label="Bortle class" [control]="observatoryForm.get('bortleClass')"></app-input-text>
+    <app-input-number label="Sky brightness (mag/arcsec^2)" [control]="observatoryForm.get('skyBrightness')" step="0.01"></app-input-number>
+    <div class="buttons">
+        <button type="submit" class="button is-rounded is-light is-uppercase" [disabled]="observatoryForm.invalid">submit</button>
+        <button type="button" class="button is-rounded is-light is-uppercase" (click)="onCancel()">cancel</button>
+    </div>
+</form>
+<!-- 
+<hr />
+<div>Form is valid: {{ observatoryForm.valid }}</div>
+<div>Form values: {{ observatoryForm.value | json }}</div>
+<div>Form errors: {{ observatoryForm.errors | json }}</div>
+<div>Errors around name: {{ observatoryForm.controls.name.errors | json }}</div>
+-->

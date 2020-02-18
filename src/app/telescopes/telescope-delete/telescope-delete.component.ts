@@ -1,7 +1,7 @@
 import { Title } from '@angular/platform-browser';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { UserTelescopeService, TelescopeStored, TelescopeParsed } from '../../services/user-telescope.service'
+import { UserTelescopeService, TelescopeStored } from '../../services/user-telescope.service'
 
 @Component({
   selector: 'app-telescope-delete',

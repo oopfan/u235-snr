@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { LocalStorageService, LocalStorage } from 'angular-web-storage';
 
-interface ObservatoryStored {
+export interface ObservatoryStored {
   id: number,
   name: string,
   bortleClass: string,
@@ -71,25 +71,6 @@ export class UserObservatoryService {
     this.cache = isOK ? obj : { list: [], nextid: 0 };
   }
 
-  discard(): void {
-    this.init();
-  }
-
-  sort(): void {
-    if (!this.cache) {
-      this.init();
-    }
-    this.cache.list.sort((a: ObservatoryStored, b: ObservatoryStored) => a.name.localeCompare(b.name));
-    this.storage.set('userObservatories', this.cache);
-  }
-
-  saveAll(): void {
-    if (!this.cache) {
-      this.init();
-    }
-    this.storage.set('userObservatories', this.cache);
-  }
-
   getAll(): Array<ObservatoryStored> {
     if (!this.cache) {
       this.init();
@@ -111,30 +92,14 @@ export class UserObservatoryService {
     return [];
   }
 
-  parseItems(items: Array<ObservatoryStored>): Array<ObservatoryParsed> {
-    return items.map((item: ObservatoryStored) => {
-      return {
-        id: item.id,
-        name: item.name,
-        bortleClass: item.bortleClass,
-        skyBrightness: parseFloat(item.skyBrightness)
-      }
-    });
-  }
-
-  validate = (item: ObservatoryParsed): boolean => {
-    return (
-      !isNaN(item.skyBrightness)
-    );
-  }
-
   create(name: string, bortleClass: string, skyBrightness:string): Array<ObservatoryStored> {
     if (!this.cache) {
       this.init();
     }
     const id = this.cache.nextid++;
     const obj: ObservatoryStored = { id, name, bortleClass, skyBrightness };
-    this.cache.list.unshift(obj);
+    this.cache.list.push(obj);
+    this.storage.set('userObservatories', this.cache);
     return [ obj ];
   }
 
@@ -151,6 +116,7 @@ export class UserObservatoryService {
       obj.bortleClass = bortleClass;
       obj.skyBrightness = skyBrightness;
       this.cache.list[index] = obj;
+      this.storage.set('userObservatories', this.cache);
       return [ obj ];
     }
     return [];
@@ -164,8 +130,27 @@ export class UserObservatoryService {
       return element.id === id;
     });
     if (index >= 0) {
-      return this.cache.list.splice(index, 1);
+      const deleted = this.cache.list.splice(index, 1);
+      this.storage.set('userObservatories', this.cache);
+      return deleted;
     }
     return [];
+  }
+
+  parseItems(items: Array<ObservatoryStored>): Array<ObservatoryParsed> {
+    return items.map((item: ObservatoryStored) => {
+      return {
+        id: item.id,
+        name: item.name,
+        bortleClass: item.bortleClass,
+        skyBrightness: parseFloat(item.skyBrightness)
+      }
+    });
+  }
+
+  validate = (item: ObservatoryParsed): boolean => {
+    return (
+      !isNaN(item.skyBrightness)
+    );
   }
 }

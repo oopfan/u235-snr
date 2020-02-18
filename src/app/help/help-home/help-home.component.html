@@ -249,66 +249,59 @@
     </div>
 </section>
 
-<section class="section" *ngIf="section == 'all-sections' || (section == 'observatory-overview' || section == 'observatory-bortle-class' || section == 'observatory-sky-brightness')">
+<section class="section" *ngIf="section == 'all-sections' || section == 'observatory'">
     <div class="container">
         <h1 class="title is-4">Observatory</h1>
 
-        <div *ngIf="section == 'all-sections' || section == 'observatory-overview'">
-            <h2 class="subtitle is-5">Overview</h2>
-            <div class="content">
-                <p>
-                    <i>Observatory</i> is a fancy way of saying this is where I set up my telescope. You may have a physical structure or you may be
-                    a traveler. Either way your seeing conditions are likely different. My friend has two observatories: his backyard and a
-                    vacation spot two hours drive away. His home observatory has less-than-optimal Bortle 6 skies but his vacation observatory has
-                    desireable Bortle 4 skies.
-                </p>
-                <p></p>
-            </div>
+        <div class="content">
+            <p>
+                <i>Observatory</i> is a fancy way of saying this is where I set up my telescope. You may have a physical structure or you may be
+                a traveler. Either way your seeing conditions are likely different. My friend has two observatories: his backyard and a
+                vacation spot two hours drive away. His home observatory has less-than-optimal Bortle 6 skies but his vacation observatory has
+                desireable Bortle 4 skies.
+            </p>
+            <p></p>
         </div>
 
-        <div *ngIf="section == 'all-sections' || section == 'observatory-bortle-class'">
-            <h2 class="subtitle is-5">Bortle Class</h2>
-            <div class="content">
-                <p>
-                    The Bortle class system ranks nighttime skies on a scale from 1 to 9. Bortle class 1 is the darkest possible site usually taken by
-                    professional astronomers. Bortle class 9 is found in the heart of cities suffering from terrible light pollution.
-                    The Bortle class field is for your information only. The <i>Calculate!</i> tool does not require it so you can leave it empty if
-                    you wish.
-                </p>
-                <p></p>
-            </div>
+        <h2 class="subtitle is-5">Bortle Class</h2>
+        <div class="content">
+            <p>
+                The Bortle class system ranks nighttime skies on a scale from 1 to 9. Bortle class 1 is the darkest possible site usually taken by
+                professional astronomers. Bortle class 9 is found in the heart of cities suffering from terrible light pollution.
+                The Bortle class field is for your information only. The <i>Calculate!</i> tool does not require it so you can leave it empty if
+                you wish.
+            </p>
+            <p></p>
         </div>
-        
-        <div *ngIf="section == 'all-sections' || section == 'observatory-sky-brightness'">
-            <h2 class="subtitle is-5">Sky Brightness</h2>
-            <div class="content">
-                <p>
-                    <i>Sky Brightness</i> is required. Bortle class and it are directly related. If you want to see how, you can visit the
-                    <a href="https://www.cleardarksky.com/lp/NYCNYlp.html?Mn=astrophotography" target="_blank">New York City Light Pollution Map</a>
-                    courtesy of <b>cleardarksky.com</b>. Scroll down to the table that relates Bortle class to Sky Brightness. This is helpful
-                    if you happen to know your Bortle class. You can simply lookup the Sky Brightness and use it.
-                </p>
-                <p>
-                    If you don't know your Bortle class then you can use <a href="https://www.lightpollutionmap.info" target="_blank">this fine tool</a>
-                    courtesy of <b>lightpollutionmap.info</b>. It supplies a world map that you can zoom and pan to find your observatory's location.
-                    Once you have arrived click the tools icon, the one having the tooltip: "Toggle the extended toolbar". From there you can click
-                    the cross icon. Doing that changes the mouse pointer from a finger to a cross. Place the cross on the desired location and then left-mouse
-                    click. A window pops that displays some useful information. One such piece is your Bortle class and the other is <i>SQM</i> which
-                    stands for Sky Quality Meter. SQM happens to have the same units of measurement as our required <i>Sky Brightness</i>. Jot that value down
-                    and enter it into our web application's Sky Brightness field.
-                </p>
-                <p>
-                    For the truly adventurous with deep pockets you can invest in a Sky Quality Meter from
-                    <a href="http://www.unihedron.com/" target="blank">Unihedron</a>. There are instructions for permanently installing it at your
-                    observatory site. There is also a version that is network-ready. You can join a federation of citizen scientists and configure your
-                    meter to upload daily measurements to a central database that you can query.
-                </p>
-                <p>
-                    You may have noticed that the units of <i>Sky Brightness</i> are the same as a Target's <i>Surface Brightness</i>: magnitudes
-                    per square arc-seconds. This is an important characteristic used by the <i>Calculate!</i> tool.
-                </p>
-                <p></p>
-            </div>
+    
+        <h2 class="subtitle is-5">Sky Brightness</h2>
+        <div class="content">
+            <p>
+                <i>Sky Brightness</i> is required. Bortle class and it are directly related. If you want to see how, you can visit the
+                <a href="https://www.cleardarksky.com/lp/NYCNYlp.html?Mn=astrophotography" target="_blank">New York City Light Pollution Map</a>
+                courtesy of <b>cleardarksky.com</b>. Scroll down to the table that relates Bortle class to Sky Brightness. This is helpful
+                if you happen to know your Bortle class. You can simply lookup the Sky Brightness and use it.
+            </p>
+            <p>
+                If you don't know your Bortle class then you can use <a href="https://www.lightpollutionmap.info" target="_blank">this fine tool</a>
+                courtesy of <b>lightpollutionmap.info</b>. It supplies a world map that you can zoom and pan to find your observatory's location.
+                Once you have arrived click the tools icon, the one having the tooltip: "Toggle the extended toolbar". From there you can click
+                the cross icon. Doing that changes the mouse pointer from a finger to a cross. Place the cross on the desired location and then left-mouse
+                click. A window pops that displays some useful information. One such piece is your Bortle class and the other is <i>SQM</i> which
+                stands for Sky Quality Meter. SQM happens to have the same units of measurement as our required <i>Sky Brightness</i>. Jot that value down
+                and enter it into our web application's Sky Brightness field.
+            </p>
+            <p>
+                For the truly adventurous with deep pockets you can invest in a Sky Quality Meter from
+                <a href="http://www.unihedron.com/" target="blank">Unihedron</a>. There are instructions for permanently installing it at your
+                observatory site. There is also a version that is network-ready. You can join a federation of citizen scientists and configure your
+                meter to upload daily measurements to a central database that you can query.
+            </p>
+            <p>
+                You may have noticed that the units of <i>Sky Brightness</i> are the same as a Target's <i>Surface Brightness</i>: magnitudes
+                per square arc-seconds. This is an important characteristic used by the <i>Calculate!</i> tool.
+            </p>
+            <p></p>
         </div>
     </div>
 </section>

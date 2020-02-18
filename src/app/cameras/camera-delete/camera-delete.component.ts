@@ -1,7 +1,7 @@
 import { Title } from '@angular/platform-browser';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { UserCameraService, CameraStored, CameraParsed } from '../../services/user-camera.service'
+import { UserCameraService, CameraStored } from '../../services/user-camera.service'
 
 @Component({
   selector: 'app-camera-delete',
