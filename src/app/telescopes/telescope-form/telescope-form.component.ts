@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { TelescopeValidator } from '../../validators/telescope-validator';
+import { TelescopeValidator } from './telescope-validator';
 import { TelescopeParsed } from 'src/app/services/user-telescope.service';
 
 @Component({
