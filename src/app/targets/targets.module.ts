@@ -1,18 +1,31 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
+
+import { ControlsModule } from '../controls/controls.module';
+import { TargetFormComponent } from './target-form/target-form.component';
 
 import { TargetsRoutingModule } from './targets-routing.module';
 import { TargetsHomeComponent } from './targets-home/targets-home.component';
-import { TargetItemComponent } from './target-item/target-item.component';
+import { TargetCreateComponent } from './target-create/target-create.component';
+import { TargetEditComponent } from './target-edit/target-edit.component';
+import { TargetDeleteComponent } from './target-delete/target-delete.component';
 import { SurfaceBrightnessCalculatorComponent } from './surface-brightness-calculator/surface-brightness-calculator.component';
-import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
-  declarations: [TargetsHomeComponent, TargetItemComponent, SurfaceBrightnessCalculatorComponent],
+  declarations: [
+    TargetsHomeComponent,
+    TargetFormComponent,
+    TargetCreateComponent,
+    TargetEditComponent,
+    TargetDeleteComponent,
+    SurfaceBrightnessCalculatorComponent
+  ],
   imports: [
     CommonModule,
+    ReactiveFormsModule,
     TargetsRoutingModule,
-    SharedModule
+    ControlsModule
   ]
 })
 export class TargetsModule { }

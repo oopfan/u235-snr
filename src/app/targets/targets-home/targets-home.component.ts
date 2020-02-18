@@ -1,7 +1,7 @@
 import { Title } from '@angular/platform-browser';
 import { Router } from "@angular/router";
 import { Component, OnInit } from '@angular/core';
-import { UserTargetService } from 'src/app/services/user-target.service';
+import { UserTargetService, TargetStored } from 'src/app/services/user-target.service';
 
 @Component({
   selector: 'app-targets-home',
@@ -9,15 +9,14 @@ import { UserTargetService } from 'src/app/services/user-target.service';
   styleUrls: ['./targets-home.component.css']
 })
 export class TargetsHomeComponent implements OnInit {
+  targets = [];
 
   constructor(private titleService: Title, private router: Router, private targetService: UserTargetService) { }
 
-  targets = [];
-
   ngOnInit() {
     this.titleService.setTitle('Targets | U235+SNR');
-    this.targetService.sort();
     this.targets = this.targetService.getAll();
+    this.targets.sort((a: TargetStored, b: TargetStored) => a.name.localeCompare(b.name));
   }
 
   onHelp(section: string) {
@@ -25,31 +24,15 @@ export class TargetsHomeComponent implements OnInit {
   }
 
   onNew() {
-    this.targetService.create('', '');
-    this.targets = this.targetService.getAll();
+    this.router.navigate(['/new-target']);
   }
 
-  onSaveAll() {
-    this.targetService.saveAll();
-  }
-
-  onDiscard() {
-    this.targetService.discard();
-    this.targets = this.targetService.getAll();
-  }
-
-  onUpdate(target: any) {
-    this.targetService.update(target.id, target.name, target.surfaceBrightness);
+  onEdit(id: number) {
+    this.router.navigate(['/edit-target', id]);
   }
 
   onDelete(id: number) {
-    this.targetService.delete(id);
-    this.targets = this.targetService.getAll();
-  }
-
-  onSave(id: number) {
-    // Right now, can't save an individual target to Local Storage, just all targets.
-    this.targetService.saveAll();
+    this.router.navigate(['/delete-target', id]);
   }
 
 }

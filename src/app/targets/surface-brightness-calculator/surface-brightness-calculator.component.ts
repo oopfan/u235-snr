@@ -35,7 +35,7 @@ export class SurfaceBrightnessCalculatorComponent implements OnInit {
     // sb = magnitude + 2.5 * log10(pi * major / 2 * minor / 2 * 3600)
     // To convert back and forth between arcsec^2 and arcmin^2 then add or subtract 2.5 * log10(3600) = 8.89
     const sb = parseFloat(this.magnitude) + 2.5 * Math.log10(900 * Math.PI * parseFloat(this.majorAxis) * parseFloat(this.minorAxis));
-    this.surfaceBrightness = !isNaN(sb) ? sb.toFixed(1) : '';
+    this.surfaceBrightness = !isNaN(sb) ? sb.toFixed(2) : '';
     this.notifySurfaceBrightness.emit(sb);
   }
 

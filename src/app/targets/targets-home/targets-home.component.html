@@ -7,7 +7,7 @@
                 </div>
                 <div class="level-item">
                     <div class="control">
-                        <a class="tag is-link" (click)="onHelp('target-overview')">Help</a>
+                        <a class="tag is-link" (click)="onHelp('target')">Help</a>
                     </div>
                 </div>
             </div>
@@ -19,29 +19,31 @@
                         <div class="level-item">
                             <button class="button is-small is-rounded is-light is-uppercase" (click)="onNew()">new target</button>
                         </div>
-                        <div class="level-item">
-                            <button class="button is-small is-rounded is-light is-uppercase" (click)="onSaveAll()">save all</button>
-                        </div>
-                    </div>
-                    <div class="level-right">
-                        <div class="level-item">
-                            <button class="button is-small is-rounded is-light is-uppercase" (click)="onDiscard()">discard changes</button>
-                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="columns" *ngFor="let target of targets">
-            <div class="box column is-three-fifths">
-                <app-target-item
-                    [id]="target.id"
-                    [name]="target.name"
-                    [surfaceBrightness]="target.surfaceBrightness"
-                    (notifyHelp)="onHelp($event)"
-                    (notifySave)="onSave($event)"
-                    (notifyDelete)="onDelete($event)"
-                    (notifyUpdate)="onUpdate($event)">
-                </app-target-item>
+        <div class="columns">
+            <div class="column is-three-fifths">
+                <table class="table" *ngIf="targets.length > 0">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let target of targets">
+                            <td>{{ target.name }}</td>
+                            <td>
+                                <div class="buttons">
+                                    <button type="button" class="button is-small is-rounded is-light is-uppercase" (click)="onEdit(target.id)">edit</button>
+                                    <button type="button" class="button is-small is-rounded is-light is-uppercase" (click)="onDelete(target.id)">delete</button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>

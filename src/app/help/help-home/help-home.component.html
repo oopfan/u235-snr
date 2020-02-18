@@ -1,129 +1,124 @@
-<section class="section" *ngIf="section == 'all-sections' || (section == 'target-overview' || section == 'target-surface-brightness')">
+<section class="section" *ngIf="section == 'all-sections' || section == 'target'">
     <div class="container">
         <h1 class="title is-4">Target</h1>
 
-        <div *ngIf="section == 'all-sections' || section == 'target-overview'">
-            <h2 class="subtitle is-5">Overview</h2>
-            <div class="content">
-                <p>
-                    The term <i>Target</i> is synonymous with <i>Deep Sky Object</i> or <i>DSO</i> but less wordy and cryptic.
-                    Targets comprise of one essential field: <i>Surface Brightness</i>. You can read more about <i>Surface Brightness</i>
-                    in another section but just know that obtaining a proper value is an art form.
-                </p>
-                <p>
-                    This web application is forgiving of empty fields. In fact you can leave <i>Surface Brightness</i> and
-                    <i>Name</i> empty and come back later to fill them in. One thing to know is that the <i>Calculate!</i> tool
-                    is less forgiving. It <b>must</b> know the value of <i>Surface Brightness</i> in order to proceed and because
-                    of that it filters out invalid targets from its selection list.
-                </p>
-                <p></p>
-            </div>
+        <div class="content">
+            <p>
+                The term <i>Target</i> is synonymous with <i>Deep Sky Object</i> or <i>DSO</i> but less wordy and cryptic.
+            </p>
+            <p></p>
         </div>
 
-        <div *ngIf="section == 'all-sections' || section == 'target-surface-brightness'">
-            <h2 class="subtitle is-5">Surface Brightness</h2>
-            <div class="content">
-                <p>
-                    Determining the value of <i>Surface Brightness</i> is an art form. I use these three reliable sources:
-                </p>
-                <p>
-                    <a href="http://knightware.biz/" target="blank">Deep Sky Planner 7</a> offers Surface Brightness in units
-                    compatible with our web application (i.e. <i>magnitudes per square arc-second</i>) but the software is Windows-only
-                    and must be purchased.
-                </p>
-                <p>
-                    <a href="https://www.ap-i.net/skychart/en/start" target="blank">Cartes du Ciel (aka SkyChart)</a> also
-                    offers Surface Brightness. It is freeware planetarium software that provides distributions for
-                    Linux, Mac, Raspberry Pi, as well as Windows. <b>Note</b>: I recommend using <i>SAC</i> settings, not <i>ONGC</i>.
-                    Select <i>Setup -> Catalog</i> then click on the <i>CdC deep sky</i> tab. Click the radio button for <i>SAC</i>.
-                    You will need to <b>add 8.9 to SAC's <i>Surface Brightness</i></b> in order to convert it to the proper units.
-                </p>
-                <p>
-                    <a href="http://www.astrosurf.com/c2a/english/index.htm" target="blank">Computer Aided Astronomy (C2A)</a> does not
-                    offer Surface Brightness but it does give <i>Magnitude</i>, <i>Major Axis</i>, and <i>Minor Axis</i>. You can use
-                    our built-in <i>Surface Brightness Calculator</i> to calculate it. <i>C2A</i> is freeware planetarium software however
-                    it is only for Windows.
-                </p>
-                <p>
-                    <b>Further Note</b>: All of the aforementioned sources offer <i>Magnitude</i>, <i>Major Axis</i>, and <i>Minor Axis</i>.
-                    I recommend running those numbers through our <i>Surface Brightness Calculator</i> and then comparing it to the source's
-                    value. Sometimes they disagree. One option is to take the average but I will leave that up to you whether to be optimistic
-                    or pessimistic. My only concern is that you will pass up an opportunity because the integration time
-                    looks too long. If the target is interesting it might be worthwhile to accept a lower SNR image than no image at all.
-                </p>
-                <p>
-                    Now to the definition of <i>Surface Brightness</i>. Visualize a galaxy. Its core is the brightest,
-                    followed by the arms, and then the elusive galactic halo. Now, imagine squeezing all of those photons from all areas
-                    into a tiny area the size of a single star. (Technically the size is 1 square arc-second.) How bright
-                    would it be? Surprisingly bright. The Andromeda Galaxy (M31) would be <i>magnitude</i> 3.4 which would make it easily
-                    visible from the center of most large cities but the fact of the matter is that all of those photons are spread out over
-                    a very large area, so because of that it is impossible to see M31 from New York City with the naked eye.
-                </p>
-                <p>
-                    If the magnitude of M31 is 3.4 then what is its <i>Surface Brightness</i>? To answer that question we need to
-                    know its dimensions. C2A lists it as 189.1 <i>arc-minutes</i> by 61.7 <i>arc-minutes</i>. Now let's plug those numbers into our
-                    <i>Surface Brightness Calculator</i>. The answer is 22.2 <i>magnitudes per square arc-second</i>. Remember that this is the
-                    <i>average</i> brightness over the entire area. Some parts will be brighter but overall it is a good
-                    measure of how much effort it takes to obtain a world-class image.
-                </p>
-                <p>
-                    To explain why the Andromeda Galaxy is not visible without the aid of a telescope from New York City, consider that
-                    the city's <i>Sky Brightness</i> is around 18 magnitudes per square arc-second. (We'll talk more about that in the
-                    section on <i>Observatories</i>). Now compare 18 to 22.2. That makes the galaxy 4.2 magnitudes fainter than the sky.
-                    I'm sorry but you are just not going to see it with the naked eye. You'll need a telescope.
-                </p>
-                <p>
-                    Earlier I spoke of <i>Surface Brightness</i> determination as an art form. The problem is that different information
-                    sources may give you significantly different values for magnitude, major axis, and minor axis depending on what
-                    criteria they use. I have seen deviations of up to 2 magnitudes per square arc-second. This is huge. I recommend that
-                    you choose a provider and stick with them. I've recommended three.
-                </p>
-                <p></p>
-            </div>
-    
-            <h2 class="subtitle is-5">Surface Brightness Calculator</h2>
-            <div class="content">
-                <p>
-                    In case your information provider does not offer <i>Surface Brightness</i> you can use this
-                    calculator provided that you are given <i>Magnitude</i>, <i>Major Axis</i>, and <i>Minor Axis</i>.
-                </p>
-                <p>
-                    Click the <i>SHOW CALCULATOR</i> button to reveal it, and then enter the three input values. A blue box will descend
-                    giving the answer. Use your keyboard and mouse to copy the value and paste it into the <i>Surface Brightness</i> field
-                    in your target. This copy-and-paste step is important. The calculated value will be lost when you hide the calculator.
-                </p>
-                <p></p>
-            </div>
-    
-            <h3 class="subtitle is-6">Magnitude</h3>
-            <div class="content">
-                <p>
-                    Magnitude is brightness measured on a logarithmic scale. Negative magnitude is very bright, the Sun is at -25 and the
-                    Full Moon at -12. Sirius, the brightest star besides our Sun, is magnitude -1.6. At night in the suburbs the faintest
-                    star you can see with the naked eye is around +5. With a small telescope and eyepiece you can see down to about +12.
-                    With a small telescope and a camera you can capture stars down to +18. With a large telescope and camera in dark rural
-                    skies you can see down to magnitude +25, give or take.
-                </p>
-                <p></p>
-            </div>
-    
-            <h3 class="subtitle is-6">Major and Minor Axis</h3>
-            <div class="content">
-                <p>
-                    By convention an ellipse is used to model a target's shape. An ellipse can be described by two properties: major axis
-                    and minor axis. It is similar to a rectangle's width and height except that an ellipse has a curved perimeter.
-                </p>
-                <p>
-                    The units of measurement are angular, specifically arc-minutes. The Surface Brightness Calculator requires arc-minutes
-                    so make sure that your information provider is giving you values in arc-minutes. Unless it is spelled out a single
-                    apostrophe denotes arc-minutes whereas a double apostrophe denotes arc-seconds. Galaxies
-                    are almost always quoted in arc-minutes but a lot of planetary nebulae are in arc-seconds. Be sure to divide arc-seconds
-                    by 60 in order to convert it to arc-minutes.
-                </p>
-                <p></p>
-            </div>
+        <h2 class="subtitle is-5">Name</h2>
+        <div class="content">
+            <p>
+                <i>Name</i> is a free-format field used to give your <i>Target</i> a quick yet meaningful name like
+                'M31' or 'Andromeda Galaxy' or 'M31 Andromeda Galaxy'.
+            </p>
         </div>
-    </div>
+
+        <h2 class="subtitle is-5">Surface Brightness</h2>
+        <div class="content">
+            <p>
+                Determining the value of <i>Surface Brightness</i> is an art form. I use these three reliable sources:
+            </p>
+            <p>
+                <a href="http://knightware.biz/" target="blank">Deep Sky Planner 7</a> offers Surface Brightness in units
+                compatible with our web application (i.e. <i>magnitudes per square arc-second</i>) but the software is Windows-only
+                and must be purchased.
+            </p>
+            <p>
+                <a href="https://www.ap-i.net/skychart/en/start" target="blank">Cartes du Ciel (aka SkyChart)</a> also
+                offers Surface Brightness. It is freeware planetarium software that provides distributions for
+                Linux, Mac, Raspberry Pi, as well as Windows. <b>Note</b>: I recommend using <i>SAC</i> settings, not <i>ONGC</i>.
+                Select <i>Setup -> Catalog</i> then click on the <i>CdC deep sky</i> tab. Click the radio button for <i>SAC</i>.
+                You will need to <b>add 8.9 to SAC's <i>Surface Brightness</i></b> in order to convert it to the proper units.
+            </p>
+            <p>
+                <a href="http://www.astrosurf.com/c2a/english/index.htm" target="blank">Computer Aided Astronomy (C2A)</a> does not
+                offer Surface Brightness but it does give <i>Magnitude</i>, <i>Major Axis</i>, and <i>Minor Axis</i>. You can use
+                our built-in <i>Surface Brightness Calculator</i> to calculate it. <i>C2A</i> is freeware planetarium software however
+                it is only for Windows.
+            </p>
+            <p>
+                <b>Further Note</b>: All of the aforementioned sources offer <i>Magnitude</i>, <i>Major Axis</i>, and <i>Minor Axis</i>.
+                I recommend running those numbers through our <i>Surface Brightness Calculator</i> and then comparing it to the source's
+                value. Sometimes they disagree. One option is to take the average but I will leave that up to you whether to be optimistic
+                or pessimistic. My only concern is that you will pass up an opportunity because the integration time
+                looks too long. If the target is interesting it might be worthwhile to accept a lower SNR image than no image at all.
+            </p>
+            <p>
+                Now to the definition of <i>Surface Brightness</i>. Visualize a galaxy. Its core is the brightest,
+                followed by the arms, and then the elusive galactic halo. Now, imagine squeezing all of those photons from all areas
+                into a tiny area the size of a single star. (Technically the size is 1 square arc-second.) How bright
+                would it be? Surprisingly bright. The Andromeda Galaxy (M31) would be <i>magnitude</i> 3.4 which would make it easily
+                visible from the center of most large cities but the fact of the matter is that all of those photons are spread out over
+                a very large area, so because of that it is impossible to see M31 from New York City with the naked eye.
+            </p>
+            <p>
+                If the magnitude of M31 is 3.4 then what is its <i>Surface Brightness</i>? To answer that question we need to
+                know its dimensions. C2A lists it as 189.1 <i>arc-minutes</i> by 61.7 <i>arc-minutes</i>. Now let's plug those numbers into our
+                <i>Surface Brightness Calculator</i>. The answer is 22.2 <i>magnitudes per square arc-second</i>. Remember that this is the
+                <i>average</i> brightness over the entire area. Some parts will be brighter but overall it is a good
+                measure of how much effort it takes to obtain a world-class image.
+            </p>
+            <p>
+                To explain why the Andromeda Galaxy is not visible without the aid of a telescope from New York City, consider that
+                the city's <i>Sky Brightness</i> is around 18 magnitudes per square arc-second. (We'll talk more about that in the
+                section on <i>Observatories</i>). Now compare 18 to 22.2. That makes the galaxy 4.2 magnitudes fainter than the sky.
+                I'm sorry but you are just not going to see it with the naked eye. You'll need a telescope.
+            </p>
+            <p>
+                Earlier I spoke of <i>Surface Brightness</i> determination as an art form. The problem is that different information
+                sources may give you significantly different values for magnitude, major axis, and minor axis depending on what
+                criteria they use. I have seen deviations of up to 2 magnitudes per square arc-second. This is huge. I recommend that
+                you choose a provider and stick with them. I've recommended three.
+            </p>
+            <p></p>
+        </div>
+
+        <h2 class="subtitle is-5">Surface Brightness Calculator</h2>
+        <div class="content">
+            <p>
+                In case your information provider does not offer <i>Surface Brightness</i> you can use this
+                calculator provided that you are given <i>Magnitude</i>, <i>Major Axis</i>, and <i>Minor Axis</i>.
+            </p>
+            <p>
+                Enter the three input values. A blue box will descend
+                giving the answer. Use your keyboard and mouse to copy the value and paste it into the <i>Surface Brightness</i> field
+                in your target. This copy-and-paste step is important.
+            </p>
+            <p></p>
+        </div>
+
+        <h3 class="subtitle is-6">Magnitude</h3>
+        <div class="content">
+            <p>
+                Magnitude is brightness measured on a logarithmic scale. Negative magnitude is very bright, the Sun is at -25 and the
+                Full Moon at -12. Sirius, the brightest star besides our Sun, is magnitude -1.6. At night in the suburbs the faintest
+                star you can see with the naked eye is around +5. With a small telescope and eyepiece you can see down to about +12.
+                With a small telescope and a camera you can capture stars down to +18. With a large telescope and camera in dark rural
+                skies you can see down to magnitude +25, give or take.
+            </p>
+            <p></p>
+        </div>
+
+        <h3 class="subtitle is-6">Major and Minor Axis</h3>
+        <div class="content">
+            <p>
+                By convention an ellipse is used to model a target's shape. An ellipse can be described by two properties: major axis
+                and minor axis. It is similar to a rectangle's width and height except that an ellipse has a curved perimeter.
+            </p>
+            <p>
+                The units of measurement are angular, specifically arc-minutes. The Surface Brightness Calculator requires arc-minutes
+                so make sure that your information provider is giving you values in arc-minutes. Unless it is spelled out a single
+                apostrophe denotes arc-minutes whereas a double apostrophe denotes arc-seconds. Galaxies
+                are almost always quoted in arc-minutes but a lot of planetary nebulae are in arc-seconds. Be sure to divide arc-seconds
+                by 60 in order to convert it to arc-minutes.
+            </p>
+            <p></p>
+        </div>
+</div>
 </section>
 
 <section class="section" *ngIf="section == 'all-sections' || section == 'telescope'">
@@ -135,12 +130,15 @@
                 Telescopes come in all shapes and sizes but each falls into the category of either <i>Refractive</i> or <i>Reflective</i>.
                 Refractors use a lens as the primary light gathering element. Reflectors use a mirror.
             </p>
-            <p>
-                There are four essential properties that describe a telescope. You can leave them empty and come back later to fill them in.
-                Just know that the <i>Calculate!</i> tool is less forgiving. It <b>must</b> know the value of each in order to proceed.
-                Any telescope with properties that are incomplete or have invalid values will be filtered out of its selection list.
-            </p>
             <p></p>
+        </div>
+
+        <h2 class="subtitle is-5">Name</h2>
+        <div class="content">
+            <p>
+                <i>Name</i> is a free-format field used to give your <i>Telescope</i> a quick yet meaningful name like
+                'WO 71' or 'William Optics ZenithStar 71' or 'Vixen 81 with 0.67x reducer'.
+            </p>
         </div>
 
         <h2 class="subtitle is-5">Aperture</h2>
@@ -195,10 +193,17 @@
 
         <div class="content">
             <p>
-                Cameras have four essential properties that must be filled in before proceeding to the <i>Calculate!</i> tool but as is
-                customary you can leave fields empty as you work towards gathering information.
+                Cameras have four essential properties that must be filled in before proceeding to the <i>Calculate!</i> tool.
             </p>
             <p></p>
+        </div>
+
+        <h2 class="subtitle is-5">Name</h2>
+        <div class="content">
+            <p>
+                <i>Name</i> is a free-format field used to give your <i>Camera</i> a quick yet meaningful name like
+                'Atik 314E' or 'ZWO ASI1600MM G300 -10C'.
+            </p>
         </div>
 
         <h2 class="subtitle is-5">Pixel Size</h2>
@@ -256,11 +261,17 @@
         <div class="content">
             <p>
                 <i>Observatory</i> is a fancy way of saying this is where I set up my telescope. You may have a physical structure or you may be
-                a traveler. Either way your seeing conditions are likely different. My friend has two observatories: his backyard and a
-                vacation spot two hours drive away. His home observatory has less-than-optimal Bortle 6 skies but his vacation observatory has
-                desireable Bortle 4 skies.
+                a traveler. Either way your seeing conditions are different.
             </p>
             <p></p>
+        </div>
+
+        <h2 class="subtitle is-5">Name</h2>
+        <div class="content">
+            <p>
+                <i>Name</i> is a free-format field used to give your <i>Observatory</i> a quick yet meaningful name like
+                'Home' or 'Mountain retreat' or 'Bortle 4'.
+            </p>
         </div>
 
         <h2 class="subtitle is-5">Bortle Class</h2>
@@ -306,173 +317,136 @@
     </div>
 </section>
 
-<section class="section" *ngIf="section == 'all-sections' || (section == 'calculate-overview')">
+<section class="section" *ngIf="section == 'all-sections' || section == 'calculate'">
     <div class="container">
         <h1 class="title is-4">Calculate!</h1>
 
-        <div *ngIf="section == 'all-sections' || section == 'calculate-overview'">
-            <h2 class="subtitle is-5">Overview</h2>
-            <div class="content">
-                <p>
-                    Now is the time to have some fun. Once you have defined at least one target, telescope. camera, and observatory, you
-                    can begin to ask questions like "How much integration time do I need to win Image-Of-The-Day?"
-                </p>
-                <p></p>
-            </div>
+        <div class="content">
+            <p>
+                Now is the time to have some fun. Once you have defined at least one target, telescope. camera, and observatory, you
+                can begin to ask questions like "How much integration time do I need to win Image-Of-The-Day?"
+            </p>
+            <p></p>
+        </div>
 
-            <h2 class="subtitle is-5">Validation Checks</h2>
-            <div class="content">
-                <p>
-                    This tool is quite strict about what constitutes a valid input. Here are the rules:
-                </p>
-                <p>
-                    <i>Targets</i>: <i>Surface Brightness</i> must be a number, either positive or negative.
-                </p>
-                <p>
-                    <i>Telescopes</i>: <i>Aperture</i> and <i>Focal Length</i> must be numbers greater than zero. <i>Central Obstruction</i>
-                    must be a number greater than or equal to zero. <i>Total Reflectance/Transmittance</i> must be a number between 0 and 1,
-                    inclusive. <i>Central Obstruction</i> must be less than <i>Aperture</i>.
-                </p>
-                <p>
-                    <i>Cameras</i>: <i>Pixel Size</i> must be a number greater than zero. <i>Read Noise</i> and <i>Dark Current</i> must be
-                    numbers greater than or equal to zero. <i>Quantum Efficiency</i> must be a number between 0 and 100, inclusive.
-                </p>
-                <p>
-                    <i>Observatories</i>: <i>Sky Brightness</i> must be a number, either positive or negative.
-                </p>
-                <p>
-                    Any item that fails a validation check will be excluded from the selection list. Remember that the various editors
-                    are very forgiving regarding empty fields which is nice when you are piecing together information,
-                    however when you arrive at the <i>Calculate!</i> tool things get serious, necessarily.
-                </p>
-                <p></p>
-            </div>
+        <h2 class="subtitle is-5">Step 1: Select Inputs</h2>
+        <div class="content">
+            <p>
+                The tool presents you with four dropdown lists labeled targets, telescopes, cameras, and observatories.
+                The first item in each list reminds you to "Choose one...". If you open a list and nothing more is shown then
+                you can not proceed to step 2.
+            </p>
+            <p></p>
+        </div>
 
-            <h2 class="subtitle is-5">Step 1: Select Inputs</h2>
-            <div class="content">
-                <p>
-                    The tool presents you with four dropdown lists labeled targets, telescopes, cameras, and observatories.
-                    The first item in each list reminds you to "Choose one...". If you open a list and nothing more is shown then
-                    you can not proceed to step 2.
-                </p>
-                <p></p>
-            </div>
+        <h2 class="subtitle is-5">Step 2: Choose a Calculation</h2>
+        <div class="content">
+            <p>
+                <i>Calculate total signal-to-noise of stack given the total integration time and single sub exposure</i>:
+                This is useful in several ways. Firstly, you can clearly see what effect total time and exposure have on
+                the total signal-to-noise ratio. Secondly, in practice you might only have a two hour time window for imaging
+                tonight, and you want to know what signal-to-noise ratio you can expect to achieve.
+            </p>
+            <p>
+                <i>Calculate total integration time given the total signal-to-noise of stack and single sub exposure</i>:
+                This is huge. With experience you might discover that in order to achieve top-tier results that you need a
+                minimum total signal-to-noise ratio of, say, 25. The hard truth may be revealed that you need something on
+                the order of 20+ hours of total integration time which might take 5+ nights to achieve. Straight away you
+                can decide if this target is too faint for your site, so either skip this target or seek out darker skies.
+            </p>
+            <p></p>
+        </div>
 
-            <h2 class="subtitle is-5">Step 2: Choose a Calculation</h2>
-            <div class="content">
-                <p>
-                    <i>Calculate total signal-to-noise of stack given the total integration time and single sub exposure</i>:
-                    This is useful in several ways. Firstly, you can clearly see what effect total time and exposure have on
-                    the total signal-to-noise ratio. Secondly, in practice you might only have a two hour time window for imaging
-                    tonight, and you want to know what signal-to-noise ratio you can expect to achieve.
-                </p>
-                <p>
-                    <i>Calculate total integration time given the total signal-to-noise of stack and single sub exposure</i>:
-                    This is huge. With experience you might discover that in order to achieve top-tier results that you need a
-                    minimum total signal-to-noise ratio of, say, 25. The hard truth may be revealed that you need something on
-                    the order of 20+ hours of total integration time which might take 5+ nights to achieve. Straight away you
-                    can decide if this target is too faint for your site, so either skip this target or seek out darker skies.
-                </p>
-                <p></p>
-            </div>
+        <h2 class="subtitle is-5">Step 3: View Results</h2>
+        <div class="content">
+            <p>
+                Depending on the calculation type you chose in the previous step the tool will display approprtiate input
+                controls for you to manipulate. Below that it will display the results of the calculation.
+            </p>
+            <p></p>
+        </div>
 
-            <h2 class="subtitle is-5">Step 3: View Results</h2>
-            <div class="content">
-                <p>
-                    Depending on the calculation type you chose in the previous step the tool will display approprtiate input
-                    controls for you to manipulate. Below that it will display the results of the calculation.
-                </p>
-                <p></p>
-            </div>
-
-            <h2 class="subtitle is-5">Tips and Tricks</h2>
-            <div class="content">
-                <p>
-                    While at step 3 you can also manipulate the controls discussed in step 1. The tool will maintain the inputs
-                    you selected in steps 2 and 3. Just use caution that you don't accidentally select "Choose one...". This will
-                    reset the inputs to their initial state.
-                </p>
-                <p></p>
-            </div>
+        <h2 class="subtitle is-5">Tips and Tricks</h2>
+        <div class="content">
+            <p>
+                While at step 3 you can also manipulate the controls discussed in step 1. The tool will maintain the inputs
+                you selected in steps 2 and 3. Just use caution that you don't accidentally select "Choose one...". This will
+                reset the inputs to their initial state.
+            </p>
+            <p></p>
         </div>
     </div>
 </section>
 
-<section class="section" *ngIf="section == 'all-sections' || (section == 'open-star-clusters')">
+<section class="section" *ngIf="section == 'all-sections' || section == 'open-star-clusters'">
     <div class="container">
         <h1 class="title is-4">Advanced Technique: Open Star Clusters</h1>
 
-        <div *ngIf="section == 'all-sections' || (section == 'open-star-clusters')">
-            <h2 class="subtitle is-5">Overview</h2>
-            <div class="content">
-                <p>
-                    You need to treat stars differently from galaxies. There is a lot of dark space between stars
-                    that will greatly skew the surface brightness calculation that you would normally do for a galaxy.
-                </p>
-                <p>
-                    When imaging star clusters the stars themselves are the topic and the focus of attention. With
-                    galaxies however it is the galaxy that is important, so you can sacrifice surrounding stars to the
-                    effects of saturation in order to achieve your goal.
-                </p>
-                <p></p>
-            </div>
+        <div class="content">
+            <p>
+                When imaging star clusters the stars themselves are the topic and focus of attention but with
+                galaxies the surrounding stars can be allowed to saturate.
+                There is a lot of dark space between stars that will skew a conventional surface brightness
+                calculation. You need a different technique.
+            </p>
+            <p></p>
+        </div>
 
-            <h2 class="subtitle is-5">The Technique</h2>
-            <div class="content">
-                <p>
-                    <b>Step 1</b>: Calculate the dynamic range of your camera. There is a formula for this:
-                    <i>2.5 * LOG10 (Full Well Depth / Read Noise)</i>. For example the Full Well Depth (FWD) of my
-                    camera is 13400 electrons and the Read Noise is 5.3 electrons. Therefore the dynamic range is
-                    8.5 magnitudes.
-                </p>
-                <p>
-                    <b>Step 2</b>: Use planetarium software to find the magnitude of the brightest star in the
-                    cluster. For example lets say it is magnitude 7.5.
-                </p>
-                <p>
-                    <b>Step 3</b>: Add the dynamic range of your camera and the magnitude of the brightest star.
-                    In our example it is 8.5 + 7.5 = 16.0
-                </p>
-                <p>
-                    <b>Step 4</b>: Decide what type of seeing conditions you typically have at your observatory.
-                    At my home site the seeing conditions are typically poor so I use a value of 4.5 arc-seconds.
-                    If you are blessed with Good seeing then use 1.5 arc-seconds. For OK seeing use 3 arc-seconds.
-                    It is best to be conservative when choosing a number. If you base your calculations on Poor seeing
-                    but get a night of better seeing conditions then you will end up with a higher quality image.
-                </p>
-                <p>
-                    <b>Step 5</b>: Calculate the surface brightness of the faintest star given your seeing conditions.
-                    Remember what we are trying to achieve: we want to take advantage of the full dynamic range of our
-                    camera. Our example is a magnitude 16.0 star which is the faintest we can detect while not saturating
-                    the brightest stars in the cluster. Your particular situation will vary. To do this, go to the Targets
-                    editor and create a new Target. Give it the name "Magnitude 16.0 star (Poor seeing)". Next open the
-                    Surface Brightness Calculator by clicking the SHOW CALCULATOR button. Type "16" into the Magnitude
-                    input control. Pull out your smartphone's calculator and divide your seeing conditions by 60. In my
-                    case it is 4.5 arc-seconds / 60 which is 0.075 arc-minutes. Type "0.075" into both the Major and Minor
-                    Axis input controls. The Surface Brightness Calculator says that the answer is 19.0 magnitudes per
-                    square arc-second. Copy and paste that number into the Surface Brightness field of your Target and
-                    then save it.
-                </p>
-                <p>
-                    <b>Step 6</b>: At your telescope take some sample exposures of the cluster. Find the exposure
-                    that puts the brightest star in the cluster just below the saturation point. (There are a number
-                    of ways to measure the peak pixel value of a star depending on your capture software. I have the
-                    choice of using FITS Viewer in KStars/Ekos, or I can use Siril, or FITS Liberator. Just be sure
-                    that you are measuring the peak pixel of that specific star and not the entire frame.) At this
-                    moment you might just want to start capturing frames while you proceed to the next step.
-                </p>
-                <p>
-                    <b>Step 7</b>: Use the <i>Calculate!</i> tool to determine the total integration time and
-                    number of frames needed to achieve a total signal-to-noise ratio of 40. Recently I captured
-                    the beautiful dual star cluster M35 + NGC 2158 in Gemini. I discovered that I needed 15-second
-                    exposures in order to keep the brightest stars from saturating. A couple hours later I had a high
-                    quality, low noise stacked final image that clearly showed magnitude 16.0 stars.
-                </p>
-                <p>
-                    That's it!
-                </p>
-                <p></p>
-            </div>
+        <h2 class="subtitle is-5">The Technique</h2>
+        <div class="content">
+            <p>
+                <b>Step 1</b>: Calculate the dynamic range of your camera. There is a formula for this:
+                <i>2.5 * LOG10 (Full Well Depth / Read Noise)</i>. For example the Full Well Depth (FWD) of my
+                camera is 13400 electrons and the Read Noise is 5.3 electrons. Therefore the dynamic range is
+                8.5 magnitudes.
+            </p>
+            <p>
+                <b>Step 2</b>: Use planetarium software to find the magnitude of the brightest star in the
+                cluster. For example lets say it is magnitude 7.5.
+            </p>
+            <p>
+                <b>Step 3</b>: Add the dynamic range of your camera and the magnitude of the brightest star.
+                In our example it is 8.5 + 7.5 = 16.0
+            </p>
+            <p>
+                <b>Step 4</b>: Decide what type of seeing conditions you typically have at your observatory.
+                At my home site the seeing conditions are typically poor so I use a value of 4.5 arc-seconds.
+                If you are blessed with Good seeing then use 1.5 arc-seconds. For OK seeing use 3 arc-seconds.
+                It is best to be conservative when choosing a number. If you base your calculations on Poor seeing
+                but get a night of better seeing conditions then you will end up with a higher quality image.
+            </p>
+            <p>
+                <b>Step 5</b>: Calculate the surface brightness of the faintest star given your seeing conditions.
+                Remember what we are trying to achieve: we want to take advantage of the full dynamic range of our
+                camera. Our example is a magnitude 16.0 star which is the faintest we can detect while not saturating
+                the brightest stars in the cluster. Your particular situation will vary. To do this, go to the Targets
+                editor and create a new Target. Give it the name "Magnitude 16.0 star (Poor seeing)". Next open the
+                Surface Brightness Calculator by clicking the SHOW CALCULATOR button. Type "16" into the Magnitude
+                input control. Pull out your smartphone's calculator and divide your seeing conditions by 60. In my
+                case it is 4.5 arc-seconds / 60 which is 0.075 arc-minutes. Type "0.075" into both the Major and Minor
+                Axis input controls. The Surface Brightness Calculator says that the answer is 19.0 magnitudes per
+                square arc-second. Copy and paste that number into the Surface Brightness field of your Target and
+                then save it.
+            </p>
+            <p>
+                <b>Step 6</b>: At your telescope take some sample exposures of the cluster. Find the exposure
+                that puts the brightest star in the cluster just below the saturation point. (There are a number
+                of ways to measure the peak pixel value of a star depending on your capture software. I have the
+                choice of using FITS Viewer in KStars/Ekos, or I can use Siril, or FITS Liberator. Just be sure
+                that you are measuring the peak pixel of that specific star and not the entire frame.) At this
+                moment you might just want to start capturing frames while you proceed to the next step.
+            </p>
+            <p>
+                <b>Step 7</b>: Use the <i>Calculate!</i> tool to determine the total integration time and
+                number of frames needed to achieve a total signal-to-noise ratio of 40. Recently I captured
+                the beautiful dual star cluster M35 + NGC 2158 in Gemini. I discovered that I needed 15-second
+                exposures in order to keep the brightest stars from saturating. A couple hours later I had a high
+                quality, low noise stacked final image that clearly showed magnitude 16.0 stars.
+            </p>
+            <p>
+                That's it!
+            </p>
+            <p></p>
         </div>
     </div>
 </section>

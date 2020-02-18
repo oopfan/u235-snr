@@ -1,0 +1,20 @@
+<form [formGroup]="targetForm" (ngSubmit)="onSubmit()">
+    <app-input-text label="Name" [control]="targetForm.get('name')"></app-input-text>
+    <app-input-number label="Surface brightness (mag/arcsec^2)" [control]="targetForm.get('surfaceBrightness')" step="0.01"></app-input-number>
+    <div class="columns">
+        <div class="column is-two-thirds is-offset-one-fifth">
+            <app-surface-brightness-calculator></app-surface-brightness-calculator>
+        </div>
+    </div>
+    <div class="buttons">
+        <button type="submit" class="button is-rounded is-light is-uppercase" [disabled]="targetForm.invalid">submit</button>
+        <button type="button" class="button is-rounded is-light is-uppercase" (click)="onCancel()">cancel</button>
+    </div>
+</form>
+<!-- 
+<hr />
+<div>Form is valid: {{ targetForm.valid }}</div>
+<div>Form values: {{ targetForm.value | json }}</div>
+<div>Form errors: {{ targetForm.errors | json }}</div>
+<div>Errors around name: {{ targetForm.controls.name.errors | json }}</div>
+-->

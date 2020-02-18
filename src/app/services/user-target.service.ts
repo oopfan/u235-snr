@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { LocalStorageService, LocalStorage } from 'angular-web-storage';
 
-interface TargetStored {
+export interface TargetStored {
   id: number,
   name: string,
   surfaceBrightness: string
@@ -64,25 +64,6 @@ export class UserTargetService {
     this.cache = isOK ? obj : { list: [], nextid: 0 };
   }
 
-  discard(): void {
-    this.init();
-  }
-
-  sort(): void {
-    if (!this.cache) {
-      this.init();
-    }
-    this.cache.list.sort((a: TargetStored, b: TargetStored) => a.name.localeCompare(b.name));
-    this.storage.set('userTargets', this.cache);
-  }
-
-  saveAll(): void {
-    if (!this.cache) {
-      this.init();
-    }
-    this.storage.set('userTargets', this.cache);
-  }
-
   getAll(): Array<TargetStored> {
     if (!this.cache) {
       this.init();
@@ -104,27 +85,14 @@ export class UserTargetService {
     return [];
   }
 
-  parseItems = (items: Array<TargetStored>): Array<TargetParsed> => {
-    return items.map((item: TargetStored) => {
-      return {
-        id: item.id,
-        name: item.name,
-        surfaceBrightness: parseFloat(item.surfaceBrightness)
-      }
-    });
-  }
-
-  validate = (item: TargetParsed): boolean => {
-    return !isNaN(item.surfaceBrightness);
-  }
-
   create(name: string, surfaceBrightness: string) {
     if (!this.cache) {
       this.init();
     }
     const id = this.cache.nextid++;
     const obj: TargetStored = { id, name, surfaceBrightness };
-    this.cache.list.unshift(obj);
+    this.cache.list.push(obj);
+    this.storage.set('userTargets', this.cache);
     return [ obj ];
   }
 
@@ -140,6 +108,7 @@ export class UserTargetService {
       obj.name = name;
       obj.surfaceBrightness = surfaceBrightness;
       this.cache.list[index] = obj;
+      this.storage.set('userTargets', this.cache);
       return [ obj ];
     }
     return [];
@@ -153,8 +122,24 @@ export class UserTargetService {
       return element.id === id;
     });
     if (index >= 0) {
-      return this.cache.list.splice(index, 1);
+      const deleted = this.cache.list.splice(index, 1);
+      this.storage.set('userTargets', this.cache);
+      return deleted;
     }
     return [];
+  }
+
+  parseItems = (items: Array<TargetStored>): Array<TargetParsed> => {
+    return items.map((item: TargetStored) => {
+      return {
+        id: item.id,
+        name: item.name,
+        surfaceBrightness: parseFloat(item.surfaceBrightness)
+      }
+    });
+  }
+
+  validate = (item: TargetParsed): boolean => {
+    return !isNaN(item.surfaceBrightness);
   }
 }
