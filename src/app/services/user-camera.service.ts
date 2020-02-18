@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { LocalStorageService, LocalStorage } from 'angular-web-storage';
 
-interface CameraStored {
+export interface CameraStored {
   id: number,
   name: string,
   pixelSize: string,
@@ -85,25 +85,6 @@ export class UserCameraService {
     this.cache = isOK ? obj : { list: [], nextid: 0 };
   }
 
-  discard(): void {
-    this.init();
-  }
-
-  sort(): void {
-    if (!this.cache) {
-      this.init();
-    }
-    this.cache.list.sort((a: CameraStored, b: CameraStored) => a.name.localeCompare(b.name));
-    this.storage.set('userCameras', this.cache);
-  }
-
-  saveAll(): void {
-    if (!this.cache) {
-      this.init();
-    }
-    this.storage.set('userCameras', this.cache);
-  }
-
   getAll(): Array<CameraStored> {
     if (!this.cache) {
       this.init();
@@ -121,6 +102,53 @@ export class UserCameraService {
     if (index >= 0) {
       const obj = this.cache.list[index];
       return [ obj ];
+    }
+    return [];
+  }
+
+  create(name: string, pixelSize: string, readNoise:string, darkCurrent:string, quantumEfficiency:string): Array<CameraStored> {
+    if (!this.cache) {
+      this.init();
+    }
+    const id = this.cache.nextid++;
+    const obj: CameraStored = { id, name, pixelSize, readNoise, darkCurrent, quantumEfficiency };
+    this.cache.list.push(obj);
+    this.storage.set('userCameras', this.cache);
+    return [ obj ];
+  }
+
+  update(id: number, name: string, pixelSize: string, readNoise:string, darkCurrent:string, quantumEfficiency:string): Array<CameraStored> {
+    if (!this.cache) {
+      this.init();
+    }
+    const index = this.cache.list.findIndex((element: CameraStored) => {
+      return element.id === id;
+    });
+    if (index >= 0) {
+      const obj: CameraStored = this.cache.list[index];
+      obj.name = name;
+      obj.pixelSize = pixelSize;
+      obj.readNoise = readNoise;
+      obj.darkCurrent = darkCurrent;
+      obj.quantumEfficiency = quantumEfficiency;
+      this.cache.list[index] = obj;
+      this.storage.set('userCameras', this.cache);
+      return [ obj ];
+    }
+    return [];
+  }
+
+  delete(id: number): Array<CameraStored> {
+    if (!this.cache) {
+      this.init();
+    }
+    const index = this.cache.list.findIndex((element: CameraStored) => {
+      return element.id === id;
+    });
+    if (index >= 0) {
+      const deleted = this.cache.list.splice(index, 1);
+      this.storage.set('userCameras', this.cache);
+      return deleted;
     }
     return [];
   }
@@ -145,48 +173,5 @@ export class UserCameraService {
       !isNaN(item.darkCurrent) && item.darkCurrent >= 0 &&
       !isNaN(item.quantumEfficiency) && item.quantumEfficiency >= 0 && item.quantumEfficiency <= 100
     );
-  }
-
-  create(name: string, pixelSize: string, readNoise:string, darkCurrent:string, quantumEfficiency:string): Array<CameraStored> {
-    if (!this.cache) {
-      this.init();
-    }
-    const id = this.cache.nextid++;
-    const obj: CameraStored = { id, name, pixelSize, readNoise, darkCurrent, quantumEfficiency };
-    this.cache.list.unshift(obj);
-    return [ obj ];
-  }
-
-  update(id: number, name: string, pixelSize: string, readNoise:string, darkCurrent:string, quantumEfficiency:string): Array<CameraStored> {
-    if (!this.cache) {
-      this.init();
-    }
-    const index = this.cache.list.findIndex((element: CameraStored) => {
-      return element.id === id;
-    });
-    if (index >= 0) {
-      const obj: CameraStored = this.cache.list[index];
-      obj.name = name;
-      obj.pixelSize = pixelSize;
-      obj.readNoise = readNoise;
-      obj.darkCurrent = darkCurrent;
-      obj.quantumEfficiency = quantumEfficiency;
-      this.cache.list[index] = obj;
-      return [ obj ];
-    }
-    return [];
-  }
-
-  delete(id: number): Array<CameraStored> {
-    if (!this.cache) {
-      this.init();
-    }
-    const index = this.cache.list.findIndex((element: CameraStored) => {
-      return element.id === id;
-    });
-    if (index >= 0) {
-      return this.cache.list.splice(index, 1);
-    }
-    return [];
   }
 }

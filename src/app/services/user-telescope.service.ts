@@ -85,25 +85,6 @@ export class UserTelescopeService {
     this.cache = isOK ? obj : { list: [], nextid: 0 };
   }
 
-  discard(): void {
-    this.init();
-  }
-
-  sort(): void {
-    if (!this.cache) {
-      this.init();
-    }
-    this.cache.list.sort((a: TelescopeStored, b: TelescopeStored) => a.name.localeCompare(b.name));
-    this.storage.set('userTelescopes', this.cache);
-  }
-
-  saveAll(): void {
-    if (!this.cache) {
-      this.init();
-    }
-    this.storage.set('userTelescopes', this.cache);
-  }
-
   getAll(): Array<TelescopeStored> {
     if (!this.cache) {
       this.init();
@@ -121,6 +102,53 @@ export class UserTelescopeService {
     if (index >= 0) {
       const obj = this.cache.list[index];
       return [ obj ];
+    }
+    return [];
+  }
+
+  create(name: string, aperture: string, focalLength: string, centralObstruction: string, totalReflectanceTransmittance: string): Array<TelescopeStored> {
+    if (!this.cache) {
+      this.init();
+    }
+    const id = this.cache.nextid++;
+    const obj: TelescopeStored = { id, name, aperture, focalLength, centralObstruction, totalReflectanceTransmittance };
+    this.cache.list.push(obj);
+    this.storage.set('userTelescopes', this.cache);
+    return [ obj ];
+  }
+
+  update(id: number, name: string, aperture: string, focalLength: string, centralObstruction: string, totalReflectanceTransmittance: string): Array<TelescopeStored> {
+    if (!this.cache) {
+      this.init();
+    }
+    const index = this.cache.list.findIndex((element: TelescopeStored) => {
+      return element.id === id;
+    });
+    if (index >= 0) {
+      const obj: TelescopeStored = this.cache.list[index];
+      obj.name = name;
+      obj.aperture = aperture;
+      obj.focalLength = focalLength;
+      obj.centralObstruction = centralObstruction;
+      obj.totalReflectanceTransmittance = totalReflectanceTransmittance;
+      this.cache.list[index] = obj;
+      this.storage.set('userTelescopes', this.cache);
+      return [ obj ];
+    }
+    return [];
+  }
+
+  delete(id: number): Array<TelescopeStored> {
+    if (!this.cache) {
+      this.init();
+    }
+    const index = this.cache.list.findIndex((element: TelescopeStored) => {
+      return element.id === id;
+    });
+    if (index >= 0) {
+      const deleted = this.cache.list.splice(index, 1);
+      this.storage.set('userTelescopes', this.cache);
+      return deleted;
     }
     return [];
   }
@@ -146,48 +174,5 @@ export class UserTelescopeService {
       !isNaN(item.totalReflectanceTransmittance) && item.totalReflectanceTransmittance >= 0 && item.totalReflectanceTransmittance <= 1 &&
       item.centralObstruction < item.aperture
       );
-  }
-
-  create(name: string, aperture: string, focalLength: string, centralObstruction: string, totalReflectanceTransmittance: string): Array<TelescopeStored> {
-    if (!this.cache) {
-      this.init();
-    }
-    const id = this.cache.nextid++;
-    const obj: TelescopeStored = { id, name, aperture, focalLength, centralObstruction, totalReflectanceTransmittance };
-    this.cache.list.unshift(obj);
-    return [ obj ];
-  }
-
-  update(id: number, name: string, aperture: string, focalLength: string, centralObstruction: string, totalReflectanceTransmittance: string): Array<TelescopeStored> {
-    if (!this.cache) {
-      this.init();
-    }
-    const index = this.cache.list.findIndex((element: TelescopeStored) => {
-      return element.id === id;
-    });
-    if (index >= 0) {
-      const obj: TelescopeStored = this.cache.list[index];
-      obj.name = name;
-      obj.aperture = aperture;
-      obj.focalLength = focalLength;
-      obj.centralObstruction = centralObstruction;
-      obj.totalReflectanceTransmittance = totalReflectanceTransmittance;
-      this.cache.list[index] = obj;
-      return [ obj ];
-    }
-    return [];
-  }
-
-  delete(id: number): Array<TelescopeStored> {
-    if (!this.cache) {
-      this.init();
-    }
-    const index = this.cache.list.findIndex((element: TelescopeStored) => {
-      return element.id === id;
-    });
-    if (index >= 0) {
-      return this.cache.list.splice(index, 1);
-    }
-    return [];
   }
 }

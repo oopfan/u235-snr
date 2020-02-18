@@ -1,0 +1,19 @@
+<form [formGroup]="cameraForm" (ngSubmit)="onSubmit()">
+    <app-input-text label="Name" [control]="cameraForm.get('name')"></app-input-text>
+    <app-input-number label="Pixel size (um)" [control]="cameraForm.get('pixelSize')" min="0.01" step="0.01"></app-input-number>
+    <app-input-number label="Read noise (e-)" [control]="cameraForm.get('readNoise')" min="0" step="0.1"></app-input-number>
+    <app-input-number label="Dark current (e-/s)" [control]="cameraForm.get('darkCurrent')" min="0" step="0.01"></app-input-number>
+    <app-input-number label="Quantum efficiency (%)" [control]="cameraForm.get('quantumEfficiency')" min="0" max="100" step="1"></app-input-number>
+    <div class="buttons">
+        <button type="submit" class="button is-rounded is-light is-uppercase" [disabled]="cameraForm.invalid">submit</button>
+        <button type="button" class="button is-rounded is-light is-uppercase" (click)="onCancel()">cancel</button>
+    </div>
+</form>
+<!-- 
+<hr />
+<div>Form is valid: {{ cameraForm.valid }}</div>
+<div>Form values: {{ cameraForm.value | json }}</div>
+<div>Form errors: {{ cameraForm.errors | json }}</div>
+<div>Errors around name: {{ cameraForm.controls.name.errors | json }}</div>
+<div>Errors around pixelSize: {{ cameraForm.controls.pixelSize.errors | json }}</div>
+-->

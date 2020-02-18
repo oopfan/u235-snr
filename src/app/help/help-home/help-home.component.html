@@ -189,73 +189,62 @@
     </div>
 </section>
 
-<section class="section" *ngIf="section == 'all-sections' || (section == 'camera-overview' || section == 'camera-pixel-size' || section == 'camera-read-noise' || section == 'camera-dark-current' || section == 'camera-quantum-efficiency')">
+<section class="section" *ngIf="section == 'all-sections' || section == 'camera'">
     <div class="container">
         <h1 class="title is-4">Camera</h1>
 
-        <div *ngIf="section == 'all-sections' || section == 'camera-overview'">
-            <h2 class="subtitle is-5">Overview</h2>
-            <div class="content">
-                <p>
-                    Cameras have four essential properties that must be filled in before proceeding to the <i>Calculate!</i> tool but as is
-                    customary you can leave fields empty as you work towards gathering information.
-                </p>
-                <p></p>
-            </div>
+        <div class="content">
+            <p>
+                Cameras have four essential properties that must be filled in before proceeding to the <i>Calculate!</i> tool but as is
+                customary you can leave fields empty as you work towards gathering information.
+            </p>
+            <p></p>
         </div>
 
-        <div *ngIf="section == 'all-sections' || section == 'camera-pixel-size'">
-            <h2 class="subtitle is-5">Pixel Size</h2>
-            <div class="content">
-                <p>
-                    Pixel Size is measured in microns which is one-thousandth of a millimeter, abbreviated <i>um</i>. CMOS cameras generally have smaller
-                    pixel sizes than do CCD cameras. 2 microns to 10 microns is not uncommon.
-                </p>
-                <p>
-                    Many cameras have square pixels but some have rectangular ones. Our <i>Pixel Size</i> property assumes a square pixel. If yours is
-                    rectangular, say for example 3um x 4um, then you need to run a simple calculation: <i>SQRT(width * height)</i>. So in our example you
-                    will calculate <i>SQRT(3 * 4)</i> which is 3.464. That is the value you should enter.
-                </p>
-                <p></p>
-            </div>
+        <h2 class="subtitle is-5">Pixel Size</h2>
+        <div class="content">
+            <p>
+                Pixel Size is measured in microns which is one-thousandth of a millimeter, abbreviated <i>um</i>. CMOS cameras generally have smaller
+                pixel sizes than do CCD cameras. 2 microns to 10 microns is not uncommon.
+            </p>
+            <p>
+                Many cameras have square pixels but some have rectangular ones. Our <i>Pixel Size</i> property assumes a square pixel. If yours is
+                rectangular, say for example 3um x 4um, then you need to run a simple calculation: <i>SQRT(width * height)</i>. So in our example you
+                will calculate <i>SQRT(3 * 4)</i> which is 3.464. That is the value you should enter.
+            </p>
+            <p></p>
         </div>
-        
-        <div *ngIf="section == 'all-sections' || section == 'camera-read-noise'">
-            <h2 class="subtitle is-5">Read Noise</h2>
-            <div class="content">
-                <p>
-                    <i>Read Noise</i> is the amount of electronic noise added to an image after you read it from of the camera. It is measured in
-                    units of electrons (e-). Please refer to the manufacturer's datasheet. CMOS cameras generally have lower Read Noise than CCDs.
-                </p>
-                <p></p>
-            </div>
+    
+        <h2 class="subtitle is-5">Read Noise</h2>
+        <div class="content">
+            <p>
+                <i>Read Noise</i> is the amount of electronic noise added to an image after you read it from of the camera. It is measured in
+                units of electrons (e-). Please refer to the manufacturer's datasheet. CMOS cameras generally have lower Read Noise than CCDs.
+            </p>
+            <p></p>
         </div>
-        
-        <div *ngIf="section == 'all-sections' || section == 'camera-dark-current'">
-            <h2 class="subtitle is-5">Dark Current</h2>
-            <div class="content">
-                <p>
-                    <i>Dark Current</i> is affected by the temperature of your camera's sensor. The higher the temperature the greater the current
-                    and consequently the noise. In an ideal world our camera is unaffected by temperature but to get close to ideal we must cool the
-                    sensor. Cameras that are designed for deep-sky astrophotography come with thermo-electric coolers that lower the sensor's
-                    temperature by nearly 40 degrees Celsius. Dark current at that temperature is virtually zero. If your camera's manufacturer has
-                    data on dark current then use it but if not feel free to enter zero in this field.
-                </p>
-                <p></p>
-            </div>
+    
+        <h2 class="subtitle is-5">Dark Current</h2>
+        <div class="content">
+            <p>
+                <i>Dark Current</i> is affected by the temperature of your camera's sensor. The higher the temperature the greater the current
+                and consequently the noise. In an ideal world our camera is unaffected by temperature but to get close to ideal we must cool the
+                sensor. Cameras that are designed for deep-sky astrophotography come with thermo-electric coolers that lower the sensor's
+                temperature by nearly 40 degrees Celsius. Dark current at that temperature is virtually zero. If your camera's manufacturer has
+                data on dark current then use it but if not feel free to enter zero in this field.
+            </p>
+            <p></p>
         </div>
-        
-        <div *ngIf="section == 'all-sections' || section == 'camera-quantum-efficiency'">
-            <h2 class="subtitle is-5">Quantum Efficiency</h2>
-            <div class="content">
-                <p>
-                    The primary job of your camera's sensor is to convert photons to electrons. If your camera can convert one photon to one electron
-                    then it is said to have 100% <i>Quantum Efficiency</i>. Reality is a different story. Most cameras have far less than 100%
-                    efficiency. My camera has a pitiful 43% efficiency. As always refer to the manufacturer's datasheet. If you are unsure then enter
-                    50 in this field.
-                </p>
-                <p></p>
-            </div>
+    
+        <h2 class="subtitle is-5">Quantum Efficiency</h2>
+        <div class="content">
+            <p>
+                The primary job of your camera's sensor is to convert photons to electrons. If your camera can convert one photon to one electron
+                then it is said to have 100% <i>Quantum Efficiency</i>. Reality is a different story. Most cameras have far less than 100%
+                efficiency. My camera has a pitiful 43% efficiency. As always refer to the manufacturer's datasheet. If you are unsure then enter
+                50 in this field.
+            </p>
+            <p></p>
         </div>
     </div>
 </section>

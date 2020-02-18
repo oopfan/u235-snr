@@ -15,7 +15,7 @@ export class TelescopeFormComponent implements OnInit {
   @Input() centralObstruction: string = '';
   @Input() totalReflectanceTransmittance: string = '';
   @Output() notifySubmit:EventEmitter<TelescopeParsed> = new EventEmitter();
-  @Output() notifyCancel:EventEmitter<string> = new EventEmitter();
+  @Output() notifyCancel:EventEmitter<void> = new EventEmitter();
   telescopeForm: FormGroup = null;
 
   constructor() { }
@@ -44,7 +44,7 @@ export class TelescopeFormComponent implements OnInit {
   }
 
   onCancel() {
-    this.notifyCancel.emit('cancel');
+    this.notifyCancel.emit();
   }
 
 }

@@ -1,19 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { CameraItemComponent } from './camera-item.component';
 
-describe('CameraItemComponent', () => {
-  let component: CameraItemComponent;
-  let fixture: ComponentFixture<CameraItemComponent>;
+import { CameraFormComponent } from './camera-form.component';
+
+describe('CameraFormComponent', () => {
+  let component: CameraFormComponent;
+  let fixture: ComponentFixture<CameraFormComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CameraItemComponent ]
+      declarations: [ CameraFormComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CameraItemComponent);
+    fixture = TestBed.createComponent(CameraFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,3 +1,4 @@
+import { Title } from '@angular/platform-browser';
 import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
 import { UserTelescopeService, TelescopeParsed } from 'src/app/services/user-telescope.service';
@@ -9,9 +10,10 @@ import { UserTelescopeService, TelescopeParsed } from 'src/app/services/user-tel
 })
 export class TelescopeCreateComponent implements OnInit {
 
-  constructor(private telescopeService: UserTelescopeService, private router: Router) { }
+  constructor(private titleService: Title, private telescopeService: UserTelescopeService, private router: Router) { }
 
   ngOnInit() {
+    this.titleService.setTitle('New Telescope | U235+SNR');
   }
 
   onSubmit(value: TelescopeParsed) {
@@ -22,11 +24,10 @@ export class TelescopeCreateComponent implements OnInit {
       '' + value.centralObstruction,
       '' + value.totalReflectanceTransmittance
     );
-
     this.router.navigate(['/telescopes']);
   }
 
-  onCancel(value: string) {
+  onCancel() {
     this.router.navigate(['/telescopes']);
   }
 }

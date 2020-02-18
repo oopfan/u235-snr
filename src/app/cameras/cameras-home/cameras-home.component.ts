@@ -1,7 +1,7 @@
 import { Title } from '@angular/platform-browser';
 import { Router } from "@angular/router";
 import { Component, OnInit } from '@angular/core';
-import { UserCameraService } from 'src/app/services/user-camera.service';
+import { UserCameraService, CameraStored } from 'src/app/services/user-camera.service';
 
 @Component({
   selector: 'app-cameras-home',
@@ -9,15 +9,14 @@ import { UserCameraService } from 'src/app/services/user-camera.service';
   styleUrls: ['./cameras-home.component.css']
 })
 export class CamerasHomeComponent implements OnInit {
+  cameras = [];
 
   constructor(private titleService: Title, private router: Router, private cameraService: UserCameraService) { }
 
-  cameras = [];
-
   ngOnInit() {
     this.titleService.setTitle('Cameras | U235+SNR');
-    this.cameraService.sort();
     this.cameras = this.cameraService.getAll();
+    this.cameras.sort((a: CameraStored, b: CameraStored) => a.name.localeCompare(b.name));
   }
 
   onHelp(section: string) {
@@ -25,31 +24,15 @@ export class CamerasHomeComponent implements OnInit {
   }
 
   onNew() {
-    this.cameraService.create('', '', '', '', '');
-    this.cameras = this.cameraService.getAll();
+    this.router.navigate(['/new-camera']);
   }
 
-  onSaveAll() {
-    this.cameraService.saveAll();
-  }
-
-  onDiscard() {
-    this.cameraService.discard();
-    this.cameras = this.cameraService.getAll();
-  }
-
-  onUpdate(camera: any) {
-    this.cameraService.update(camera.id, camera.name, camera.pixelSize, camera.readNoise, camera.darkCurrent, camera.quantumEfficiency);
+  onEdit(id: number) {
+    this.router.navigate(['/edit-camera', id]);
   }
 
   onDelete(id: number) {
-    this.cameraService.delete(id);
-    this.cameras = this.cameraService.getAll();
-  }
-
-  onSave(id: number) {
-    // Right now, can't save an individual camera to Local Storage, just all cameras.
-    this.cameraService.saveAll();
+    this.router.navigate(['/delete-camera', id]);
   }
 
 }

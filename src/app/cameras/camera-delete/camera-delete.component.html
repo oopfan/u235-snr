@@ -2,43 +2,43 @@
     <div class="container">
         <div class="columns">
             <div class="column is-three-fifths">
-                <h1 class="title is-5">Delete Telescope</h1>
+                <h1 class="title is-5">Delete Camera</h1>
             </div>
         </div>
         <div class="columns">
             <div class="column is-three-fifths">
                 <label class="label">Name</label>
-                <div>{{ telescope.name }}</div>
+                <div>{{ camera.name }}</div>
             </div>
         </div>
         <div class="columns">
             <div class="column is-three-fifths">
-                <label class="label">Aperture (mm)</label>
-                <div>{{ telescope.aperture }}</div>
+                <label class="label">Pixel size (um)</label>
+                <div>{{ camera.pixelSize }}</div>
             </div>
         </div>
         <div class="columns">
             <div class="column is-three-fifths">
-                <label class="label">Focal length (mm)</label>
-                <div>{{ telescope.focalLength }}</div>
+                <label class="label">Read noise (e-)</label>
+                <div>{{ camera.readNoise }}</div>
             </div>
         </div>
         <div class="columns">
             <div class="column is-three-fifths">
-                <label class="label">Central obstruction (mm)</label>
-                <div>{{ telescope.centralObstruction }}</div>
+                <label class="label">Dark current (e-/s)</label>
+                <div>{{ camera.darkCurrent }}</div>
             </div>
         </div>
         <div class="columns">
             <div class="column is-three-fifths">
-                <label class="label">Total reflectance/transmittance (1=ideal, 0=opaque)</label>
-                <div>{{ telescope.totalReflectanceTransmittance }}</div>
+                <label class="label">Quantum efficiency (%)</label>
+                <div>{{ camera.quantumEfficiency }}</div>
             </div>
         </div>
         <div class="columns">
             <div class="column is-three-fifths">
                 <div class="has-text-danger">
-                    Are you sure you want to delete this telescope?
+                    Are you sure you want to delete this camera?
                 </div>
             </div>
         </div>
