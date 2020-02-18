@@ -126,76 +126,65 @@
     </div>
 </section>
 
-<section class="section" *ngIf="section == 'all-sections' || (section == 'telescope-overview' || section == 'telescope-aperture' || section == 'telescope-focal-length' || section == 'telescope-central-obstruction' || section == 'telescope-total-reflectance-transmittance')">
+<section class="section" *ngIf="section == 'all-sections' || section == 'telescope'">
     <div class="container">
         <h1 class="title is-4">Telescope</h1>
 
-        <div *ngIf="section == 'all-sections' || section == 'telescope-overview'">
-            <h2 class="subtitle is-5">Overview</h2>
-            <div class="content">
-                <p>
-                    Telescopes come in all shapes and sizes but each falls into the category of either <i>Refractive</i> or <i>Reflective</i>.
-                    Refractors use a lens as the primary light gathering element. Reflectors use a mirror.
-                </p>
-                <p>
-                    There are four essential properties that describe a telescope. You can leave them empty and come back later to fill them in.
-                    Just know that the <i>Calculate!</i> tool is less forgiving. It <b>must</b> know the value of each in order to proceed.
-                    Any telescope with properties that are incomplete or have invalid values will be filtered out of its selection list.
-                </p>
-                <p></p>
-            </div>
+        <div class="content">
+            <p>
+                Telescopes come in all shapes and sizes but each falls into the category of either <i>Refractive</i> or <i>Reflective</i>.
+                Refractors use a lens as the primary light gathering element. Reflectors use a mirror.
+            </p>
+            <p>
+                There are four essential properties that describe a telescope. You can leave them empty and come back later to fill them in.
+                Just know that the <i>Calculate!</i> tool is less forgiving. It <b>must</b> know the value of each in order to proceed.
+                Any telescope with properties that are incomplete or have invalid values will be filtered out of its selection list.
+            </p>
+            <p></p>
         </div>
 
-        <div *ngIf="section == 'all-sections' || section == 'telescope-aperture'">
-            <h2 class="subtitle is-5">Aperture</h2>
-            <div class="content">
-                <p>
-                    This is the diameter of the primary lens or mirror measured in millimeters(mm). For example my William Optics refractor's
-                    aperture is 71mm. Other telescopes may be measured in inches. In those cases multiply inches by 25.4. It's best to refer
-                    to the manufacturer's datasheet for the exact value.
-                </p>
-                <p></p>
-            </div>
+        <h2 class="subtitle is-5">Aperture</h2>
+        <div class="content">
+            <p>
+                This is the diameter of the primary lens or mirror measured in millimeters(mm). For example my William Optics refractor's
+                aperture is 71mm. Other telescopes may be measured in inches. In those cases multiply inches by 25.4. It's best to refer
+                to the manufacturer's datasheet for the exact value.
+            </p>
+            <p></p>
         </div>
-        
-        <div *ngIf="section == 'all-sections' || section == 'telescope-focal-length'">
-            <h2 class="subtitle is-5">Focal Length</h2>
-            <div class="content">
-                <p>
-                    Focal length is measured in millimeters(mm). Basically it is the distance between the primary lens or mirror and the focused
-                    image. Be careful to factor in the effect of addtional refractive elements like a focal reducer or barlow lens. If you added
-                    a 0.67x focal reducer then multiply 0.67 by the manufacturer's datasheet for focal length. For example if the manufacturer says
-                    that the telescope's focal length is 616mm then you need to multiply it by 0.67 to get the <i>effective</i> focal length of
-                    412.7mm.
-                </p>
-                <p></p>
-            </div>
+    
+        <h2 class="subtitle is-5">Focal Length</h2>
+        <div class="content">
+            <p>
+                Focal length is measured in millimeters(mm). Basically it is the distance between the primary lens or mirror and the focused
+                image. Be careful to factor in the effect of addtional refractive elements like a focal reducer or barlow lens. If you added
+                a 0.67x focal reducer then multiply 0.67 by the manufacturer's datasheet for focal length. For example if the manufacturer says
+                that the telescope's focal length is 616mm then you need to multiply it by 0.67 to get the <i>effective</i> focal length of
+                412.7mm.
+            </p>
+            <p></p>
         </div>
-        
-        <div *ngIf="section == 'all-sections' || section == 'telescope-central-obstruction'">
-            <h2 class="subtitle is-5">Central Obstruction</h2>
-            <div class="content">
-                <p>
-                    Almost all reflectors have a central obstruction of one type or the other. Usually there is a small <i>secondary mirror</i>
-                    that reflects the light 90 degrees to an opening in the telescope tube. Please refer to your manufacturer's datasheet for
-                    the size of the central obstruction. Note that refractors do not have one but you still need to enter 0.
-                </p>
-                <p></p>
-            </div>
+    
+        <h2 class="subtitle is-5">Central Obstruction</h2>
+        <div class="content">
+            <p>
+                Almost all reflectors have a central obstruction of one type or the other. Usually there is a small <i>secondary mirror</i>
+                that reflects the light 90 degrees to an opening in the telescope tube. Please refer to your manufacturer's datasheet for
+                the size of the central obstruction. Note that refractors do not have one but you still need to enter 0.
+            </p>
+            <p></p>
         </div>
-        
-        <div *ngIf="section == 'all-sections' || section == 'telescope-total-reflectance-transmittance'">
-            <h2 class="subtitle is-5">Total Reflectance/Transmittance</h2>
-            <div class="content">
-                <p>
-                    This is a measure of the total optical efficiency of the telescope. Values from 0 to 1 are acceptable. A value of 1 is
-                    <i>ideal</i> but in reality there are always some losses. If you have multiple elements like a primary and secondary mirror
-                    then you need to multiply them. For example if the primary mirror is 99% efficient and the secondary is 98% efficient then
-                    calculate 0.99 times 0.98. You should enter the value of 0.97 in this field. I recommend not fretting over the exact value.
-                    I use 0.99.
-                </p>
-                <p></p>
-            </div>
+    
+        <h2 class="subtitle is-5">Total Reflectance/Transmittance</h2>
+        <div class="content">
+            <p>
+                This is a measure of the total optical efficiency of the telescope. Values from 0 to 1 are acceptable. A value of 1 is
+                <i>ideal</i> but in reality there are always some losses. If you have multiple elements like a primary and secondary mirror
+                then you need to multiply them. For example if the primary mirror is 99% efficient and the secondary is 98% efficient then
+                calculate 0.99 times 0.98. You should enter the value of 0.97 in this field. I recommend not fretting over the exact value.
+                I use 0.99.
+            </p>
+            <p></p>
         </div>
     </div>
 </section>

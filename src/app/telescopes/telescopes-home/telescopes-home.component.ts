@@ -24,10 +24,10 @@ export class TelescopesHomeComponent implements OnInit {
     this.router.navigate(['/help', section]);
   }
 
-  onNew() {
-    this.telescopeService.create('', '', '', '', '');
-    this.telescopes = this.telescopeService.getAll();
-  }
+  // onNew() {
+  //   this.telescopeService.create('', '', '', '', '');
+  //   this.telescopes = this.telescopeService.getAll();
+  // }
 
   onSaveAll() {
     this.telescopeService.saveAll();
@@ -42,14 +42,26 @@ export class TelescopesHomeComponent implements OnInit {
     this.telescopeService.update(telescope.id, telescope.name, telescope.aperture, telescope.focalLength, telescope.centralObstruction, telescope.totalReflectanceTransmittance);
   }
 
-  onDelete(id: number) {
-    this.telescopeService.delete(id);
-    this.telescopes = this.telescopeService.getAll();
-  }
+  // onDelete(id: number) {
+  //   this.telescopeService.delete(id);
+  //   this.telescopes = this.telescopeService.getAll();
+  // }
 
   onSave(id: number) {
     // Right now, can't save an individual telescope to Local Storage, just all telescopes.
     this.telescopeService.saveAll();
+  }
+
+  onNew() {
+    this.router.navigate(['/new-telescope']);
+  }
+
+  onEdit(id: number) {
+    this.router.navigate(['/edit-telescope', id]);
+  }
+
+  onDelete(id: number) {
+    this.router.navigate(['/delete-telescope', id]);
   }
 
 }
