@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { LocalStorageService, LocalStorage } from 'angular-web-storage';
 
-interface TelescopeStored {
+export interface TelescopeStored {
   id: number,
   name: string,
   aperture: string,

@@ -15,7 +15,6 @@ export class TelescopeCreateComponent implements OnInit {
   }
 
   onSubmit(value: TelescopeParsed) {
-    console.log(value);
     this.telescopeService.create(
       value.name,
       '' + value.aperture,

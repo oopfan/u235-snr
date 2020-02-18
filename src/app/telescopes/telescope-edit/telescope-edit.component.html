@@ -1,1 +1,22 @@
-<p>telescope-edit works!</p>
+<section class="section">
+    <div class="container">
+        <div class="columns">
+            <div class="column is-three-fifths">
+                <h1 class="title is-5">Edit Telescope</h1>
+            </div>
+        </div>
+        <div class="columns">
+            <div class="column is-three-fifths">
+                <app-telescope-form
+                    [name]="telescope.name"
+                    [aperture]="telescope.aperture"
+                    [focalLength]="telescope.focalLength"
+                    [centralObstruction]="telescope.centralObstruction"
+                    [totalReflectanceTransmittance]="telescope.totalReflectanceTransmittance"
+                    (notifySubmit)="onSubmit($event)"
+                    (notifyCancel)="onCancel($event)">
+                </app-telescope-form>
+            </div>
+        </div>
+    </div>
+</section>

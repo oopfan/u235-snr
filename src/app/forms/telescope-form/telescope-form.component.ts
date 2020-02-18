@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter, OnInit } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { TelescopeValidator } from '../../validators/telescope-validator';
 import { TelescopeParsed } from 'src/app/services/user-telescope.service';
@@ -9,22 +9,27 @@ import { TelescopeParsed } from 'src/app/services/user-telescope.service';
   styleUrls: ['./telescope-form.component.css']
 })
 export class TelescopeFormComponent implements OnInit {
+  @Input() name: string = '';
+  @Input() aperture: string = '';
+  @Input() focalLength: string = '';
+  @Input() centralObstruction: string = '';
+  @Input() totalReflectanceTransmittance: string = '';
   @Output() notifySubmit:EventEmitter<TelescopeParsed> = new EventEmitter();
   @Output() notifyCancel:EventEmitter<string> = new EventEmitter();
-
-  telescopeForm = new FormGroup({
-    name: new FormControl('', [ Validators.required ]),
-    aperture: new FormControl('', [ Validators.required, Validators.min(1) ]),
-    focalLength: new FormControl('', [ Validators.required, Validators.min(1) ]),
-    centralObstruction: new FormControl('', [ Validators.required, Validators.min(0) ]),
-    totalReflectanceTransmittance: new FormControl('', [ Validators.required, Validators.min(0), Validators.max(1) ])
-  }, [
-    TelescopeValidator.apertureCheck
-  ]);
+  telescopeForm: FormGroup = null;
 
   constructor() { }
 
   ngOnInit() {
+    this.telescopeForm = new FormGroup({
+      name: new FormControl(this.name, [ Validators.required ]),
+      aperture: new FormControl(this.aperture, [ Validators.required, Validators.min(1) ]),
+      focalLength: new FormControl(this.focalLength, [ Validators.required, Validators.min(1) ]),
+      centralObstruction: new FormControl(this.centralObstruction, [ Validators.required, Validators.min(0) ]),
+      totalReflectanceTransmittance: new FormControl(this.totalReflectanceTransmittance, [ Validators.required, Validators.min(0), Validators.max(1) ])
+    }, [
+      TelescopeValidator.apertureCheck
+    ]);
   }
 
   onSubmit() {
