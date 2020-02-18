@@ -13,6 +13,7 @@ import { CalculatorsModule } from './calculators/calculators.module';
 import { SharedModule } from './shared/shared.module';
 import { HelpModule } from './help/help.module';
 import { ErrorsModule } from './errors/errors.module';
+import { FormsModule } from './forms/forms.module'
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { ErrorsModule } from './errors/errors.module';
     CalculatorsModule,
     SharedModule,
     HelpModule,
-    ErrorsModule
+    ErrorsModule,
+    FormsModule
   ],
   providers: [Title],
   bootstrap: [AppComponent]
