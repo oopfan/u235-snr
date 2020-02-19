@@ -1,5 +1,6 @@
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { RouterTestingModule } from '@angular/router/testing';
 import { CameraEditComponent } from './camera-edit.component';
 
 describe('CameraEditComponent', () => {
@@ -8,6 +9,8 @@ describe('CameraEditComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [ RouterTestingModule ],
+      schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
       declarations: [ CameraEditComponent ]
     })
     .compileComponents();

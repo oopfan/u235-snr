@@ -1,9 +1,7 @@
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-
 import { TelescopesHomeComponent } from './telescopes-home.component';
-import { routes } from '../telescopes-routing.module';
 
 describe('TelescopesHomeComponent', () => {
   let component: TelescopesHomeComponent;
@@ -11,7 +9,7 @@ describe('TelescopesHomeComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [RouterTestingModule.withRoutes(routes)],
+      imports: [ RouterTestingModule ],
       schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
       declarations: [ TelescopesHomeComponent ]
     })

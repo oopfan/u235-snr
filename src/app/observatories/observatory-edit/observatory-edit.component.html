@@ -1,4 +1,4 @@
-<section class="section">
+<section class="section" *ngIf="observatory.id >= 0">
     <div class="container">
         <div class="columns">
             <div class="column is-three-fifths">
@@ -18,3 +18,6 @@
         </div>
     </div>
 </section>
+<div *ngIf="observatory.id < 0">
+    <h1 class="title">Observatory not found</h1>
+</div>

@@ -9,13 +9,19 @@ import { UserTelescopeService, TelescopeStored } from '../../services/user-teles
   styleUrls: ['./telescope-delete.component.css']
 })
 export class TelescopeDeleteComponent implements OnInit {
-  telescope: TelescopeStored = null;
+  telescope: TelescopeStored = {
+    id: -1,
+    name: '',
+    aperture: '',
+    focalLength: '',
+    centralObstruction: '',
+    totalReflectanceTransmittance: ''
+  };
 
   constructor(private titleService: Title, private activatedRoute: ActivatedRoute, private router: Router, private telescopeService: UserTelescopeService) { }
 
   ngOnInit() {
     this.titleService.setTitle('Delete Telescope | U235+SNR');
-    this.telescope = null;
     const id = this.activatedRoute.snapshot.paramMap.get('id');
     if (id) {
       const idNum = parseInt(id);
@@ -23,11 +29,9 @@ export class TelescopeDeleteComponent implements OnInit {
         const result = this.telescopeService.getItem(idNum);
         if (result.length) {
           this.telescope = result[0];
+          return;
         }
       }
-    }
-    if (!this.telescope) {
-      this.router.navigate(['/home']);
     }
   }
 

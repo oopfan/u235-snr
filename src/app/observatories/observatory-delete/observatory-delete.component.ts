@@ -9,13 +9,17 @@ import { UserObservatoryService, ObservatoryStored } from '../../services/user-o
   styleUrls: ['./observatory-delete.component.css']
 })
 export class ObservatoryDeleteComponent implements OnInit {
-  observatory: ObservatoryStored = null;
+  observatory: ObservatoryStored = {
+    id: -1,
+    name: '',
+    bortleClass: '',
+    skyBrightness: ''
+  };
 
   constructor(private titleService: Title, private activatedRoute: ActivatedRoute, private router: Router, private observatoryService: UserObservatoryService) { }
 
   ngOnInit() {
     this.titleService.setTitle('Delete Observatory | U235+SNR');
-    this.observatory = null;
     const id = this.activatedRoute.snapshot.paramMap.get('id');
     if (id) {
       const idNum = parseInt(id);
@@ -23,11 +27,9 @@ export class ObservatoryDeleteComponent implements OnInit {
         const result = this.observatoryService.getItem(idNum);
         if (result.length) {
           this.observatory = result[0];
+          return;
         }
       }
-    }
-    if (!this.observatory) {
-      this.router.navigate(['/home']);
     }
   }
 

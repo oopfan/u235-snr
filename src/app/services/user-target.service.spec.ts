@@ -1,8 +1,7 @@
 import { TestBed } from '@angular/core/testing';
-
 import { UserTargetService } from './user-target.service';
 
-describe('UserTargetsService', () => {
+xdescribe('UserTargetsService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
