@@ -89,7 +89,7 @@ export class UserTelescopeService {
     if (!this.cache) {
       this.init();
     }
-    return this.cache.list;
+    return this.cache.list.map(item => Object.assign({}, item));
   }
 
   getItem(id: number): Array<TelescopeStored> {
@@ -100,8 +100,7 @@ export class UserTelescopeService {
       return element.id === id;
     });
     if (index >= 0) {
-      const obj = this.cache.list[index];
-      return [ obj ];
+      return [ Object.assign({}, this.cache.list[index]) ];
     }
     return [];
   }
@@ -114,7 +113,7 @@ export class UserTelescopeService {
     const obj: TelescopeStored = { id, name, aperture, focalLength, centralObstruction, totalReflectanceTransmittance };
     this.cache.list.push(obj);
     this.storage.set('userTelescopes', this.cache);
-    return [ obj ];
+    return [ Object.assign({}, obj) ];
   }
 
   update(id: number, name: string, aperture: string, focalLength: string, centralObstruction: string, totalReflectanceTransmittance: string): Array<TelescopeStored> {
@@ -131,9 +130,8 @@ export class UserTelescopeService {
       obj.focalLength = focalLength;
       obj.centralObstruction = centralObstruction;
       obj.totalReflectanceTransmittance = totalReflectanceTransmittance;
-      this.cache.list[index] = obj;
       this.storage.set('userTelescopes', this.cache);
-      return [ obj ];
+      return [ Object.assign({}, obj) ];
     }
     return [];
   }
