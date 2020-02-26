@@ -75,7 +75,7 @@ export class UserObservatoryService {
     if (!this.cache) {
       this.init();
     }
-    return this.cache.list;
+    return this.cache.list.map<ObservatoryStored>(item => Object.assign({}, item));
   }
 
   getItem(id: number): Array<ObservatoryStored> {
@@ -86,8 +86,7 @@ export class UserObservatoryService {
       return element.id === id;
     });
     if (index >= 0) {
-      const obj = this.cache.list[index];
-      return [ obj ];
+      return [ Object.assign({}, this.cache.list[index]) ];
     }
     return [];
   }
@@ -100,7 +99,7 @@ export class UserObservatoryService {
     const obj: ObservatoryStored = { id, name, bortleClass, skyBrightness };
     this.cache.list.push(obj);
     this.storage.set('userObservatories', this.cache);
-    return [ obj ];
+    return [ Object.assign({}, obj) ];
   }
 
   update(id: number, name: string, bortleClass: string, skyBrightness: string): Array<ObservatoryStored> {
@@ -115,9 +114,8 @@ export class UserObservatoryService {
       obj.name = name;
       obj.bortleClass = bortleClass;
       obj.skyBrightness = skyBrightness;
-      this.cache.list[index] = obj;
       this.storage.set('userObservatories', this.cache);
-      return [ obj ];
+      return [ Object.assign({}, obj) ];
     }
     return [];
   }
