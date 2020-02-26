@@ -89,7 +89,7 @@ export class UserCameraService {
     if (!this.cache) {
       this.init();
     }
-    return this.cache.list;
+    return this.cache.list.map<CameraStored>(item => Object.assign({}, item));
   }
 
   getItem(id: number): Array<CameraStored> {
@@ -100,8 +100,7 @@ export class UserCameraService {
       return element.id === id;
     });
     if (index >= 0) {
-      const obj = this.cache.list[index];
-      return [ obj ];
+      return [ Object.assign({}, this.cache.list[index]) ];
     }
     return [];
   }
@@ -114,7 +113,7 @@ export class UserCameraService {
     const obj: CameraStored = { id, name, pixelSize, readNoise, darkCurrent, quantumEfficiency };
     this.cache.list.push(obj);
     this.storage.set('userCameras', this.cache);
-    return [ obj ];
+    return [ Object.assign({}, obj) ];
   }
 
   update(id: number, name: string, pixelSize: string, readNoise:string, darkCurrent:string, quantumEfficiency:string): Array<CameraStored> {
@@ -131,9 +130,8 @@ export class UserCameraService {
       obj.readNoise = readNoise;
       obj.darkCurrent = darkCurrent;
       obj.quantumEfficiency = quantumEfficiency;
-      this.cache.list[index] = obj;
       this.storage.set('userCameras', this.cache);
-      return [ obj ];
+      return [ Object.assign({}, obj) ];
     }
     return [];
   }
