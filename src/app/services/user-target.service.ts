@@ -68,7 +68,7 @@ export class UserTargetService {
     if (!this.cache) {
       this.init();
     }
-    return this.cache.list;
+    return this.cache.list.map(item => Object.assign({}, item));
   }
 
   getItem(id: number): Array<TargetStored> {
@@ -79,8 +79,7 @@ export class UserTargetService {
       return element.id === id;
     });
     if (index >= 0) {
-      const obj = this.cache.list[index];
-      return [ obj ];
+      return [ Object.assign({}, this.cache.list[index]) ];
     }
     return [];
   }
@@ -93,7 +92,7 @@ export class UserTargetService {
     const obj: TargetStored = { id, name, surfaceBrightness };
     this.cache.list.push(obj);
     this.storage.set('userTargets', this.cache);
-    return [ obj ];
+    return [ Object.assign({}, obj) ];
   }
 
   update(id: number, name: string, surfaceBrightness: string) {
@@ -107,9 +106,8 @@ export class UserTargetService {
       const obj: TargetStored = this.cache.list[index];
       obj.name = name;
       obj.surfaceBrightness = surfaceBrightness;
-      this.cache.list[index] = obj;
       this.storage.set('userTargets', this.cache);
-      return [ obj ];
+      return [ Object.assign({}, obj) ];
     }
     return [];
   }

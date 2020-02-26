@@ -118,6 +118,7 @@ describe('UserCameraService', () => {
     expect(list2.length).toBe(1, 'check gamma');
 
     expect(list1[0].name).not.toBe(list2[0].name);
+    expect(list2[0].name).toBe('Test camera');
   });
 
   it('should delete a camera', () => {

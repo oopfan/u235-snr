@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { UserObservatoryService, ObservatoryStored } from './user-observatory.service';
 import { LocalStorageService } from 'angular-web-storage';
 
-fdescribe('UserObservatoryService', () => {
+describe('UserObservatoryService', () => {
   let userObservatoryService: UserObservatoryService;
   let storageSpy: any;
 
@@ -112,6 +112,7 @@ fdescribe('UserObservatoryService', () => {
     expect(list2.length).toBe(1, 'check gamma');
 
     expect(list1[0].name).not.toBe(list2[0].name);
+    expect(list2[0].name).toBe('Test observatory');
   });
 
   it('should delete an observatory', () => {
