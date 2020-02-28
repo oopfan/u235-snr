@@ -9,12 +9,14 @@ import { UserObservatoryService, ObservatoryStored } from 'src/app/services/user
   styleUrls: ['./observatories-home.component.css']
 })
 export class ObservatoriesHomeComponent implements OnInit {
+  browserTitle = 'Observatories | U235+SNR';
+  pageTitle = 'Observatories';
   observatories = [];
 
   constructor(private titleService: Title, private router: Router, private observatoryService: UserObservatoryService) { }
 
   ngOnInit() {
-    this.titleService.setTitle('Observatories | U235+SNR');
+    this.titleService.setTitle(this.browserTitle);
     this.observatories = this.observatoryService.getAll();
     this.observatories.sort((a: ObservatoryStored, b: ObservatoryStored) => a.name.localeCompare(b.name));
   }
