@@ -7,11 +7,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./landing-home.component.css']
 })
 export class LandingHomeComponent implements OnInit {
+  browserTitle = 'Home | U235+SNR';
+  pageTitle = 'Welcome to U235 Astrophotography';
 
   constructor(private titleService: Title) { }
 
   ngOnInit() {
-    this.titleService.setTitle('Home | U235+SNR');
+    this.titleService.setTitle(this.browserTitle);
   }
 
 }
