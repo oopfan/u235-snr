@@ -77,6 +77,15 @@ describe('ObservatoriesHomeComponent', () => {
     expect(tables.length).toBe(1, 'Unexpected number of tables');
   });
 
+  it('should not display the table', () => {
+    expect(component).toBeTruthy();
+    component.observatories = [];
+    fixture.detectChanges();
+    const tables = el.queryAll(By.css('.table'));
+    expect(tables).toBeTruthy('Could not find table');
+    expect(tables.length).toBe(0, 'Unexpected number of tables');
+  });
+
   it('should display the rows', () => {
     expect(component).toBeTruthy();
     const rows = el.queryAll(By.css('tbody tr'));
