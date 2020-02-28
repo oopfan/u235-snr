@@ -9,12 +9,14 @@ import { UserTargetService, TargetStored } from 'src/app/services/user-target.se
   styleUrls: ['./targets-home.component.css']
 })
 export class TargetsHomeComponent implements OnInit {
+  browserTitle = 'Targets | U235+SNR';
+  pageTitle = 'Targets';
   targets = [];
 
   constructor(private titleService: Title, private router: Router, private targetService: UserTargetService) { }
 
   ngOnInit() {
-    this.titleService.setTitle('Targets | U235+SNR');
+    this.titleService.setTitle(this.browserTitle);
     this.targets = this.targetService.getAll();
     this.targets.sort((a: TargetStored, b: TargetStored) => a.name.localeCompare(b.name));
   }
