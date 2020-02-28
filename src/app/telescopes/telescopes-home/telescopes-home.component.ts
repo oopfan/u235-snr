@@ -9,12 +9,14 @@ import { UserTelescopeService, TelescopeStored } from 'src/app/services/user-tel
   styleUrls: ['./telescopes-home.component.css']
 })
 export class TelescopesHomeComponent implements OnInit {
+  browserTitle = 'Telescopes | U235+SNR';
+  pageTitle = 'Telescopes';
   telescopes = [];
 
   constructor(private titleService: Title, private router: Router, private telescopeService: UserTelescopeService) { }
 
   ngOnInit() {
-    this.titleService.setTitle('Telescopes | U235+SNR');
+    this.titleService.setTitle(this.browserTitle);
     this.telescopes = this.telescopeService.getAll();
     this.telescopes.sort((a: TelescopeStored, b: TelescopeStored) => a.name.localeCompare(b.name));
   }
