@@ -5,6 +5,8 @@ import { UserTelescopeService, TelescopeParsed } from 'src/app/services/user-tel
 import { UserCameraService, CameraParsed } from 'src/app/services/user-camera.service';
 import { UserObservatoryService, ObservatoryParsed } from 'src/app/services/user-observatory.service';
 import { CalculationService } from 'src/app/services/calculation.service';
+import { ChartDataSets, ChartOptions } from 'chart.js';
+import { Color, Label } from 'ng2-charts';
 
 @Component({
   selector: 'app-calculator-fc',
@@ -36,11 +38,68 @@ export class CalculatorFcComponent implements OnInit, OnDestroy {
   private cameraEventsSubscription: Subscription;
   private observatoryEventsSubscription: Subscription;
 
+  dataset1 = [
+    { x: 1, y: 2.9 },
+    { x: 2, y: 4 },
+    { x: 5, y: 6 },
+    { x: 10, y: 8 },
+    { x: 20, y: 10.1 },
+    { x: 50, y: 12.7 },
+    { x: 100, y: 14.1 },
+    { x: 200, y: 15 },
+    { x: 500, y: 15.6 }
+  ];
+
+  lineChartData: ChartDataSets[] = [
+    {
+      data: this.dataset1,
+      label: 'Total integration time vs Single sub exposure',
+      showLine: true,
+      fill: false
+    }
+  ];
+
+  lineChartOptions = {
+    responsive: true
+  };
+
+  lineChartColors: Color[] = [
+    {
+      borderColor: 'black',
+      backgroundColor: 'rgba(255,255,0,0.28)',
+    },
+  ];
+
+  lineChartLegend = true;
+  lineChartPlugins = [];
+  lineChartType = 'scatter';
+
   calculateFC() {
     if (this.targetObj && this.telescopeObj && this.cameraObj && this.observatoryObj) {
       const result = this.calculationService.calculateFC(this.targetObj, this.telescopeObj, this.cameraObj, this.observatoryObj, this.signalToNoiseRatio, this.singleSubExposure);
       this.totalIntegrationTime = result.totalIntegrationTime;
       this.frameCount = Math.ceil(result.numberOfSubs);
+    }
+  }
+
+  calculateChart() {
+    if (this.targetObj && this.telescopeObj && this.cameraObj && this.observatoryObj) {
+      let dataset = [];
+      const terminal = parseFloat(this.singleSubExposure);
+      for (let exposure = terminal; exposure >= 0.5; exposure = exposure / 2) {
+        const result = this.calculationService.calculateFC(
+          this.targetObj,
+          this.telescopeObj,
+          this.cameraObj,
+          this.observatoryObj,
+          this.signalToNoiseRatio,
+          exposure);
+        if (isNaN(result.totalIntegrationTime) || (result.totalIntegrationTime > 100 && dataset.length > 1)) {
+          break;
+        }
+        dataset.unshift({ x: exposure, y: result.totalIntegrationTime });
+      }
+      this.lineChartData[0].data = dataset;
     }
   }
 
@@ -97,12 +156,14 @@ export class CalculatorFcComponent implements OnInit, OnDestroy {
     this.getCamera();
     this.getObservatory();
     this.calculateFC();
+    this.calculateChart();
 
     if (this.targetEvents) {
       this.targetEventsSubscription = this.targetEvents.subscribe((targetId: string) => {
         this.targetId = targetId;
         this.getTarget();
         this.calculateFC();
+        this.calculateChart();
       });
     }
 
@@ -111,6 +172,7 @@ export class CalculatorFcComponent implements OnInit, OnDestroy {
         this.telescopeId = telescopeId;
         this.getTelescope();
         this.calculateFC();
+        this.calculateChart();
       });
     }
 
@@ -119,6 +181,7 @@ export class CalculatorFcComponent implements OnInit, OnDestroy {
         this.cameraId = cameraId;
         this.getCamera();
         this.calculateFC();
+        this.calculateChart();
       });
     }
 
@@ -127,6 +190,7 @@ export class CalculatorFcComponent implements OnInit, OnDestroy {
         this.observatoryId = observatoryId;
         this.getObservatory();
         this.calculateFC();
+        this.calculateChart();
       });
     }
 
@@ -150,11 +214,13 @@ export class CalculatorFcComponent implements OnInit, OnDestroy {
   onChangeSignalToNoiseRatio(value: string) {
     this.signalToNoiseRatio = value;
     this.calculateFC();
+    this.calculateChart();
   }
 
   onChangeSingleSubExposure(value: string) {
     this.singleSubExposure = value;
     this.calculateFC();
+    this.calculateChart();
   }
 
 }

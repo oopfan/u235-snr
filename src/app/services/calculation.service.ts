@@ -18,15 +18,15 @@ export class CalculationService {
     //console.log(error1);
     let endpointA = totalIntegrationTime;
     
-    totalIntegrationTime = 200;   // Double of max value of number input control
+    totalIntegrationTime = 1000;
     result = this.calculateSNR(targetObj,telescopeObj, cameraObj, observatoryObj, totalIntegrationTime, singleSubExposure);
     let error2 = result.totalSignalToNoiseOfStack - totalSignalToNoiseOfStack;
     //console.log(error2);
     let endpointB = totalIntegrationTime;
 
     if (Math.sign(error1) == Math.sign(error2)) {
-      console.error(`Could not find suitable endpoint for desired SNR: ${totalSignalToNoiseOfStack}`);
-      console.error(`Endpoint SNR: ${result.totalSignalToNoiseOfStack}`);
+      //console.error(`Could not find suitable endpoint for desired SNR: ${totalSignalToNoiseOfStack}`);
+      //console.error(`Endpoint SNR: ${result.totalSignalToNoiseOfStack}`);
       return { totalIntegrationTime: Number.NaN, numberOfSubs: Number.NaN };
     }
 

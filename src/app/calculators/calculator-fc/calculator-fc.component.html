@@ -24,3 +24,17 @@
         </div>
     </div>
 </div>
+<div class="columns">
+    <div class="column is-three-fifths">
+        <div class="chart-wrapper">
+            <canvas baseChart 
+                [datasets]="lineChartData" 
+                [options]="lineChartOptions"
+                [colors]="lineChartColors" 
+                [legend]="lineChartLegend" 
+                [chartType]="lineChartType" 
+                [plugins]="lineChartPlugins">
+            </canvas>
+        </div>
+    </div>
+</div>
