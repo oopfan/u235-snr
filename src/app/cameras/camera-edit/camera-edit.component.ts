@@ -9,6 +9,11 @@ import { UserCameraService, CameraStored, CameraParsed } from '../../services/us
   styleUrls: ['./camera-edit.component.css']
 })
 export class CameraEditComponent implements OnInit {
+  browserTitle = 'Edit Camera | U235+SNR';
+  pageTitle = 'Edit Camera';
+  cameraNotFound = 'Camera not found';
+  navigateToUrl = '/cameras';
+
   camera: CameraStored = {
     id: -1,
     name: '',
@@ -21,7 +26,7 @@ export class CameraEditComponent implements OnInit {
   constructor(private titleService: Title, private activatedRoute: ActivatedRoute, private router: Router, private cameraService: UserCameraService) { }
 
   ngOnInit() {
-    this.titleService.setTitle('Edit Camera | U235+SNR');
+    this.titleService.setTitle(this.browserTitle);
     const id = this.activatedRoute.snapshot.paramMap.get('id');
     if (id) {
       const idNum = parseInt(id);
@@ -45,11 +50,11 @@ export class CameraEditComponent implements OnInit {
       '' + value.quantumEfficiency
     );
 
-    this.router.navigate(['/cameras']);
+    this.router.navigate([ this.navigateToUrl ]);
   }
 
   onCancel() {
-    this.router.navigate(['/cameras']);
+    this.router.navigate([ this.navigateToUrl ]);
   }
 
 }

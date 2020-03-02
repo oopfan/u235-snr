@@ -87,11 +87,7 @@ describe('CameraCreateComponent', () => {
     expect(newCamera).toBeTruthy();
     expect(newCamera.length).toBe(1, 'Unexpected number of cameras');
     expect(newCamera[0].id).toBe(9, 'Unexpected id');
-    expect(newCamera[0].name).toBe('Test Camera', 'Unexpected name');
-    expect(newCamera[0].pixelSize).toBe('3.14', 'Unexpected pixelSize');
-    expect(newCamera[0].readNoise).toBe('1.5', 'Unexpected readNoise');
-    expect(newCamera[0].darkCurrent).toBe('0', 'Unexpected darkCurrent');
-    expect(newCamera[0].quantumEfficiency).toBe('50', 'Unexpected quantumEfficiency');
+    expect(newCamera[0].name).toBe(camera.name, 'Unexpected name');
   }));
 
   it('should cancel', fakeAsync(() => {
