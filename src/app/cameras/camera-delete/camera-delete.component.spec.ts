@@ -102,10 +102,13 @@ describe('CameraDeleteComponent', () => {
     expect(quantumEfficiency).toBeTruthy('Could not find quantumEfficiency');
     expect(quantumEfficiency.nativeElement.textContent).toBe(camera.quantumEfficiency, 'Unexpected quantumEfficiency');
 
+    const btn = el.query(By.css('#submit'));
+    expect(btn).toBeTruthy('Could not find submit button');
+
     const cameraListBefore = userCameraService.getAll();
     expect(storageSpy.get).toHaveBeenCalledTimes(1);
     fixture.ngZone.run(() => {
-      component.onSubmit();
+      btn.nativeElement.click();
     });
     tick();
     const cameraListAfter = userCameraService.getAll();
@@ -125,9 +128,12 @@ describe('CameraDeleteComponent', () => {
     expect(titles.length).toBe(1, 'Unexpected number of titles');
     expect(titles[0].nativeElement.textContent).toBe(component.pageTitle, 'Unexpected page title');
 
+    const btn = el.query(By.css('#cancel'));
+    expect(btn).toBeTruthy('Could not find cancel button');
+
     const cameraListBefore = userCameraService.getAll();
     fixture.ngZone.run(() => {
-      component.onCancel();
+      btn.nativeElement.click();
     });
     tick();
     const cameraListAfter = userCameraService.getAll();

@@ -1,11 +1,11 @@
-import { CUSTOM_ELEMENTS_SCHEMA, DebugElement } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Location } from "@angular/common";
 import { CamerasModule } from '../cameras.module';
 import { routes } from '../cameras-routing.module';
 import { CameraCreateComponent } from './camera-create.component';
-import { UserCameraService, CameraStored, CameraParsed } from '../../services/user-camera.service';
+import { UserCameraService, CameraParsed } from '../../services/user-camera.service';
 import { LocalStorageService } from 'angular-web-storage';
 
 describe('CameraCreateComponent', () => {

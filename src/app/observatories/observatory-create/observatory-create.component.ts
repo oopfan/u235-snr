@@ -9,11 +9,14 @@ import { UserObservatoryService, ObservatoryParsed } from '../../services/user-o
   styleUrls: ['./observatory-create.component.css']
 })
 export class ObservatoryCreateComponent implements OnInit {
+  browserTitle = 'New Observatory | U235+SNR';
+  pageTitle = 'New Observatory';
+  navigateToUrl = '/observatories';
 
   constructor(private titleService: Title, private observatoryService: UserObservatoryService, private router: Router) { }
 
   ngOnInit() {
-    this.titleService.setTitle('New Observatory | U235+SNR');
+    this.titleService.setTitle(this.browserTitle);
   }
 
   onSubmit(value: ObservatoryParsed) {
@@ -22,11 +25,11 @@ export class ObservatoryCreateComponent implements OnInit {
       '' + value.bortleClass,
       '' + value.skyBrightness
     );
-    this.router.navigate(['/observatories']);
+    this.router.navigate([ this.navigateToUrl ]);
   }
 
   onCancel() {
-    this.router.navigate(['/observatories']);
+    this.router.navigate([ this.navigateToUrl ]);
   }
 
 }
