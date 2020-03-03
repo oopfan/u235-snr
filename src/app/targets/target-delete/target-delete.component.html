@@ -2,19 +2,19 @@
     <div class="container">
         <div class="columns">
             <div class="column is-three-fifths">
-                <h1 class="title is-5">Delete Target</h1>
+                <h1 class="title is-5">{{ pageTitle }}</h1>
             </div>
         </div>
         <div class="columns">
             <div class="column is-three-fifths">
                 <label class="label">Name</label>
-                <div>{{ target.name }}</div>
+                <div id="name">{{ target.name }}</div>
             </div>
         </div>
         <div class="columns">
             <div class="column is-three-fifths">
                 <label class="label">Surface brightness (mag/arcsec^2)</label>
-                <div>{{ target.surfaceBrightness }}</div>
+                <div id="surface-brightness">{{ target.surfaceBrightness }}</div>
             </div>
         </div>
         <div class="columns">
@@ -27,13 +27,13 @@
         <div class="columns">
             <div class="column is-three-fifths">
                 <div class="buttons">
-                    <button type="button" class="button is-rounded is-light is-danger" (click)="onSubmit()">Yes, delete it</button>
-                    <button type="button" class="button is-rounded is-light" (click)="onCancel()">No, cancel</button>
+                    <button id="submit" type="button" class="button is-rounded is-light is-danger" (click)="onSubmit()">Yes, delete it</button>
+                    <button id="cancel" type="button" class="button is-rounded is-light" (click)="onCancel()">No, cancel</button>
                 </div>
             </div>
         </div>
     </div>
 </section>
 <div *ngIf="target.id < 0">
-    <h1 class="title">Target not found</h1>
+    <h1 class="title">{{ notFound }}</h1>
 </div>

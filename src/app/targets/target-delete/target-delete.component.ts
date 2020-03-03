@@ -9,6 +9,11 @@ import { UserTargetService, TargetStored } from '../../services/user-target.serv
   styleUrls: ['./target-delete.component.css']
 })
 export class TargetDeleteComponent implements OnInit {
+  pageTitle = 'Delete Target';
+  browserTitle = this.pageTitle + ' | U235+SNR';
+  notFound = 'Target not found';
+  navigateToUrl = '/targets';
+
   target: TargetStored = {
     id: -1,
     name: '',
@@ -18,7 +23,7 @@ export class TargetDeleteComponent implements OnInit {
   constructor(private titleService: Title, private activatedRoute: ActivatedRoute, private router: Router, private targetService: UserTargetService) { }
 
   ngOnInit() {
-    this.titleService.setTitle('Delete Target | U235+SNR');
+    this.titleService.setTitle(this.browserTitle);
     const id = this.activatedRoute.snapshot.paramMap.get('id');
     if (id) {
       const idNum = parseInt(id);
@@ -36,11 +41,11 @@ export class TargetDeleteComponent implements OnInit {
     this.targetService.delete(
       this.target.id
     );
-    this.router.navigate(['/targets']);
+    this.router.navigate([ this.navigateToUrl ]);
   }
 
   onCancel() {
-    this.router.navigate(['/targets']);
+    this.router.navigate([ this.navigateToUrl ]);
   }
 
 }
