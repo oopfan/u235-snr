@@ -9,11 +9,14 @@ import { UserCameraService, CameraParsed } from 'src/app/services/user-camera.se
   styleUrls: ['./camera-create.component.css']
 })
 export class CameraCreateComponent implements OnInit {
+  browserTitle = 'New Camera | U235+SNR';
+  pageTitle = 'New Camera';
+  navigateToUrl = '/cameras';
 
   constructor(private titleService: Title, private cameraService: UserCameraService, private router: Router) { }
 
   ngOnInit() {
-    this.titleService.setTitle('New Camera | U235+SNR');
+    this.titleService.setTitle(this.browserTitle);
   }
 
   onSubmit(value: CameraParsed) {
@@ -24,11 +27,11 @@ export class CameraCreateComponent implements OnInit {
       '' + value.darkCurrent,
       '' + value.quantumEfficiency
     );
-    this.router.navigate(['/cameras']);
+    this.router.navigate([ this.navigateToUrl ]);
   }
 
   onCancel() {
-    this.router.navigate(['/cameras']);
+    this.router.navigate([ this.navigateToUrl ]);
   }
 
 }

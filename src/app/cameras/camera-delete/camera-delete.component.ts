@@ -9,6 +9,11 @@ import { UserCameraService, CameraStored } from '../../services/user-camera.serv
   styleUrls: ['./camera-delete.component.css']
 })
 export class CameraDeleteComponent implements OnInit {
+  browserTitle = 'Delete Camera | U235+SNR';
+  pageTitle = 'Delete Camera';
+  cameraNotFound = 'Camera not found';
+  navigateToUrl = '/cameras';
+
   camera: CameraStored = {
     id: -1,
     name: '',
@@ -21,7 +26,7 @@ export class CameraDeleteComponent implements OnInit {
   constructor(private titleService: Title, private activatedRoute: ActivatedRoute, private router: Router, private cameraService: UserCameraService) { }
 
   ngOnInit() {
-    this.titleService.setTitle('Delete Camera | U235+SNR');
+    this.titleService.setTitle(this.browserTitle);
     const id = this.activatedRoute.snapshot.paramMap.get('id');
     if (id) {
       const idNum = parseInt(id);
@@ -39,11 +44,11 @@ export class CameraDeleteComponent implements OnInit {
     this.cameraService.delete(
       this.camera.id
     );
-    this.router.navigate(['/cameras']);
+    this.router.navigate([ this.navigateToUrl ]);
   }
 
   onCancel() {
-    this.router.navigate(['/cameras']);
+    this.router.navigate([ this.navigateToUrl ]);
   }
 
 }

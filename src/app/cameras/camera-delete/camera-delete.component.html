@@ -2,37 +2,37 @@
     <div class="container">
         <div class="columns">
             <div class="column is-three-fifths">
-                <h1 class="title is-5">Delete Camera</h1>
+                <h1 class="title is-5">{{ pageTitle }}</h1>
             </div>
         </div>
         <div class="columns">
             <div class="column is-three-fifths">
                 <label class="label">Name</label>
-                <div>{{ camera.name }}</div>
+                <div id="name">{{ camera.name }}</div>
             </div>
         </div>
         <div class="columns">
             <div class="column is-three-fifths">
                 <label class="label">Pixel size (um)</label>
-                <div>{{ camera.pixelSize }}</div>
+                <div id="pixel-size">{{ camera.pixelSize }}</div>
             </div>
         </div>
         <div class="columns">
             <div class="column is-three-fifths">
                 <label class="label">Read noise (e-)</label>
-                <div>{{ camera.readNoise }}</div>
+                <div id="read-noise">{{ camera.readNoise }}</div>
             </div>
         </div>
         <div class="columns">
             <div class="column is-three-fifths">
                 <label class="label">Dark current (e-/s)</label>
-                <div>{{ camera.darkCurrent }}</div>
+                <div id="dark-current">{{ camera.darkCurrent }}</div>
             </div>
         </div>
         <div class="columns">
             <div class="column is-three-fifths">
                 <label class="label">Quantum efficiency (%)</label>
-                <div>{{ camera.quantumEfficiency }}</div>
+                <div id="quantum-efficiency">{{ camera.quantumEfficiency }}</div>
             </div>
         </div>
         <div class="columns">
@@ -53,5 +53,5 @@
     </div>
 </section>
 <div *ngIf="camera.id < 0">
-    <h1 class="title">Camera not found</h1>
+    <h1 class="title">{{ cameraNotFound }}</h1>
 </div>

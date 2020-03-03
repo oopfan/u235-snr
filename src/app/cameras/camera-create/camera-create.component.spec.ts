@@ -79,7 +79,7 @@ describe('CameraCreateComponent', () => {
       component.onSubmit(camera);
     });
     tick();
-    expect(location.path()).toBe('/cameras', 'Unexpected URL');
+    expect(location.path()).toBe(component.navigateToUrl, 'Unexpected URL');
     expect(storageSpy.set).toHaveBeenCalledTimes(1);
     const cameraListAfter = userCameraService.getAll();
     expect(cameraListAfter.length - cameraListBefore.length).toBe(1, 'Unexpected change in number of cameras');
@@ -98,7 +98,7 @@ describe('CameraCreateComponent', () => {
       component.onCancel();
     });
     tick();
-    expect(location.path()).toBe('/cameras', 'Unexpected URL');
+    expect(location.path()).toBe(component.navigateToUrl, 'Unexpected URL');
     expect(storageSpy.set).toHaveBeenCalledTimes(0);
     const cameraListAfter = userCameraService.getAll();
     expect(cameraListAfter.length - cameraListBefore.length).toBe(0, 'Unexpected change in number of cameras');
