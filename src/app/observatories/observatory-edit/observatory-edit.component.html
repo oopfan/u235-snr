@@ -2,7 +2,7 @@
     <div class="container">
         <div class="columns">
             <div class="column is-three-fifths">
-                <h1 class="title is-5">Edit Observatory</h1>
+                <h1 class="title is-5">{{ pageTitle }}</h1>
             </div>
         </div>
         <div class="columns">
@@ -19,5 +19,5 @@
     </div>
 </section>
 <div *ngIf="observatory.id < 0">
-    <h1 class="title">Observatory not found</h1>
+    <h1 class="title">{{ observatoryNotFound }}</h1>
 </div>

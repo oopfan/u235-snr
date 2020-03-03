@@ -9,6 +9,11 @@ import { UserObservatoryService, ObservatoryStored, ObservatoryParsed } from '..
   styleUrls: ['./observatory-edit.component.css']
 })
 export class ObservatoryEditComponent implements OnInit {
+  browserTitle = 'Edit Observatory | U235+SNR';
+  pageTitle = 'Edit Observatory';
+  observatoryNotFound = 'Observatory not found';
+  navigateToUrl = '/observatories';
+
   observatory: ObservatoryStored = {
     id: -1,
     name: '',
@@ -19,7 +24,7 @@ export class ObservatoryEditComponent implements OnInit {
   constructor(private titleService: Title, private activatedRoute: ActivatedRoute, private router: Router, private observatoryService: UserObservatoryService) { }
 
   ngOnInit() {
-    this.titleService.setTitle('Edit Observatory | U235+SNR');
+    this.titleService.setTitle(this.browserTitle);
     const id = this.activatedRoute.snapshot.paramMap.get('id');
     if (id) {
       const idNum = parseInt(id);
@@ -40,11 +45,11 @@ export class ObservatoryEditComponent implements OnInit {
       '' + value.bortleClass,
       '' + value.skyBrightness
     );
-    this.router.navigate(['/observatories']);
+    this.router.navigate([ this.navigateToUrl ]);
   }
 
   onCancel() {
-    this.router.navigate(['/observatories']);
+    this.router.navigate([ this.navigateToUrl ]);
   }
 
 }
