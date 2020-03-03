@@ -18,25 +18,26 @@ describe('ObservatoryEditComponent', () => {
   let location: Location;
   let userObservatoryService: UserObservatoryService;
   let storageSpy: any;
-  const storageData = {
-    list: [
-      {
-        id: 1,
-        name: 'Bortle 4',
-        bortleClass: '4',
-        skyBrightness: '21.51'
-      },
-      {
-        id: 4,
-        name: 'Bortle 6',
-        bortleClass: '6',
-        skyBrightness: '19.23'
-      }
-    ],
-    nextid: 5
-  };
+  let storageData: any;
 
   beforeEach(async(() => {
+    storageData = {
+      list: [
+        {
+          id: 1,
+          name: 'Bortle 4',
+          bortleClass: '4',
+          skyBrightness: '21.51'
+        },
+        {
+          id: 4,
+          name: 'Bortle 6',
+          bortleClass: '6',
+          skyBrightness: '19.23'
+        }
+      ],
+      nextid: 5
+    };
     storageSpy = jasmine.createSpyObj('LocalStorageService', ['get', 'set']);
     storageSpy.get.and.returnValue(storageData);
 

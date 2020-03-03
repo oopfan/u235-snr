@@ -11,29 +11,30 @@ describe('TelescopesHomeComponent', () => {
   let fixture: ComponentFixture<TelescopesHomeComponent>;
   let el: DebugElement;
   let storageSpy: any;
-  const storageData = {
-    list: [
-      {
-        id: 3,
-        name: 'William Optics ZenithStar 71',
-        aperture: '71',
-        focalLength: '418',
-        centralObstruction: '0',
-        totalReflectanceTransmittance: '0.99'
-      },
-      {
-        id: 7,
-        name: 'Ascension 127mm f/7.5',
-        aperture: '127',
-        focalLength: '952.5',
-        centralObstruction: '0',
-        totalReflectanceTransmittance: '0.99'
-      }
-    ],
-    nextid: 8
-  };
+  let storageData: any;
 
   beforeEach(async(() => {
+    storageData = {
+      list: [
+        {
+          id: 3,
+          name: 'William Optics ZenithStar 71',
+          aperture: '71',
+          focalLength: '418',
+          centralObstruction: '0',
+          totalReflectanceTransmittance: '0.99'
+        },
+        {
+          id: 7,
+          name: 'Ascension 127mm f/7.5',
+          aperture: '127',
+          focalLength: '952.5',
+          centralObstruction: '0',
+          totalReflectanceTransmittance: '0.99'
+        }
+      ],
+      nextid: 8
+    };
     storageSpy = jasmine.createSpyObj('LocalStorageService', ['get', 'set']);
     storageSpy.get.and.returnValue(storageData);
 

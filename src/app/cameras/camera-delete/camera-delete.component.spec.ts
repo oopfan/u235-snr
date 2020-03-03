@@ -18,29 +18,30 @@ describe('CameraDeleteComponent', () => {
   let location: Location;
   let userCameraService: UserCameraService;
   let storageSpy: any;
-  const storageData = {
-    list: [
-      {
-        id: 6,
-        name: 'Atik 314E',
-        pixelSize: '4.65',
-        readNoise: '5.3',
-        darkCurrent: '0',
-        quantumEfficiency: '43'
-      },
-      {
-        id: 8,
-        name: 'Altair 290M',
-        pixelSize: '2.9',
-        readNoise: '3.3',
-        darkCurrent: '0',
-        quantumEfficiency: '50'
-      }
-    ],
-    nextid: 9
-  };
+  let storageData: any;
 
   beforeEach(async(() => {
+    storageData = {
+      list: [
+        {
+          id: 6,
+          name: 'Atik 314E',
+          pixelSize: '4.65',
+          readNoise: '5.3',
+          darkCurrent: '0',
+          quantumEfficiency: '43'
+        },
+        {
+          id: 8,
+          name: 'Altair 290M',
+          pixelSize: '2.9',
+          readNoise: '3.3',
+          darkCurrent: '0',
+          quantumEfficiency: '50'
+        }
+      ],
+      nextid: 9
+    };
     storageSpy = jasmine.createSpyObj('LocalStorageService', ['get', 'set']);
     storageSpy.get.and.returnValue(storageData);
 

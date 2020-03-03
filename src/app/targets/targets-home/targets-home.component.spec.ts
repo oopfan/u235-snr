@@ -11,23 +11,24 @@ describe('TargetsHomeComponent', () => {
   let fixture: ComponentFixture<TargetsHomeComponent>;
   let el: DebugElement;
   let storageSpy: any;
-  const storageData = {
-    list: [
-      {
-        id: 2,
-        name: "M81 Bode's Galaxy",
-        surfaceBrightness: '21.7'
-      },
-      {
-        id: 24,
-        name: 'M27 Dumbbell Nebula',
-        surfaceBrightness: '20.2'
-      }
-    ],
-    nextid:30
-  };
+  let storageData: any;
 
   beforeEach(async(() => {
+    storageData = {
+      list: [
+        {
+          id: 2,
+          name: "M81 Bode's Galaxy",
+          surfaceBrightness: '21.7'
+        },
+        {
+          id: 24,
+          name: 'M27 Dumbbell Nebula',
+          surfaceBrightness: '20.2'
+        }
+      ],
+      nextid:30
+    };
     storageSpy = jasmine.createSpyObj('LocalStorageService', ['get', 'set']);
     storageSpy.get.and.returnValue(storageData);
 
