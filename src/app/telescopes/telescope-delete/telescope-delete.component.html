@@ -2,37 +2,37 @@
     <div class="container">
         <div class="columns">
             <div class="column is-three-fifths">
-                <h1 class="title is-5">Delete Telescope</h1>
+                <h1 class="title is-5">{{ pageTitle }}</h1>
             </div>
         </div>
         <div class="columns">
             <div class="column is-three-fifths">
                 <label class="label">Name</label>
-                <div>{{ telescope.name }}</div>
+                <div id="name">{{ telescope.name }}</div>
             </div>
         </div>
         <div class="columns">
             <div class="column is-three-fifths">
                 <label class="label">Aperture (mm)</label>
-                <div>{{ telescope.aperture }}</div>
+                <div id="aperture">{{ telescope.aperture }}</div>
             </div>
         </div>
         <div class="columns">
             <div class="column is-three-fifths">
                 <label class="label">Focal length (mm)</label>
-                <div>{{ telescope.focalLength }}</div>
+                <div id="focal-length">{{ telescope.focalLength }}</div>
             </div>
         </div>
         <div class="columns">
             <div class="column is-three-fifths">
                 <label class="label">Central obstruction (mm)</label>
-                <div>{{ telescope.centralObstruction }}</div>
+                <div id="central-obstruction">{{ telescope.centralObstruction }}</div>
             </div>
         </div>
         <div class="columns">
             <div class="column is-three-fifths">
                 <label class="label">Total reflectance/transmittance (1=ideal, 0=opaque)</label>
-                <div>{{ telescope.totalReflectanceTransmittance }}</div>
+                <div id="total-reflectance-transmittance">{{ telescope.totalReflectanceTransmittance }}</div>
             </div>
         </div>
         <div class="columns">
@@ -45,13 +45,13 @@
         <div class="columns">
             <div class="column is-three-fifths">
                 <div class="buttons">
-                    <button type="button" class="button is-rounded is-light is-danger" (click)="onSubmit()">Yes, delete it</button>
-                    <button type="button" class="button is-rounded is-light" (click)="onCancel()">No, cancel</button>
+                    <button id="submit" type="button" class="button is-rounded is-light is-danger" (click)="onSubmit()">Yes, delete it</button>
+                    <button id="cancel" type="button" class="button is-rounded is-light" (click)="onCancel()">No, cancel</button>
                 </div>
             </div>
         </div>
     </div>
 </section>
 <div *ngIf="telescope.id < 0">
-    <h1 class="title">Telescope not found</h1>
+    <h1 class="title">{{ notFound }}</h1>
 </div>

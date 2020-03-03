@@ -9,6 +9,11 @@ import { UserTelescopeService, TelescopeStored } from '../../services/user-teles
   styleUrls: ['./telescope-delete.component.css']
 })
 export class TelescopeDeleteComponent implements OnInit {
+  pageTitle = 'Delete Telescope';
+  browserTitle = this.pageTitle + ' | U235+SNR';
+  notFound = 'Telescope not found';
+  navigateToUrl = '/telescopes';
+
   telescope: TelescopeStored = {
     id: -1,
     name: '',
@@ -21,7 +26,7 @@ export class TelescopeDeleteComponent implements OnInit {
   constructor(private titleService: Title, private activatedRoute: ActivatedRoute, private router: Router, private telescopeService: UserTelescopeService) { }
 
   ngOnInit() {
-    this.titleService.setTitle('Delete Telescope | U235+SNR');
+    this.titleService.setTitle(this.browserTitle);
     const id = this.activatedRoute.snapshot.paramMap.get('id');
     if (id) {
       const idNum = parseInt(id);
@@ -39,11 +44,11 @@ export class TelescopeDeleteComponent implements OnInit {
     this.telescopeService.delete(
       this.telescope.id
     );
-    this.router.navigate(['/telescopes']);
+    this.router.navigate([ this.navigateToUrl ]);
   }
 
   onCancel() {
-    this.router.navigate(['/telescopes']);
+    this.router.navigate([ this.navigateToUrl ]);
   }
 
 }
