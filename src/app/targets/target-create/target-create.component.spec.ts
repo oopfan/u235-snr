@@ -8,7 +8,7 @@ import { TargetCreateComponent } from './target-create.component';
 import { UserTargetService, TargetParsed } from '../../services/user-target.service';
 import { LocalStorageService } from 'angular-web-storage';
 
-fdescribe('TargetCreateComponent', () => {
+describe('TargetCreateComponent', () => {
   let component: TargetCreateComponent;
   let fixture: ComponentFixture<TargetCreateComponent>;
   let location: Location;

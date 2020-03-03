@@ -9,6 +9,11 @@ import { UserTargetService, TargetStored, TargetParsed } from '../../services/us
   styleUrls: ['./target-edit.component.css']
 })
 export class TargetEditComponent implements OnInit {
+  browserTitle = 'Edit Target | U235+SNR';
+  pageTitle = 'Edit Target';
+  notFound = 'Target not found';
+  navigateToUrl = '/targets';
+
   target: TargetStored = {
     id: -1,
     name: '',
@@ -18,7 +23,7 @@ export class TargetEditComponent implements OnInit {
   constructor(private titleService: Title, private activatedRoute: ActivatedRoute, private router: Router, private targetService: UserTargetService) { }
 
   ngOnInit() {
-    this.titleService.setTitle('Edit Target | U235+SNR');
+    this.titleService.setTitle(this.browserTitle);
     const id = this.activatedRoute.snapshot.paramMap.get('id');
     if (id) {
       const idNum = parseInt(id);
@@ -38,11 +43,11 @@ export class TargetEditComponent implements OnInit {
       value.name,
       '' + value.surfaceBrightness
     );
-    this.router.navigate(['/targets']);
+    this.router.navigate([ this.navigateToUrl ]);
   }
 
   onCancel() {
-    this.router.navigate(['/targets']);
+    this.router.navigate([ this.navigateToUrl ]);
   }
 
 }
