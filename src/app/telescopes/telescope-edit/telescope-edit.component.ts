@@ -9,6 +9,11 @@ import { UserTelescopeService, TelescopeStored, TelescopeParsed } from '../../se
   styleUrls: ['./telescope-edit.component.css']
 })
 export class TelescopeEditComponent implements OnInit {
+  pageTitle = 'Edit Telescope';
+  browserTitle = this.pageTitle + ' | U235+SNR';
+  notFound = 'Telescope not found';
+  navigateToUrl = '/telescopes';
+
   telescope: TelescopeStored = {
     id: -1,
     name: '',
@@ -21,7 +26,7 @@ export class TelescopeEditComponent implements OnInit {
   constructor(private titleService: Title, private activatedRoute: ActivatedRoute, private router: Router, private telescopeService: UserTelescopeService) { }
 
   ngOnInit() {
-    this.titleService.setTitle('Edit Telescope | U235+SNR');
+    this.titleService.setTitle(this.browserTitle);
     const id = this.activatedRoute.snapshot.paramMap.get('id');
     if (id) {
       const idNum = parseInt(id);
@@ -44,11 +49,11 @@ export class TelescopeEditComponent implements OnInit {
       '' + value.centralObstruction,
       '' + value.totalReflectanceTransmittance
     );
-    this.router.navigate(['/telescopes']);
+    this.router.navigate([ this.navigateToUrl ]);
   }
 
   onCancel() {
-    this.router.navigate(['/telescopes']);
+    this.router.navigate([ this.navigateToUrl ]);
   }
 
 }

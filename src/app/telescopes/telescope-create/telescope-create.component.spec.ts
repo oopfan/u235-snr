@@ -8,7 +8,7 @@ import { TelescopeCreateComponent } from './telescope-create.component';
 import { UserTelescopeService, TelescopeParsed } from '../../services/user-telescope.service';
 import { LocalStorageService } from 'angular-web-storage';
 
-fdescribe('TelescopeCreateComponent', () => {
+describe('TelescopeCreateComponent', () => {
   let component: TelescopeCreateComponent;
   let fixture: ComponentFixture<TelescopeCreateComponent>;
   let location: Location;
