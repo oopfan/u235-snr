@@ -9,6 +9,11 @@ import { UserObservatoryService, ObservatoryStored } from '../../services/user-o
   styleUrls: ['./observatory-delete.component.css']
 })
 export class ObservatoryDeleteComponent implements OnInit {
+  browserTitle = 'Delete Observatory | U235+SNR';
+  pageTitle = 'Delete Observatory';
+  notFound = 'Observatory not found';
+  navigateToUrl = '/observatories';
+
   observatory: ObservatoryStored = {
     id: -1,
     name: '',
@@ -19,7 +24,7 @@ export class ObservatoryDeleteComponent implements OnInit {
   constructor(private titleService: Title, private activatedRoute: ActivatedRoute, private router: Router, private observatoryService: UserObservatoryService) { }
 
   ngOnInit() {
-    this.titleService.setTitle('Delete Observatory | U235+SNR');
+    this.titleService.setTitle(this.browserTitle);
     const id = this.activatedRoute.snapshot.paramMap.get('id');
     if (id) {
       const idNum = parseInt(id);
@@ -37,11 +42,11 @@ export class ObservatoryDeleteComponent implements OnInit {
     this.observatoryService.delete(
       this.observatory.id
     );
-    this.router.navigate(['/observatories']);
+    this.router.navigate([ this.navigateToUrl ]);
   }
 
   onCancel() {
-    this.router.navigate(['/observatories']);
+    this.router.navigate([ this.navigateToUrl ]);
   }
 
 }
