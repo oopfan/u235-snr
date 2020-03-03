@@ -9,11 +9,14 @@ import { UserTelescopeService, TelescopeParsed } from 'src/app/services/user-tel
   styleUrls: ['./telescope-create.component.css']
 })
 export class TelescopeCreateComponent implements OnInit {
+  pageTitle = 'New Telescope';
+  browserTitle = this.pageTitle + ' | U235+SNR';
+  navigateToUrl = '/telescopes';
 
   constructor(private titleService: Title, private telescopeService: UserTelescopeService, private router: Router) { }
 
   ngOnInit() {
-    this.titleService.setTitle('New Telescope | U235+SNR');
+    this.titleService.setTitle(this.browserTitle);
   }
 
   onSubmit(value: TelescopeParsed) {
@@ -24,10 +27,10 @@ export class TelescopeCreateComponent implements OnInit {
       '' + value.centralObstruction,
       '' + value.totalReflectanceTransmittance
     );
-    this.router.navigate(['/telescopes']);
+    this.router.navigate([ this.navigateToUrl ]);
   }
 
   onCancel() {
-    this.router.navigate(['/telescopes']);
+    this.router.navigate([ this.navigateToUrl ]);
   }
 }
