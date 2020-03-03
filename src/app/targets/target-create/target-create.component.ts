@@ -9,11 +9,14 @@ import { UserTargetService, TargetParsed } from '../../services/user-target.serv
   styleUrls: ['./target-create.component.css']
 })
 export class TargetCreateComponent implements OnInit {
+  browserTitle = 'New Target | U235+SNR';
+  pageTitle = 'New Target';
+  navigateToUrl = '/targets';
 
   constructor(private titleService: Title, private targetService: UserTargetService, private router: Router) { }
 
   ngOnInit() {
-    this.titleService.setTitle('New Target | U235+SNR');
+    this.titleService.setTitle(this.browserTitle);
   }
 
   onSubmit(value: TargetParsed) {
@@ -21,11 +24,11 @@ export class TargetCreateComponent implements OnInit {
       value.name,
       '' + value.surfaceBrightness
     );
-    this.router.navigate(['/targets']);
+    this.router.navigate([ this.navigateToUrl ]);
   }
 
   onCancel() {
-    this.router.navigate(['/targets']);
+    this.router.navigate([ this.navigateToUrl ]);
   }
 
 }
