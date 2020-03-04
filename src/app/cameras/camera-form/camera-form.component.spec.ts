@@ -1,5 +1,5 @@
 import { NO_ERRORS_SCHEMA, DebugElement } from '@angular/core';
-import { async, ComponentFixture, TestBed, flush } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { CameraFormComponent } from './camera-form.component';
 import { By } from '@angular/platform-browser';
 import { ControlsModule } from '../../controls/controls.module';
