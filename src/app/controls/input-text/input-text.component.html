@@ -1,5 +1,5 @@
 <div class="field">
-    <label class="label">{{ label }}</label>
+    <label class="label"><ng-content></ng-content></label>
     <div class="control">
         <input class="input" [ngClass]="{'is-danger': showErrors()}" [formControl]="control" />
     </div>

@@ -1,6 +1,10 @@
 <form [formGroup]="targetForm" (ngSubmit)="onSubmit()">
-    <app-input-text label="Name" [control]="targetForm.get('name')"></app-input-text>
-    <app-input-number label="Surface brightness (mag/arcsec^2)" [control]="targetForm.get('surfaceBrightness')" step="0.01"></app-input-number>
+    <app-input-text [control]="targetForm.get('name')">
+        Name
+    </app-input-text>
+    <app-input-number [control]="targetForm.get('surfaceBrightness')" step="0.01">
+        Surface brightness <span class="is-size-7">(mag/arcsec<sup>2</sup>)</span>
+    </app-input-number>
     <div class="columns">
         <div class="column is-two-thirds is-offset-one-fifth">
             <app-surface-brightness-calculator></app-surface-brightness-calculator>

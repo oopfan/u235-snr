@@ -8,7 +8,6 @@ import { FormControl } from '@angular/forms';
 })
 export class InputNumberComponent implements OnInit {
   @Input() control: FormControl;
-  @Input() label: string;
   @Input() min: string;
   @Input() max: string;
   @Input() step: string;

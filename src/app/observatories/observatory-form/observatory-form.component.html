@@ -1,7 +1,13 @@
 <form [formGroup]="observatoryForm" (ngSubmit)="onSubmit()">
-    <app-input-text label="Name" [control]="observatoryForm.get('name')"></app-input-text>
-    <app-input-text label="Bortle class" [control]="observatoryForm.get('bortleClass')"></app-input-text>
-    <app-input-number label="Sky brightness (mag/arcsec^2)" [control]="observatoryForm.get('skyBrightness')" step="0.01"></app-input-number>
+    <app-input-text [control]="observatoryForm.get('name')">
+        Name
+    </app-input-text>
+    <app-input-text [control]="observatoryForm.get('bortleClass')">
+        Bortle class
+    </app-input-text>
+    <app-input-number [control]="observatoryForm.get('skyBrightness')" step="0.01">
+        Sky brightness <span class="is-size-7">(mag/arcsec<sup>2</sup>)</span>
+    </app-input-number>
     <div class="buttons">
         <button type="submit" class="button is-rounded is-light is-uppercase" [disabled]="observatoryForm.invalid">submit</button>
         <button type="button" class="button is-rounded is-light is-uppercase" (click)="onCancel()">cancel</button>

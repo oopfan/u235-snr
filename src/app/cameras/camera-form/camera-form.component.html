@@ -1,9 +1,19 @@
 <form [formGroup]="cameraForm" (ngSubmit)="onSubmit()">
-    <app-input-text label="Name" [control]="cameraForm.get('name')"></app-input-text>
-    <app-input-number label="Pixel size (um)" [control]="cameraForm.get('pixelSize')" min="0.01" step="0.01"></app-input-number>
-    <app-input-number label="Read noise (e-)" [control]="cameraForm.get('readNoise')" min="0" step="0.1"></app-input-number>
-    <app-input-number label="Dark current (e-/s)" [control]="cameraForm.get('darkCurrent')" min="0" step="0.01"></app-input-number>
-    <app-input-number label="Quantum efficiency (%)" [control]="cameraForm.get('quantumEfficiency')" min="0" max="100" step="1"></app-input-number>
+    <app-input-text [control]="cameraForm.get('name')">
+        Name
+    </app-input-text>
+    <app-input-number [control]="cameraForm.get('pixelSize')" min="0.01" step="0.01">
+        Pixel size <span class="is-size-7">(um)</span>
+    </app-input-number>
+    <app-input-number [control]="cameraForm.get('readNoise')" min="0" step="0.1">
+        Read noise <span class="is-size-7">(e-)</span>
+    </app-input-number>
+    <app-input-number [control]="cameraForm.get('darkCurrent')" min="0" step="0.01">
+        Dark current <span class="is-size-7">(e-/s)</span>
+    </app-input-number>
+    <app-input-number [control]="cameraForm.get('quantumEfficiency')" min="0" max="100" step="1">
+        Quantum efficiency <span class="is-size-7">(%)</span>
+    </app-input-number>
     <div class="buttons">
         <button type="submit" class="button is-rounded is-light is-uppercase" [disabled]="cameraForm.invalid">submit</button>
         <button type="button" class="button is-rounded is-light is-uppercase" (click)="onCancel()">cancel</button>

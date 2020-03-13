@@ -1,9 +1,19 @@
 <form [formGroup]="telescopeForm" (ngSubmit)="onSubmit()">
-    <app-input-text label="Name" [control]="telescopeForm.get('name')"></app-input-text>
-    <app-input-number label="Aperture (mm)" [control]="telescopeForm.get('aperture')" min="1" step="1"></app-input-number>
-    <app-input-number label="Focal length (mm)" [control]="telescopeForm.get('focalLength')" min="1" step="1"></app-input-number>
-    <app-input-number label="Central obstruction (mm)" [control]="telescopeForm.get('centralObstruction')" min="0" step="1"></app-input-number>
-    <app-input-number label="Total reflectance/transmittance (1=ideal, 0=opaque)" [control]="telescopeForm.get('totalReflectanceTransmittance')" min="0" max="1" step="0.01"></app-input-number>
+    <app-input-text [control]="telescopeForm.get('name')">
+        Name
+    </app-input-text>
+    <app-input-number [control]="telescopeForm.get('aperture')" min="1" step="1">
+        Aperture <span class="is-size-7">(mm)</span>
+    </app-input-number>
+    <app-input-number [control]="telescopeForm.get('focalLength')" min="1" step="1">
+        Focal length <span class="is-size-7">(mm)</span>
+    </app-input-number>
+    <app-input-number [control]="telescopeForm.get('centralObstruction')" min="0" step="1">
+        Central obstruction <span class="is-size-7">(mm)</span>
+    </app-input-number>
+    <app-input-number [control]="telescopeForm.get('totalReflectanceTransmittance')" min="0" max="1" step="0.01">
+        Total reflectance/transmittance <span class="is-size-7">(1=ideal, 0=opaque)</span>
+    </app-input-number>
     <div class="help is-danger field" *ngIf="telescopeForm.errors && telescopeForm.errors.apertureCheck">
         Aperture must be greater than Central Obstruction
     </div>
