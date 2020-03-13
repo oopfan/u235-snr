@@ -1,3 +1,4 @@
+import { Title } from '@angular/platform-browser';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -6,10 +7,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./covid19-home.component.css']
 })
 export class Covid19HomeComponent implements OnInit {
+  browserTitle = 'COVID-19 | U235+SNR';
 
-  constructor() { }
+  constructor(private titleService: Title) { }
 
   ngOnInit() {
+    this.titleService.setTitle(this.browserTitle);
   }
 
 }
