@@ -1,7 +1,7 @@
 import { Title } from '@angular/platform-browser';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { UserTargetService, TargetStored, TargetParsed } from '../../services/user-target.service'
+import { UserTargetService, TargetStored, TargetParsed } from '@core/services';
 
 @Component({
   selector: 'app-target-edit',

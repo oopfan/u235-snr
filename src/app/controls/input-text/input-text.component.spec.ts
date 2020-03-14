@@ -5,7 +5,6 @@ import { By } from '@angular/platform-browser';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 
 describe('InputTextComponent', () => {
-  const testLabel = 'Label';
   let component: InputTextComponent;
   let fixture: ComponentFixture<InputTextComponent>;
   let el: DebugElement;
@@ -23,19 +22,12 @@ describe('InputTextComponent', () => {
     fixture = TestBed.createComponent(InputTextComponent);
     component = fixture.componentInstance;
     component.control = new FormControl();
-    component.label = testLabel;
     el = fixture.debugElement;
     fixture.detectChanges();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
-  });
-
-  it('should display label', () => {
-    expect(component).toBeTruthy();
-    const label = el.query(By.css('.label')).nativeElement;
-    expect(label.textContent).toBe(testLabel, 'Unexpected label');
   });
 
   it('should exercise validator: required', () => {

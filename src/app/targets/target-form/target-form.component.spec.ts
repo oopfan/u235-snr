@@ -3,7 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { TargetFormComponent } from './target-form.component';
 import { By } from '@angular/platform-browser';
 import { ControlsModule } from '../../controls/controls.module';
-import { TargetParsed } from 'src/app/services/user-target.service';
+import { TargetParsed } from '@core/services';
 
 describe('TargetFormComponent', () => {
   let component: TargetFormComponent;

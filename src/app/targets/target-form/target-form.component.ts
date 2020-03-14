@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { TargetParsed } from 'src/app/services/user-target.service';
+import { TargetParsed } from '@core/services';
 
 @Component({
   selector: 'app-target-form',

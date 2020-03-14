@@ -1,7 +1,7 @@
 import { Title } from '@angular/platform-browser';
 import { Router } from "@angular/router";
 import { Component, OnInit } from '@angular/core';
-import { UserTelescopeService, TelescopeStored } from 'src/app/services/user-telescope.service';
+import { UserTelescopeService, TelescopeStored } from '@core/services';
 
 @Component({
   selector: 'app-telescopes-home',

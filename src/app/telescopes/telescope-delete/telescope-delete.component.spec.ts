@@ -7,7 +7,7 @@ import { Location } from "@angular/common";
 import { TelescopesModule } from '../telescopes.module';
 import { routes } from '../telescopes-routing.module';
 import { TelescopeDeleteComponent } from './telescope-delete.component';
-import { UserTelescopeService, TelescopeParsed } from '../../services/user-telescope.service';
+import { UserTelescopeService, TelescopeParsed } from '@core/services';
 import { LocalStorageService } from 'angular-web-storage';
 
 describe('TelescopeDeleteComponent', () => {

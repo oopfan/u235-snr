@@ -7,7 +7,7 @@ import { Location } from "@angular/common";
 import { CamerasModule } from '../cameras.module';
 import { routes } from '../cameras-routing.module';
 import { CameraDeleteComponent } from './camera-delete.component';
-import { UserCameraService } from '../../services/user-camera.service';
+import { UserCameraService } from '@core/services';
 import { LocalStorageService } from 'angular-web-storage';
 
 describe('CameraDeleteComponent', () => {

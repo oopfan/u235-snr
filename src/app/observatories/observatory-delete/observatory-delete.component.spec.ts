@@ -7,7 +7,7 @@ import { Location } from "@angular/common";
 import { ObservatoriesModule } from '../observatories.module';
 import { routes } from '../observatories-routing.module';
 import { ObservatoryDeleteComponent } from './observatory-delete.component';
-import { UserObservatoryService } from '../../services/user-observatory.service';
+import { UserObservatoryService } from '@core/services';
 import { LocalStorageService } from 'angular-web-storage';
 
 describe('ObservatoryDeleteComponent', () => {

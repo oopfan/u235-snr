@@ -3,7 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ObservatoryFormComponent } from './observatory-form.component';
 import { By } from '@angular/platform-browser';
 import { ControlsModule } from '../../controls/controls.module';
-import { ObservatoryParsed } from 'src/app/services/user-observatory.service';
+import { ObservatoryParsed } from '@core/services';
 
 describe('ObservatoryFormComponent', () => {
   let component: ObservatoryFormComponent;

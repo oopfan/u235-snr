@@ -3,7 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { By } from '@angular/platform-browser';
 import { TelescopesHomeComponent } from './telescopes-home.component';
-import { UserTelescopeService } from '../../services/user-telescope.service';
+import { UserTelescopeService } from '@core/services';
 import { LocalStorageService } from 'angular-web-storage';
 
 describe('TelescopesHomeComponent', () => {

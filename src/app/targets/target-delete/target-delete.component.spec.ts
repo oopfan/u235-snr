@@ -7,7 +7,7 @@ import { Location } from "@angular/common";
 import { TargetsModule } from '../targets.module';
 import { routes } from '../targets-routing.module';
 import { TargetDeleteComponent } from './target-delete.component';
-import { UserTargetService } from '../../services/user-target.service';
+import { UserTargetService } from '@core/services';
 import { LocalStorageService } from 'angular-web-storage';
 
 describe('TargetDeleteComponent', () => {

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { LocalStorageGuard } from 'src/app/shared/local-storage-guard';
+import { LocalStorageGuard } from 'app/shared/local-storage-guard';
 
 @Component({
   selector: 'app-errors-home',

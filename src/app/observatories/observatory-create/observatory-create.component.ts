@@ -1,7 +1,7 @@
 import { Title } from '@angular/platform-browser';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { UserObservatoryService, ObservatoryParsed } from '../../services/user-observatory.service'
+import { UserObservatoryService, ObservatoryParsed } from '@core/services';
 
 @Component({
   selector: 'app-observatory-create',

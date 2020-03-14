@@ -4,7 +4,7 @@ import { CamerasHomeComponent } from './cameras-home/cameras-home.component';
 import { CameraCreateComponent } from './camera-create/camera-create.component';
 import { CameraEditComponent } from './camera-edit/camera-edit.component';
 import { CameraDeleteComponent } from './camera-delete/camera-delete.component';
-import { LocalStorageGuard } from 'src/app/shared/local-storage-guard';
+import { LocalStorageGuard } from 'app/shared/local-storage-guard';
 
 export const routes: Routes = [
   { path: 'cameras', component: CamerasHomeComponent, canActivate: [LocalStorageGuard] },

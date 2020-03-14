@@ -1,7 +1,7 @@
 import { Title } from '@angular/platform-browser';
 import { Router } from "@angular/router";
 import { Component, OnInit } from '@angular/core';
-import { UserTargetService, TargetStored } from 'src/app/services/user-target.service';
+import { UserTargetService, TargetStored } from '@core/services';
 
 @Component({
   selector: 'app-targets-home',

@@ -1,10 +1,10 @@
 import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { Subscription, Observable } from 'rxjs';
-import { UserTargetService, TargetParsed } from 'src/app/services/user-target.service';
-import { UserTelescopeService, TelescopeParsed } from 'src/app/services/user-telescope.service';
-import { UserCameraService, CameraParsed } from 'src/app/services/user-camera.service';
-import { UserObservatoryService, ObservatoryParsed } from 'src/app/services/user-observatory.service';
-import { CalculationService } from 'src/app/services/calculation.service';
+import { UserTargetService, TargetParsed } from '@core/services';
+import { UserTelescopeService, TelescopeParsed } from '@core/services';
+import { UserCameraService, CameraParsed } from '@core/services';
+import { UserObservatoryService, ObservatoryParsed } from '@core/services';
+import { CalculationService } from '@core/services';
 import { ChartDataSets, ChartOptions } from 'chart.js';
 import { Color, Label } from 'ng2-charts';
 

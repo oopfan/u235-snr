@@ -3,7 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { TelescopeFormComponent } from './telescope-form.component';
 import { By } from '@angular/platform-browser';
 import { ControlsModule } from '../../controls/controls.module';
-import { TelescopeParsed } from 'src/app/services/user-telescope.service';
+import { TelescopeParsed } from '@core/services';
 
 describe('TelescopeFormComponent', () => {
   let component: TelescopeFormComponent;

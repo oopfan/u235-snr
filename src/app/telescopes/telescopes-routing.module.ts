@@ -4,7 +4,7 @@ import { TelescopesHomeComponent } from './telescopes-home/telescopes-home.compo
 import { TelescopeCreateComponent } from './telescope-create/telescope-create.component';
 import { TelescopeEditComponent } from './telescope-edit/telescope-edit.component';
 import { TelescopeDeleteComponent } from './telescope-delete/telescope-delete.component';
-import { LocalStorageGuard } from 'src/app/shared/local-storage-guard';
+import { LocalStorageGuard } from 'app/shared/local-storage-guard';
 
 export const routes: Routes = [
   { path: 'telescopes', component: TelescopesHomeComponent, canActivate: [LocalStorageGuard] },

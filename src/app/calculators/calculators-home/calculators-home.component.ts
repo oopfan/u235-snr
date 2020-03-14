@@ -1,10 +1,10 @@
 import { Title } from '@angular/platform-browser';
 import { Component, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
-import { UserTargetService } from 'src/app/services/user-target.service';
-import { UserTelescopeService } from 'src/app/services/user-telescope.service';
-import { UserCameraService } from 'src/app/services/user-camera.service';
-import { UserObservatoryService } from 'src/app/services/user-observatory.service';
+import { UserTargetService } from '@core/services';
+import { UserTelescopeService } from '@core/services';
+import { UserCameraService } from '@core/services';
+import { UserObservatoryService } from '@core/services';
 import { LocalStorageService } from 'angular-web-storage';
 import mapSort from 'mapsort';
 

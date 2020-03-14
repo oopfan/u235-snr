@@ -5,7 +5,10 @@ import { InputNumberComponent } from './input-number/input-number.component';
 import { InputTextComponent } from './input-text/input-text.component';
 
 @NgModule({
-  declarations: [InputNumberComponent, InputTextComponent],
+  declarations: [
+    InputNumberComponent,
+    InputTextComponent
+  ],
   imports: [
     CommonModule,
     ReactiveFormsModule

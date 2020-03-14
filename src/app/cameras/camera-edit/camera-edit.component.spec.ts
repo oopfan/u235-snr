@@ -7,7 +7,7 @@ import { Location } from "@angular/common";
 import { CamerasModule } from '../cameras.module';
 import { routes } from '../cameras-routing.module';
 import { CameraEditComponent } from './camera-edit.component';
-import { UserCameraService, CameraParsed } from '../../services/user-camera.service';
+import { UserCameraService, CameraParsed } from '@core/services';
 import { LocalStorageService } from 'angular-web-storage';
 
 describe('CameraEditComponent', () => {

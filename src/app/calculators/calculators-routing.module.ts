@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { CalculatorsHomeComponent } from './calculators-home/calculators-home.component';
-import { LocalStorageGuard } from 'src/app/shared/local-storage-guard';
+import { LocalStorageGuard } from 'app/shared/local-storage-guard';
 
 export const routes: Routes = [
   { path: 'calculators', component: CalculatorsHomeComponent, canActivate: [LocalStorageGuard] }

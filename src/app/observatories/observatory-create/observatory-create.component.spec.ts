@@ -5,7 +5,7 @@ import { Location } from "@angular/common";
 import { ObservatoriesModule } from '../observatories.module';
 import { routes } from '../observatories-routing.module';
 import { ObservatoryCreateComponent } from './observatory-create.component';
-import { UserObservatoryService, ObservatoryParsed } from '../../services/user-observatory.service';
+import { UserObservatoryService, ObservatoryParsed } from '@core/services';
 import { LocalStorageService } from 'angular-web-storage';
 
 describe('ObservatoryCreateComponent', () => {

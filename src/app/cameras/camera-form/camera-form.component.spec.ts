@@ -3,7 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { CameraFormComponent } from './camera-form.component';
 import { By } from '@angular/platform-browser';
 import { ControlsModule } from '../../controls/controls.module';
-import { CameraParsed } from 'src/app/services/user-camera.service';
+import { CameraParsed } from '@core/services';
 
 describe('CameraFormComponent', () => {
   let component: CameraFormComponent;

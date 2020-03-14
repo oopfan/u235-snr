@@ -5,7 +5,7 @@ import { Location } from "@angular/common";
 import { TargetsModule } from '../targets.module';
 import { routes } from '../targets-routing.module';
 import { TargetCreateComponent } from './target-create.component';
-import { UserTargetService, TargetParsed } from '../../services/user-target.service';
+import { UserTargetService, TargetParsed } from '@core/services';
 import { LocalStorageService } from 'angular-web-storage';
 
 describe('TargetCreateComponent', () => {

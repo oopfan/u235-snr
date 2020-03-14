@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { ObservatoryParsed } from 'src/app/services/user-observatory.service';
+import { ObservatoryParsed } from '@core/services';
 
 @Component({
   selector: 'app-observatory-form',

@@ -14,6 +14,7 @@ import { SharedModule } from './shared/shared.module';
 import { HelpModule } from './help/help.module';
 import { ErrorsModule } from './errors/errors.module';
 import { Covid19Module } from './covid19/covid19.module';
+import { CoreModule } from './core/core.module';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { Covid19Module } from './covid19/covid19.module';
     SharedModule,
     HelpModule,
     ErrorsModule,
-    Covid19Module
+    Covid19Module,
+    CoreModule
   ],
   providers: [Title],
   bootstrap: [AppComponent]

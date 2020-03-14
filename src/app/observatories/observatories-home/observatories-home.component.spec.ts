@@ -3,7 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { By } from '@angular/platform-browser';
 import { ObservatoriesHomeComponent } from './observatories-home.component';
-import { UserObservatoryService, ObservatoryStored } from '../../services/user-observatory.service';
+import { UserObservatoryService, ObservatoryStored } from '@core/services';
 import { LocalStorageService } from 'angular-web-storage';
 
 describe('ObservatoriesHomeComponent', () => {

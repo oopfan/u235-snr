@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { CameraParsed } from 'src/app/services/user-camera.service';
+import { CameraParsed } from '@core/services';
 
 @Component({
   selector: 'app-camera-form',

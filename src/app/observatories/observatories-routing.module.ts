@@ -4,7 +4,7 @@ import { ObservatoriesHomeComponent } from './observatories-home/observatories-h
 import { ObservatoryCreateComponent } from './observatory-create/observatory-create.component';
 import { ObservatoryEditComponent } from './observatory-edit/observatory-edit.component';
 import { ObservatoryDeleteComponent } from './observatory-delete/observatory-delete.component';
-import { LocalStorageGuard } from 'src/app/shared/local-storage-guard';
+import { LocalStorageGuard } from 'app/shared/local-storage-guard';
 
 export const routes: Routes = [
   { path: 'observatories', component: ObservatoriesHomeComponent, canActivate: [LocalStorageGuard] },

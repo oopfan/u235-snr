@@ -1,7 +1,7 @@
 import { Title } from '@angular/platform-browser';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { UserObservatoryService, ObservatoryStored } from '../../services/user-observatory.service'
+import { UserObservatoryService, ObservatoryStored } from '@core/services';
 
 @Component({
   selector: 'app-observatory-delete',

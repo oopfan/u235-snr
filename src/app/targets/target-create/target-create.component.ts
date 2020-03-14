@@ -1,7 +1,7 @@
 import { Title } from '@angular/platform-browser';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { UserTargetService, TargetParsed } from '../../services/user-target.service'
+import { UserTargetService, TargetParsed } from '@core/services';
 
 @Component({
   selector: 'app-target-create',

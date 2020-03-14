@@ -1,7 +1,7 @@
 import { Title } from '@angular/platform-browser';
 import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
-import { UserCameraService, CameraParsed } from 'src/app/services/user-camera.service';
+import { UserCameraService, CameraParsed } from '@core/services';
 
 @Component({
   selector: 'app-camera-create',
