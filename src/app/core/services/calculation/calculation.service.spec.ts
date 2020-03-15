@@ -1,10 +1,10 @@
 import { TestBed } from '@angular/core/testing';
 
 import { CalculationService } from './calculation.service';
-import { TargetParsed } from './user-target.service';
-import { TelescopeParsed } from './user-telescope.service';
-import { CameraParsed } from './user-camera.service';
-import { ObservatoryParsed } from './user-observatory.service';
+import { TargetParsed } from '../user-target/user-target.service';
+import { TelescopeParsed } from '../user-telescope/user-telescope.service';
+import { CameraParsed } from '../user-camera/user-camera.service';
+import { ObservatoryParsed } from '../user-observatory/user-observatory.service';
 
 function createTarget(surfaceBrightness: number): TargetParsed {
   return {
