@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { LocalStorageGuard } from 'app/shared/local-storage-guard';
+import { LocalStorageGuard } from '@core/services';
 import * as fromComponents from './components';
 
 export const routes: Routes = [
