@@ -1,18 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-import { CalculatorsRoutingModule } from './calculators-routing.module';
-import { CalculatorsHomeComponent } from './calculators-home/calculators-home.component';
-import { CalculatorSnrComponent } from './calculator-snr/calculator-snr.component';
-import { CalculatorFcComponent } from './calculator-fc/calculator-fc.component';
 import { ChartsModule } from 'ng2-charts';
 
+import * as fromComponents from './components';
+import { CalculatorsRoutingModule } from './calculators-routing.module';
+
 @NgModule({
-  declarations: [CalculatorsHomeComponent, CalculatorSnrComponent, CalculatorFcComponent],
-  imports: [
-    CommonModule,
-    CalculatorsRoutingModule,
-    ChartsModule
-  ]
+  declarations: [ ...fromComponents.components ],
+  imports: [ CommonModule, ChartsModule, CalculatorsRoutingModule ]
 })
 export class CalculatorsModule { }
