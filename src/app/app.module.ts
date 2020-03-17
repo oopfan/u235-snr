@@ -14,6 +14,7 @@ import { SharedModule } from './shared/shared.module';
 import { HelpModule } from './help/help.module';
 import { ErrorsModule } from './errors/errors.module';
 import { Covid19Module } from './covid19/covid19.module';
+import { SandboxModule } from './sandbox/sandbox.module';
 import { CoreModule } from './core/core.module';
 
 @NgModule({
@@ -34,6 +35,7 @@ import { CoreModule } from './core/core.module';
     HelpModule,
     ErrorsModule,
     Covid19Module,
+    SandboxModule,
     CoreModule
   ],
   providers: [Title],
