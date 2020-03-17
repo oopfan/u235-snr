@@ -8,6 +8,56 @@
     <app-input-number [control]="observatoryForm.get('skyBrightness')" step="0.01">
         Sky brightness <span class="is-size-7">(mag/arcsec<sup>2</sup>)</span>
     </app-input-number>
+    <label class="label">Latitude</label>
+    <div class="columns">
+        <div class="column">
+            <app-input-number [control]="observatoryForm.get('latitudeDegrees')" step="1" min="0" max="89">
+                <span class="is-size-7">(degrees)</span>
+            </app-input-number>
+        </div>
+        <div class="column">
+            <app-input-number [control]="observatoryForm.get('latitudeMinutes')" step="1" min="0" max="59">
+                <span class="is-size-7">(minutes)</span>
+            </app-input-number>
+        </div>
+        <div class="column">
+            <app-input-number [control]="observatoryForm.get('latitudeSeconds')" step="1" min="0" max="59">
+                <span class="is-size-7">(seconds)</span>
+            </app-input-number>
+        </div>
+        <div class="column">
+            <label class="label"><span class="is-size-7">Select:</span></label>
+            <select [formControl]="observatoryForm.get('latitudeNS')" class="input">
+                <option value="1">North</option>
+                <option value="-1">South</option>
+            </select>
+        </div>
+    </div>
+    <label class="label">Longitude</label>
+    <div class="columns">
+        <div class="column">
+            <app-input-number [control]="observatoryForm.get('longitudeDegrees')" step="1" min="0" max="179">
+                <span class="is-size-7">(degrees)</span>
+            </app-input-number>
+        </div>
+        <div class="column">
+            <app-input-number [control]="observatoryForm.get('longitudeMinutes')" step="1" min="0" max="59">
+                <span class="is-size-7">(minutes)</span>
+            </app-input-number>
+        </div>
+        <div class="column">
+            <app-input-number [control]="observatoryForm.get('longitudeSeconds')" step="1" min="0" max="59">
+                <span class="is-size-7">(seconds)</span>
+            </app-input-number>
+        </div>
+        <div class="column">
+            <label class="label"><span class="is-size-7">Select:</span></label>
+            <select [formControl]="observatoryForm.get('longitudeEW')" class="input">
+                <option value="1">East</option>
+                <option value="-1">West</option>
+            </select>
+        </div>
+    </div>
     <div class="buttons">
         <button type="submit" class="button is-rounded is-light is-uppercase" [disabled]="observatoryForm.invalid">submit</button>
         <button type="button" class="button is-rounded is-light is-uppercase" (click)="onCancel()">cancel</button>

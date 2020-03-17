@@ -43,7 +43,7 @@ describe('ObservatoryFormComponent', () => {
     };
 
     const inputs = el.queryAll(By.css('.input'));
-    expect(inputs.length).toBe(3, 'Unexpected number of inputs');
+    expect(inputs.length).toBe(11, 'Unexpected number of inputs');
 
     let input = inputs[0].nativeElement;
     input.value = observatoryIn.name;

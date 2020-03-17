@@ -46,8 +46,8 @@ export class ObservatoryEditComponent implements OnInit {
       value.name,
       '' + value.bortleClass,
       '' + value.skyBrightness,
-      0,
-      0
+      value.latitude,
+      value.longitude
     );
     this.router.navigate([ this.navigateToUrl ]);
   }
