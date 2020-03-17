@@ -18,7 +18,9 @@ export class ObservatoryEditComponent implements OnInit {
     id: -1,
     name: '',
     bortleClass: '',
-    skyBrightness: ''
+    skyBrightness: '',
+    latitude: 0,
+    longitude: 0
   };
 
   constructor(private titleService: Title, private activatedRoute: ActivatedRoute, private router: Router, private observatoryService: UserObservatoryService) { }
@@ -43,7 +45,9 @@ export class ObservatoryEditComponent implements OnInit {
       this.observatory.id,
       value.name,
       '' + value.bortleClass,
-      '' + value.skyBrightness
+      '' + value.skyBrightness,
+      0,
+      0
     );
     this.router.navigate([ this.navigateToUrl ]);
   }

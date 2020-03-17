@@ -30,7 +30,9 @@ export class ObservatoryFormComponent implements OnInit {
       id: -1,
       name: this.observatoryForm.get('name').value,
       bortleClass: this.observatoryForm.get('bortleClass').value,
-      skyBrightness: this.observatoryForm.get('skyBrightness').value
+      skyBrightness: this.observatoryForm.get('skyBrightness').value,
+      latitude: 0,
+      longitude: 0
     });
   }
 

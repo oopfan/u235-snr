@@ -41,7 +41,9 @@ function createObservatory(skyBrightness: number): ObservatoryParsed {
     id: 0,
     name: 'n/a',
     bortleClass: 'n/a',
-    skyBrightness
+    skyBrightness,
+    latitude: 0,
+    longitude: 0
   };
 }
 

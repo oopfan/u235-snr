@@ -5,7 +5,9 @@ export interface ObservatoryStored {
   id: number,
   name: string,
   bortleClass: string,
-  skyBrightness: string
+  skyBrightness: string,
+  latitude: number,
+  longitude: number
 }
 
 interface ObservatoryCache {
@@ -17,7 +19,9 @@ export interface ObservatoryParsed {
   id: number,
   name: string,
   bortleClass: string,
-  skyBrightness: number
+  skyBrightness: number,
+  latitude: number,
+  longitude: number
 }
 
 @Injectable({
@@ -61,6 +65,16 @@ export class UserObservatoryService {
                   if (!("skyBrightness" in element) || typeof element.skyBrightness !== 'string') {
                     isOK = false;
                   }
+                  else {
+                    if (!("latitude" in element) || typeof element.latitude !== 'number') {
+                      element.latitude = 0;
+                    }
+                    else {
+                      if (!("longitude" in element) || typeof element.longitude !== 'number') {
+                        element.longitude = 0;
+                      }
+                    }
+                  }
                 }
               }
             }
@@ -91,18 +105,18 @@ export class UserObservatoryService {
     return [];
   }
 
-  create(name: string, bortleClass: string, skyBrightness:string): Array<ObservatoryStored> {
+  create(name: string, bortleClass: string, skyBrightness: string, latitude: number, longitude: number): Array<ObservatoryStored> {
     if (!this.cache) {
       this.init();
     }
     const id = this.cache.nextid++;
-    const obj: ObservatoryStored = { id, name, bortleClass, skyBrightness };
+    const obj: ObservatoryStored = { id, name, bortleClass, skyBrightness, latitude, longitude };
     this.cache.list.push(obj);
     this.storage.set('userObservatories', this.cache);
     return [ Object.assign({}, obj) ];
   }
 
-  update(id: number, name: string, bortleClass: string, skyBrightness: string): Array<ObservatoryStored> {
+  update(id: number, name: string, bortleClass: string, skyBrightness: string, latitude: number, longitude: number): Array<ObservatoryStored> {
     if (!this.cache) {
       this.init();
     }
@@ -114,6 +128,8 @@ export class UserObservatoryService {
       obj.name = name;
       obj.bortleClass = bortleClass;
       obj.skyBrightness = skyBrightness;
+      obj.latitude = latitude;
+      obj.longitude = longitude;
       this.storage.set('userObservatories', this.cache);
       return [ Object.assign({}, obj) ];
     }
@@ -141,7 +157,9 @@ export class UserObservatoryService {
         id: item.id,
         name: item.name,
         bortleClass: item.bortleClass,
-        skyBrightness: parseFloat(item.skyBrightness)
+        skyBrightness: parseFloat(item.skyBrightness),
+        latitude: item.latitude,
+        longitude: item.longitude
       }
     });
   }

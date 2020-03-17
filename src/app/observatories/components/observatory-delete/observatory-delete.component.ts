@@ -18,7 +18,9 @@ export class ObservatoryDeleteComponent implements OnInit {
     id: -1,
     name: '',
     bortleClass: '',
-    skyBrightness: ''
+    skyBrightness: '',
+    latitude: 0,
+    longitude: 0
   };
 
   constructor(private titleService: Title, private activatedRoute: ActivatedRoute, private router: Router, private observatoryService: UserObservatoryService) { }

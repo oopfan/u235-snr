@@ -23,7 +23,9 @@ export class ObservatoryCreateComponent implements OnInit {
     this.observatoryService.create(
       value.name,
       '' + value.bortleClass,
-      '' + value.skyBrightness
+      '' + value.skyBrightness,
+      0,
+      0
     );
     this.router.navigate([ this.navigateToUrl ]);
   }

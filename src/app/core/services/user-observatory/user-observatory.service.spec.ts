@@ -76,7 +76,7 @@ describe('UserObservatoryService', () => {
     expect(list1).toBeTruthy();
     expect(list1.length).toBe(2);
 
-    const list2 = userObservatoryService.create('Bortle 8', '8', '18.09');
+    const list2 = userObservatoryService.create('Bortle 8', '8', '18.09', 0, 0);
     expect(list2).toBeTruthy();
     expect(list2.length).toBe(1, 'check alpha');
     const observatory1 = list2[0];
@@ -102,7 +102,7 @@ describe('UserObservatoryService', () => {
     expect(list1).toBeTruthy();
     expect(list1.length).toBe(1, 'check alpha');
 
-    const result = userObservatoryService.update(4, 'Test observatory', '3.14', '999');
+    const result = userObservatoryService.update(4, 'Test observatory', '3.14', '999', 0, 0);
     expect(result).toBeTruthy();
     expect(result.length).toBe(1, 'check beta');
     result[0].name = 'Bortle 6';

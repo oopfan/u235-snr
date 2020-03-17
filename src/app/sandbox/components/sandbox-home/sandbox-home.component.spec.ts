@@ -1,5 +1,5 @@
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { SandboxHomeComponent } from './sandbox-home.component';
 
 describe('SandboxHomeComponent', () => {
@@ -8,7 +8,8 @@ describe('SandboxHomeComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SandboxHomeComponent ]
+      declarations: [ SandboxHomeComponent ],
+      schemas: [ NO_ERRORS_SCHEMA ]
     })
     .compileComponents();
   }));

@@ -37,7 +37,9 @@ describe('ObservatoryFormComponent', () => {
       id: -1,
       name: 'Bortle 5',
       bortleClass: '5',
-      skyBrightness: 20.02
+      skyBrightness: 20.02,
+      latitude: 0,
+      longitude: 0
     };
 
     const inputs = el.queryAll(By.css('.input'));
@@ -63,7 +65,9 @@ describe('ObservatoryFormComponent', () => {
       id: -1,
       name: component.observatoryForm.get('name').value,
       bortleClass: component.observatoryForm.get('bortleClass').value,
-      skyBrightness: component.observatoryForm.get('skyBrightness').value
+      skyBrightness: component.observatoryForm.get('skyBrightness').value,
+      latitude: 0,
+      longitude: 0
     };
 
     expect(observatoryOut.name).toBe(observatoryIn.name);

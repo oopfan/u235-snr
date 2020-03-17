@@ -76,7 +76,9 @@ describe('ObservatoryEditComponent', () => {
       id: 4,
       name: 'Bortle 99',
       bortleClass: '99',
-      skyBrightness: 99.99
+      skyBrightness: 99.99,
+      latitude: 0,
+      longitude: 0
     };
     create(observatory.id.toFixed(0));
     expect(component).toBeTruthy();

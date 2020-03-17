@@ -71,7 +71,9 @@ describe('ObservatoryCreateComponent', () => {
       id: -1,
       name: 'Bortle 99',
       bortleClass: '99',
-      skyBrightness: 99.99
+      skyBrightness: 99.99,
+      latitude: 0,
+      longitude: 0
     };
     fixture.ngZone.run(() => {
       component.onSubmit(observatory);
