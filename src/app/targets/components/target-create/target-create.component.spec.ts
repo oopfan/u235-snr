@@ -68,7 +68,9 @@ describe('TargetCreateComponent', () => {
     const target: TargetParsed = {
       id: -1,
       name: "My Galaxy",
-      surfaceBrightness: 22.2
+      surfaceBrightness: 22.2,
+      rightAscension: 0,
+      declination: 0
     };
     fixture.ngZone.run(() => {
       component.onSubmit(target);

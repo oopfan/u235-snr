@@ -2,6 +2,49 @@
     <app-input-text [control]="targetForm.get('name')">
         Name
     </app-input-text>
+    <label class="label">Right Ascension</label>
+    <div class="columns">
+        <div class="column">
+            <app-input-number [control]="targetForm.get('rightAscensionHours')" step="1" min="0" max="23">
+                <span class="is-size-7">(hours)</span>
+            </app-input-number>
+        </div>
+        <div class="column">
+            <app-input-number [control]="targetForm.get('rightAscensionMinutes')" step="1" min="0" max="59">
+                <span class="is-size-7">(minutes)</span>
+            </app-input-number>
+        </div>
+        <div class="column">
+            <app-input-number [control]="targetForm.get('rightAscensionSeconds')" step="1" min="0" max="59">
+                <span class="is-size-7">(seconds)</span>
+            </app-input-number>
+        </div>
+    </div>
+    <label class="label">Declination</label>
+    <div class="columns">
+        <div class="column">
+            <label class="label"><span class="is-size-7">Select:</span></label>
+            <select [formControl]="targetForm.get('declinationPM')" class="input">
+                <option value="1">+</option>
+                <option value="-1">-</option>
+            </select>
+        </div>
+        <div class="column">
+            <app-input-number [control]="targetForm.get('declinationDegrees')" step="1" min="0" max="89">
+                <span class="is-size-7">(degrees)</span>
+            </app-input-number>
+        </div>
+        <div class="column">
+            <app-input-number [control]="targetForm.get('declinationMinutes')" step="1" min="0" max="59">
+                <span class="is-size-7">(minutes)</span>
+            </app-input-number>
+        </div>
+        <div class="column">
+            <app-input-number [control]="targetForm.get('declinationSeconds')" step="1" min="0" max="59">
+                <span class="is-size-7">(seconds)</span>
+            </app-input-number>
+        </div>
+    </div>
     <app-input-number [control]="targetForm.get('surfaceBrightness')" step="0.01">
         Surface brightness <span class="is-size-7">(mag/arcsec<sup>2</sup>)</span>
     </app-input-number>

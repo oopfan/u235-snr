@@ -22,7 +22,9 @@ export class TargetCreateComponent implements OnInit {
   onSubmit(value: TargetParsed) {
     this.targetService.create(
       value.name,
-      '' + value.surfaceBrightness
+      '' + value.surfaceBrightness,
+      value.rightAscension,
+      value.declination
     );
     this.router.navigate([ this.navigateToUrl ]);
   }

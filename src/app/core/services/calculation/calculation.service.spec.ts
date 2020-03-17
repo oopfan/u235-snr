@@ -10,7 +10,9 @@ function createTarget(surfaceBrightness: number): TargetParsed {
   return {
     id: 0,
     name: 'n/a',
-    surfaceBrightness
+    surfaceBrightness,
+    rightAscension: 0,
+    declination: 0
   };
 }
 

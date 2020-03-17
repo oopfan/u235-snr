@@ -22,8 +22,6 @@ export class ObservatoryFormComponent implements OnInit {
   ngOnInit() {
     const latitudeDecoded = this.decodeAngleFromStorage(this.latitude);
     const longitudeDecoded = this.decodeAngleFromStorage(this.longitude);
-    console.log(latitudeDecoded);
-    console.log(longitudeDecoded);
     this.observatoryForm = new FormGroup({
       name: new FormControl(this.name, [ Validators.required ]),
       bortleClass: new FormControl(this.bortleClass),

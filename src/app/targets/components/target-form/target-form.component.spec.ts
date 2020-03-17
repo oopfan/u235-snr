@@ -36,17 +36,19 @@ describe('TargetFormComponent', () => {
     const targetIn: TargetParsed = {
       id: -1,
       name: "M81 Bode's Galaxy",
-      surfaceBrightness: 21.7
+      surfaceBrightness: 21.7,
+      rightAscension: 0,
+      declination: 0
     };
 
     const inputs = el.queryAll(By.css('.input'));
-    expect(inputs.length).toBe(2, 'Unexpected number of inputs');
+    expect(inputs.length).toBe(9, 'Unexpected number of inputs');
 
     let input = inputs[0].nativeElement;
     input.value = targetIn.name;
     input.dispatchEvent(new Event('input'));
 
-    input = inputs[1].nativeElement;
+    input = inputs[8].nativeElement;
     input.value = targetIn.surfaceBrightness;
     input.dispatchEvent(new Event('input'));
 
@@ -57,7 +59,9 @@ describe('TargetFormComponent', () => {
     const targetOut: TargetParsed = {
       id: -1,
       name: component.targetForm.get('name').value,
-      surfaceBrightness: component.targetForm.get('surfaceBrightness').value
+      surfaceBrightness: component.targetForm.get('surfaceBrightness').value,
+      rightAscension: 0,
+      declination: 0
     };
 
     expect(targetOut.name).toBe(targetIn.name);

@@ -10,6 +10,8 @@
                 <app-target-form
                     [name]="target.name"
                     [surfaceBrightness]="target.surfaceBrightness"
+                    [rightAscension]="target.rightAscension"
+                    [declination]="target.declination"
                     (notifySubmit)="onSubmit($event)"
                     (notifyCancel)="onCancel()">
                 </app-target-form>

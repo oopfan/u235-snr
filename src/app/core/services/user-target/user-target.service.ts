@@ -4,7 +4,9 @@ import { LocalStorageService, LocalStorage } from 'angular-web-storage';
 export interface TargetStored {
   id: number,
   name: string,
-  surfaceBrightness: string
+  surfaceBrightness: string,
+  rightAscension: number,
+  declination: number
 }
 
 interface TargetCache {
@@ -15,7 +17,9 @@ interface TargetCache {
 export interface TargetParsed {
   id: number,
   name: string,
-  surfaceBrightness: number
+  surfaceBrightness: number,
+  rightAscension: number,
+  declination: number
 }
 
 @Injectable({
@@ -55,6 +59,16 @@ export class UserTargetService {
                 if (!("surfaceBrightness" in element) || typeof element.surfaceBrightness !== 'string') {
                   isOK = false;
                 }
+                else {
+                  if (!("rightAscension" in element) || typeof element.rightAscension !== 'number') {
+                    element.rightAscension = 1;
+                  }
+                  else {
+                    if (!("declination" in element) || typeof element.declination !== 'number') {
+                      element.declination = 1;
+                    }
+                  }
+                }
               }
             }
           });
@@ -84,18 +98,18 @@ export class UserTargetService {
     return [];
   }
 
-  create(name: string, surfaceBrightness: string) {
+  create(name: string, surfaceBrightness: string, rightAscension: number, declination: number) {
     if (!this.cache) {
       this.init();
     }
     const id = this.cache.nextid++;
-    const obj: TargetStored = { id, name, surfaceBrightness };
+    const obj: TargetStored = { id, name, surfaceBrightness, rightAscension, declination };
     this.cache.list.push(obj);
     this.storage.set('userTargets', this.cache);
     return [ Object.assign({}, obj) ];
   }
 
-  update(id: number, name: string, surfaceBrightness: string) {
+  update(id: number, name: string, surfaceBrightness: string, rightAscension: number, declination: number) {
     if (!this.cache) {
       this.init();
     }
@@ -106,6 +120,8 @@ export class UserTargetService {
       const obj: TargetStored = this.cache.list[index];
       obj.name = name;
       obj.surfaceBrightness = surfaceBrightness;
+      obj.rightAscension = rightAscension;
+      obj.declination = declination;
       this.storage.set('userTargets', this.cache);
       return [ Object.assign({}, obj) ];
     }
@@ -132,7 +148,9 @@ export class UserTargetService {
       return {
         id: item.id,
         name: item.name,
-        surfaceBrightness: parseFloat(item.surfaceBrightness)
+        surfaceBrightness: parseFloat(item.surfaceBrightness),
+        rightAscension: item.rightAscension,
+        declination: item.declination
       }
     });
   }

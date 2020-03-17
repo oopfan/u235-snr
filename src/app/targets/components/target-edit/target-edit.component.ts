@@ -17,7 +17,9 @@ export class TargetEditComponent implements OnInit {
   target: TargetStored = {
     id: -1,
     name: '',
-    surfaceBrightness: ''
+    surfaceBrightness: '',
+    rightAscension: 1,
+    declination: 1
   };
 
   constructor(private titleService: Title, private activatedRoute: ActivatedRoute, private router: Router, private targetService: UserTargetService) { }
@@ -41,7 +43,9 @@ export class TargetEditComponent implements OnInit {
     this.targetService.update(
       this.target.id,
       value.name,
-      '' + value.surfaceBrightness
+      '' + value.surfaceBrightness,
+      value.rightAscension,
+      value.declination
     );
     this.router.navigate([ this.navigateToUrl ]);
   }

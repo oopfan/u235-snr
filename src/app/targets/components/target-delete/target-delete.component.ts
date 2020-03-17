@@ -17,7 +17,9 @@ export class TargetDeleteComponent implements OnInit {
   target: TargetStored = {
     id: -1,
     name: '',
-    surfaceBrightness: ''
+    surfaceBrightness: '',
+    rightAscension: 0,
+    declination: 0
   };
 
   constructor(private titleService: Title, private activatedRoute: ActivatedRoute, private router: Router, private targetService: UserTargetService) { }
