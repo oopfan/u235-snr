@@ -65,16 +65,6 @@ export class UserObservatoryService {
                   if (!("skyBrightness" in element) || typeof element.skyBrightness !== 'string') {
                     isOK = false;
                   }
-                  else {
-                    if (!("latitude" in element) || typeof element.latitude !== 'number') {
-                      element.latitude = 0;
-                    }
-                    else {
-                      if (!("longitude" in element) || typeof element.longitude !== 'number') {
-                        element.longitude = 0;
-                      }
-                    }
-                  }
                 }
               }
             }
@@ -82,7 +72,23 @@ export class UserObservatoryService {
         }
       }
     }
-    this.cache = isOK ? obj : { list: [], nextid: 0 };
+    if (!isOK) {
+      this.cache = { list: [], nextid: 0 };
+      return;
+    }
+    this.cache = obj;
+    const newList: Array<ObservatoryStored> = this.cache.list.map(element => {
+      const newElement: ObservatoryStored = {
+        id: element.id,
+        name: element.name,
+        bortleClass: element.bortleClass,
+        skyBrightness: element.skyBrightness,
+        latitude: element.latitude || 1,
+        longitude: element.longitude || 1
+      };
+      return newElement;
+    });
+    this.cache.list = newList;
   }
 
   getAll(): Array<ObservatoryStored> {

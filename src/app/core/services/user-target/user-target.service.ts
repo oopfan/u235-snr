@@ -59,23 +59,28 @@ export class UserTargetService {
                 if (!("surfaceBrightness" in element) || typeof element.surfaceBrightness !== 'string') {
                   isOK = false;
                 }
-                else {
-                  if (!("rightAscension" in element) || typeof element.rightAscension !== 'number') {
-                    element.rightAscension = 1;
-                  }
-                  else {
-                    if (!("declination" in element) || typeof element.declination !== 'number') {
-                      element.declination = 1;
-                    }
-                  }
-                }
               }
             }
           });
         }
       }
     }
-    this.cache = isOK ? obj : { list: [], nextid: 0 };
+    if (!isOK) {
+      this.cache = { list: [], nextid: 0 };
+      return;
+    }
+    this.cache = obj;
+    const newList: Array<TargetStored> = this.cache.list.map(element => {
+      const newElement: TargetStored = {
+        id: element.id,
+        name: element.name,
+        surfaceBrightness: element.surfaceBrightness,
+        rightAscension: element.rightAscension || 1,
+        declination: element.declination || 1
+      };
+      return newElement;
+    });
+    this.cache.list = newList;
   }
 
   getAll(): Array<TargetStored> {
