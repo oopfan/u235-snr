@@ -26,7 +26,7 @@
             </app-input-number>
         </div>
         <div class="column">
-            <label class="label"><span class="is-size-7">Select:</span></label>
+            <label class="label"><span class="is-size-7">(north/south)</span></label>
             <select [formControl]="observatoryForm.get('latitudeNS')" class="input">
                 <option value="1">North</option>
                 <option value="-1">South</option>
@@ -51,7 +51,7 @@
             </app-input-number>
         </div>
         <div class="column">
-            <label class="label"><span class="is-size-7">Select:</span></label>
+            <label class="label"><span class="is-size-7">(east/west)</span></label>
             <select [formControl]="observatoryForm.get('longitudeEW')" class="input">
                 <option value="1">East</option>
                 <option value="-1">West</option>

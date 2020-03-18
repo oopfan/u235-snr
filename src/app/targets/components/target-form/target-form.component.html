@@ -23,13 +23,6 @@
     <label class="label">Declination</label>
     <div class="columns">
         <div class="column">
-            <label class="label"><span class="is-size-7">Select:</span></label>
-            <select [formControl]="targetForm.get('declinationPM')" class="input">
-                <option value="1">+</option>
-                <option value="-1">-</option>
-            </select>
-        </div>
-        <div class="column">
             <app-input-number [control]="targetForm.get('declinationDegrees')" step="1" min="0" max="89">
                 <span class="is-size-7">(degrees)</span>
             </app-input-number>
@@ -43,6 +36,13 @@
             <app-input-number [control]="targetForm.get('declinationSeconds')" step="1" min="0" max="59">
                 <span class="is-size-7">(seconds)</span>
             </app-input-number>
+        </div>
+        <div class="column">
+            <label class="label"><span class="is-size-7">(north/south)</span></label>
+            <select [formControl]="targetForm.get('declinationPM')" class="input">
+                <option value="1">North</option>
+                <option value="-1">South</option>
+            </select>
         </div>
     </div>
     <app-input-number [control]="targetForm.get('surfaceBrightness')" step="0.01">
