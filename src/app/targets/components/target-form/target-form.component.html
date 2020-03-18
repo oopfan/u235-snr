@@ -1,8 +1,20 @@
 <form [formGroup]="targetForm" (ngSubmit)="onSubmit()">
-    <app-input-text [control]="targetForm.get('name')">
-        Name
-    </app-input-text>
-    <label class="label">Right Ascension</label>
+    <div class="columns">
+        <div class="column">
+        </div>
+    </div>
+    <div class="columns">
+        <div class="column">
+            <app-input-text [control]="targetForm.get('name')">
+                Name
+            </app-input-text>
+        </div>
+    </div>
+    <div class="columns">
+        <div class="column">
+            <label class="label">Right Ascension <span class="is-size-7">(J2000)</span></label>
+        </div>
+    </div>
     <div class="columns">
         <div class="column">
             <app-input-number [control]="targetForm.get('rightAscensionHours')" step="1" min="0" max="23">
@@ -20,7 +32,11 @@
             </app-input-number>
         </div>
     </div>
-    <label class="label">Declination</label>
+    <div class="columns">
+        <div class="column">
+            <label class="label">Declination <span class="is-size-7">(J2000)</span></label>
+        </div>
+    </div>
     <div class="columns">
         <div class="column">
             <app-input-number [control]="targetForm.get('declinationDegrees')" step="1" min="0" max="89">
@@ -45,9 +61,17 @@
             </select>
         </div>
     </div>
-    <app-input-number [control]="targetForm.get('surfaceBrightness')" step="0.01">
-        Surface brightness <span class="is-size-7">(mag/arcsec<sup>2</sup>)</span>
-    </app-input-number>
+    <div class="columns">
+        <div class="column">
+        </div>
+    </div>
+    <div class="columns">
+        <div class="column">
+            <app-input-number [control]="targetForm.get('surfaceBrightness')" step="0.01">
+                Surface brightness <span class="is-size-7">(mag/arcsec<sup>2</sup>)</span>
+            </app-input-number>
+        </div>
+    </div>
     <div class="columns">
         <div class="column is-two-thirds is-offset-one-fifth">
             <app-surface-brightness-calculator></app-surface-brightness-calculator>

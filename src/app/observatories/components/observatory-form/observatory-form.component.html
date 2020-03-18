@@ -1,14 +1,34 @@
 <form [formGroup]="observatoryForm" (ngSubmit)="onSubmit()">
-    <app-input-text [control]="observatoryForm.get('name')">
-        Name
-    </app-input-text>
-    <app-input-text [control]="observatoryForm.get('bortleClass')">
-        Bortle class
-    </app-input-text>
-    <app-input-number [control]="observatoryForm.get('skyBrightness')" step="0.01">
-        Sky brightness <span class="is-size-7">(mag/arcsec<sup>2</sup>)</span>
-    </app-input-number>
-    <label class="label">Latitude</label>
+    <div class="columns">
+        <div class="column">
+        </div>
+    </div>
+    <div class="columns">
+        <div class="column">
+            <app-input-text [control]="observatoryForm.get('name')">
+                Name
+            </app-input-text>
+        </div>
+    </div>
+    <div class="columns">
+        <div class="column">
+            <app-input-text [control]="observatoryForm.get('bortleClass')">
+                Bortle class
+            </app-input-text>
+        </div>
+    </div>
+    <div class="columns">
+        <div class="column">
+            <app-input-number [control]="observatoryForm.get('skyBrightness')" step="0.01">
+                Sky brightness <span class="is-size-7">(mag/arcsec<sup>2</sup>)</span>
+            </app-input-number>
+        </div>
+    </div>
+    <div class="columns">
+        <div class="column">
+            <label class="label">Latitude</label>
+        </div>
+    </div>
     <div class="columns">
         <div class="column">
             <app-input-number [control]="observatoryForm.get('latitudeDegrees')" step="1" min="0" max="89">
@@ -33,7 +53,11 @@
             </select>
         </div>
     </div>
-    <label class="label">Longitude</label>
+    <div class="columns">
+        <div class="column">
+            <label class="label">Longitude</label>
+        </div>
+    </div>
     <div class="columns">
         <div class="column">
             <app-input-number [control]="observatoryForm.get('longitudeDegrees')" step="1" min="0" max="179">
