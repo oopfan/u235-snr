@@ -25,6 +25,18 @@
         </div>
         <div class="columns">
             <div class="column is-three-fifths">
+                <label class="label">Latitude</label>
+                <app-latitude [decodedAngle]="latitude"></app-latitude>
+            </div>
+        </div>
+        <div class="columns">
+            <div class="column is-three-fifths">
+                <label class="label">Longitude</label>
+                <app-longitude [decodedAngle]="longitude"></app-longitude>
+            </div>
+        </div>
+        <div class="columns">
+            <div class="column is-three-fifths">
                 <div class="has-text-danger">
                     Are you sure you want to delete this observatory?
                 </div>

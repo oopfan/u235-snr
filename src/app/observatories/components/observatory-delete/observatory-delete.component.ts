@@ -1,7 +1,7 @@
 import { Title } from '@angular/platform-browser';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { UserObservatoryService, ObservatoryStored } from '@core/services';
+import { UserObservatoryService, ObservatoryStored, UtilityService } from '@core/services';
 
 @Component({
   selector: 'app-observatory-delete',
@@ -13,6 +13,8 @@ export class ObservatoryDeleteComponent implements OnInit {
   pageTitle = 'Delete Observatory';
   notFound = 'Observatory not found';
   navigateToUrl = '/observatories';
+  latitude = [1, 0, 0, 0, 0];
+  longitude = [1, 0, 0, 0, 0];
 
   observatory: ObservatoryStored = {
     id: -1,
@@ -23,7 +25,12 @@ export class ObservatoryDeleteComponent implements OnInit {
     longitude: 0
   };
 
-  constructor(private titleService: Title, private activatedRoute: ActivatedRoute, private router: Router, private observatoryService: UserObservatoryService) { }
+  constructor(
+    private titleService: Title,
+    private activatedRoute: ActivatedRoute,
+    private router: Router,
+    private observatoryService: UserObservatoryService,
+    private utility: UtilityService) { }
 
   ngOnInit() {
     this.titleService.setTitle(this.browserTitle);
@@ -34,6 +41,8 @@ export class ObservatoryDeleteComponent implements OnInit {
         const result = this.observatoryService.getItem(idNum);
         if (result.length) {
           this.observatory = result[0];
+          this.latitude = this.utility.decodeAngleFromStorage(this.observatory.latitude);
+          this.longitude = this.utility.decodeAngleFromStorage(this.observatory.longitude);
           return;
         }
       }
