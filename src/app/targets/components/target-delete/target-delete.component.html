@@ -19,6 +19,18 @@
         </div>
         <div class="columns">
             <div class="column is-three-fifths">
+                <label class="label">Right Ascension</label>
+                <app-right-ascension [decodedAngle]="rightAscension"></app-right-ascension>
+            </div>
+        </div>
+        <div class="columns">
+            <div class="column is-three-fifths">
+                <label class="label">Declination</label>
+                <app-declination [decodedAngle]="declination"></app-declination>
+            </div>
+        </div>
+        <div class="columns">
+            <div class="column is-three-fifths">
                 <div class="has-text-danger">
                     Are you sure you want to delete this target?
                 </div>

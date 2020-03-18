@@ -1,7 +1,7 @@
 import { Title } from '@angular/platform-browser';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { UserTargetService, TargetStored } from '@core/services';
+import { UserTargetService, TargetStored, UtilityService } from '@core/services';
 
 @Component({
   selector: 'app-target-delete',
@@ -13,6 +13,8 @@ export class TargetDeleteComponent implements OnInit {
   browserTitle = this.pageTitle + ' | U235+SNR';
   notFound = 'Target not found';
   navigateToUrl = '/targets';
+  rightAscension = [1, 0, 0, 0, 0];
+  declination = [1, 0, 0, 0, 0];
 
   target: TargetStored = {
     id: -1,
@@ -22,7 +24,12 @@ export class TargetDeleteComponent implements OnInit {
     declination: 0
   };
 
-  constructor(private titleService: Title, private activatedRoute: ActivatedRoute, private router: Router, private targetService: UserTargetService) { }
+  constructor(
+    private titleService: Title,
+    private activatedRoute: ActivatedRoute,
+    private router: Router,
+    private targetService: UserTargetService,
+    private utility: UtilityService) { }
 
   ngOnInit() {
     this.titleService.setTitle(this.browserTitle);
@@ -33,6 +40,8 @@ export class TargetDeleteComponent implements OnInit {
         const result = this.targetService.getItem(idNum);
         if (result.length) {
           this.target = result[0];
+          this.rightAscension = this.utility.decodeAngleFromStorage(this.target.rightAscension);
+          this.declination = this.utility.decodeAngleFromStorage(this.target.declination);
           return;
         }
       }
