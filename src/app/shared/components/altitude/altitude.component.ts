@@ -1,16 +1,15 @@
 import { Component, Input, Output, OnInit, OnChanges, EventEmitter } from '@angular/core';
 
 @Component({
-  selector: 'app-declination',
-  templateUrl: './declination.component.html',
-  styleUrls: ['./declination.component.css']
+  selector: 'app-altitude',
+  templateUrl: './altitude.component.html',
+  styleUrls: ['./altitude.component.css']
 })
-export class DeclinationComponent implements OnInit, OnChanges {
+export class AltitudeComponent implements OnInit, OnChanges {
   @Input() decodedAngle = [1, 0, 0, 0, 0];
   @Output() notifyChange:EventEmitter<void> = new EventEmitter();
   degrees = '';
   minutes = '';
-  seconds = '';
   plusminus = '';
   
   constructor() { }
@@ -30,18 +29,13 @@ export class DeclinationComponent implements OnInit, OnChanges {
     temp = '0' + this.decodedAngle[2].toFixed(0);
     const minutes = temp.slice(temp.length - 2);
 
-    temp = '0' + this.decodedAngle[3].toFixed(0);
-    const seconds = temp.slice(temp.length - 2);
-
     const plusminus = this.decodedAngle[0] > 0 ? '+' : '-';
 
-    if (degrees !== this.degrees || minutes !== this.minutes || seconds !== this.seconds || plusminus !== this.plusminus) {
+    if (degrees !== this.degrees || minutes !== this.minutes || plusminus !== this.plusminus) {
       this.degrees = degrees;
       this.minutes = minutes;
-      this.seconds = seconds;
       this.plusminus = plusminus;
       this.notifyChange.emit();
     }
   }
-
 }
