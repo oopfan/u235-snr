@@ -68,6 +68,14 @@
                 <span [appHighlight]="{watch: date.toTimeString()}">{{ date.toTimeString() }}</span>
             </div>
         </div>
+        <div class="columns">
+            <div class="column is-one-fifth">
+                Julian Date
+            </div>
+            <div class="column is-two-fifths">
+                <span [appHighlight]="{watch: timekeeper.getJD().toFixed(4)}">{{ timekeeper.getJD().toFixed(4) }}</span>
+            </div>
+        </div>
 
     </div>
 </div>

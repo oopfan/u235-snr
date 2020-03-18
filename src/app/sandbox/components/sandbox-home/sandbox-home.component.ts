@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Title } from '@angular/platform-browser';
+import { Timekeeper } from '@shared/classes';
 
 @Component({
   selector: 'app-sandbox-home',
@@ -12,11 +13,14 @@ export class SandboxHomeComponent implements OnInit, OnDestroy {
   counter = 0;
   backgroundColor = 'cyan';
   date = new Date();
+  timekeeper = new Timekeeper();
+
 
   constructor(private titleService: Title) { }
 
   ngOnInit() {
     this.titleService.setTitle(this.browserTitle);
+    this.timekeeper.setDate(this.date);
     this.startTimer();
   }
 
@@ -28,6 +32,7 @@ export class SandboxHomeComponent implements OnInit, OnDestroy {
     this.intervalId = window.setInterval(() => {
       this.backgroundColor = (this.counter++ & 1) == 0 ? 'magenta' : 'cyan';
       this.date.setTime(Date.now());
+      this.timekeeper.setDate(this.date);
     }, 1000);
   }
 
