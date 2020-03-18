@@ -1,7 +1,73 @@
 <div class="section">
     <div class="container">
         <h1 class="title is-4">SANDBOX</h1>
-        <h2 class="subtitle">AppHighlight</h2>
-        <span class="is-size-2" [appHighlight]="{watch: counter, backgroundColor: backgroundColor}">{{ counter }}</span>
+
+        <!-- <div class="columns">
+            <div class="column is-one-fifth">
+                toString()
+            </div>
+            <div class="column is-two-fifths">
+                <span [appHighlight]="{watch: date.toString()}">{{ date.toString() }}</span>
+            </div>
+        </div>
+        <div class="columns">
+            <div class="column is-one-fifth">
+                toDateString()
+            </div>
+            <div class="column is-two-fifths">
+                <span [appHighlight]="{watch: date.toDateString()}">{{ date.toDateString() }}</span>
+            </div>
+        </div>
+        <div class="columns">
+            <div class="column is-one-fifth">
+                toTimeString()
+            </div>
+            <div class="column is-two-fifths">
+                <span [appHighlight]="{watch: date.toTimeString()}">{{ date.toTimeString() }}</span>
+            </div>
+        </div>
+        <div class="columns">
+            <div class="column is-one-fifth">
+                toLocaleDateString()
+            </div>
+            <div class="column is-two-fifths">
+                <span [appHighlight]="{watch: date.toLocaleDateString()}">{{ date.toLocaleDateString() }}</span>
+            </div>
+        </div>
+        <div class="columns">
+            <div class="column is-one-fifth">
+                toLocaleTimeString()
+            </div>
+            <div class="column is-two-fifths">
+                <span [appHighlight]="{watch: date.toLocaleTimeString()}">{{ date.toLocaleTimeString() }}</span>
+            </div>
+        </div>
+        <div class="columns">
+            <div class="column is-one-fifth">
+                toUTCString()
+            </div>
+            <div class="column is-two-fifths">
+                <span [appHighlight]="{watch: date.toUTCString()}">{{ date.toUTCString() }}</span>
+            </div>
+        </div>
+        <hr /> -->
+
+        <div class="columns">
+            <div class="column is-one-fifth">
+                Local Date
+            </div>
+            <div class="column is-two-fifths">
+                <span [appHighlight]="{watch: date.toDateString()}">{{ date.toDateString() }}</span>
+            </div>
+        </div>
+        <div class="columns">
+            <div class="column is-one-fifth">
+                Local Time
+            </div>
+            <div class="column is-two-fifths">
+                <span [appHighlight]="{watch: date.toTimeString()}">{{ date.toTimeString() }}</span>
+            </div>
+        </div>
+
     </div>
 </div>

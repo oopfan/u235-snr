@@ -11,6 +11,7 @@ export class SandboxHomeComponent implements OnInit, OnDestroy {
   intervalId = 0;
   counter = 0;
   backgroundColor = 'cyan';
+  date = new Date();
 
   constructor(private titleService: Title) { }
 
@@ -26,6 +27,7 @@ export class SandboxHomeComponent implements OnInit, OnDestroy {
   startTimer() {
     this.intervalId = window.setInterval(() => {
       this.backgroundColor = (this.counter++ & 1) == 0 ? 'magenta' : 'cyan';
+      this.date.setTime(Date.now());
     }, 1000);
   }
 
