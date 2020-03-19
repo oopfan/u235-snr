@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { Timekeeper, Vector3D, Matrix3D } from '@shared/classes';
-import { UtilityService, UserObservatoryService, ObservatoryParsed, UserTargetService, TargetParsed } from '@core/services';
+import { AtmosphericExtinctionService, UtilityService, UserObservatoryService, ObservatoryParsed, UserTargetService, TargetParsed } from '@core/services';
 import mapSort from 'mapsort';
 
 @Component({
@@ -34,11 +34,16 @@ export class AssistantHomeComponent implements OnInit, OnDestroy {
   selectedTarget = "-";
   targets = [];
   targetObj: TargetParsed = null;
+  redExtinction = 'n/a';
+  greenExtinction = 'n/a';
+  blueExtinction = 'n/a';
+  lumExtinction = 'n/a';
 
   compareString = (a: any, b: any) => a.localeCompare(b);
 
   constructor(
     private titleService: Title,
+    private extinctionService: AtmosphericExtinctionService,
     private utility: UtilityService,
     private observatoryService: UserObservatoryService,
     private targetService: UserTargetService) {}
@@ -195,10 +200,10 @@ export class AssistantHomeComponent implements OnInit, OnDestroy {
         vec.matrixMultiply(matEquToHor);
         var polar = vec.getPolar();
         // this.azimuth = this.utility.decodeAngleFromMath(this.utility.toDegrees(Math.PI - polar[0]));
-        this.altitude = this.utility.decodeAngleFromMath(this.utility.toDegrees(polar[1]) + 1 / 120);
+        const altitudeDegrees = this.utility.toDegrees(polar[1]);
+        this.altitude = this.utility.decodeAngleFromMath(altitudeDegrees);
 
         let ha = this.utility.toDegrees(lmstRadians - raNow) / 15;
-        ha += 1 / 120;  // round to half minute
         if (ha > 12) {
           ha -= 24;
         }
@@ -206,6 +211,16 @@ export class AssistantHomeComponent implements OnInit, OnDestroy {
           ha += 24;
         }
         this.hourAngle = this.utility.decodeAngleFromMath(ha);
+
+        const redExt = this.extinctionService.redExtinction(altitudeDegrees);
+        const greenExt = this.extinctionService.greenExtinction(altitudeDegrees);
+        const blueExt = this.extinctionService.blueExtinction(altitudeDegrees);
+        const lumExt = (redExt + greenExt + blueExt) / 3;
+
+        this.redExtinction = !isNaN(redExt) ? redExt.toFixed(2) : 'n/a';
+        this.greenExtinction = !isNaN(greenExt) ? greenExt.toFixed(2) : 'n/a';
+        this.blueExtinction = !isNaN(blueExt) ? blueExt.toFixed(2) : 'n/a';
+        this.lumExtinction = !isNaN(lumExt) ? lumExt.toFixed(2) : 'n/a';
       }
     }
   }

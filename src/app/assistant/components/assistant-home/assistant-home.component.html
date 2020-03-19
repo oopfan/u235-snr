@@ -184,6 +184,20 @@
                         <app-hour-angle [appHighlight]="{watch: hourAngleChanged}" [decodedAngle]="hourAngle" (notifyChange)="onHourAngleChanged()"></app-hour-angle>
                     </div>
                 </div>
+                <div class="columns">
+                    <div class="column is-one-fifth">
+                        <label class="label">
+                            Atmospheric Extinction
+                        </label>
+                    </div>
+                    <div class="column is-two-fifths">
+                        <div class="tags are-medium">
+                            <div class="tag is-danger">R: {{ redExtinction }}</div>
+                            <div class="tag is-success">G: {{ greenExtinction }}</div>
+                            <div class="tag is-info">B: {{ blueExtinction }}</div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <!-- <hr />
