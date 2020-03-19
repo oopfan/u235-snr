@@ -26,6 +26,8 @@ export class SandboxHomeComponent implements OnInit, OnDestroy {
   azimuth = [ 1, 0, 0, 0, 0];
   altitudeChanged = 0;
   altitude = [ 1, 0, 0, 0, 0];
+  hourAngleChanged = 0;
+  hourAngle = [ 1, 0, 0, 0, 0 ];
   selectedObservatory = "-";
   observatories = [];
   observatoryObj: ObservatoryParsed = null;
@@ -67,6 +69,10 @@ export class SandboxHomeComponent implements OnInit, OnDestroy {
 
   onAzimuthChanged() {
     this.azimuthChanged++;
+  }
+
+  onHourAngleChanged() {
+    this.hourAngleChanged++;
   }
 
   onChangeObservatory(value: string) {
@@ -112,8 +118,8 @@ export class SandboxHomeComponent implements OnInit, OnDestroy {
     this.timekeeper.setDate(this.date);
     const jd = this.timekeeper.getJD();
     this.utcString = this.date.toUTCString();
-    this.jdString = jd.toFixed(4);
-    this.gmstString = this.utility.formatHMS(this.utility.toRadians(this.timekeeper.getGMST() * 15));
+    // this.jdString = jd.toFixed(4);
+    // this.gmstString = this.utility.formatHMS(this.utility.toRadians(this.timekeeper.getGMST() * 15));
     const obliquity = this.utility.calculateObliquityOfEcliptic(jd);
     const precession = this.utility.calculatePrecessionSinceJ2000(jd);
     const matEquToEcl = new Matrix3D();
@@ -141,9 +147,9 @@ export class SandboxHomeComponent implements OnInit, OnDestroy {
       if (raNow < 0) {
         raNow += 2 * Math.PI;
       }
-      this.raNow = this.utility.decodeAngleFromMath(this.utility.toDegrees(raNow) / 15);
+      // this.raNow = this.utility.decodeAngleFromMath(this.utility.toDegrees(raNow) / 15);
       const decNow = answer[1];
-      this.decNow = this.utility.decodeAngleFromMath(this.utility.toDegrees(decNow));
+      // this.decNow = this.utility.decodeAngleFromMath(this.utility.toDegrees(decNow));
 
       if (this.observatoryObj) {
         const longitudeDecoded = this.utility.decodeAngleFromStorage(this.observatoryObj.longitude);
@@ -159,7 +165,7 @@ export class SandboxHomeComponent implements OnInit, OnDestroy {
             lmst -= 360;
         }
         const lmstRadians = this.utility.toRadians(lmst);
-        this.lmstString = this.utility.formatHMS(lmstRadians);
+        // this.lmstString = this.utility.formatHMS(lmstRadians);
   
         const rotY = new Matrix3D();
         rotY.setRotateY(this.utility.toRadians(90 - latitudeDegrees));
@@ -172,8 +178,18 @@ export class SandboxHomeComponent implements OnInit, OnDestroy {
         vec.setPolar(raNow, decNow, 1);
         vec.matrixMultiply(matEquToHor);
         var polar = vec.getPolar();
-        this.azimuth = this.utility.decodeAngleFromMath(this.utility.toDegrees(Math.PI - polar[0]));
-        this.altitude = this.utility.decodeAngleFromMath(this.utility.toDegrees(polar[1]));
+        // this.azimuth = this.utility.decodeAngleFromMath(this.utility.toDegrees(Math.PI - polar[0]));
+        this.altitude = this.utility.decodeAngleFromMath(this.utility.toDegrees(polar[1]) + 1 / 120);
+
+        let ha = this.utility.toDegrees(lmstRadians - raNow) / 15;
+        ha += 1 / 120;  // round to half minute
+        if (ha > 12) {
+          ha -= 24;
+        }
+        if (ha < -12) {
+          ha += 24;
+        }
+        this.hourAngle = this.utility.decodeAngleFromMath(ha);
       }
     }
   }

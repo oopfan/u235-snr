@@ -6,6 +6,7 @@ import { RightAscensionComponent } from './right-ascension/right-ascension.compo
 import { DeclinationComponent } from './declination/declination.component';
 import { AltitudeComponent } from './altitude/altitude.component';
 import { AzimuthComponent } from './azimuth/azimuth.component';
+import { HourAngleComponent } from './hour-angle/hour-angle.component';
 
 export const components: any[] = [
     InputNumberComponent,
@@ -15,7 +16,8 @@ export const components: any[] = [
     RightAscensionComponent,
     DeclinationComponent,
     AltitudeComponent,
-    AzimuthComponent
+    AzimuthComponent,
+    HourAngleComponent
 ];
 
 export * from './input-number/input-number.component';
@@ -26,3 +28,4 @@ export * from './right-ascension/right-ascension.component';
 export * from './declination/declination.component';
 export * from './altitude/altitude.component';
 export * from './azimuth/azimuth.component';
+export * from './hour-angle/hour-angle.component';
