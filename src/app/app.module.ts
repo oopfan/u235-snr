@@ -15,6 +15,7 @@ import { HelpModule } from './help/help.module';
 import { ErrorsModule } from './errors/errors.module';
 import { Covid19Module } from './covid19/covid19.module';
 import { SandboxModule } from './sandbox/sandbox.module';
+import { AssistantModule } from './assistant/assistant.module';
 import { CoreModule } from './core/core.module';
 
 @NgModule({
@@ -36,6 +37,7 @@ import { CoreModule } from './core/core.module';
     ErrorsModule,
     Covid19Module,
     SandboxModule,
+    AssistantModule,
     CoreModule
   ],
   providers: [Title],

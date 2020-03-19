@@ -1,0 +1,219 @@
+<div class="section">
+    <div class="container">
+        <h1 class="title is-4">Assistant</h1>
+
+        <!-- <div class="columns">
+            <div class="column is-one-fifth">
+                toString()
+            </div>
+            <div class="column is-two-fifths">
+                <span [appHighlight]="{watch: date.toString()}">{{ date.toString() }}</span>
+            </div>
+        </div>
+        <div class="columns">
+            <div class="column is-one-fifth">
+                toDateString()
+            </div>
+            <div class="column is-two-fifths">
+                <span [appHighlight]="{watch: date.toDateString()}">{{ date.toDateString() }}</span>
+            </div>
+        </div>
+        <div class="columns">
+            <div class="column is-one-fifth">
+                toTimeString()
+            </div>
+            <div class="column is-two-fifths">
+                <span [appHighlight]="{watch: date.toTimeString()}">{{ date.toTimeString() }}</span>
+            </div>
+        </div>
+        <div class="columns">
+            <div class="column is-one-fifth">
+                toLocaleDateString()
+            </div>
+            <div class="column is-two-fifths">
+                <span [appHighlight]="{watch: date.toLocaleDateString()}">{{ date.toLocaleDateString() }}</span>
+            </div>
+        </div>
+        <div class="columns">
+            <div class="column is-one-fifth">
+                toLocaleTimeString()
+            </div>
+            <div class="column is-two-fifths">
+                <span [appHighlight]="{watch: date.toLocaleTimeString()}">{{ date.toLocaleTimeString() }}</span>
+            </div>
+        </div>
+        <div class="columns">
+            <div class="column is-one-fifth">
+                toUTCString()
+            </div>
+            <div class="column is-two-fifths">
+                <span [appHighlight]="{watch: date.toUTCString()}">{{ date.toUTCString() }}</span>
+            </div>
+        </div>
+        <hr /> -->
+
+        <div class="columns">
+            <div class="column is-one-fifth">
+                <label class="label">
+                    Universal Time
+                </label>
+            </div>
+            <div class="column is-two-fifths">
+                <span [appHighlight]="{watch: utcString}">{{ utcString }}</span>
+            </div>
+        </div>
+        <!-- <div class="columns">
+            <div class="column is-one-fifth">
+                <label class="label">
+                    JD
+                </label>
+            </div>
+            <div class="column is-two-fifths">
+                <span [appHighlight]="{watch: jdString}">{{ jdString }}</span>
+            </div>
+        </div>
+        <div class="columns">
+            <div class="column is-one-fifth">
+                <label class="label">
+                    GMST
+                </label>
+            </div>
+            <div class="column is-two-fifths">
+                <span [appHighlight]="{watch: gmstString}">{{ gmstString }}</span>
+            </div>
+        </div> -->
+        <div class="columns is-vcentered">
+            <div class="column is-one-fifth">
+                <label class="label">
+                    Target
+                </label>
+            </div>
+            <div class="column is-two-fifths">
+                <div class="control">
+                    <div class="select">
+                        <select [value]="selectedTarget" (change)= "onChangeTarget($event.target.value)">
+                            <option value="-">Choose one...</option>
+                            <option *ngFor="let target of targets" [value]="target.id">{{ target.name }}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="help is-danger" *ngIf="haveTarget() && invalidTarget()">
+                    Please check the right ascension and declination
+                </div>
+            </div>
+        </div>
+        <div *ngIf="haveTarget() && !invalidTarget()">
+            <!-- <div class="columns">
+                <div class="column is-one-fifth">
+                    <label class="label">
+                        RA <span class="is-size-7">now</span>
+                    </label>
+                </div>
+                <div class="column is-two-fifths">
+                    <app-right-ascension [appHighlight]="{watch: rightAscensionChanged}" [decodedAngle]="raNow" (notifyChange)="onRightAscensionChanged()"></app-right-ascension>
+                </div>
+            </div>
+            <div class="columns">
+                <div class="column is-one-fifth">
+                    <label class="label">
+                        DEC <span class="is-size-7">now</span>
+                    </label>
+                </div>
+                <div class="column is-two-fifths">
+                    <app-declination [appHighlight]="{watch: declinationChanged}" [decodedAngle]="decNow" (notifyChange)="onDeclinationChanged()"></app-declination>
+                </div>
+            </div> -->
+            <div class="columns is-vcentered">
+                <div class="column is-one-fifth">
+                    <label class="label">
+                        Observatory
+                    </label>
+                </div>
+                <div class="column is-two-fifths">
+                    <div class="control">
+                        <div class="select">
+                            <select [value]="selectedObservatory" (change)= "onChangeObservatory($event.target.value)">
+                                <option value="-">Choose one...</option>
+                                <option *ngFor="let observatory of observatories" [value]="observatory.id">{{ observatory.name }}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="help is-danger" *ngIf="haveObservatory() && invalidObservatory()">
+                        Please check the latitude and longitude
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="haveObservatory() && !invalidObservatory()">
+                <!-- <div class="columns">
+                    <div class="column is-one-fifth">
+                        <label class="label">
+                            LMST
+                        </label>
+                    </div>
+                    <div class="column is-two-fifths">
+                        <span [appHighlight]="{watch: lmstString}">{{ lmstString }}</span>
+                    </div>
+                </div> -->
+                <div class="columns">
+                    <div class="column is-one-fifth">
+                        <label class="label">
+                            Altitude
+                        </label>
+                    </div>
+                    <div class="column is-two-fifths">
+                        <app-altitude [appHighlight]="{watch: altitudeChanged}" [decodedAngle]="altitude" (notifyChange)="onAltitudeChanged()"></app-altitude>
+                    </div>
+                </div>
+                <!-- <div class="columns">
+                    <div class="column is-one-fifth">
+                        <label class="label">
+                            Azimuth
+                        </label>
+                    </div>
+                    <div class="column is-two-fifths">
+                        <app-azimuth [appHighlight]="{watch: azimuthChanged}" [decodedAngle]="azimuth" (notifyChange)="onAzimuthChanged()"></app-azimuth>
+                    </div>
+                </div> -->
+                <div class="columns">
+                    <div class="column is-one-fifth">
+                        <label class="label">
+                            Hour Angle
+                        </label>
+                    </div>
+                    <div class="column is-two-fifths">
+                        <app-hour-angle [appHighlight]="{watch: hourAngleChanged}" [decodedAngle]="hourAngle" (notifyChange)="onHourAngleChanged()"></app-hour-angle>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- <hr />
+        <div class="columns">
+            <div class="column is-two-fifths">
+                <div class="content">
+                    <h2 class="subtitle is-size-5">Glossary</h2>
+                    <p>
+                        <strong>UTC</strong>: Universal Coordinated Time (UTC) is the mean solar time at the prime meridian.
+                    </p>
+                    <p>
+                        <strong>JD</strong>: Julian Date (JD) is the number of mean solar days since noon January 1, 4713 BC.
+                    </p>
+                    <p>
+                        <strong>GMST</strong>: Greenwich Mean Sidereal Time (GMST) is the hour angle between the prime meridian
+                        and the vernal equinox expressed in hours, minutes, and seconds.
+                    </p>
+                    <p>
+                        <strong>RA <span class="is-size-7">now</span></strong>: Right Ascension (RA) adjusted for precession.
+                    </p>
+                    <p>
+                        <strong>DEC <span class="is-size-7">now</span></strong>: Declination (DEC) adjusted for precession.
+                    </p>
+                    <p>
+                        <strong>LMST</strong>: Local Mean Sidereal Time (LMST) is the hour angle between the observatory's
+                        local meridian and the vernal equinox expressed in hours, minutes, and seconds.
+                    </p>
+                </div>
+            </div>
+        </div> -->
+
+    </div>
+</div>
