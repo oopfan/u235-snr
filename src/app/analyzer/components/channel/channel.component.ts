@@ -4,6 +4,10 @@ import { Observable, Subscription } from 'rxjs';
 
 declare const astro: any;
 
+interface FileInfo {
+  dateObs: string
+}
+
 interface Extinction {
   R: number,
   G: number,
@@ -40,6 +44,7 @@ export class ChannelComponent implements OnInit, OnDestroy {
   private observatorySubscription: Subscription;
   private colorBalanceSubscription: Subscription;
   colorBalance: number = 1;
+  files: FileInfo[] = [];
   altitudes: number[] = [];
   extinctions: Extinction[] = [];
   subSNR: number[] = [];
@@ -89,6 +94,8 @@ export class ChannelComponent implements OnInit, OnDestroy {
     if (this.targetEvents) {
       this.targetSubscription = this.targetEvents.subscribe((value: TargetParsed) => {
         this.target = value;
+        this.recalcAltitudes();
+        this.recalcExtinctions();
         this.recalcSubSNR();
         this.recalcMeasures();
       });
@@ -110,6 +117,8 @@ export class ChannelComponent implements OnInit, OnDestroy {
     if (this.observatoryEvents) {
       this.observatorySubscription = this.observatoryEvents.subscribe((value: ObservatoryParsed) => {
         this.observatory = value;
+        this.recalcAltitudes();
+        this.recalcExtinctions();
         this.recalcSubSNR();
         this.recalcMeasures();
       });
@@ -152,6 +161,7 @@ export class ChannelComponent implements OnInit, OnDestroy {
   }
 
   onClear() {
+    this.files = [];
     this.altitudes = [];
     this.extinctions = [];
     this.subSNR = [];
@@ -175,41 +185,70 @@ export class ChannelComponent implements OnInit, OnDestroy {
 
     new astro.FITS(theFile, function() {
       var header = this.getHeader();
-      const date = new Date(header.get('DATE-OBS'));
 
-      const altitude = self.utility.calculateAltitude(date, self.target, self.observatory);
+      const dateObs = header.get('DATE-OBS');
+      self.files.push({ dateObs });
+
+      const altitude = self.calculateAltitude(new Date(dateObs));
       self.altitudes.push(altitude);
 
-      const red = self.atmosphericExtinctionService.redExtinction(altitude);
-      const green = self.atmosphericExtinctionService.greenExtinction(altitude);
-      const blue = self.atmosphericExtinctionService.blueExtinction(altitude);
-      const extinction: Extinction = {
-        R: red,
-        G: green,
-        B: blue,
-        L: (red + green + blue) / 3
-      };
+      const extinction = self.calculateExtinction(altitude);
       self.extinctions.push(extinction);
   
-      const subSNR = self.calculationService.calculateSnrPerSub(
-        self.filter,
-        self.redBalance,
-        self.greenBalance,
-        self.blueBalance,
-        extinction.R,
-        extinction.G,
-        extinction.B,
-        self.binning,
-        self.exposure,
-        self.target,
-        self.telescope,
-        self.camera,
-        self.observatory
-      );
+      const subSNR = self.calculateSubSNR(extinction);
       self.subSNR.push(subSNR);
 
       self.recalcMeasures();
     });
+  }
+
+  calculateAltitude(date: Date): number {
+    const altitude = this.utility.calculateAltitude(date, this.target, this.observatory);
+    return altitude;
+  }
+
+  calculateExtinction(altitude: number): Extinction {
+    const red = this.atmosphericExtinctionService.redExtinction(altitude);
+    const green = this.atmosphericExtinctionService.greenExtinction(altitude);
+    const blue = this.atmosphericExtinctionService.blueExtinction(altitude);
+    const extinction: Extinction = {
+      R: red,
+      G: green,
+      B: blue,
+      L: (red + green + blue) / 3
+    };
+    return extinction;
+  }
+
+  calculateSubSNR(extinction: Extinction): number {
+    const subSNR = this.calculationService.calculateSnrPerSub(
+      this.filter,
+      this.redBalance,
+      this.greenBalance,
+      this.blueBalance,
+      extinction.R,
+      extinction.G,
+      extinction.B,
+      this.binning,
+      this.exposure,
+      this.target,
+      this.telescope,
+      this.camera,
+      this.observatory
+    );
+    return subSNR;
+  }
+
+  recalcAltitudes() {
+    this.altitudes = this.files.map(file => this.calculateAltitude(new Date(file.dateObs)));
+  }
+
+  recalcExtinctions() {
+    this.extinctions = this.altitudes.map(altitude => this.calculateExtinction(altitude));
+  }
+
+  recalcSubSNR() {
+    this.subSNR = this.extinctions.map(extinction => this.calculateSubSNR(extinction));
   }
 
   recalcMeasures() {
@@ -249,24 +288,4 @@ export class ChannelComponent implements OnInit, OnDestroy {
     }
   }
 
-  recalcSubSNR() {
-    this.subSNR = this.extinctions.map(extinction => {
-      const subSNR = this.calculationService.calculateSnrPerSub(
-        this.filter,
-        this.redBalance,
-        this.greenBalance,
-        this.blueBalance,
-        extinction.R,
-        extinction.G,
-        extinction.B,
-        this.binning,
-        this.exposure,
-        this.target,
-        this.telescope,
-        this.camera,
-        this.observatory
-      );
-      return subSNR;
-    });
-  }
 }
