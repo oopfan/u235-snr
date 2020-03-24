@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 
 @Component({
@@ -6,16 +6,13 @@ import { Title } from '@angular/platform-browser';
   templateUrl: './sandbox-home.component.html',
   styleUrls: ['./sandbox-home.component.css']
 })
-export class SandboxHomeComponent implements OnInit, OnDestroy {
+export class SandboxHomeComponent implements OnInit {
   browserTitle = 'SANDBOX | U235+SNR';
 
   constructor(private titleService: Title) {}
 
   ngOnInit() {
     this.titleService.setTitle(this.browserTitle);
-  }
-
-  ngOnDestroy() {
   }
 
 }

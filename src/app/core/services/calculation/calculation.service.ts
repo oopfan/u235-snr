@@ -58,6 +58,56 @@ export class CalculationService {
     return { totalIntegrationTime: Number.NaN, numberOfSubs: Number.NaN };
   }
 
+  calculateSnrPerSub(
+    filter: string,
+    redBalance: number,
+    greenBalance: number,
+    blueBalance: number,
+    redExtinction: number,
+    greenExtinction: number,
+    blueExtinction: number,
+    binning: number,
+    singleSubExposure: number,
+    targetObj: TargetParsed,
+    telescopeObj: TelescopeParsed,
+    cameraObj: CameraParsed,
+    observatoryObj: ObservatoryParsed) {
+
+    const mag0flux = 879000;  // photons per second per cm^2 of magnitude 0 standard star
+    const oneThird = 1 / 3;
+    let fluxAttenuation = 0.0000001;
+
+    if (filter === 'L') {
+      fluxAttenuation = oneThird / (1 / (1 / redBalance + 1 / greenBalance + 1 / blueBalance)) / Math.pow((redExtinction * greenExtinction * blueExtinction), oneThird);
+    }
+    if (filter === 'R') {
+      fluxAttenuation = oneThird / redBalance / redExtinction;
+    }
+    if (filter === 'G') {
+      fluxAttenuation = oneThird / greenBalance / greenExtinction;
+    }
+    if (filter === 'B') {
+      fluxAttenuation = oneThird / blueBalance / blueExtinction;
+    }
+
+    const clearApertureEquivalent = (telescopeObj.aperture * telescopeObj.aperture - telescopeObj.centralObstruction * telescopeObj.centralObstruction) * Math.PI * telescopeObj.totalReflectanceTransmittance / 400;
+    const imageResolution = 206.3 * cameraObj.pixelSize * binning / telescopeObj.focalLength;
+    const pixelSurface = imageResolution * imageResolution;
+    const skyElectronsPerSecond = clearApertureEquivalent * mag0flux * fluxAttenuation / Math.pow(10, 0.4 * observatoryObj.skyBrightness) * pixelSurface * cameraObj.quantumEfficiency / 100;
+    const skyElectronsPerSub = skyElectronsPerSecond * singleSubExposure;
+    const skyNoise = Math.sqrt(skyElectronsPerSub);
+    const targetElectronsPerSecond = clearApertureEquivalent * mag0flux * fluxAttenuation / Math.pow(10, 0.4 * targetObj.surfaceBrightness) * pixelSurface * cameraObj.quantumEfficiency / 100;
+    const targetElectronsPerSub = targetElectronsPerSecond * singleSubExposure;
+    const shotNoise = Math.sqrt(targetElectronsPerSub);
+    const darkSignalPerSub = cameraObj.darkCurrent * singleSubExposure;
+    const darkNoise = Math.sqrt(darkSignalPerSub);
+    const totalSignalPerSub = targetElectronsPerSub + skyElectronsPerSub + darkSignalPerSub;
+    const totalNoisePerSub = Math.sqrt(cameraObj.readNoise * cameraObj.readNoise + shotNoise * shotNoise + skyNoise * skyNoise + darkNoise * darkNoise);
+    const signalToNoisePerSub = targetElectronsPerSub / totalNoisePerSub;
+
+    return signalToNoisePerSub;
+  }
+
   calculateSNR(targetObj: TargetParsed, telescopeObj: TelescopeParsed, cameraObj: CameraParsed, observatoryObj: ObservatoryParsed, totalIntegrationTime: any, singleSubExposure: any) {
     const mag0flux = 879000;  // photons per second per cm^2 of magnitude 0 standard star
     const totalExposureSeconds = totalIntegrationTime * 3600;

@@ -1,0 +1,155 @@
+<div class="section">
+    <div class="container">
+        <h1 class="title is-5">Post-Capture Analyzer</h1>
+        <div class="columns is-desktop">
+            <div class="column">
+                <div class="field">
+                    <label class="label">Target</label>
+                    <div class="control">
+                        <div class="select">
+                            <select (change)= "onChangeTarget($event.target.value)">
+                                <option value="-" selected>Choose one...</option>
+                                <option *ngFor="let item of targets" [value]="item.id">{{ item.name }}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="help is-danger" *ngIf="haveTarget() && invalidTarget()">
+                        Please check the right ascension and declination
+                    </div>
+                </div>
+            </div>
+            <div class="column">
+                <div class="field">
+                    <label class="label">Telescope</label>
+                    <div class="control">
+                        <div class="select">
+                            <select (change)= "onChangeTelescope($event.target.value)">
+                                <option value="-" selected>Choose one...</option>
+                                <option *ngFor="let item of telescopes" [value]="item.id">{{ item.name }}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            <div class="column">
+                <div class="field">
+                    <label class="label">Camera</label>
+                    <div class="control">
+                        <div class="select">
+                            <select (change)= "onChangeCamera($event.target.value)">
+                                <option value="-" selected>Choose one...</option>
+                                <option *ngFor="let item of cameras" [value]="item.id">{{ item.name }}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            <div class="column">
+                <div class="field">
+                    <label class="label">Observatory</label>
+                    <div class="control">
+                        <div class="select">
+                            <select (change)= "onChangeObservatory($event.target.value)">
+                                <option value="-" selected>Choose one...</option>
+                                <option *ngFor="let item of observatories" [value]="item.id">{{ item.name }}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="help is-danger" *ngIf="haveObservatory() && invalidObservatory()">
+                        Please check the latitude and longitude
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="haveTarget() && !invalidTarget() && haveTelescope() && haveCamera() && haveObservatory() && !invalidObservatory()">
+            <div class="columns is-desktop">
+                <div class="column">
+                    <app-channel
+                        name="Red"
+                        filter="R"
+                        [exposure]="85.8"
+                        [binning]="2"
+                        [redBalance]="redBalance"
+                        [greenBalance]="greenBalance"
+                        [blueBalance]="blueBalance"
+                        [target]="target"
+                        [targetEvents]="targetSubject.asObservable()"
+                        [telescope]="telescope"
+                        [telescopeEvents]="telescopeSubject.asObservable()"
+                        [camera]="camera"
+                        [cameraEvents]="cameraSubject.asObservable()"
+                        [observatory]="observatory"
+                        [observatoryEvents]="observatorySubject.asObservable()"
+                        [colorBalanceEvents]="colorBalanceSubject.asObservable()"
+                        (notifyColorBalance)="onColorBalance($event)">
+                    </app-channel>
+                </div>
+                <div class="column">
+                    <app-channel
+                        name="Green"
+                        filter="G"
+                        [exposure]="50.2"
+                        [binning]="2"
+                        [redBalance]="redBalance"
+                        [greenBalance]="greenBalance"
+                        [blueBalance]="blueBalance"
+                        [target]="target"
+                        [targetEvents]="targetSubject.asObservable()"
+                        [telescope]="telescope"
+                        [telescopeEvents]="telescopeSubject.asObservable()"
+                        [camera]="camera"
+                        [cameraEvents]="cameraSubject.asObservable()"
+                        [observatory]="observatory"
+                        [observatoryEvents]="observatorySubject.asObservable()"
+                        [colorBalanceEvents]="colorBalanceSubject.asObservable()"
+                        (notifyColorBalance)="onColorBalance($event)">
+                    </app-channel>
+                </div>
+                <div class="column">
+                    <app-channel
+                        name="Blue"
+                        filter="B"
+                        [exposure]="77.8"
+                        [binning]="2"
+                        [redBalance]="redBalance"
+                        [greenBalance]="greenBalance"
+                        [blueBalance]="blueBalance"
+                        [target]="target"
+                        [targetEvents]="targetSubject.asObservable()"
+                        [telescope]="telescope"
+                        [telescopeEvents]="telescopeSubject.asObservable()"
+                        [camera]="camera"
+                        [cameraEvents]="cameraSubject.asObservable()"
+                        [observatory]="observatory"
+                        [observatoryEvents]="observatorySubject.asObservable()"
+                        [colorBalanceEvents]="colorBalanceSubject.asObservable()"
+                        (notifyColorBalance)="onColorBalance($event)">
+                    </app-channel>
+                </div>
+                <div class="column">
+                    <app-channel
+                        name="Luminance"
+                        filter="L"
+                        [exposure]="90"
+                        [binning]="1"
+                        [redBalance]="redBalance"
+                        [greenBalance]="greenBalance"
+                        [blueBalance]="blueBalance"
+                        [target]="target"
+                        [targetEvents]="targetSubject.asObservable()"
+                        [telescope]="telescope"
+                        [telescopeEvents]="telescopeSubject.asObservable()"
+                        [camera]="camera"
+                        [cameraEvents]="cameraSubject.asObservable()"
+                        [observatory]="observatory"
+                        [observatoryEvents]="observatorySubject.asObservable()"
+                        [colorBalanceEvents]="colorBalanceSubject.asObservable()"
+                        (notifyColorBalance)="onColorBalance($event)">
+                    </app-channel>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,5 +1,5 @@
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { AssistantHomeComponent } from './assistant-home.component';
 
 describe('AssistantHomeComponent', () => {
@@ -8,7 +8,8 @@ describe('AssistantHomeComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AssistantHomeComponent ]
+      declarations: [ AssistantHomeComponent ],
+      schemas: [ NO_ERRORS_SCHEMA ]
     })
     .compileComponents();
   }));
