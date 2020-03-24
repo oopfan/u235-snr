@@ -13,9 +13,6 @@
                             </select>
                         </div>
                     </div>
-                    <div class="help is-danger" *ngIf="haveTarget() && invalidTarget()">
-                        Please check the right ascension and declination
-                    </div>
                 </div>
             </div>
             <div class="column">
@@ -57,13 +54,10 @@
                             </select>
                         </div>
                     </div>
-                    <div class="help is-danger" *ngIf="haveObservatory() && invalidObservatory()">
-                        Please check the latitude and longitude
-                    </div>
                 </div>
             </div>
         </div>
-        <div *ngIf="haveTarget() && !invalidTarget() && haveTelescope() && haveCamera() && haveObservatory() && !invalidObservatory()">
+        <div *ngIf="haveTarget() && haveTelescope() && haveCamera() && haveObservatory()">
             <div class="columns is-desktop">
                 <div class="column">
                     <app-channel

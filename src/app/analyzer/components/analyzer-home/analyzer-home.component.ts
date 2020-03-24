@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { TargetParsed, TelescopeParsed, CameraParsed, ObservatoryParsed, UserTargetService, UserTelescopeService, UserCameraService, UserObservatoryService } from '@core/services';
 import { Subject } from 'rxjs';
@@ -9,7 +9,7 @@ import mapSort from 'mapsort';
   templateUrl: './analyzer-home.component.html',
   styleUrls: ['./analyzer-home.component.css']
 })
-export class AnalyzerHomeComponent implements OnInit, OnDestroy {
+export class AnalyzerHomeComponent implements OnInit {
   browserTitle = 'Analyzer | U235+SNR';
 
   targets: TargetParsed[] = [];
@@ -41,15 +41,28 @@ export class AnalyzerHomeComponent implements OnInit, OnDestroy {
     private cameraService: UserCameraService,
     private observatoryService: UserObservatoryService) {}
 
-  ngOnInit() {
-    this.titleService.setTitle(this.browserTitle);
-    this.targets = mapSort(this.targetService.parseItems(this.targetService.getAll()).filter(this.targetService.validate), element => element.name, this.compareString);
-    this.telescopes = mapSort(this.telescopeService.parseItems(this.telescopeService.getAll()).filter(this.telescopeService.validate), element => element.name, this.compareString);
-    this.cameras = mapSort(this.cameraService.parseItems(this.cameraService.getAll()).filter(this.cameraService.validate), element => element.name, this.compareString);
-    this.observatories = mapSort(this.observatoryService.parseItems(this.observatoryService.getAll()).filter(this.observatoryService.validate), element => element.name, this.compareString);
+  validateTarget = (item: TargetParsed): boolean => {
+    return this.targetService.validate(item) && item.rightAscension !== 1 && item.declination !== 1;
   }
 
-  ngOnDestroy() {
+  validateTelescope = (item: TelescopeParsed): boolean => {
+    return this.telescopeService.validate(item);
+  }
+
+  validateCamera = (item: CameraParsed): boolean => {
+    return this.cameraService.validate(item);
+  }
+
+  validateObservatory = (item: ObservatoryParsed): boolean => {
+    return this.observatoryService.validate(item) && item.latitude !== 1 && item.longitude !== 1;
+  }
+
+  ngOnInit() {
+    this.titleService.setTitle(this.browserTitle);
+    this.targets = mapSort(this.targetService.parseItems(this.targetService.getAll()).filter(this.validateTarget), element => element.name, this.compareString);
+    this.telescopes = mapSort(this.telescopeService.parseItems(this.telescopeService.getAll()).filter(this.validateTelescope), element => element.name, this.compareString);
+    this.cameras = mapSort(this.cameraService.parseItems(this.cameraService.getAll()).filter(this.validateCamera), element => element.name, this.compareString);
+    this.observatories = mapSort(this.observatoryService.parseItems(this.observatoryService.getAll()).filter(this.validateObservatory), element => element.name, this.compareString);
   }
 
   haveTarget(): boolean {
@@ -66,14 +79,6 @@ export class AnalyzerHomeComponent implements OnInit, OnDestroy {
 
   haveObservatory(): boolean {
     return !!this.observatory;
-  }
-
-  invalidTarget(): boolean {
-    return this.target.rightAscension === 1 || this.target.declination === 1;
-  }
-
-  invalidObservatory(): boolean {
-    return this.observatory.latitude === 1 || this.observatory.longitude === 1;
   }
 
   onChangeTarget(value: string) {
