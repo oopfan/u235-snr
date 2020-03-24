@@ -186,7 +186,10 @@ export class ChannelComponent implements OnInit, OnDestroy {
     new astro.FITS(theFile, function() {
       var header = this.getHeader();
 
-      const dateObs = header.get('DATE-OBS');
+      let dateObs: string = header.get('DATE-OBS');
+      if (!dateObs.endsWith('Z')) {
+        dateObs += 'Z';
+      }
       self.files.push({ dateObs });
 
       const altitude = self.calculateAltitude(new Date(dateObs));
