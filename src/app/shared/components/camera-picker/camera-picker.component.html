@@ -1,0 +1,11 @@
+<div class="field">
+    <label class="label">Camera</label>
+    <div class="control">
+        <div class="select">
+            <select (change)= "onChangeCamera($event.target.value)">
+                <option value="-" selected>Choose one...</option>
+                <option *ngFor="let item of cameras" [value]="item.id">{{ item.name }}</option>
+            </select>
+        </div>
+    </div>
+</div>

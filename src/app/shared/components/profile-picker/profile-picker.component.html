@@ -1,54 +1,14 @@
 <div class="columns is-desktop">
     <div class="column">
-        <div class="field">
-            <label class="label">Target</label>
-            <div class="control">
-                <div class="select">
-                    <select (change)= "onChangeTarget($event.target.value)">
-                        <option value="-" selected>Choose one...</option>
-                        <option *ngFor="let item of targets" [value]="item.id">{{ item.name }}</option>
-                    </select>
-                </div>
-            </div>
-        </div>
+        <app-target-picker (notifyChange)="onChangeTarget($event)"></app-target-picker>
     </div>
     <div class="column">
-        <div class="field">
-            <label class="label">Telescope</label>
-            <div class="control">
-                <div class="select">
-                    <select (change)= "onChangeTelescope($event.target.value)">
-                        <option value="-" selected>Choose one...</option>
-                        <option *ngFor="let item of telescopes" [value]="item.id">{{ item.name }}</option>
-                    </select>
-                </div>
-            </div>
-        </div>
+        <app-telescope-picker (notifyChange)="onChangeTelescope($event)"></app-telescope-picker>
     </div>
     <div class="column">
-        <div class="field">
-            <label class="label">Camera</label>
-            <div class="control">
-                <div class="select">
-                    <select (change)= "onChangeCamera($event.target.value)">
-                        <option value="-" selected>Choose one...</option>
-                        <option *ngFor="let item of cameras" [value]="item.id">{{ item.name }}</option>
-                    </select>
-                </div>
-            </div>
-        </div>
+        <app-camera-picker (notifyChange)="onChangeCamera($event)"></app-camera-picker>
     </div>
     <div class="column">
-        <div class="field">
-            <label class="label">Observatory</label>
-            <div class="control">
-                <div class="select">
-                    <select (change)= "onChangeObservatory($event.target.value)">
-                        <option value="-" selected>Choose one...</option>
-                        <option *ngFor="let item of observatories" [value]="item.id">{{ item.name }}</option>
-                    </select>
-                </div>
-            </div>
-        </div>
+        <app-observatory-picker (notifyChange)="onChangeObservatory($event)"></app-observatory-picker>
     </div>
 </div>

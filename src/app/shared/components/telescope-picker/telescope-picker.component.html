@@ -1,0 +1,11 @@
+<div class="field">
+    <label class="label">Telescope</label>
+    <div class="control">
+        <div class="select">
+            <select (change)= "onChangeTelescope($event.target.value)">
+                <option value="-" selected>Choose one...</option>
+                <option *ngFor="let item of telescopes" [value]="item.id">{{ item.name }}</option>
+            </select>
+        </div>
+    </div>
+</div>
