@@ -13,42 +13,18 @@
             </div>
         </div>
         <h1 class="title is-6">Select a target, telescope, camera, and observatory</h1>
-        <div class="columns">
+        <div class="columns is-desktop">
             <div class="column">
-                <label>Target</label>
-                <div class="control">
-                    <select [value]="selectedTarget" (change)= "onChangeTarget($event.target.value)">
-                        <option value="-">Choose one...</option>
-                        <option *ngFor="let target of targets" [value]="target.id">{{ target.name }}</option>
-                    </select>
-                </div>
+                <app-target-picker [strict]="false" (notifyChange)="onChangeTarget($event)"></app-target-picker>
             </div>
             <div class="column">
-                <label>Telescope</label>
-                <div class="control">
-                    <select [value]="selectedTelescope" (change)= "onChangeTelescope($event.target.value)">
-                        <option value="-">Choose one...</option>
-                        <option *ngFor="let telescope of telescopes" [value]="telescope.id">{{ telescope.name }}</option>
-                    </select>
-                </div>
+                <app-telescope-picker [strict]="false" (notifyChange)="onChangeTelescope($event)"></app-telescope-picker>
             </div>
             <div class="column">
-                <label>Camera</label>
-                <div class="control">
-                    <select [value]="selectedCamera" (change)= "onChangeCamera($event.target.value)">
-                        <option value="-">Choose one...</option>
-                        <option *ngFor="let camera of cameras" [value]="camera.id">{{ camera.name }}</option>
-                    </select>
-                </div>
+                <app-camera-picker [strict]="false" (notifyChange)="onChangeCamera($event)"></app-camera-picker>
             </div>
             <div class="column">
-                <label>Observatory</label>
-                <div class="control">
-                    <select [value]="selectedObservatory" (change)= "onChangeObservatory($event.target.value)">
-                        <option value="-">Choose one...</option>
-                        <option *ngFor="let observatory of observatories" [value]="observatory.id">{{ observatory.name }}</option>
-                    </select>
-                </div>
+                <app-observatory-picker [strict]="false" (notifyChange)="onChangeObservatory($event)"></app-observatory-picker>
             </div>
         </div>
         <div *ngIf="prerequisiteMet">
@@ -71,25 +47,25 @@
             </div>
             <div *ngIf="calcChoice == 'calcsnr'">
                 <app-calculator-snr
-                    [targetId]="selectedTarget"
+                    [target]="selectedTarget"
                     [targetEvents]="targetSubject.asObservable()"
-                    [telescopeId]="selectedTelescope"
+                    [telescope]="selectedTelescope"
                     [telescopeEvents]="telescopeSubject.asObservable()"
-                    [cameraId]="selectedCamera"
+                    [camera]="selectedCamera"
                     [cameraEvents]="cameraSubject.asObservable()"
-                    [observatoryId]="selectedObservatory"
+                    [observatory]="selectedObservatory"
                     [observatoryEvents]="observatorySubject.asObservable()">
                 </app-calculator-snr>
             </div>
             <div *ngIf="calcChoice == 'calcfc'">
                 <app-calculator-fc
-                    [targetId]="selectedTarget"
+                    [target]="selectedTarget"
                     [targetEvents]="targetSubject.asObservable()"
-                    [telescopeId]="selectedTelescope"
+                    [telescope]="selectedTelescope"
                     [telescopeEvents]="telescopeSubject.asObservable()"
-                    [cameraId]="selectedCamera"
+                    [camera]="selectedCamera"
                     [cameraEvents]="cameraSubject.asObservable()"
-                    [observatoryId]="selectedObservatory"
+                    [observatory]="selectedObservatory"
                     [observatoryEvents]="observatorySubject.asObservable()">
                 </app-calculator-fc>
             </div>

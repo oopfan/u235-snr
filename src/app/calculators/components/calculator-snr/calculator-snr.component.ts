@@ -1,12 +1,9 @@
 import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { Subscription, Observable } from 'rxjs';
-import { UserTargetService, TargetParsed } from '@core/services';
-import { UserTelescopeService, TelescopeParsed } from '@core/services';
-import { UserCameraService, CameraParsed } from '@core/services';
-import { UserObservatoryService, ObservatoryParsed } from '@core/services';
+import { TargetParsed, TelescopeParsed, CameraParsed, ObservatoryParsed } from '@core/services';
 import { CalculationService } from '@core/services';
-import { ChartDataSets, ChartOptions } from 'chart.js';
-import { Color, Label } from 'ng2-charts';
+import { ChartDataSets } from 'chart.js';
+import { Color } from 'ng2-charts';
 
 @Component({
   selector: 'app-calculator-snr',
@@ -14,20 +11,15 @@ import { Color, Label } from 'ng2-charts';
   styleUrls: ['./calculator-snr.component.css']
 })
 export class CalculatorSnrComponent implements OnInit, OnDestroy {
-  @Input() targetId = "";
-  @Input() telescopeId = "";
-  @Input() cameraId = "";
-  @Input() observatoryId = "";
-  @Input() targetEvents: Observable<string>;
-  @Input() telescopeEvents: Observable<string>;
-  @Input() cameraEvents: Observable<string>;
-  @Input() observatoryEvents: Observable<string>;
+  @Input() target: TargetParsed = null;
+  @Input() telescope: TelescopeParsed = null;
+  @Input() camera: CameraParsed = null;
+  @Input() observatory: ObservatoryParsed = null;
+  @Input() targetEvents: Observable<TargetParsed>;
+  @Input() telescopeEvents: Observable<TelescopeParsed>;
+  @Input() cameraEvents: Observable<CameraParsed>;
+  @Input() observatoryEvents: Observable<ObservatoryParsed>;
   
-  targetObj: TargetParsed = null;
-  telescopeObj: TelescopeParsed = null;
-  cameraObj: CameraParsed = null;
-  observatoryObj: ObservatoryParsed = null;
-
   totalIntegrationTime = '5';
   singleSubExposure = '120';
   signalToNoiseRatio: number;
@@ -75,23 +67,23 @@ export class CalculatorSnrComponent implements OnInit, OnDestroy {
   lineChartType = 'scatter';
 
   calculateSNR() {
-    if (this.targetObj && this.telescopeObj && this.cameraObj && this.observatoryObj) {
-      const result = this.calculationService.calculateSNR(this.targetObj, this.telescopeObj, this.cameraObj, this.observatoryObj, this.totalIntegrationTime, this.singleSubExposure);
+    if (this.target !== null && this.telescope !== null && this.camera !== null && this.observatory !== null) {
+      const result = this.calculationService.calculateSNR(this.target, this.telescope, this.camera, this.observatory, this.totalIntegrationTime, this.singleSubExposure);
       this.signalToNoiseRatio = result.totalSignalToNoiseOfStack;
       this.frameCount = Math.ceil(result.numberOfSubs);
     }
   }
 
   calculateChart() {
-    if (this.targetObj && this.telescopeObj && this.cameraObj && this.observatoryObj) {
+    if (this.target !== null && this.telescope !== null && this.camera !== null && this.observatory !== null) {
       let dataset = [];
       const terminal = parseFloat(this.singleSubExposure);
       for (let exposure = terminal; exposure >= 0.5; exposure = exposure / 2) {
         const result = this.calculationService.calculateSNR(
-          this.targetObj,
-          this.telescopeObj,
-          this.cameraObj,
-          this.observatoryObj,
+          this.target,
+          this.telescope,
+          this.camera,
+          this.observatory,
           this.totalIntegrationTime,
           exposure);
         dataset.unshift({ x: exposure, y: result.totalSignalToNoiseOfStack });
@@ -100,92 +92,39 @@ export class CalculatorSnrComponent implements OnInit, OnDestroy {
     }
   }
 
-  getTarget() {
-    const id = parseInt(this.targetId);
-    if (!isNaN(id)) {
-      this.targetObj = this.targetService.parseItems(this.targetService.getItem(id))[0];
-    }
-    else {
-      this.targetObj = null;
-    }
-  }
-
-  getTelescope() {
-    const id = parseInt(this.telescopeId);
-    if (!isNaN(id)) {
-      this.telescopeObj = this.telescopeService.parseItems(this.telescopeService.getItem(id))[0];
-    }
-    else {
-      this.telescopeObj = null;
-    }
-  }
-
-  getCamera() {
-    const id = parseInt(this.cameraId);
-    if (!isNaN(id)) {
-      this.cameraObj = this.cameraService.parseItems(this.cameraService.getItem(id))[0];
-    }
-    else {
-      this.cameraObj = null;
-    }
-  }
-
-  getObservatory() {
-    const id = parseInt(this.observatoryId);
-    if (!isNaN(id)) {
-      this.observatoryObj = this.observatoryService.parseItems(this.observatoryService.getItem(id))[0];
-    }
-    else {
-      this.observatoryObj = null;
-    }
-  }
-
-  constructor(
-    private targetService: UserTargetService,
-    private telescopeService: UserTelescopeService,
-    private cameraService: UserCameraService,
-    private observatoryService: UserObservatoryService,
-    private calculationService: CalculationService) { }
+  constructor(private calculationService: CalculationService) { }
 
   ngOnInit() {
-    this.getTarget();
-    this.getTelescope();
-    this.getCamera();
-    this.getObservatory();
     this.calculateSNR();
     this.calculateChart();
 
     if (this.targetEvents) {
-      this.targetEventsSubscription = this.targetEvents.subscribe((targetId: string) => {
-        this.targetId = targetId;
-        this.getTarget();
+      this.targetEventsSubscription = this.targetEvents.subscribe((target: TargetParsed) => {
+        this.target = target;
         this.calculateSNR();
         this.calculateChart();
       });
     }
 
     if (this.telescopeEvents) {
-      this.telescopeEventsSubscription = this.telescopeEvents.subscribe((telescopeId: string) => {
-        this.telescopeId = telescopeId;
-        this.getTelescope();
+      this.telescopeEventsSubscription = this.telescopeEvents.subscribe((telescope: TelescopeParsed) => {
+        this.telescope = telescope;
         this.calculateSNR();
         this.calculateChart();
       });
     }
 
     if (this.cameraEvents) {
-      this.cameraEventsSubscription = this.cameraEvents.subscribe((cameraId: string) => {
-        this.cameraId = cameraId;
-        this.getCamera();
+      this.cameraEventsSubscription = this.cameraEvents.subscribe((camera: CameraParsed) => {
+        this.camera = camera;
         this.calculateSNR();
         this.calculateChart();
       });
     }
 
     if (this.observatoryEvents) {
-      this.observatoryEventsSubscription = this.observatoryEvents.subscribe((observatoryId: string) => {
-        this.observatoryId = observatoryId;
-        this.getObservatory();
+      this.observatoryEventsSubscription = this.observatoryEvents.subscribe((observatory: ObservatoryParsed) => {
+        this.observatory = observatory;
         this.calculateSNR();
         this.calculateChart();
       });

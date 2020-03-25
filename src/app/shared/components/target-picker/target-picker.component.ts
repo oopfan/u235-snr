@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { TargetParsed, UserTargetService } from '@core/services';
 import mapSort from 'mapsort';
 
@@ -9,6 +9,7 @@ import mapSort from 'mapsort';
 })
 export class TargetPickerComponent implements OnInit {
 
+  @Input() strict: boolean = true;
   @Output() notifyChange: EventEmitter<TargetParsed> = new EventEmitter();
   targets: TargetParsed[] = [];
   compareString = (a: any, b: any) => a.localeCompare(b);
@@ -16,7 +17,11 @@ export class TargetPickerComponent implements OnInit {
   constructor(private targetService: UserTargetService) {}
 
   validateTarget = (item: TargetParsed): boolean => {
-    return this.targetService.validate(item) && item.rightAscension !== 1 && item.declination !== 1;
+    let result = this.targetService.validate(item);
+    if (result && this.strict) {
+      result = item.rightAscension !== 1 && item.declination !== 1;
+    }
+    return result;
   }
 
   ngOnInit() {

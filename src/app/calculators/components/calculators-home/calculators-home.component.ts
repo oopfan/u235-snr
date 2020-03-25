@@ -1,11 +1,7 @@
 import { Title } from '@angular/platform-browser';
 import { Component, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
-import { UserTargetService } from '@core/services';
-import { UserTelescopeService } from '@core/services';
-import { UserCameraService } from '@core/services';
-import { UserObservatoryService } from '@core/services';
-import { LocalStorageService } from 'angular-web-storage';
+import { TargetParsed, TelescopeParsed, CameraParsed, ObservatoryParsed } from '@core/services';
 import mapSort from 'mapsort';
 
 @Component({
@@ -16,44 +12,27 @@ import mapSort from 'mapsort';
 export class CalculatorsHomeComponent implements OnInit {
   prerequisiteMet = false;
   calcChoice = '-';
-  targets = [];
-  telescopes = [];
-  cameras = [];
-  observatories = [];
-  selectedTarget = "-";
-  selectedTelescope = "-";
-  selectedCamera = "-";
-  selectedObservatory = "-";
-  localStorageCheck = true;
+  selectedTarget: TargetParsed = null;
+  selectedTelescope: TelescopeParsed = null;
+  selectedCamera: CameraParsed = null;
+  selectedObservatory: ObservatoryParsed = null;
 
-  targetSubject: Subject<string> = new Subject<string>();
-  telescopeSubject: Subject<string> = new Subject<string>();
-  cameraSubject: Subject<string> = new Subject<string>();
-  observatorySubject: Subject<string> = new Subject<string>();
+  targetSubject: Subject<TargetParsed> = new Subject<TargetParsed>();
+  telescopeSubject: Subject<TelescopeParsed> = new Subject<TelescopeParsed>();
+  cameraSubject: Subject<CameraParsed> = new Subject<CameraParsed>();
+  observatorySubject: Subject<ObservatoryParsed> = new Subject<ObservatoryParsed>();
 
-  compareString = (a: any, b: any) => a.localeCompare(b);
-
-  constructor(
-    private titleService: Title, 
-    private targetService: UserTargetService,
-    private telescopeService: UserTelescopeService,
-    private cameraService: UserCameraService,
-    private observatoryService: UserObservatoryService,
-    private storage: LocalStorageService) { }
+  constructor(private titleService: Title) { }
 
   ngOnInit() {
     this.titleService.setTitle('Calculators | U235+SNR');
-    this.targets = mapSort(this.targetService.parseItems(this.targetService.getAll()).filter(this.targetService.validate), element => element.name, this.compareString);
-    this.telescopes = mapSort(this.telescopeService.parseItems(this.telescopeService.getAll()).filter(this.telescopeService.validate), element => element.name, this.compareString);
-    this.cameras = mapSort(this.cameraService.parseItems(this.cameraService.getAll()).filter(this.cameraService.validate), element => element.name, this.compareString);
-    this.observatories = mapSort(this.observatoryService.parseItems(this.observatoryService.getAll()).filter(this.observatoryService.validate), element => element.name, this.compareString);
   }
 
   onChangeCalculator(value: string) {
     this.calcChoice = value;
   }
 
-  onChangeTarget(value: string) {
+  onChangeTarget(value: TargetParsed) {
     this.selectedTarget = value;
     this.evaluatePrerequisite();
     if (this.prerequisiteMet) {
@@ -61,7 +40,7 @@ export class CalculatorsHomeComponent implements OnInit {
     }
   }
 
-  onChangeTelescope(value: string) {
+  onChangeTelescope(value: TelescopeParsed) {
     this.selectedTelescope = value;
     this.evaluatePrerequisite();
     if (this.prerequisiteMet) {
@@ -69,7 +48,7 @@ export class CalculatorsHomeComponent implements OnInit {
     }
   }
 
-  onChangeCamera(value: string) {
+  onChangeCamera(value: CameraParsed) {
     this.selectedCamera = value;
     this.evaluatePrerequisite();
     if (this.prerequisiteMet) {
@@ -77,7 +56,7 @@ export class CalculatorsHomeComponent implements OnInit {
     }
   }
 
-  onChangeObservatory(value: string) {
+  onChangeObservatory(value: ObservatoryParsed) {
     this.selectedObservatory = value;
     this.evaluatePrerequisite();
     if (this.prerequisiteMet) {
@@ -86,7 +65,7 @@ export class CalculatorsHomeComponent implements OnInit {
   }
 
   evaluatePrerequisite() {
-    this.prerequisiteMet = this.selectedTarget !== '-' && this.selectedTelescope !== '-' && this.selectedCamera !== '-' && this.selectedObservatory !== '-';
+    this.prerequisiteMet = this.selectedTarget !== null && this.selectedTelescope !== null && this.selectedCamera !== null && this.selectedObservatory !== null;
     if (this.prerequisiteMet == false) {
       this.calcChoice = '-'
     }

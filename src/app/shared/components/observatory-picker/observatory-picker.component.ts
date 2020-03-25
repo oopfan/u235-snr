@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ObservatoryParsed, UserObservatoryService } from '@core/services';
 import mapSort from 'mapsort';
 
@@ -9,6 +9,7 @@ import mapSort from 'mapsort';
 })
 export class ObservatoryPickerComponent implements OnInit {
 
+  @Input() strict: boolean = true;
   @Output() notifyChange: EventEmitter<ObservatoryParsed> = new EventEmitter();
   observatories: ObservatoryParsed[] = [];
   compareString = (a: any, b: any) => a.localeCompare(b);
@@ -16,7 +17,11 @@ export class ObservatoryPickerComponent implements OnInit {
   constructor(private observatoryService: UserObservatoryService) {}
 
   validateObservatory = (item: ObservatoryParsed): boolean => {
-    return this.observatoryService.validate(item) && item.latitude !== 1 && item.longitude !== 1;
+    let result = this.observatoryService.validate(item);
+    if (result && this.strict) {
+      result = item.latitude !== 1 && item.longitude !== 1;
+    }
+    return result;
   }
 
   ngOnInit() {

@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { CameraParsed, UserCameraService } from '@core/services';
 import mapSort from 'mapsort';
 
@@ -9,6 +9,7 @@ import mapSort from 'mapsort';
 })
 export class CameraPickerComponent implements OnInit {
 
+  @Input() strict: boolean = true;
   @Output() notifyChange: EventEmitter<CameraParsed> = new EventEmitter();
   cameras: CameraParsed[] = [];
   compareString = (a: any, b: any) => a.localeCompare(b);
