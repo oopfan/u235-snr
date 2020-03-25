@@ -81,47 +81,31 @@ export class AnalyzerHomeComponent implements OnInit {
     return !!this.observatory;
   }
 
-  onChangeTarget(value: string) {
-    const id = parseInt(value);
-    if (!isNaN(id)) {
-      this.target = this.targetService.parseItems(this.targetService.getItem(id))[0];
+  onChangeTarget(value: TargetParsed) {
+    this.target = value;
+    if (this.target) {
       this.targetSubject.next(this.target);
     }
-    else {
-      this.target = null;
-    }
   }
 
-  onChangeTelescope(value: string) {
-    const id = parseInt(value);
-    if (!isNaN(id)) {
-      this.telescope = this.telescopeService.parseItems(this.telescopeService.getItem(id))[0];
+  onChangeTelescope(value: TelescopeParsed) {
+    this.telescope = value;
+    if (this.telescope) {
       this.telescopeSubject.next(this.telescope);
     }
-    else {
-      this.telescope = null;
-    }
   }
 
-  onChangeCamera(value: string) {
-    const id = parseInt(value);
-    if (!isNaN(id)) {
-      this.camera = this.cameraService.parseItems(this.cameraService.getItem(id))[0];
+  onChangeCamera(value: CameraParsed) {
+    this.camera = value;
+    if (this.camera) {
       this.cameraSubject.next(this.camera);
     }
-    else {
-      this.camera = null;
-    }
   }
 
-  onChangeObservatory(value: string) {
-    const id = parseInt(value);
-    if (!isNaN(id)) {
-      this.observatory = this.observatoryService.parseItems(this.observatoryService.getItem(id))[0];
+  onChangeObservatory(value: ObservatoryParsed) {
+    this.observatory = value;
+    if (this.observatory) {
       this.observatorySubject.next(this.observatory);
-    }
-    else {
-      this.observatory = null;
     }
   }
 
