@@ -1,0 +1,46 @@
+<div class="panel">
+    <p class="panel-heading">
+        Assistant #{{ id }}
+    </p>
+    <div class="panel-block">
+        <app-target-picker (notifyChange)="onChangeTarget($event)"></app-target-picker>
+    </div>
+    <div class="panel-block">
+        <app-observatory-picker (notifyChange)="onChangeObservatory($event)"></app-observatory-picker>
+    </div>
+    <ng-container *ngIf="haveTarget() && haveObservatory()">
+        <div class="panel-block">
+            <div class="field">
+                <label class="label">Altitude</label>
+                <div class="control">
+                    <app-altitude [appHighlight]="{watch: altitudeChanged}" [decodedAngle]="altitude" (notifyChange)="onAltitudeChanged()"></app-altitude>
+                </div>
+            </div>
+        </div>
+        <div class="panel-block">
+            <div class="field">
+                <label class="label">Hour Angle</label>
+                <div class="control">
+                    <app-hour-angle [appHighlight]="{watch: hourAngleChanged}" [decodedAngle]="hourAngle" (notifyChange)="onHourAngleChanged()"></app-hour-angle>
+                </div>
+            </div>
+        </div>
+        <div class="panel-block">
+            <div class="field">
+                <label class="label">Atmospheric Extinction</label>
+                <div class="control">
+                    <div class="tags are-medium">
+                        <div class="tag is-danger">R: {{ redExtinction }}</div>
+                        <div class="tag is-success">G: {{ greenExtinction }}</div>
+                        <div class="tag is-info">B: {{ blueExtinction }}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+    <div class="panel-block">
+        <button class="button is-danger is-outlined is-fullwidth" (click)="onRemoveAssistant()">
+          Remove Assistant
+        </button>
+    </div>
+</div>

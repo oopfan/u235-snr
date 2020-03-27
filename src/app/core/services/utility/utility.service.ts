@@ -2,6 +2,11 @@ import { Injectable } from '@angular/core';
 import { Timekeeper, Matrix3D, Vector3D } from '@shared/classes';
 import { TargetParsed, ObservatoryParsed } from '@core/services';
 
+interface HorizontalCoordinates {
+  altitudeDegrees: number,
+  hourAngle: number
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -10,6 +15,11 @@ export class UtilityService {
   constructor() { }
 
   calculateAltitude(date: Date, target: TargetParsed, observatory: ObservatoryParsed): number {
+    const result = this.calculateHorizontalCoordinates(date, target, observatory);
+    return result.altitudeDegrees;
+  }
+
+  calculateHorizontalCoordinates(date: Date, target: TargetParsed, observatory: ObservatoryParsed): HorizontalCoordinates {
     const timekeeper = new Timekeeper();
     timekeeper.setDate(date);
     const jd = timekeeper.getJD();
@@ -28,7 +38,14 @@ export class UtilityService {
     const latitudeDecoded = this.decodeAngleFromStorage(observatory.latitude);
     const latitudeDegrees = this.encodeAngleToMath(latitudeDecoded);
 
-    const lmstDegrees = gmst * 15 + longitudeDegrees;
+    let lmstDegrees = gmst * 15 + longitudeDegrees;
+    if (lmstDegrees < 0) {
+      lmstDegrees += 360;
+    }
+    if (lmstDegrees >= 360) {
+      lmstDegrees -= 360;
+    }
+    const lmstRadians = this.toRadians(lmstDegrees);
 
     const matEquToEcl = new Matrix3D();
     matEquToEcl.setRotateX(obliquity);
@@ -40,7 +57,7 @@ export class UtilityService {
     const rotY = new Matrix3D();
     rotY.setRotateY(this.toRadians(90 - latitudeDegrees));
     const rotZ = new Matrix3D();
-    rotZ.setRotateZ(this.toRadians(lmstDegrees));
+    rotZ.setRotateZ(lmstRadians);
     const matEquToHor = new Matrix3D();
     matEquToHor.matrixMultiply(rotY).matrixMultiply(rotZ);
 
@@ -49,12 +66,25 @@ export class UtilityService {
     vec.matrixMultiply(matEquToEcl);
     vec.matrixMultiply(matPrecessToDate);
     vec.matrixMultiply(matEclToEqu);
+    let polar = vec.getPolar();
+    let raNow = polar[0];
+    if (raNow < 0) {
+      raNow += 2 * Math.PI;
+    }
     vec.matrixMultiply(matEquToHor);
 
-    const polar = vec.getPolar();
+    polar = vec.getPolar();
     const altitudeDegrees = this.toDegrees(polar[1]);
 
-    return altitudeDegrees;
+    let hourAngle = this.toDegrees(lmstRadians - raNow) / 15;
+    if (hourAngle > 12) {
+      hourAngle -= 24;
+    }
+    if (hourAngle < -12) {
+      hourAngle += 24;
+    }
+
+    return { altitudeDegrees, hourAngle };
   }
 
   calculateObliquityOfEcliptic(jd: number): number {
