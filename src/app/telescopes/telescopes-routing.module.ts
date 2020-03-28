@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { LocalStorageGuard } from '@core/services';
+import { LocalStorageGuard, QuickStartGuard } from '@core/services';
 import * as fromComponents from './components';
 
 export const routes: Routes = [
-  { path: 'telescopes', component: fromComponents.TelescopesHomeComponent, canActivate: [LocalStorageGuard] },
-  { path: 'new-telescope', component: fromComponents.TelescopeCreateComponent, canActivate: [LocalStorageGuard] },
-  { path: 'edit-telescope/:id', component: fromComponents.TelescopeEditComponent, canActivate: [LocalStorageGuard] },
-  { path: 'delete-telescope/:id', component: fromComponents.TelescopeDeleteComponent, canActivate: [LocalStorageGuard] }
+  { path: 'telescopes', component: fromComponents.TelescopesHomeComponent, canActivate: [LocalStorageGuard, QuickStartGuard] },
+  { path: 'new-telescope', component: fromComponents.TelescopeCreateComponent, canActivate: [LocalStorageGuard, QuickStartGuard] },
+  { path: 'edit-telescope/:id', component: fromComponents.TelescopeEditComponent, canActivate: [LocalStorageGuard, QuickStartGuard] },
+  { path: 'delete-telescope/:id', component: fromComponents.TelescopeDeleteComponent, canActivate: [LocalStorageGuard, QuickStartGuard] }
 ];
 
 @NgModule({

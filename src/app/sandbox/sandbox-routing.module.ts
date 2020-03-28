@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { LocalStorageGuard } from '@core/services';
+import { LocalStorageGuard, QuickStartGuard } from '@core/services';
 import * as fromComponents from './components';
 
 const routes: Routes = [
-  { path: 'sandbox', component: fromComponents.SandboxHomeComponent, canActivate: [LocalStorageGuard] }
+  { path: 'sandbox', component: fromComponents.SandboxHomeComponent, canActivate: [LocalStorageGuard, QuickStartGuard] }
 ];
 
 @NgModule({

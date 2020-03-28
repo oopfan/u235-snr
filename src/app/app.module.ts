@@ -13,6 +13,7 @@ import { CalculatorsModule } from './calculators/calculators.module';
 import { SharedModule } from './shared/shared.module';
 import { HelpModule } from './help/help.module';
 import { ErrorsModule } from './errors/errors.module';
+import { QuickStartModule } from './quick-start/quick-start.module';
 import { Covid19Module } from './covid19/covid19.module';
 import { SandboxModule } from './sandbox/sandbox.module';
 import { AssistantModule } from './assistant/assistant.module';
@@ -36,6 +37,7 @@ import { CoreModule } from './core/core.module';
     SharedModule,
     HelpModule,
     ErrorsModule,
+    QuickStartModule,
     Covid19Module,
     SandboxModule,
     AssistantModule,

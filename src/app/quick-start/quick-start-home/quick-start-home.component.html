@@ -1,0 +1,40 @@
+<section class="section">
+    <div class="container">
+        <h1 class="title is-size-5">{{ pageTitle }}</h1>
+        <div class="content">
+            <p>
+                Greetings Earthling,
+            </p>
+            <p>
+                We have detected that your data set is incomplete:
+            </p>
+            <p>
+                Targets: {{ targetCount }} found
+            </p>
+            <p>
+                Telescopes: {{ telescopeCount }} found
+            </p>
+            <p>
+                Cameras: {{ cameraCount }} found
+            </p>
+            <p>
+                Observatories: {{ observatoryCount }} found
+            </p>
+            <p>
+                If you wish we can create a few sample objects in each empty category.
+            </p>
+        </div>
+        <div class="buttons">
+            <button type="button" class="button is-rounded" (click)="onSubmit()">Yes, please do</button>
+            <button type="button" class="button is-rounded" (click)="onCancel()">No thanks</button>
+        </div>
+        <div *ngIf="countDown">
+            <p>
+                {{ action }}
+            </p>
+            <p>
+                Forwarding to home page in {{ countDown }}
+            </p>
+        </div>
+    </div>
+</section>
