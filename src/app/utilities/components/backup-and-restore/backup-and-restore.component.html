@@ -1,0 +1,72 @@
+<ng-container *ngIf="!supported">
+    <div class="columns">
+        <div class="column">
+            <article class="message is-danger">
+                <div class="message-body">
+                    Sorry, your device and/or browser does not support Backup and Restore.
+                </div>
+            </article>
+        </div>
+    </div>
+</ng-container>
+<ng-container *ngIf="supported">
+    <div class="columns">
+        <div class="column">
+            <h2 class="subtitle is-size-5">Backup</h2>
+            <button class="button is-light is-small" (click)="createBackup()">Create Backup</button>
+        </div>
+    </div>
+    <div class="columns" *ngIf="backup">
+        <div class="column">
+            <article class="message is-success">
+                <div class="message-body">
+                    Please select the contents below and copy and paste it into a plain text editor.
+                    Save it to your computer's file system with a meaningful name like 'snrcalc_backup_YYYY-MM-DD.txt'
+                    where 'YYYY-MM-DD' is today's year, month, and day, respectively:
+                </div>
+            </article>
+            <textarea class="textarea" rows="5" readonly>{{ backup }}</textarea>
+        </div>
+    </div>
+    <div class="columns">
+        <div class="column">
+            <h2 class="subtitle is-size-5">Restore</h2>
+        </div>
+    </div>
+    <div class="columns">
+        <div class="column">
+            <div class="file is-small">
+                <label class="file-label">
+                    <input type="file" class="file-input" accept=".txt" (input)="readBackupFile($event)">
+                    <span class="file-cta">
+                        <span class="file-label">
+                            Choose backup file
+                        </span>
+                    </span>
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="columns" *ngIf="restore">
+        <div class="column">
+            <article class="message is-warning">
+                <div class="message-body">
+                    Please review the backup contents below.
+                    Click the button to restore the backup. This operation is not reversible!
+                </div>
+            </article>
+            <textarea class="textarea" rows="5" readonly>{{ restore }}</textarea>
+            <br />
+            <button class="button is-light is-small" (click)="restoreBackup()">Restore Backup</button>
+        </div>
+    </div>
+    <div class="columns" *ngIf="restoreComplete">
+        <div class="column">
+            <article class="message is-success">
+                <div class="message-body">
+                    Restore complete!
+                </div>
+            </article>
+        </div>
+    </div>
+</ng-container>

@@ -10,7 +10,7 @@ export interface TelescopeStored {
   totalReflectanceTransmittance: string
 }
 
-interface TelescopeCache {
+export interface TelescopeCache {
   nextid: number,
   list: Array<TelescopeStored>
 }
@@ -83,6 +83,19 @@ export class UserTelescopeService {
       }
     }
     this.cache = isOK ? obj : { list: [], nextid: 0 };
+  }
+
+  backup(): TelescopeCache {
+    if (!this.cache) {
+      this.init();
+    }
+    return this.cache;
+  }
+
+  restore(value: TelescopeCache) {
+    this.cache = null;
+    this.storage.set('userTelescopes', value);
+    this.init();
   }
 
   getAll(): Array<TelescopeStored> {

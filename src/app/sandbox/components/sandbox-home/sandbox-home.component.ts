@@ -9,7 +9,9 @@ import { Title } from '@angular/platform-browser';
 export class SandboxHomeComponent implements OnInit {
   browserTitle = 'SANDBOX | U235+SNR';
 
-  constructor(private titleService: Title) {}
+  constructor(
+    private titleService: Title
+  ) {}
 
   ngOnInit() {
     this.titleService.setTitle(this.browserTitle);

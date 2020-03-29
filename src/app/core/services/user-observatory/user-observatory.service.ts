@@ -10,7 +10,7 @@ export interface ObservatoryStored {
   longitude: number
 }
 
-interface ObservatoryCache {
+export interface ObservatoryCache {
   nextid: number,
   list: Array<ObservatoryStored>
 }
@@ -89,6 +89,19 @@ export class UserObservatoryService {
       return newElement;
     });
     this.cache.list = newList;
+  }
+
+  backup(): ObservatoryCache {
+    if (!this.cache) {
+      this.init();
+    }
+    return this.cache;
+  }
+
+  restore(value: ObservatoryCache) {
+    this.cache = null;
+    this.storage.set('userObservatories', value);
+    this.init();
   }
 
   getAll(): Array<ObservatoryStored> {

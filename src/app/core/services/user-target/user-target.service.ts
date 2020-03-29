@@ -9,7 +9,7 @@ export interface TargetStored {
   declination: number
 }
 
-interface TargetCache {
+export interface TargetCache {
   nextid: number,
   list: Array<TargetStored>
 }
@@ -81,6 +81,19 @@ export class UserTargetService {
       return newElement;
     });
     this.cache.list = newList;
+  }
+
+  backup(): TargetCache {
+    if (!this.cache) {
+      this.init();
+    }
+    return this.cache;
+  }
+
+  restore(value: TargetCache) {
+    this.cache = null;
+    this.storage.set('userTargets', value);
+    this.init();
   }
 
   getAll(): Array<TargetStored> {

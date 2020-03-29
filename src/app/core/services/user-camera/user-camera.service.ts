@@ -10,7 +10,7 @@ export interface CameraStored {
   quantumEfficiency: string
 }
 
-interface CameraCache {
+export interface CameraCache {
   nextid: number,
   list: Array<CameraStored>
 }
@@ -83,6 +83,19 @@ export class UserCameraService {
       }
     }
     this.cache = isOK ? obj : { list: [], nextid: 0 };
+  }
+
+  backup(): CameraCache {
+    if (!this.cache) {
+      this.init();
+    }
+    return this.cache;
+  }
+
+  restore(value: CameraCache) {
+    this.cache = null;
+    this.storage.set('userCameras', value);
+    this.init();
   }
 
   getAll(): Array<CameraStored> {

@@ -16,6 +16,7 @@ import { ErrorsModule } from './errors/errors.module';
 import { QuickStartModule } from './quick-start/quick-start.module';
 import { Covid19Module } from './covid19/covid19.module';
 import { SandboxModule } from './sandbox/sandbox.module';
+import { UtilitiesModule } from './utilities/utilities.module';
 import { AssistantModule } from './assistant/assistant.module';
 import { AnalyzerModule } from './analyzer/analyzer.module';
 import { CoreModule } from './core/core.module';
@@ -40,6 +41,7 @@ import { CoreModule } from './core/core.module';
     QuickStartModule,
     Covid19Module,
     SandboxModule,
+    UtilitiesModule,
     AssistantModule,
     AnalyzerModule,
     CoreModule
