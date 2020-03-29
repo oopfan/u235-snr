@@ -32,10 +32,7 @@ export class UserTelescopeService {
 
   constructor(private storage: LocalStorageService) { }
 
-  private init(): void {
-    // get what is in local storage:
-    const obj = this.storage.get('userTelescopes');
-    // make sure its structure is compatible with downstream code:
+  static validateStorage(obj: TelescopeCache): boolean {
     let isOK = true;
     if (!obj) {
       isOK = false;
@@ -82,7 +79,32 @@ export class UserTelescopeService {
         }
       }
     }
-    this.cache = isOK ? obj : { list: [], nextid: 0 };
+    return isOK;
+  }
+
+  private init() {
+    const obj = this.storage.get('userTelescopes');
+    const isOK = UserTelescopeService.validateStorage(obj);
+    this.cache = { list: [], nextid: 0 };
+    if (isOK) {
+      let maxid = 0;
+      const newList: Array<TelescopeStored> = obj.list.map(element => {
+        if (element.id > maxid) {
+          maxid = element.id;
+        }
+        const newElement: TelescopeStored = {
+          id: element.id,
+          name: element.name,
+          aperture: element.aperture,
+          focalLength: element.focalLength,
+          centralObstruction: element.centralObstruction,
+          totalReflectanceTransmittance: element.totalReflectanceTransmittance
+        };
+        return newElement;
+      });
+      this.cache.list = newList;
+      this.cache.nextid = maxid + 1;
+    }
   }
 
   backup(): TelescopeCache {
@@ -93,7 +115,6 @@ export class UserTelescopeService {
   }
 
   restore(value: TelescopeCache) {
-    this.cache = null;
     this.storage.set('userTelescopes', value);
     this.init();
   }

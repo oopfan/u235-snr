@@ -7,7 +7,7 @@ import { Location } from "@angular/common";
 import { ObservatoriesModule } from '../../observatories.module';
 import { routes } from '../../observatories-routing.module';
 import { ObservatoryDeleteComponent } from './observatory-delete.component';
-import { UserObservatoryService } from '@core/services';
+import { UserObservatoryService, QuickStartGuard } from '@core/services';
 import { LocalStorageService } from 'angular-web-storage';
 
 describe('ObservatoryDeleteComponent', () => {
@@ -19,6 +19,7 @@ describe('ObservatoryDeleteComponent', () => {
   let userObservatoryService: UserObservatoryService;
   let storageSpy: any;
   let storageData: any;
+  let guardSpy: any;
 
   beforeEach(async(() => {
     storageData = {
@@ -40,6 +41,8 @@ describe('ObservatoryDeleteComponent', () => {
     };
     storageSpy = jasmine.createSpyObj('LocalStorageService', ['get', 'set']);
     storageSpy.get.and.returnValue(storageData);
+    guardSpy = jasmine.createSpyObj('QuickStartGuard', ['canActivate']);
+    guardSpy.canActivate.and.returnValue(true);
 
     TestBed.configureTestingModule({
       imports: [
@@ -48,7 +51,8 @@ describe('ObservatoryDeleteComponent', () => {
       ],
       providers: [
         UserObservatoryService,
-        { provide: LocalStorageService, useValue: storageSpy }
+        { provide: LocalStorageService, useValue: storageSpy },
+        { provide: QuickStartGuard, useValue: guardSpy }
       ]
     })
     .compileComponents();

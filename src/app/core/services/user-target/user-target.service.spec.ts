@@ -77,7 +77,7 @@ describe('UserTargetService', () => {
     expect(list2).toBeTruthy();
     expect(list2.length).toBe(1, 'check alpha');
     const target1 = list2[0];
-    expect(target1.id).toBe(30);
+    expect(target1.id).toBe(25);
     target1.name = 'fubar target';
 
     const list3 = userTargetService.getAll();

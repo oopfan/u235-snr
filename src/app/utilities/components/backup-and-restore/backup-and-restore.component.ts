@@ -11,6 +11,9 @@ export class BackupAndRestoreComponent implements OnInit {
   restore: string = null;
   restoreComplete: boolean = false;
   supported: boolean = true;
+  restoreBegun: boolean = false;
+  restoreError: string = null;
+  // reader = new FileReader();
 
   constructor(
     private targetService: UserTargetService,
@@ -20,7 +23,7 @@ export class BackupAndRestoreComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.supported = File && FileReader && FileList && Blob ? true : false;
+    // this.supported = File && FileReader && FileList && Blob ? true : false;
   }
 
   createBackup() {
@@ -32,30 +35,76 @@ export class BackupAndRestoreComponent implements OnInit {
     this.backup = JSON.stringify(blob);
   }
 
-  readBackupFile(event: any) {
-    const file = event.target.files[0];
-    const reader = new FileReader();
-    const self = this;
-    reader.onload = function(e) {
-      self.restore = reader.result.toString();
-    }
-    reader.readAsText(file);
+  // readBackupFile(event: any) {
+  //   const file = event.target.files[0];
+  //   console.log(file);
+  //   const self = this;
+  //   this.reader.onload = function(e) {
+  //     console.log('Success reading file:');
+  //     console.log(self.reader.result);
+  //     self.restore = self.reader.result.toString();
+  //   }
+  //   this.reader.onerror = function(e) {
+  //     console.log('Error reading file:');
+  //     console.log(self.reader.error);
+  //   };
+  //   this.reader.readAsText(file);
+  // }
+
+  beginRestore() {
+    this.restoreBegun = true;
+  }
+
+  onInput(value: string) {
+    this.restore = value;
   }
 
   restoreBackup() {
-    const blob = JSON.parse(this.restore);
-
-    const userTargets = blob.userTargets;
-    const userTelescopes = blob.userTelescopes;
-    const userCameras = blob.userCameras;
-    const userObservatories = blob.userObservatories;
-
-    this.targetService.restore(userTargets);
-    this.telescopeService.restore(userTelescopes);
-    this.cameraService.restore(userCameras);
-    this.observatoryService.restore(userObservatories);
-
-    this.restoreComplete = true;
+    let blob = null;
+    try {
+      blob = JSON.parse(this.restore);
+    }
+    catch(e) {
+      this.restoreError = 'Invalid format.';
+    }
+    if (blob) {
+      if (!blob.userTargets) {
+        this.restoreError = 'Missing targets.';
+      }
+      if (!blob.userTelescopes) {
+        this.restoreError = 'Missing telescopes.';
+      }
+      if (!blob.userCameras) {
+        this.restoreError = 'Missing cameras.';
+      }
+      if (!blob.userObservatories) {
+        this.restoreError = 'Missing observatories.';
+      }
+      if (!this.restoreError) {
+        if (!UserTargetService.validateStorage(blob.userTargets)) {
+          this.restoreError = 'Invalid targets.';
+        }
+        if (!UserTelescopeService.validateStorage(blob.userTelescopes)) {
+          this.restoreError = 'Invalid telescopes.';
+        }
+        if (!UserCameraService.validateStorage(blob.userCameras)) {
+          this.restoreError = 'Invalid cameras.';
+        }
+        if (!UserObservatoryService.validateStorage(blob.userObservatories)) {
+          this.restoreError = 'Invalid observatories.';
+        }
+        if (!this.restoreError) {
+          this.targetService.restore(blob.userTargets);
+          this.telescopeService.restore(blob.userTelescopes);
+          this.cameraService.restore(blob.userCameras);
+          this.observatoryService.restore(blob.userObservatories);
+          this.restoreComplete = true;
+        }
+      }
+    }
+    if (this.restoreError) {
+      this.restoreError += ' Restore cancelled.';
+    }
   }
 
 }

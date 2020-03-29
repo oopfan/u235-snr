@@ -32,10 +32,7 @@ export class UserObservatoryService {
 
   constructor(private storage: LocalStorageService) { }
 
-  private init() {
-    // get what is in local storage:
-    const obj = this.storage.get('userObservatories');
-    // make sure its structure is compatible with downstream code:
+  static validateStorage(obj: ObservatoryCache): boolean {
     let isOK = true;
     if (!obj) {
       isOK = false;
@@ -72,23 +69,32 @@ export class UserObservatoryService {
         }
       }
     }
-    if (!isOK) {
-      this.cache = { list: [], nextid: 0 };
-      return;
+    return isOK;
+  }
+
+  private init() {
+    const obj = this.storage.get('userObservatories');
+    const isOK = UserObservatoryService.validateStorage(obj);
+    this.cache = { list: [], nextid: 0 };
+    if (isOK) {
+      let maxid = 0;
+      const newList: Array<ObservatoryStored> = obj.list.map(element => {
+        if (element.id > maxid) {
+          maxid = element.id;
+        }
+        const newElement: ObservatoryStored = {
+          id: element.id,
+          name: element.name,
+          bortleClass: element.bortleClass,
+          skyBrightness: element.skyBrightness,
+          latitude: element.latitude || 1,
+          longitude: element.longitude || 1
+        };
+        return newElement;
+      });
+      this.cache.list = newList;
+      this.cache.nextid = maxid + 1;
     }
-    this.cache = obj;
-    const newList: Array<ObservatoryStored> = this.cache.list.map(element => {
-      const newElement: ObservatoryStored = {
-        id: element.id,
-        name: element.name,
-        bortleClass: element.bortleClass,
-        skyBrightness: element.skyBrightness,
-        latitude: element.latitude || 1,
-        longitude: element.longitude || 1
-      };
-      return newElement;
-    });
-    this.cache.list = newList;
   }
 
   backup(): ObservatoryCache {
@@ -99,7 +105,6 @@ export class UserObservatoryService {
   }
 
   restore(value: ObservatoryCache) {
-    this.cache = null;
     this.storage.set('userObservatories', value);
     this.init();
   }

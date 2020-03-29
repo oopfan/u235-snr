@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { RouterTestingModule } from '@angular/router/testing';
 import { QuickStartHomeComponent } from './quick-start-home.component';
 
 describe('QuickStartHomeComponent', () => {
@@ -8,6 +8,7 @@ describe('QuickStartHomeComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [ RouterTestingModule ],
       declarations: [ QuickStartHomeComponent ]
     })
     .compileComponents();

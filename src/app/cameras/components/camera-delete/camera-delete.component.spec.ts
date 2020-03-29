@@ -7,7 +7,7 @@ import { Location } from "@angular/common";
 import { CamerasModule } from '../../cameras.module';
 import { routes } from '../../cameras-routing.module';
 import { CameraDeleteComponent } from './camera-delete.component';
-import { UserCameraService } from '@core/services';
+import { UserCameraService, QuickStartGuard } from '@core/services';
 import { LocalStorageService } from 'angular-web-storage';
 
 describe('CameraDeleteComponent', () => {
@@ -19,6 +19,7 @@ describe('CameraDeleteComponent', () => {
   let userCameraService: UserCameraService;
   let storageSpy: any;
   let storageData: any;
+  let guardSpy: any;
 
   beforeEach(async(() => {
     storageData = {
@@ -44,12 +45,15 @@ describe('CameraDeleteComponent', () => {
     };
     storageSpy = jasmine.createSpyObj('LocalStorageService', ['get', 'set']);
     storageSpy.get.and.returnValue(storageData);
+    guardSpy = jasmine.createSpyObj('QuickStartGuard', ['canActivate']);
+    guardSpy.canActivate.and.returnValue(true);
 
     TestBed.configureTestingModule({
       imports: [ RouterTestingModule.withRoutes(routes), CamerasModule ],
       providers: [
         UserCameraService,
-        { provide: LocalStorageService, useValue: storageSpy }
+        { provide: LocalStorageService, useValue: storageSpy },
+        { provide: QuickStartGuard, useValue: guardSpy }
       ]
     })
     .compileComponents();

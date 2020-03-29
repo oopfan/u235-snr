@@ -30,10 +30,7 @@ export class UserTargetService {
 
   constructor(private storage: LocalStorageService) { }
 
-  private init() {
-    // get what is in local storage:
-    const obj = this.storage.get('userTargets');
-    // make sure its structure is compatible with downstream code:
+  static validateStorage(obj: TargetCache): boolean {
     let isOK = true;
     if (!obj) {
       isOK = false;
@@ -65,22 +62,31 @@ export class UserTargetService {
         }
       }
     }
-    if (!isOK) {
-      this.cache = { list: [], nextid: 0 };
-      return;
+    return isOK;
+  }
+
+  private init() {
+    const obj = this.storage.get('userTargets');
+    const isOK = UserTargetService.validateStorage(obj);
+    this.cache = { list: [], nextid: 0 };
+    if (isOK) {
+      let maxid = 0;
+      const newList: Array<TargetStored> = obj.list.map(element => {
+        if (element.id > maxid) {
+          maxid = element.id;
+        }
+        const newElement: TargetStored = {
+          id: element.id,
+          name: element.name,
+          surfaceBrightness: element.surfaceBrightness,
+          rightAscension: element.rightAscension || 1,
+          declination: element.declination || 1
+        };
+        return newElement;
+      });
+      this.cache.list = newList;
+      this.cache.nextid = maxid + 1;
     }
-    this.cache = obj;
-    const newList: Array<TargetStored> = this.cache.list.map(element => {
-      const newElement: TargetStored = {
-        id: element.id,
-        name: element.name,
-        surfaceBrightness: element.surfaceBrightness,
-        rightAscension: element.rightAscension || 1,
-        declination: element.declination || 1
-      };
-      return newElement;
-    });
-    this.cache.list = newList;
   }
 
   backup(): TargetCache {
@@ -91,7 +97,6 @@ export class UserTargetService {
   }
 
   restore(value: TargetCache) {
-    this.cache = null;
     this.storage.set('userTargets', value);
     this.init();
   }

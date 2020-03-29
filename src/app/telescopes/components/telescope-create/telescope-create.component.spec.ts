@@ -5,7 +5,7 @@ import { Location } from "@angular/common";
 import { TelescopesModule } from '../../telescopes.module';
 import { routes } from '../../telescopes-routing.module';
 import { TelescopeCreateComponent } from './telescope-create.component';
-import { UserTelescopeService, TelescopeParsed } from '@core/services';
+import { UserTelescopeService, TelescopeParsed, QuickStartGuard } from '@core/services';
 import { LocalStorageService } from 'angular-web-storage';
 
 describe('TelescopeCreateComponent', () => {
@@ -15,6 +15,7 @@ describe('TelescopeCreateComponent', () => {
   let userTelescopeService: UserTelescopeService;
   let storageSpy: any;
   let storageData: any;
+  let guardSpy: any;
 
   beforeEach(async(() => {
     storageData = {
@@ -40,6 +41,8 @@ describe('TelescopeCreateComponent', () => {
     };
     storageSpy = jasmine.createSpyObj('LocalStorageService', ['get', 'set']);
     storageSpy.get.and.returnValue(storageData);
+    guardSpy = jasmine.createSpyObj('QuickStartGuard', ['canActivate']);
+    guardSpy.canActivate.and.returnValue(true);
 
     TestBed.configureTestingModule({
       imports: [
@@ -49,7 +52,8 @@ describe('TelescopeCreateComponent', () => {
       schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
       providers: [
         UserTelescopeService,
-        { provide: LocalStorageService, useValue: storageSpy }
+        { provide: LocalStorageService, useValue: storageSpy },
+        { provide: QuickStartGuard, useValue: guardSpy }
       ]
     })
     .compileComponents();

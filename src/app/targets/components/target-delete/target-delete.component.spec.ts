@@ -7,7 +7,7 @@ import { Location } from "@angular/common";
 import { TargetsModule } from '../../targets.module';
 import { routes } from '../../targets-routing.module';
 import { TargetDeleteComponent } from './target-delete.component';
-import { UserTargetService } from '@core/services';
+import { UserTargetService, QuickStartGuard } from '@core/services';
 import { LocalStorageService } from 'angular-web-storage';
 
 describe('TargetDeleteComponent', () => {
@@ -19,6 +19,7 @@ describe('TargetDeleteComponent', () => {
   let userTargetService: UserTargetService;
   let storageSpy: any;
   let storageData: any;
+  let guardSpy: any;
 
   beforeEach(async(() => {
     storageData = {
@@ -38,6 +39,8 @@ describe('TargetDeleteComponent', () => {
     };
     storageSpy = jasmine.createSpyObj('LocalStorageService', ['get', 'set']);
     storageSpy.get.and.returnValue(storageData);
+    guardSpy = jasmine.createSpyObj('QuickStartGuard', ['canActivate']);
+    guardSpy.canActivate.and.returnValue(true);
 
     TestBed.configureTestingModule({
       imports: [
@@ -46,7 +49,8 @@ describe('TargetDeleteComponent', () => {
       ],
       providers: [
         UserTargetService,
-        { provide: LocalStorageService, useValue: storageSpy }
+        { provide: LocalStorageService, useValue: storageSpy },
+        { provide: QuickStartGuard, useValue: guardSpy }
       ]
     })
     .compileComponents();

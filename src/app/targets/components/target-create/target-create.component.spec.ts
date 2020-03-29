@@ -5,7 +5,7 @@ import { Location } from "@angular/common";
 import { TargetsModule } from '../../targets.module';
 import { routes } from '../../targets-routing.module';
 import { TargetCreateComponent } from './target-create.component';
-import { UserTargetService, TargetParsed } from '@core/services';
+import { UserTargetService, TargetParsed, QuickStartGuard } from '@core/services';
 import { LocalStorageService } from 'angular-web-storage';
 
 describe('TargetCreateComponent', () => {
@@ -15,6 +15,7 @@ describe('TargetCreateComponent', () => {
   let userTargetService: UserTargetService;
   let storageSpy: any;
   let storageData: any;
+  let guardSpy: any;
 
   beforeEach(async(() => {
     storageData = {
@@ -34,6 +35,8 @@ describe('TargetCreateComponent', () => {
     };
     storageSpy = jasmine.createSpyObj('LocalStorageService', ['get', 'set']);
     storageSpy.get.and.returnValue(storageData);
+    guardSpy = jasmine.createSpyObj('QuickStartGuard', ['canActivate']);
+    guardSpy.canActivate.and.returnValue(true);
 
     TestBed.configureTestingModule({
       imports: [
@@ -43,7 +46,8 @@ describe('TargetCreateComponent', () => {
       schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
       providers: [
         UserTargetService,
-        { provide: LocalStorageService, useValue: storageSpy }
+        { provide: LocalStorageService, useValue: storageSpy },
+        { provide: QuickStartGuard, useValue: guardSpy }
       ]
     })
     .compileComponents();
@@ -80,10 +84,10 @@ describe('TargetCreateComponent', () => {
     expect(storageSpy.set).toHaveBeenCalledTimes(1);
     const allAfter = userTargetService.getAll();
     expect(allAfter.length - allBefore.length).toBe(1, 'Unexpected change in number of targets');
-    const newTarget = userTargetService.getItem(30);
+    const newTarget = userTargetService.getItem(25);
     expect(newTarget).toBeTruthy();
     expect(newTarget.length).toBe(1, 'Unexpected number of targets');
-    expect(newTarget[0].id).toBe(30, 'Unexpected id');
+    expect(newTarget[0].id).toBe(25, 'Unexpected id');
     expect(newTarget[0].name).toBe(target.name, 'Unexpected name');
   }));
 

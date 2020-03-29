@@ -33,7 +33,7 @@
             <h2 class="subtitle is-size-5">Restore</h2>
         </div>
     </div>
-    <div class="columns">
+    <!-- <div class="columns">
         <div class="column">
             <div class="file is-small">
                 <label class="file-label">
@@ -46,17 +46,30 @@
                 </label>
             </div>
         </div>
+    </div> -->
+    <div class="columns" *ngIf="!restoreBegun">
+        <div class="column">
+            <button class="button is-light is-small" (click)="beginRestore()">Choose backup file</button>
+        </div>
     </div>
-    <div class="columns" *ngIf="restore">
+    <div class="columns" *ngIf="restoreBegun && !(restoreComplete || restoreError)">
+        <div class="column">
+            <article class="message is-success">
+                <div class="message-body">
+                    Please use a plain text editor to open a backup file. Select all the contents
+                    and paste it below:
+                </div>
+            </article>
+            <textarea class="textarea" rows="5" (input)="onInput($event.target.value)"></textarea>
+        </div>
+    </div>
+    <div class="columns" *ngIf="restore && !(restoreComplete || restoreError)">
         <div class="column">
             <article class="message is-warning">
                 <div class="message-body">
-                    Please review the backup contents below.
-                    Click the button to restore the backup. This operation is not reversible!
+                    Click to restore the backup. This operation is not reversible!
                 </div>
             </article>
-            <textarea class="textarea" rows="5" readonly>{{ restore }}</textarea>
-            <br />
             <button class="button is-light is-small" (click)="restoreBackup()">Restore Backup</button>
         </div>
     </div>
@@ -65,6 +78,15 @@
             <article class="message is-success">
                 <div class="message-body">
                     Restore complete!
+                </div>
+            </article>
+        </div>
+    </div>
+    <div class="columns" *ngIf="restoreError">
+        <div class="column">
+            <article class="message is-danger">
+                <div class="message-body">
+                    {{ restoreError }}
                 </div>
             </article>
         </div>

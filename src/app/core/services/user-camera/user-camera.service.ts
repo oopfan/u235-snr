@@ -32,10 +32,7 @@ export class UserCameraService {
 
   constructor(private storage: LocalStorageService) { }
 
-  private init() {
-    // get what is in local storage:
-    const obj = this.storage.get('userCameras');
-    // make sure its structure is compatible with downstream code:
+  static validateStorage(obj: CameraCache): boolean {
     let isOK = true;
     if (!obj) {
       isOK = false;
@@ -82,7 +79,32 @@ export class UserCameraService {
         }
       }
     }
-    this.cache = isOK ? obj : { list: [], nextid: 0 };
+    return isOK;
+  }
+
+  private init() {
+    const obj = this.storage.get('userCameras');
+    const isOK = UserCameraService.validateStorage(obj);
+    this.cache = { list: [], nextid: 0 };
+    if (isOK) {
+      let maxid = 0;
+      const newList: Array<CameraStored> = obj.list.map(element => {
+        if (element.id > maxid) {
+          maxid = element.id;
+        }
+        const newElement: CameraStored = {
+          id: element.id,
+          name: element.name,
+          pixelSize: element.pixelSize,
+          readNoise: element.readNoise,
+          darkCurrent: element.darkCurrent,
+          quantumEfficiency: element.quantumEfficiency
+        };
+        return newElement;
+      });
+      this.cache.list = newList;
+      this.cache.nextid = maxid + 1;
+    }
   }
 
   backup(): CameraCache {
@@ -93,7 +115,6 @@ export class UserCameraService {
   }
 
   restore(value: CameraCache) {
-    this.cache = null;
     this.storage.set('userCameras', value);
     this.init();
   }

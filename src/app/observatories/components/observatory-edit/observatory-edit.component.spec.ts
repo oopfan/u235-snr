@@ -7,7 +7,7 @@ import { Location } from "@angular/common";
 import { ObservatoriesModule } from '../../observatories.module';
 import { routes } from '../../observatories-routing.module';
 import { ObservatoryEditComponent } from './observatory-edit.component';
-import { UserObservatoryService, ObservatoryParsed } from '@core/services';
+import { UserObservatoryService, ObservatoryParsed, QuickStartGuard } from '@core/services';
 import { LocalStorageService } from 'angular-web-storage';
 
 describe('ObservatoryEditComponent', () => {
@@ -19,6 +19,7 @@ describe('ObservatoryEditComponent', () => {
   let userObservatoryService: UserObservatoryService;
   let storageSpy: any;
   let storageData: any;
+  let guardSpy: any;
 
   beforeEach(async(() => {
     storageData = {
@@ -40,6 +41,8 @@ describe('ObservatoryEditComponent', () => {
     };
     storageSpy = jasmine.createSpyObj('LocalStorageService', ['get', 'set']);
     storageSpy.get.and.returnValue(storageData);
+    guardSpy = jasmine.createSpyObj('QuickStartGuard', ['canActivate']);
+    guardSpy.canActivate.and.returnValue(true);
 
     TestBed.configureTestingModule({
       imports: [
@@ -49,7 +52,8 @@ describe('ObservatoryEditComponent', () => {
       schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
       providers: [
         UserObservatoryService,
-        { provide: LocalStorageService, useValue: storageSpy }
+        { provide: LocalStorageService, useValue: storageSpy },
+        { provide: QuickStartGuard, useValue: guardSpy }
       ]
     })
     .compileComponents();

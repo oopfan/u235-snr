@@ -1,5 +1,5 @@
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { UtilitiesHomeComponent } from './utilities-home.component';
 
 describe('UtilitiesHomeComponent', () => {
@@ -8,7 +8,8 @@ describe('UtilitiesHomeComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ UtilitiesHomeComponent ]
+      declarations: [ UtilitiesHomeComponent ],
+      schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
     })
     .compileComponents();
   }));
