@@ -7,13 +7,14 @@ import { UserTargetService, UserTelescopeService, UserCameraService, UserObserva
   styleUrls: ['./backup-and-restore.component.css']
 })
 export class BackupAndRestoreComponent implements OnInit {
-  backup: string = null;
-  restore: string = null;
-  restoreComplete: boolean = false;
   supported: boolean = true;
+  backup: string = null;
+  backupBegun: boolean = false;
+  restore: string = null;
   restoreBegun: boolean = false;
+  restoreComplete: boolean = false;
   restoreError: string = null;
-  // reader = new FileReader();
+  reader = new FileReader();
 
   constructor(
     private targetService: UserTargetService,
@@ -23,7 +24,19 @@ export class BackupAndRestoreComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    // this.supported = File && FileReader && FileList && Blob ? true : false;
+    this.supported = File && FileReader && FileList && Blob ? true : false;
+    if (this.supported) {
+      const self = this;
+      this.reader.onload = function(e) {
+        self.restore = self.reader.result.toString();
+      };
+      this.reader.onerror = function(e) {
+        self.restoreError = 'Error reading file: ' + self.reader.error.message;
+      };
+      this.reader.onloadend = function(e) {
+        self.restoreBegun = true;
+      }
+    }
   }
 
   createBackup() {
@@ -33,30 +46,12 @@ export class BackupAndRestoreComponent implements OnInit {
     const userObservatories = this.observatoryService.backup();
     const blob = { userTargets, userTelescopes, userCameras, userObservatories };
     this.backup = JSON.stringify(blob);
+    this.backupBegun = true;
   }
 
-  // readBackupFile(event: any) {
-  //   const file = event.target.files[0];
-  //   console.log(file);
-  //   const self = this;
-  //   this.reader.onload = function(e) {
-  //     console.log('Success reading file:');
-  //     console.log(self.reader.result);
-  //     self.restore = self.reader.result.toString();
-  //   }
-  //   this.reader.onerror = function(e) {
-  //     console.log('Error reading file:');
-  //     console.log(self.reader.error);
-  //   };
-  //   this.reader.readAsText(file);
-  // }
-
-  beginRestore() {
-    this.restoreBegun = true;
-  }
-
-  onInput(value: string) {
-    this.restore = value;
+  readBackupFile(event: any) {
+    const file = event.target.files[0];
+    this.reader.readAsText(file);
   }
 
   restoreBackup() {

@@ -13,10 +13,14 @@
     <div class="columns">
         <div class="column">
             <h2 class="subtitle is-size-5">Backup</h2>
+        </div>
+    </div>
+    <div class="columns" *ngIf="!backupBegun">
+        <div class="column">
             <button class="button is-light is-small" (click)="createBackup()">Create Backup</button>
         </div>
     </div>
-    <div class="columns" *ngIf="backup">
+    <div class="columns" *ngIf="backupBegun">
         <div class="column">
             <article class="message is-success">
                 <div class="message-body">
@@ -33,11 +37,11 @@
             <h2 class="subtitle is-size-5">Restore</h2>
         </div>
     </div>
-    <!-- <div class="columns">
+    <div class="columns" *ngIf="!restoreBegun">
         <div class="column">
             <div class="file is-small">
                 <label class="file-label">
-                    <input type="file" class="file-input" accept=".txt" (input)="readBackupFile($event)">
+                    <input type="file" class="file-input" accept=".txt" (change)="readBackupFile($event)">
                     <span class="file-cta">
                         <span class="file-label">
                             Choose backup file
@@ -46,30 +50,17 @@
                 </label>
             </div>
         </div>
-    </div> -->
-    <div class="columns" *ngIf="!restoreBegun">
-        <div class="column">
-            <button class="button is-light is-small" (click)="beginRestore()">Choose backup file</button>
-        </div>
     </div>
     <div class="columns" *ngIf="restoreBegun && !(restoreComplete || restoreError)">
         <div class="column">
-            <article class="message is-success">
-                <div class="message-body">
-                    Please use a plain text editor to open a backup file. Select all the contents
-                    and paste it below:
-                </div>
-            </article>
-            <textarea class="textarea" rows="5" (input)="onInput($event.target.value)"></textarea>
-        </div>
-    </div>
-    <div class="columns" *ngIf="restore && !(restoreComplete || restoreError)">
-        <div class="column">
             <article class="message is-warning">
                 <div class="message-body">
-                    Click to restore the backup. This operation is not reversible!
+                    Please review the backup contents below.
+                    Click the button to restore the backup. This operation is not reversible!
                 </div>
             </article>
+            <textarea class="textarea" rows="5" readonly>{{ restore }}</textarea>
+            <br />
             <button class="button is-light is-small" (click)="restoreBackup()">Restore Backup</button>
         </div>
     </div>

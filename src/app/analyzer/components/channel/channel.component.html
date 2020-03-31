@@ -4,7 +4,7 @@
     </p>
     <div class="panel-block file is-small">
         <label class="file-label">
-            <input type="file" class="file-input" accept=".fits,.fit,.fts" multiple (input)="readFiles($event.target.files)">
+            <input type="file" class="file-input" accept=".fits,.fit,.fts" multiple (change)="readFiles($event.target.files)">
             <span class="file-cta">
                 <span class="file-label">
                     Choose files
