@@ -14,7 +14,6 @@ import { SharedModule } from './shared/shared.module';
 import { HelpModule } from './help/help.module';
 import { ErrorsModule } from './errors/errors.module';
 import { QuickStartModule } from './quick-start/quick-start.module';
-import { Covid19Module } from './covid19/covid19.module';
 import { SandboxModule } from './sandbox/sandbox.module';
 import { UtilitiesModule } from './utilities/utilities.module';
 import { AssistantModule } from './assistant/assistant.module';
@@ -40,7 +39,6 @@ import { NotFoundComponent } from './not-found/not-found.component';
     HelpModule,
     ErrorsModule,
     QuickStartModule,
-    Covid19Module,
     SandboxModule,
     UtilitiesModule,
     AssistantModule,
