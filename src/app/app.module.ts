@@ -20,15 +20,16 @@ import { UtilitiesModule } from './utilities/utilities.module';
 import { AssistantModule } from './assistant/assistant.module';
 import { AnalyzerModule } from './analyzer/analyzer.module';
 import { CoreModule } from './core/core.module';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    NavBarComponent
+    NavBarComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
     LandingModule,
     TargetsModule,
     TelescopesModule,
@@ -44,7 +45,8 @@ import { CoreModule } from './core/core.module';
     UtilitiesModule,
     AssistantModule,
     AnalyzerModule,
-    CoreModule
+    CoreModule,
+    AppRoutingModule
   ],
   providers: [Title],
   bootstrap: [AppComponent]
