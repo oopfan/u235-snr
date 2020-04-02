@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
 import { Title } from '@angular/platform-browser';
-import { TargetParsed, TelescopeParsed, CameraParsed, ObservatoryParsed, UserTargetService, UserTelescopeService, UserCameraService, UserObservatoryService } from '@core/services';
+import { TargetParsed, TelescopeParsed, CameraParsed, ObservatoryParsed } from '@core/services';
 import { Subject } from 'rxjs';
-import mapSort from 'mapsort';
 
 @Component({
   selector: 'app-analyzer-home',
@@ -13,11 +12,6 @@ import mapSort from 'mapsort';
 export class AnalyzerHomeComponent implements OnInit {
   pageTitle = 'Analyzer';
   browserTitle = this.pageTitle + ' | U235+SNR';
-
-  targets: TargetParsed[] = [];
-  telescopes: TelescopeParsed[] = [];
-  cameras: CameraParsed[] = [];
-  observatories: ObservatoryParsed[] = [];
 
   target: TargetParsed = null;
   telescope: TelescopeParsed = null;
@@ -34,38 +28,12 @@ export class AnalyzerHomeComponent implements OnInit {
   blueBalance: number = 1.55;
   colorBalanceSubject: Subject<any> = new Subject<any>();
 
-  compareString = (a: any, b: any) => a.localeCompare(b);
-
   constructor(
     private titleService: Title,
-    private router: Router,
-    private targetService: UserTargetService,
-    private telescopeService: UserTelescopeService,
-    private cameraService: UserCameraService,
-    private observatoryService: UserObservatoryService) {}
-
-  validateTarget = (item: TargetParsed): boolean => {
-    return this.targetService.validate(item) && item.rightAscension !== 1 && item.declination !== 1;
-  }
-
-  validateTelescope = (item: TelescopeParsed): boolean => {
-    return this.telescopeService.validate(item);
-  }
-
-  validateCamera = (item: CameraParsed): boolean => {
-    return this.cameraService.validate(item);
-  }
-
-  validateObservatory = (item: ObservatoryParsed): boolean => {
-    return this.observatoryService.validate(item) && item.latitude !== 1 && item.longitude !== 1;
-  }
+    private router: Router) {}
 
   ngOnInit() {
     this.titleService.setTitle(this.browserTitle);
-    this.targets = mapSort(this.targetService.parseItems(this.targetService.getAll()).filter(this.validateTarget), element => element.name, this.compareString);
-    this.telescopes = mapSort(this.telescopeService.parseItems(this.telescopeService.getAll()).filter(this.validateTelescope), element => element.name, this.compareString);
-    this.cameras = mapSort(this.cameraService.parseItems(this.cameraService.getAll()).filter(this.validateCamera), element => element.name, this.compareString);
-    this.observatories = mapSort(this.observatoryService.parseItems(this.observatoryService.getAll()).filter(this.validateObservatory), element => element.name, this.compareString);
   }
 
   haveTarget(): boolean {
