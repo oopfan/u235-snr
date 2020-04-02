@@ -1,6 +1,18 @@
 <div class="section">
     <div class="container">
-        <h1 class="title is-5">Post-Capture Analyzer</h1>
+        <div class="level">
+            <div class="level-left">
+                <div class="level-item">
+                    <h1 class="title is-5">{{ pageTitle }}</h1>
+                </div>
+                <div class="level-item">
+                    <div class="control">
+                        <a class="tag is-link" (click)="onHelp('analyzer')">Help</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- <h1 class="title is-5">Post-Capture Analyzer</h1> -->
         <div class="columns is-desktop">
             <div class="column">
                 <app-target-picker (notifyChange)="onChangeTarget($event)"></app-target-picker>

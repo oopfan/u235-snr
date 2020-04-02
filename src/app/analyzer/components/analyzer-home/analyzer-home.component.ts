@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from "@angular/router";
 import { Title } from '@angular/platform-browser';
 import { TargetParsed, TelescopeParsed, CameraParsed, ObservatoryParsed, UserTargetService, UserTelescopeService, UserCameraService, UserObservatoryService } from '@core/services';
 import { Subject } from 'rxjs';
@@ -10,7 +11,8 @@ import mapSort from 'mapsort';
   styleUrls: ['./analyzer-home.component.css']
 })
 export class AnalyzerHomeComponent implements OnInit {
-  browserTitle = 'Analyzer | U235+SNR';
+  pageTitle = 'Analyzer';
+  browserTitle = this.pageTitle + ' | U235+SNR';
 
   targets: TargetParsed[] = [];
   telescopes: TelescopeParsed[] = [];
@@ -36,6 +38,7 @@ export class AnalyzerHomeComponent implements OnInit {
 
   constructor(
     private titleService: Title,
+    private router: Router,
     private targetService: UserTargetService,
     private telescopeService: UserTelescopeService,
     private cameraService: UserCameraService,
@@ -111,6 +114,10 @@ export class AnalyzerHomeComponent implements OnInit {
 
   onColorBalance(value: any) {
     this.colorBalanceSubject.next(value);
+  }
+
+  onHelp(section: string) {
+    this.router.navigate(['/help', section]);
   }
 
 }

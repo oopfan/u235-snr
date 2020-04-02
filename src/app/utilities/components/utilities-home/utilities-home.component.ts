@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from "@angular/router";
 import { Title } from '@angular/platform-browser';
 
 @Component({
@@ -11,11 +12,16 @@ export class UtilitiesHomeComponent implements OnInit {
   browserTitle = this.pageTitle + ' | U235+SNR';
 
   constructor(
-    private titleService: Title
+    private titleService: Title,
+    private router: Router
   ) {}
 
   ngOnInit() {
     this.titleService.setTitle(this.browserTitle);
+  }
+
+  onHelp(section: string) {
+    this.router.navigate(['/help', section]);
   }
 
 }

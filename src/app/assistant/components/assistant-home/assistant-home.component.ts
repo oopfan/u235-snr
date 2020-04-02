@@ -1,4 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Router } from "@angular/router";
 import { Title } from '@angular/platform-browser';
 import { Subject } from 'rxjs';
 
@@ -8,14 +9,17 @@ import { Subject } from 'rxjs';
   styleUrls: ['./assistant-home.component.css']
 })
 export class AssistantHomeComponent implements OnInit, OnDestroy {
-  browserTitle = 'Assistant | U235+SNR';
+  pageTitle = 'Assistant';
+  browserTitle = this.pageTitle + ' | U235+SNR';
   intervalId = 0;
   assistants = [ 1 ];
   nextAssistant = 2;
   utcString = '';
   utcSubject: Subject<Date> = new Subject<Date>();
 
-  constructor(private titleService: Title) {}
+  constructor(
+    private titleService: Title,
+    private router: Router) {}
 
   ngOnInit() {
     this.titleService.setTitle(this.browserTitle);
@@ -52,6 +56,10 @@ export class AssistantHomeComponent implements OnInit, OnDestroy {
 
   clearTimer() {
     window.clearInterval(this.intervalId);
+  }
+
+  onHelp(section: string) {
+    this.router.navigate(['/help', section]);
   }
 
 }
