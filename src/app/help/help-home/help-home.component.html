@@ -420,10 +420,83 @@
 
         <div class="content">
             <p>
-                Under Construction
+                <i>Assistants</i> are designed to help monitor the location of targets
+                relative to your horizon and local meridian, and to provide valuable
+                information about the transparency of the atmosphere in red, green, and
+                blue light. Each is important for the planning and execution of a successful
+                imaging session.
+            </p>
+            <p>
+                The meridian is an imaginary line that divides east and west. It is a great
+                circle that connects north and south through the overhead point called the
+                zenith. Many of today's telescopes are equipped with an equatorial mount but
+                many do not allow you to track a target through the meridan without pausing
+                to do something called a <i>meridian flip</i>.
+            </p>
+            <p>
+                Depending on the level of automation you enjoy you may need to physically
+                make an adjustment to the telescope in order to reorient it so as to continue
+                imaging west of the meridian. Everyone's telescope is different but in my
+                particular case I can image up to about thirty minutes before hitting the
+                meridian.
             </p>
             <p></p>
         </div>
+
+        <h2 class="subtitle is-5">Hour Angle</h2>
+        <div class="content">
+            <p>
+                <i>Hour Angle</i> gives me a realtime readout of the amount of time remaining
+                before making contact with the meridian. It is the number of hours and minutes
+                east or west of it. For example, if I am imaging the Whirlpool Galaxy and the
+                Hour Angle is <code>0h 40m E</code> then I need to pause imaging within 10 minutes.
+                I will then go outside make the necessary adjustments so I can resume imaging when
+                the galaxy reaches approximately thirty minutes west of the meridian. That gives
+                me about an hour to make another pot of coffee.
+            </p>
+            <p></p>
+        </div>
+
+        <h2 class="subtitle is-5">Altitude</h2>
+        <div class="content">
+            <p>
+                <i>Altitude</i> is the number of degrees the target is above or below the horizon.
+                As a general rule I try to wait for the target to reach 40 degrees before I begin
+                imaging. Why is that? The atmosphere is thinner so the image is brighter which means
+                a higher signal-to-noise ratio per frame, and that's what it's all about: High SNR.
+            </p>
+            <p></p>
+        </div>
+
+        <h2 class="subtitle is-5">Atmospheric Extinction</h2>
+        <div class="content">
+            <p>
+                <i>Atmospheric Extinction</i> is a measure of how much atmosphere there is between
+                you and the target. The finest quality images are taken directly overhead where the
+                atmosphere is thinnest. The Zenith corresponds to an Atmospheric Extinction of 1.0.
+                As the target descends in altitude the atmosphere grows thicker and extinction increases.
+            </p>
+            <p>
+                You may already know, or will notice, that atmospheric extinction is lower for
+                red light and greater for blue light for a given altitude. For this reason whenever
+                I begin imaging east of the meridian I start with the red filter, then move on to
+                the green filter, then blue, and finally luminance. West of the meridian I reverse
+                the order: luminance then blue then green then red.
+            </p>
+            <p>
+                For my particular latitude I try to wait for the red extinction factor to reach 1.05
+                before beginning to image with the red filter. It bears repeating if it is not entirely
+                clear that by the time you are done capturing red frames the green extinction factor
+                will nearly reach 1.05. Depending on your latitude the extinction factor
+                may still be higher than 1.05 but you can't wait for it. In these cases I strongly urge
+                you to capture 5% more green frames than red frames, and likewise 5% more blue frames than
+                green frames. Ideally you want the signal-to-noise ratio across all three stacks to be
+                identical. Please see the documentation for the <i>Analyzer</i> tool. It was designed to help
+                you determine exactly how many frames you need to balance the stacks.
+            </p>
+            <p></p>
+        </div>
+
     </div>
 </section>
 
