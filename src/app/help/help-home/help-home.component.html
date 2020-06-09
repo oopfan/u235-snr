@@ -401,19 +401,6 @@
     </div>
 </section>
 
-<section class="section" *ngIf="section == 'all-sections' || section == 'analyzer'">
-    <div class="container">
-        <h1 class="title is-4">Analyzer</h1>
-
-        <div class="content">
-            <p>
-                Under Construction
-            </p>
-            <p></p>
-        </div>
-    </div>
-</section>
-
 <section class="section" *ngIf="section == 'all-sections' || section == 'assistant'">
     <div class="container">
         <h1 class="title is-4">Assistant</h1>
@@ -488,12 +475,88 @@
                 before beginning to image with the red filter. It bears repeating if it is not entirely
                 clear that by the time you are done capturing red frames the green extinction factor
                 will nearly reach 1.05. Depending on your latitude the extinction factor
-                may still be higher than 1.05 but you can't wait for it. In these cases I strongly urge
+                may still be higher than 1.05 but you can't wait for it. In most cases I strongly urge
                 you to capture 5% more green frames than red frames, and likewise 5% more blue frames than
                 green frames. Ideally you want the signal-to-noise ratio across all three stacks to be
                 identical. Please see the documentation for the <i>Analyzer</i> tool. It was designed to help
                 you determine exactly how many frames you need to balance the stacks.
             </p>
+            <p></p>
+        </div>
+
+    </div>
+</section>
+
+<section class="section" *ngIf="section == 'all-sections' || section == 'analyzer'">
+    <div class="container">
+        <h1 class="title is-4">Analyzer</h1>
+
+        <div class="content">
+            <p>
+                In the documentation for the <i>Assistant</i>, I introduced the subject of Atmospheric Extinction
+                and how it affects red, green, and blue light differently. I hinted at the importance of balancing
+                the signal-to-noise ratio across all three stacks. Why is this important? It's important because
+                getting the color balance right is one of the most difficult challenges in astrophotography.
+                Some people take artistic license but for me I want to depict reality. At image-sharing
+                sites like AstroBin you will see a wide range of colors for the same target but what is it really?
+                I suggest that you let your camera determine that for you. It can do it but only if it is
+                properly calibrated.
+                Our sister site <a href="https://u235.herokuapp.com/" target="_blank" rel="noopener noreferrer">U235 Astrophotography</a>
+                takes on the topic of <i>Color Balance</i>. Allow me to explain it in a few paragraphs:
+            </p>
+            <p></p>
+        </div>
+
+        <h2 class="subtitle is-5">Color Balancing Primer</h2>
+        <div class="content">
+            <p>
+                The light sensitivity of your camera's sensor is a function of the light's wavelength. My camera,
+                the Atik 314E, is most sensitive to green but less sensitive to red and blue. My other camera, the
+                Altair 290M, is most sensitive to red but less sensitive to green and blue. No camera that I know of
+                is equally sensitive to all wavelengths.
+            </p>
+            <p>
+                Your computer monitor contains a large matrix of red, green, and blue dots that can be selectively
+                turned on and off. The dots are so close together that your eye perceives them as a single source.
+                A properly calibrated monitor will display white when the red, green, and blue dots are fully turned
+                on. A shade of gray is perceived when the amount of red, green, and blue are equal. All dots off
+                creates black.
+            </p>
+            <p>
+                The question is: What in outer space is a shade of gray? Believe it or not, stars similar to
+                our Sun. But you may say that the Sun is yellow. Yes, that is the case but photographers have
+                agreed that a white T-shirt illuminated by the Sun should be seen as white, not yellow.
+                This is by convention. For this reason, sunlight is known as <i>white light</i>.
+            </p>
+            <p>
+                So the process of <i>Color Balancing</i> your camera is a multi-step process that thankfully
+                needs to be done once. First, you need to find a Sun-like star in the evening sky. Second, you
+                need to capture an equal number of exposures of the star using your red, green, and blue filters.
+                Third, you need to process the images in order to discover the <i>Color Balance Ratios</i>. The
+                <i>U235 Astrophotography</i> website goes into this in excrutiating detail.
+            </p>
+            <p>
+                In the end you have modeled the spectral sensitivity of your camera's sensor. For my Atik 314E,
+                the red ratio is 1.71, the green ratio is 1.0, and the blue ratio is 1.55. This says that my
+                camera is most sensitive to green, and that the red exposure should be 71% greater than the green exposure,
+                and the blue exposure should be 55% greater than green. So if I image a Sun-like star using a 10-second exposure
+                with the green filter, I should use a 17.1-second exposure for the red filter, and a 15.5-second
+                exposure for the blue filter. When I combine those red, green, and blue images to make a single
+                color image the Sun-like star will appear to be white or some shade of gray.
+            </p>
+            <p>
+                This is the essence of <i>Color Balancing</i>. (Note that some people call it <i>White Balancing</i>.)
+                The important part is to know that the signal-to-noise ratio of your red, green, and blue stacks are
+                now balanced as long as you capture the same number of frames and also abide by the different
+                exposure values dictated by the ratios. So whenever I speak of <i>keeping the stacks in balance</i>
+                this is what I am refering to. When the signal-to-noise ratio of your RGB stacks are in balance then
+                you are assured of accurate color.
+            </p>
+            <p></p>
+        </div>
+
+        <h2 class="subtitle is-5">So tell me why do I need the Analyzer?</h2>
+        <div class="content">
             <p></p>
         </div>
 
