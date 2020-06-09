@@ -13,7 +13,7 @@
             <div class="field">
                 <label class="label">Altitude</label>
                 <div class="control">
-                    <app-altitude [appHighlight]="{watch: altitudeChanged}" [decodedAngle]="altitude" (notifyChange)="onAltitudeChanged()"></app-altitude>
+                    <u235-astro-altitude [degrees]="altitude" (notifyChange)="onAltitudeChanged()" [u235-astro-flash]="altitudeChange.asObservable()"></u235-astro-altitude>
                 </div>
             </div>
         </div>
@@ -21,7 +21,7 @@
             <div class="field">
                 <label class="label">Hour Angle</label>
                 <div class="control">
-                    <app-hour-angle [appHighlight]="{watch: hourAngleChanged}" [decodedAngle]="hourAngle" (notifyChange)="onHourAngleChanged()"></app-hour-angle>
+                    <u235-astro-hour-angle [hours]="hourAngle" (notifyChange)="onHourAngleChanged()" [u235-astro-flash]="hourAngleChange.asObservable()"></u235-astro-hour-angle>
                 </div>
             </div>
         </div>

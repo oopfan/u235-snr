@@ -1,6 +1,7 @@
 import { Component, Input, Output, OnInit, OnDestroy, EventEmitter } from '@angular/core';
-import { Observable, Subscription } from 'rxjs';
+import { Observable, Subscription, Subject } from 'rxjs';
 import { UtilityService, AtmosphericExtinctionService, TargetParsed, ObservatoryParsed } from '@core/services';
+import { U235AstroFlashArg } from 'u235-astro';
 
 @Component({
   selector: 'app-assistant-panel',
@@ -15,10 +16,10 @@ export class AssistantPanelComponent implements OnInit, OnDestroy {
   date: Date = null;
   target: TargetParsed = null;
   observatory: ObservatoryParsed = null;
-  altitudeChanged = 0;
-  altitude = [ 1, 0, 0, 0, 0];
-  hourAngleChanged = 0;
-  hourAngle = [ 1, 0, 0, 0, 0 ];
+  altitude: number;
+  altitudeChange = new Subject<U235AstroFlashArg>();
+  hourAngle: number;
+  hourAngleChange = new Subject<U235AstroFlashArg>();
   redExtinction = 'n/a';
   greenExtinction = 'n/a';
   blueExtinction = 'n/a';
@@ -46,11 +47,11 @@ export class AssistantPanelComponent implements OnInit, OnDestroy {
   }
 
   onAltitudeChanged() {
-    this.altitudeChanged++;
+    this.altitudeChange.next({});
   }
 
   onHourAngleChanged() {
-    this.hourAngleChanged++;
+    this.hourAngleChange.next({});
   }
 
   onChangeTarget(value: TargetParsed) {
@@ -78,8 +79,8 @@ export class AssistantPanelComponent implements OnInit, OnDestroy {
   update() {
     if (this.date && this.target && this.observatory) {
       const result = this.utility.calculateHorizontalCoordinates(this.date, this.target, this.observatory);
-      this.altitude = this.utility.decodeAngleFromMath(result.altitudeDegrees);
-      this.hourAngle = this.utility.decodeAngleFromMath(result.hourAngle);
+      this.altitude = result.altitudeDegrees;
+      this.hourAngle = result.hourAngle;
 
       const redExt = this.extinctionService.redExtinction(result.altitudeDegrees);
       const greenExt = this.extinctionService.greenExtinction(result.altitudeDegrees);
