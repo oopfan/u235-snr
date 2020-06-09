@@ -13,8 +13,8 @@ export class TargetDeleteComponent implements OnInit {
   browserTitle = this.pageTitle + ' | U235+SNR';
   notFound = 'Target not found';
   navigateToUrl = '/targets';
-  rightAscension = [1, 0, 0, 0, 0];
-  declination = [1, 0, 0, 0, 0];
+  rightAscension: number;
+  declination: number;
 
   target: TargetStored = {
     id: -1,
@@ -40,8 +40,8 @@ export class TargetDeleteComponent implements OnInit {
         const result = this.targetService.getItem(idNum);
         if (result.length) {
           this.target = result[0];
-          this.rightAscension = this.utility.decodeAngleFromStorage(this.target.rightAscension);
-          this.declination = this.utility.decodeAngleFromStorage(this.target.declination);
+          this.rightAscension = this.utility.encodeAngleToMath(this.utility.decodeAngleFromStorage(this.target.rightAscension));
+          this.declination = this.utility.encodeAngleToMath(this.utility.decodeAngleFromStorage(this.target.declination));
           return;
         }
       }
