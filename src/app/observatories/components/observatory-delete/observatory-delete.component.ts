@@ -13,8 +13,8 @@ export class ObservatoryDeleteComponent implements OnInit {
   pageTitle = 'Delete Observatory';
   notFound = 'Observatory not found';
   navigateToUrl = '/observatories';
-  latitude = [1, 0, 0, 0, 0];
-  longitude = [1, 0, 0, 0, 0];
+  latitude: number;
+  longitude: number;
 
   observatory: ObservatoryStored = {
     id: -1,
@@ -41,8 +41,8 @@ export class ObservatoryDeleteComponent implements OnInit {
         const result = this.observatoryService.getItem(idNum);
         if (result.length) {
           this.observatory = result[0];
-          this.latitude = this.utility.decodeAngleFromStorage(this.observatory.latitude);
-          this.longitude = this.utility.decodeAngleFromStorage(this.observatory.longitude);
+          this.latitude = this.utility.encodeAngleToMath(this.utility.decodeAngleFromStorage(this.observatory.latitude));
+          this.longitude = this.utility.encodeAngleToMath(this.utility.decodeAngleFromStorage(this.observatory.longitude));
           return;
         }
       }
