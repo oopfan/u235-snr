@@ -17,7 +17,7 @@
                 <div class="field">
                     <label class="label">Universal Time</label>
                     <div class="control">
-                        <span class="is-size-5" [appHighlight]="{watch: utcString}">{{ utcString }}</span>
+                        <span class="is-size-5" [u235-astro-flash]="utcFlash$">{{ utcString$ | async }}</span>
                     </div>
                 </div>
                 <button class="button is-success is-outlined" (click)="onNewAssistant()">New Assistant</button>
@@ -26,7 +26,7 @@
         <div class="column">
             <div class="columns is-multiline">
                 <div class="column" *ngFor="let id of assistants">
-                    <app-assistant-panel [id]="id" [notifyUTC]="utcSubject.asObservable()" (notifyRemove)="onRemoveAssistant($event)"></app-assistant-panel>
+                    <app-assistant-panel [id]="id" [utc]="utcValue$" (notifyRemove)="onRemoveAssistant($event)"></app-assistant-panel>
                 </div>
             </div>
         </div>

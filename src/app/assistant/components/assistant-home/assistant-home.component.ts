@@ -1,21 +1,24 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
 import { Title } from '@angular/platform-browser';
-import { Subject } from 'rxjs';
+import { interval, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { U235AstroFlashArg } from 'u235-astro';
 
 @Component({
-  selector: 'app-sandbox-home',
+  selector: 'app-assistant-home',
   templateUrl: './assistant-home.component.html',
   styleUrls: ['./assistant-home.component.css']
 })
-export class AssistantHomeComponent implements OnInit, OnDestroy {
+export class AssistantHomeComponent implements OnInit {
   pageTitle = 'Assistant';
   browserTitle = this.pageTitle + ' | U235+SNR';
-  intervalId = 0;
   assistants = [ 1 ];
   nextAssistant = 2;
-  utcString = '';
-  utcSubject: Subject<Date> = new Subject<Date>();
+
+  utcValue$: Observable<Date>;
+  utcString$: Observable<string>;
+  utcFlash$: Observable<U235AstroFlashArg>;
 
   constructor(
     private titleService: Title,
@@ -23,12 +26,10 @@ export class AssistantHomeComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.titleService.setTitle(this.browserTitle);
-    this.update();
-    this.startTimer();
-  }
 
-  ngOnDestroy() {
-    this.clearTimer();
+    this.utcValue$ = interval(1000).pipe(map(() => { return new Date(); }));
+    this.utcString$ = this.utcValue$.pipe(map((date) => { return date.toUTCString(); }));
+    this.utcFlash$ = this.utcValue$.pipe(map(() => { return {}; }));
   }
 
   onNewAssistant() {
@@ -40,22 +41,6 @@ export class AssistantHomeComponent implements OnInit, OnDestroy {
     if (index >= 0) {
       this.assistants.splice(index, 1);
     }
-  }
-
-  startTimer() {
-    this.intervalId = window.setInterval(() => {
-      this.update();
-    }, 1000);
-  }
-
-  update() {
-    const date = new Date();
-    this.utcString = date.toUTCString();
-    this.utcSubject.next(date);
-  }
-
-  clearTimer() {
-    window.clearInterval(this.intervalId);
   }
 
   onHelp(section: string) {
