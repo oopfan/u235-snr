@@ -1,19 +1,42 @@
 import { Component, Input, Output, OnInit, OnDestroy, EventEmitter } from '@angular/core';
-import { AtmosphericExtinctionService, CalculationService, TargetParsed, TelescopeParsed, CameraParsed, ObservatoryParsed, UtilityService } from '@core/services';
-import { Observable, Subscription } from 'rxjs';
+import { Observable, Subscription, of, combineLatest, BehaviorSubject } from 'rxjs';
+import { map, shareReplay } from 'rxjs/operators';
+import { TargetParsed, TelescopeParsed, CameraParsed, ObservatoryParsed, UtilityService } from '@core/services';
+import { U235AstroClock, U235AstroObservatory, U235AstroTarget, U235AstroService, U235AstroEquatorialCoordinates } from 'u235-astro';
+import { U235AstroSNR, colorFluxAttenuation, luminanceFluxAttenuation } from './snr';
 
 declare const astro: any;
 
-interface FileInfo {
-  dateObs: string
+interface ColorBalance {
+  R: BehaviorSubject<number>,
+  G: BehaviorSubject<number>,
+  B: BehaviorSubject<number>
 }
 
-interface Extinction {
-  R: number,
-  G: number,
-  B: number,
-  L: number
-};
+interface Telescope {
+  aperture: BehaviorSubject<number>,
+  focalLength: BehaviorSubject<number>,
+  centralObstruction: BehaviorSubject<number>,
+  totalReflectanceTransmittance: BehaviorSubject<number>
+}
+
+interface Camera {
+  pixelSize: BehaviorSubject<number>,
+  readNoise: BehaviorSubject<number>,
+  darkCurrent: BehaviorSubject<number>,
+  quantumEfficiency: BehaviorSubject<number>
+}
+
+interface Target {
+  surfaceBrightness: BehaviorSubject<number>,
+  equ2000: BehaviorSubject<U235AstroEquatorialCoordinates>
+}
+
+interface Observatory {
+  skyBrightness: BehaviorSubject<number>,
+  latitude: BehaviorSubject<number>,
+  longitude: BehaviorSubject<number>
+}
 
 @Component({
   selector: 'app-channel',
@@ -44,25 +67,47 @@ export class ChannelComponent implements OnInit, OnDestroy {
   private observatorySubscription: Subscription;
   private colorBalanceSubscription: Subscription;
   colorBalance: number = 1;
-  files: FileInfo[] = [];
-  altitudes: number[] = [];
-  extinctions: Extinction[] = [];
-  subSNR: number[] = [];
-  frameCount: number = 0;
-  integrationTime: number = 0;
-  SNR: number = 0;
-  altitudeFrom: string = 'n/a';
-  altitudeTo: string = 'n/a';
-  extinctionFrom: string = 'n/a';
-  extinctionTo: string = 'n/a';
-  meanExtinction: string = 'n/a';
+  frameCount: number;
+  integrationTime: number;
+  SNR: number;
+  altitudeFrom: string;
+  altitudeTo: string;
+  extinctionFrom: string;
+  extinctionTo: string ;
+  meanExtinction: string;
+
+  prevAltMin$: Observable<number>;
+  prevAltMax$: Observable<number>;
+  prevExtMin$: Observable<number>;
+  prevExtMax$: Observable<number>;
+  prevExtSum$: Observable<number>;
+  prevCumSNR$: Observable<number>;
+  subAltMin: Subscription = null;
+  subAltMax: Subscription = null;
+  subExtMin: Subscription = null;
+  subExtMax: Subscription = null;
+  subExtSum: Subscription = null;
+  subCumSNR: Subscription = null;
+
+  exposureSubject: BehaviorSubject<number>;
+  binningSubject: BehaviorSubject<number>;
+  ucolorBalance: ColorBalance;
+  utelescope: Telescope;
+  ucamera: Camera;
+  utarget: Target;
+  uobservatory: Observatory;
+
+  storageToMath = (value: number): number => {
+    return this.uutility.encodeAngleToMath(this.utility.decodeAngleFromStorage(value));
+  }
 
   constructor(
-    private atmosphericExtinctionService: AtmosphericExtinctionService,
-    private calculationService: CalculationService,
-    private utility: UtilityService) { }
-
+    private utility: UtilityService,
+    private uutility: U235AstroService) { }
+  
   ngOnInit() {
+    this.clear();
+
     switch(this.filter) {
       case 'R':
         this.colorBalance = this.redBalance;
@@ -74,55 +119,75 @@ export class ChannelComponent implements OnInit, OnDestroy {
         this.colorBalance = this.blueBalance;
         break;
     }
-    if (this.colorBalanceEvents) {
-      this.colorBalanceSubscription = this.colorBalanceEvents.subscribe((value: any) => {
-        switch(value.filter) {
-          case 'R':
-            this.redBalance = value.colorBalance;
-            break;
-          case 'G':
-            this.greenBalance = value.colorBalance;
-            break;
-          case 'B':
-            this.blueBalance = value.colorBalance;
-            break;
-        }
-        this.recalcSubSNR();
-        this.recalcMeasures();
-      });
+
+    this.exposureSubject = new BehaviorSubject<number>(this.exposure);
+    this.binningSubject = new BehaviorSubject<number>(this.binning);
+
+    this.ucolorBalance = {
+      R: new BehaviorSubject<number>(this.redBalance),
+      G: new BehaviorSubject<number>(this.greenBalance),
+      B: new BehaviorSubject<number>(this.blueBalance)
     }
-    if (this.targetEvents) {
-      this.targetSubscription = this.targetEvents.subscribe((value: TargetParsed) => {
-        this.target = value;
-        this.recalcAltitudes();
-        this.recalcExtinctions();
-        this.recalcSubSNR();
-        this.recalcMeasures();
-      });
+
+    this.utelescope = {
+      aperture: new BehaviorSubject<number>(this.telescope.aperture),
+      focalLength: new BehaviorSubject<number>(this.telescope.focalLength),
+      centralObstruction: new BehaviorSubject<number>(this.telescope.centralObstruction),
+      totalReflectanceTransmittance: new BehaviorSubject<number>(this.telescope.totalReflectanceTransmittance)
+    };
+
+    this.ucamera = {
+      pixelSize: new BehaviorSubject<number>(this.camera.pixelSize),
+      readNoise: new BehaviorSubject<number>(this.camera.readNoise),
+      darkCurrent: new BehaviorSubject<number>(this.camera.darkCurrent),
+      quantumEfficiency: new BehaviorSubject<number>(this.camera.quantumEfficiency)
+    };
+
+    this.utarget = {
+      surfaceBrightness: new BehaviorSubject<number>(this.target.surfaceBrightness),
+      equ2000: new BehaviorSubject<U235AstroEquatorialCoordinates>({
+        rightAscension: this.storageToMath(this.target.rightAscension),
+        declination: this.storageToMath(this.target.declination)
+      })
+    };
+
+    this.uobservatory = {
+      skyBrightness: new BehaviorSubject<number>(this.observatory.skyBrightness),
+      latitude: new BehaviorSubject<number>(this.storageToMath(this.observatory.latitude)),
+      longitude: new BehaviorSubject<number>(this.storageToMath(this.observatory.longitude))
     }
-    if (this.telescopeEvents) {
-      this.telescopeSubscription = this.telescopeEvents.subscribe((value: TelescopeParsed) => {
-        this.telescope = value;
-        this.recalcSubSNR();
-        this.recalcMeasures();
+
+    this.colorBalanceSubscription = this.colorBalanceEvents.subscribe(value => {
+      this.ucolorBalance[value.filter].next(value.colorBalance);
+    });
+
+    this.telescopeSubscription = this.telescopeEvents.subscribe(value => {
+      this.utelescope.aperture.next(value.aperture);
+      this.utelescope.focalLength.next(value.focalLength);
+      this.utelescope.centralObstruction.next(value.centralObstruction);
+      this.utelescope.totalReflectanceTransmittance.next(value.totalReflectanceTransmittance);
+    });
+
+    this.cameraSubscription = this.cameraEvents.subscribe(value => {
+      this.ucamera.pixelSize.next(value.pixelSize);
+      this.ucamera.readNoise.next(value.readNoise);
+      this.ucamera.darkCurrent.next(value.darkCurrent);
+      this.ucamera.quantumEfficiency.next(value.quantumEfficiency);
+    });
+
+    this.targetSubscription = this.targetEvents.subscribe(value => {
+      this.utarget.surfaceBrightness.next(value.surfaceBrightness);
+      this.utarget.equ2000.next({
+        rightAscension: this.storageToMath(value.rightAscension),
+        declination: this.storageToMath(value.declination)
       });
-    }
-    if (this.cameraEvents) {
-      this.cameraSubscription = this.cameraEvents.subscribe((value: CameraParsed) => {
-        this.camera = value;
-        this.recalcSubSNR();
-        this.recalcMeasures();
-      });
-    }
-    if (this.observatoryEvents) {
-      this.observatorySubscription = this.observatoryEvents.subscribe((value: ObservatoryParsed) => {
-        this.observatory = value;
-        this.recalcAltitudes();
-        this.recalcExtinctions();
-        this.recalcSubSNR();
-        this.recalcMeasures();
-      });
-    }
+    });
+
+    this.observatorySubscription = this.observatoryEvents.subscribe(value => {
+      this.uobservatory.skyBrightness.next(value.skyBrightness);
+      this.uobservatory.latitude.next(this.storageToMath(value.latitude));
+      this.uobservatory.longitude.next(this.storageToMath(value.longitude));
+    });
   }
 
   ngOnDestroy() {
@@ -141,6 +206,24 @@ export class ChannelComponent implements OnInit, OnDestroy {
     if (this.observatorySubscription) {
       this.observatorySubscription.unsubscribe();
     }
+    if (this.subAltMin !== null) {
+      this.subAltMin.unsubscribe();
+    }
+    if (this.subAltMax !== null) {
+      this.subAltMax.unsubscribe();
+    }
+    if (this.subExtMin !== null) {
+      this.subExtMin.unsubscribe();
+    }
+    if (this.subExtMax !== null) {
+      this.subExtMax.unsubscribe();
+    }
+    if (this.subExtSum !== null) {
+      this.subExtSum.unsubscribe();
+    }
+    if (this.subCumSNR !== null) {
+      this.subCumSNR.unsubscribe();
+    }
   }
 
   onChangeColorBalance(value: string) {
@@ -150,26 +233,63 @@ export class ChannelComponent implements OnInit, OnDestroy {
 
   onChangeBinning(value: string) {
     this.binning = parseInt(value);
-    this.recalcSubSNR();
-    this.recalcMeasures();
+    this.binningSubject.next(this.binning);
   }
 
   onChangeExposure(value: string) {
     this.exposure = parseFloat(value);
-    this.recalcSubSNR();
-    this.recalcMeasures();
+    this.exposureSubject.next(this.exposure);
+    this.integrationTime = this.frameCount * this.exposure / 3600;
   }
 
   onClear() {
-    this.files = [];
-    this.altitudes = [];
-    this.extinctions = [];
-    this.subSNR = [];
-    this.recalcMeasures();
+    this.clear();
+  }
+
+  clear() {
+    if (this.subAltMin !== null) {
+      this.subAltMin.unsubscribe();
+      this.subAltMin = null;
+    }
+    if (this.subAltMax !== null) {
+      this.subAltMax.unsubscribe();
+      this.subAltMax = null;
+    }
+    if (this.subExtMin !== null) {
+      this.subExtMin.unsubscribe();
+      this.subExtMin = null;
+    }
+    if (this.subExtMax !== null) {
+      this.subExtMax.unsubscribe();
+      this.subExtMax = null;
+    }
+    if (this.subExtSum !== null) {
+      this.subExtSum.unsubscribe();
+      this.subExtSum = null;
+    }
+    if (this.subCumSNR !== null) {
+      this.subCumSNR.unsubscribe();
+      this.subCumSNR = null;
+    }
+
+    this.prevAltMin$ = of(90);
+    this.prevAltMax$ = of(-90);
+    this.prevExtMin$ = of(100);
+    this.prevExtMax$ = of(1);
+    this.prevExtSum$ = of(0);
+    this.prevCumSNR$ = of(0);
+
+    this.frameCount = 0;
+    this.integrationTime = 0;
+    this.SNR = 0;
+    this.altitudeFrom = 'n/a';
+    this.altitudeTo = 'n/a';
+    this.extinctionFrom = 'n/a';
+    this.extinctionTo = 'n/a';
+    this.meanExtinction = 'n/a';
   }
 
   readFiles(fileList: any) {
-    this.frameCount += fileList.length;
     for(let i = 0; i < fileList.length; i++) {
       this.readAsFITS(fileList[i]);
     }
@@ -190,105 +310,98 @@ export class ChannelComponent implements OnInit, OnDestroy {
       if (!dateObs.endsWith('Z')) {
         dateObs += 'Z';
       }
-      self.files.push({ dateObs });
 
-      const altitude = self.calculateAltitude(new Date(dateObs));
-      self.altitudes.push(altitude);
+      const clock = new U235AstroClock();
+      clock.date$ = of(new Date(dateObs));
+      clock.init();
 
-      const extinction = self.calculateExtinction(altitude);
-      self.extinctions.push(extinction);
-  
-      const subSNR = self.calculateSubSNR(extinction);
-      self.subSNR.push(subSNR);
+      const observatory = new U235AstroObservatory();
+      observatory.latitude$ = self.uobservatory.latitude;
+      observatory.longitude$ = self.uobservatory.longitude;
+      observatory.connect(clock);
+      observatory.init();
 
-      self.recalcMeasures();
+      const target = new U235AstroTarget();
+      target.equ2000$ = self.utarget.equ2000;
+      target.connect(observatory);
+      target.init();
+
+      self.frameCount++;
+      self.integrationTime = self.frameCount * self.exposure / 3600;
+
+      const currAltitude$ = target.horNow$.pipe(map(value => value.altitude));
+      const currAirmass$ = currAltitude$.pipe(map(value => self.uutility.calculateAirmass(value)));
+      const extinction = {
+        R: currAirmass$.pipe(map(self.uutility.calculateRedExtinction)),
+        G: currAirmass$.pipe(map(self.uutility.calculateGreenExtinction)),
+        B: currAirmass$.pipe(map(self.uutility.calculateBlueExtinction)),
+        L: of(0)
+      };
+      extinction.L = combineLatest(extinction.R, extinction.G, extinction.B).pipe(map(([r, g, b]) => (r + g + b) / 3));
+      const currExtinction$: Observable<number> = extinction[self.filter];
+
+      const fluxAttenuation = {
+        R: combineLatest(self.ucolorBalance.R, extinction.R).pipe(map(colorFluxAttenuation)),
+        G: combineLatest(self.ucolorBalance.G, extinction.G).pipe(map(colorFluxAttenuation)),
+        B: combineLatest(self.ucolorBalance.B, extinction.B).pipe(map(colorFluxAttenuation)),
+        L: of(0)
+      };
+      fluxAttenuation.L = combineLatest(fluxAttenuation.R, fluxAttenuation.G, fluxAttenuation.B).pipe(map(luminanceFluxAttenuation));
+      const currFluxAttenuation$: Observable<number> = fluxAttenuation[self.filter];
+
+      const snrModel = new U235AstroSNR();
+      snrModel.fluxAttenuation$ = currFluxAttenuation$;
+      snrModel.aperture$ = self.utelescope.aperture;
+      snrModel.focalLength$ = self.utelescope.focalLength;
+      snrModel.centralObstruction$ = self.utelescope.centralObstruction;
+      snrModel.totalReflectanceTransmittance$ = self.utelescope.totalReflectanceTransmittance;
+      snrModel.pixelSize$ = self.ucamera.pixelSize;
+      snrModel.readNoise$ = self.ucamera.readNoise;
+      snrModel.darkCurrent$ = self.ucamera.darkCurrent;
+      snrModel.quantumEfficiency$ = self.ucamera.quantumEfficiency;
+      snrModel.binning$ = self.binningSubject;
+      snrModel.surfaceBrightness$ = self.utarget.surfaceBrightness;
+      snrModel.skyBrightness$ = self.uobservatory.skyBrightness;
+      snrModel.exposure$ = self.exposureSubject;
+      snrModel.init();
+
+      if (self.subAltMin !== null) {
+        self.subAltMin.unsubscribe();
+      }
+      self.prevAltMin$ = combineLatest(currAltitude$, self.prevAltMin$).pipe(map(([curr, prev]) => Math.min(curr, prev)), shareReplay(1));
+      self.subAltMin = self.prevAltMin$.subscribe(value => self.altitudeFrom = value.toFixed(1));
+
+      if (self.subAltMax !== null) {
+        self.subAltMax.unsubscribe();
+      }
+      self.prevAltMax$ = combineLatest(currAltitude$, self.prevAltMax$).pipe(map(([curr, prev]) => Math.max(curr, prev)), shareReplay(1));
+      self.subAltMax = self.prevAltMax$.subscribe(value => self.altitudeTo = value.toFixed(1));
+
+      if (self.subExtMin !== null) {
+        self.subExtMin.unsubscribe();
+      }
+      self.prevExtMin$ = combineLatest(currExtinction$, self.prevExtMin$).pipe(map(([curr, prev]) => Math.min(curr, prev)), shareReplay(1));
+      self.subExtMin = self.prevExtMin$.subscribe(value => self.extinctionFrom = value.toFixed(3));
+
+      if (self.subExtMax !== null) {
+        self.subExtMax.unsubscribe();
+      }
+      self.prevExtMax$ = combineLatest(currExtinction$, self.prevExtMax$).pipe(map(([curr, prev]) => Math.max(curr, prev)), shareReplay(1));
+      self.subExtMax = self.prevExtMax$.subscribe(value => self.extinctionTo = value.toFixed(3));
+
+      if (self.subExtSum !== null) {
+        self.subExtSum.unsubscribe();
+      }
+      self.prevExtSum$ = combineLatest(currExtinction$, self.prevExtSum$).pipe(map(([curr, prev]) => curr + prev), shareReplay(1));
+      self.subExtSum = self.prevExtSum$.subscribe(value => self.meanExtinction = (value / self.frameCount).toFixed(3));
+
+      if (self.subCumSNR !== null) {
+        self.subCumSNR.unsubscribe();
+      }
+      self.prevCumSNR$ = combineLatest(snrModel.signalToNoisePerSub$, self.prevCumSNR$).pipe(map(([curr, prev]) => curr * curr + prev), shareReplay(1));
+      self.subCumSNR = self.prevCumSNR$.subscribe(value => self.SNR = Math.sqrt(value));
+
     });
-  }
-
-  calculateAltitude(date: Date): number {
-    const altitude = this.utility.calculateAltitude(date, this.target, this.observatory);
-    return altitude;
-  }
-
-  calculateExtinction(altitude: number): Extinction {
-    const red = this.atmosphericExtinctionService.redExtinction(altitude);
-    const green = this.atmosphericExtinctionService.greenExtinction(altitude);
-    const blue = this.atmosphericExtinctionService.blueExtinction(altitude);
-    const extinction: Extinction = {
-      R: red,
-      G: green,
-      B: blue,
-      L: (red + green + blue) / 3
-    };
-    return extinction;
-  }
-
-  calculateSubSNR(extinction: Extinction): number {
-    const subSNR = this.calculationService.calculateSnrPerSub(
-      this.filter,
-      this.redBalance,
-      this.greenBalance,
-      this.blueBalance,
-      extinction.R,
-      extinction.G,
-      extinction.B,
-      this.binning,
-      this.exposure,
-      this.target,
-      this.telescope,
-      this.camera,
-      this.observatory
-    );
-    return subSNR;
-  }
-
-  recalcAltitudes() {
-    this.altitudes = this.files.map(file => this.calculateAltitude(new Date(file.dateObs)));
-  }
-
-  recalcExtinctions() {
-    this.extinctions = this.altitudes.map(altitude => this.calculateExtinction(altitude));
-  }
-
-  recalcSubSNR() {
-    this.subSNR = this.extinctions.map(extinction => this.calculateSubSNR(extinction));
-  }
-
-  recalcMeasures() {
-    this.frameCount = this.altitudes.length;
-    this.integrationTime = (this.frameCount * this.exposure) / 3600;
-    this.SNR = Math.sqrt(this.subSNR.reduce((previousValue, currentValue) => (previousValue + currentValue * currentValue), 0));
-
-    if (this.frameCount > 0) {
-      this.altitudeFrom = this.altitudes.reduce((previousValue, currentValue) => {
-        return currentValue < previousValue ? currentValue : previousValue;
-      }, 90).toFixed(1);
-  
-      this.altitudeTo = this.altitudes.reduce((previousValue, currentValue) => {
-        return currentValue > previousValue ? currentValue : previousValue;
-      }, 0).toFixed(1);
-  
-      // Be careful that there could be NaN's in there!
-      this.extinctionFrom = this.extinctions.map(extinction => extinction[this.filter]).reduce((previousValue, currentValue) => {
-        return currentValue < previousValue ? currentValue : previousValue;
-      }, 10).toFixed(3);
-  
-      // Be careful that there could be NaN's in there!
-      this.extinctionTo = this.extinctions.map(extinction => extinction[this.filter]).reduce((previousValue, currentValue) => {
-        return currentValue > previousValue ? currentValue : previousValue;
-      }, 1).toFixed(3);
-  
-      this.meanExtinction = (this.extinctions.map(extinction => extinction[this.filter]).reduce((previousValue, currentValue) => {
-        return currentValue + previousValue;
-      }, 0) / this.extinctions.length).toFixed(3);
-    }
-    else {
-      this.altitudeFrom = 'n/a';
-      this.altitudeTo = 'n/a';
-      this.extinctionFrom = 'n/a';
-      this.extinctionTo = 'n/a';
-      this.meanExtinction = 'n/a';
-    }
   }
 
 }

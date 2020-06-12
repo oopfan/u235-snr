@@ -1,6 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Timekeeper, Matrix3D, Vector3D } from '@shared/classes';
-import { TargetParsed, ObservatoryParsed } from '@core/services';
 
 interface HorizontalCoordinates {
   altitudeDegrees: number,
@@ -13,89 +11,6 @@ interface HorizontalCoordinates {
 export class UtilityService {
 
   constructor() { }
-
-  calculateAltitude(date: Date, target: TargetParsed, observatory: ObservatoryParsed): number {
-    const result = this.calculateHorizontalCoordinates(date, target, observatory);
-    return result.altitudeDegrees;
-  }
-
-  calculateHorizontalCoordinates(date: Date, target: TargetParsed, observatory: ObservatoryParsed): HorizontalCoordinates {
-    const timekeeper = new Timekeeper();
-    timekeeper.setDate(date);
-    const jd = timekeeper.getJD();
-    const gmst = timekeeper.getGMST();
-
-    const obliquity = this.calculateObliquityOfEcliptic(jd);
-    const precession = this.calculatePrecessionSinceJ2000(jd);
-
-    const raDecoded = this.decodeAngleFromStorage(target.rightAscension);
-    const raHours = this.encodeAngleToMath(raDecoded);
-    const decDecoded = this.decodeAngleFromStorage(target.declination);
-    const decDegrees = this.encodeAngleToMath(decDecoded);
-
-    const longitudeDecoded = this.decodeAngleFromStorage(observatory.longitude);
-    const longitudeDegrees = this.encodeAngleToMath(longitudeDecoded);
-    const latitudeDecoded = this.decodeAngleFromStorage(observatory.latitude);
-    const latitudeDegrees = this.encodeAngleToMath(latitudeDecoded);
-
-    let lmstDegrees = gmst * 15 + longitudeDegrees;
-    if (lmstDegrees < 0) {
-      lmstDegrees += 360;
-    }
-    if (lmstDegrees >= 360) {
-      lmstDegrees -= 360;
-    }
-    const lmstRadians = this.toRadians(lmstDegrees);
-
-    const matEquToEcl = new Matrix3D();
-    matEquToEcl.setRotateX(obliquity);
-    const matEclToEqu = new Matrix3D();
-    matEclToEqu.setRotateX(-obliquity);
-    const matPrecessToDate = new Matrix3D();
-    matPrecessToDate.setRotateZ(-precession);
-
-    const rotY = new Matrix3D();
-    rotY.setRotateY(this.toRadians(90 - latitudeDegrees));
-    const rotZ = new Matrix3D();
-    rotZ.setRotateZ(lmstRadians);
-    const matEquToHor = new Matrix3D();
-    matEquToHor.matrixMultiply(rotY).matrixMultiply(rotZ);
-
-    const vec = new Vector3D();
-    vec.setPolar(this.toRadians(raHours * 15), this.toRadians(decDegrees), 1);
-    vec.matrixMultiply(matEquToEcl);
-    vec.matrixMultiply(matPrecessToDate);
-    vec.matrixMultiply(matEclToEqu);
-    let polar = vec.getPolar();
-    let raNow = polar[0];
-    if (raNow < 0) {
-      raNow += 2 * Math.PI;
-    }
-    vec.matrixMultiply(matEquToHor);
-
-    polar = vec.getPolar();
-    const altitudeDegrees = this.toDegrees(polar[1]);
-
-    let hourAngle = this.toDegrees(lmstRadians - raNow) / 15;
-    if (hourAngle > 12) {
-      hourAngle -= 24;
-    }
-    if (hourAngle < -12) {
-      hourAngle += 24;
-    }
-
-    return { altitudeDegrees, hourAngle };
-  }
-
-  calculateObliquityOfEcliptic(jd: number): number {
-    const obliquity = this.toRadians(23.4393 - 3.563E-7 * (jd - 2451543.5));
-    return obliquity;
-  }
-
-  calculatePrecessionSinceJ2000(jd: number): number {
-    var precession = this.toRadians(3.82394E-5 * (jd - 2451543.5));
-    return precession;
-  }
 
   toRadians(degrees: number): number {
     return degrees * Math.PI / 180;
