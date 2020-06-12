@@ -1,6 +1,7 @@
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { TargetParsed, UtilityService } from '@core/services';
+import { TargetParsed } from '@core/services';
+import { U235AstroService } from 'u235-astro';
 
 @Component({
   selector: 'app-target-form',
@@ -16,7 +17,7 @@ export class TargetFormComponent implements OnInit {
   @Output() notifyCancel:EventEmitter<void> = new EventEmitter();
   targetForm: FormGroup = null;
 
-  constructor(private utility: UtilityService) { }
+  constructor(private utility: U235AstroService) { }
 
   ngOnInit() {
     const rightAscensionDecoded = this.utility.decodeAngleFromStorage(this.rightAscension);

@@ -1,6 +1,7 @@
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { ObservatoryParsed, UtilityService } from '@core/services';
+import { ObservatoryParsed } from '@core/services';
+import { U235AstroService } from 'u235-astro';
 
 @Component({
   selector: 'app-observatory-form',
@@ -17,7 +18,7 @@ export class ObservatoryFormComponent implements OnInit {
   @Output() notifyCancel:EventEmitter<void> = new EventEmitter();
   observatoryForm: FormGroup = null;
 
-  constructor(private utility: UtilityService) { }
+  constructor(private utility: U235AstroService) { }
 
   ngOnInit() {
     const latitudeDecoded = this.utility.decodeAngleFromStorage(this.latitude);

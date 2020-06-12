@@ -1,9 +1,8 @@
 import { Component, Input, Output, OnInit, OnDestroy, EventEmitter } from '@angular/core';
 import { Observable, Subscription, of, combineLatest, BehaviorSubject } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
-import { TargetParsed, TelescopeParsed, CameraParsed, ObservatoryParsed, UtilityService } from '@core/services';
-import { U235AstroClock, U235AstroObservatory, U235AstroTarget, U235AstroService, U235AstroEquatorialCoordinates } from 'u235-astro';
-import { U235AstroSNR, colorFluxAttenuation, luminanceFluxAttenuation } from './snr';
+import { TargetParsed, TelescopeParsed, CameraParsed, ObservatoryParsed } from '@core/services';
+import { U235AstroSNR, U235AstroClock, U235AstroObservatory, U235AstroTarget, U235AstroService, U235AstroEquatorialCoordinates } from 'u235-astro';
 
 declare const astro: any;
 
@@ -98,12 +97,10 @@ export class ChannelComponent implements OnInit, OnDestroy {
   uobservatory: Observatory;
 
   storageToMath = (value: number): number => {
-    return this.uutility.encodeAngleToMath(this.utility.decodeAngleFromStorage(value));
+    return this.utility.encodeAngleToMath(this.utility.decodeAngleFromStorage(value));
   }
 
-  constructor(
-    private utility: UtilityService,
-    private uutility: U235AstroService) { }
+  constructor(private utility: U235AstroService) {}
   
   ngOnInit() {
     this.clear();
@@ -330,23 +327,23 @@ export class ChannelComponent implements OnInit, OnDestroy {
       self.integrationTime = self.frameCount * self.exposure / 3600;
 
       const currAltitude$ = target.horNow$.pipe(map(value => value.altitude));
-      const currAirmass$ = currAltitude$.pipe(map(value => self.uutility.calculateAirmass(value)));
+      const currAirmass$ = currAltitude$.pipe(map(value => self.utility.calculateAirmass(value)));
       const extinction = {
-        R: currAirmass$.pipe(map(self.uutility.calculateRedExtinction)),
-        G: currAirmass$.pipe(map(self.uutility.calculateGreenExtinction)),
-        B: currAirmass$.pipe(map(self.uutility.calculateBlueExtinction)),
+        R: currAirmass$.pipe(map(self.utility.calculateRedExtinction)),
+        G: currAirmass$.pipe(map(self.utility.calculateGreenExtinction)),
+        B: currAirmass$.pipe(map(self.utility.calculateBlueExtinction)),
         L: of(0)
       };
       extinction.L = combineLatest(extinction.R, extinction.G, extinction.B).pipe(map(([r, g, b]) => (r + g + b) / 3));
       const currExtinction$: Observable<number> = extinction[self.filter];
 
       const fluxAttenuation = {
-        R: combineLatest(self.ucolorBalance.R, extinction.R).pipe(map(colorFluxAttenuation)),
-        G: combineLatest(self.ucolorBalance.G, extinction.G).pipe(map(colorFluxAttenuation)),
-        B: combineLatest(self.ucolorBalance.B, extinction.B).pipe(map(colorFluxAttenuation)),
+        R: combineLatest(self.ucolorBalance.R, extinction.R).pipe(map(self.utility.colorFluxAttenuation)),
+        G: combineLatest(self.ucolorBalance.G, extinction.G).pipe(map(self.utility.colorFluxAttenuation)),
+        B: combineLatest(self.ucolorBalance.B, extinction.B).pipe(map(self.utility.colorFluxAttenuation)),
         L: of(0)
       };
-      fluxAttenuation.L = combineLatest(fluxAttenuation.R, fluxAttenuation.G, fluxAttenuation.B).pipe(map(luminanceFluxAttenuation));
+      fluxAttenuation.L = combineLatest(fluxAttenuation.R, fluxAttenuation.G, fluxAttenuation.B).pipe(map(self.utility.luminanceFluxAttenuation));
       const currFluxAttenuation$: Observable<number> = fluxAttenuation[self.filter];
 
       const snrModel = new U235AstroSNR();

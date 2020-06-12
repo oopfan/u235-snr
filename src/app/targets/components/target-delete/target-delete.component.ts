@@ -1,7 +1,8 @@
 import { Title } from '@angular/platform-browser';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { UserTargetService, TargetStored, UtilityService } from '@core/services';
+import { UserTargetService, TargetStored } from '@core/services';
+import { U235AstroService } from 'u235-astro';
 
 @Component({
   selector: 'app-target-delete',
@@ -29,7 +30,7 @@ export class TargetDeleteComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private targetService: UserTargetService,
-    private utility: UtilityService) { }
+    private utility: U235AstroService) { }
 
   ngOnInit() {
     this.titleService.setTitle(this.browserTitle);

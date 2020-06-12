@@ -1,7 +1,7 @@
 import { Title } from '@angular/platform-browser';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { UserTargetService, UserTelescopeService, UserCameraService, UserObservatoryService, UtilityService } from '@core/services';
+import { UserTargetService, UserTelescopeService, UserCameraService, UserObservatoryService } from '@core/services';
 
 @Component({
   selector: 'app-quick-start-home',
@@ -26,8 +26,7 @@ export class QuickStartHomeComponent implements OnInit, OnDestroy {
     private targetService: UserTargetService,
     private telescopeService: UserTelescopeService,
     private cameraService: UserCameraService,
-    private observatoryService: UserObservatoryService,
-    private utility: UtilityService
+    private observatoryService: UserObservatoryService
   ) { }
 
   ngOnInit() {

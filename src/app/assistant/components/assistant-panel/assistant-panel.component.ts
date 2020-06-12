@@ -1,7 +1,7 @@
 import { Component, Input, Output, OnInit, OnDestroy, OnChanges, EventEmitter } from '@angular/core';
 import { Observable, Subscription, Subject, BehaviorSubject } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
-import { UtilityService, TargetParsed, ObservatoryParsed } from '@core/services';
+import { TargetParsed, ObservatoryParsed } from '@core/services';
 import { U235AstroFlashArg, U235AstroEquatorialCoordinates, U235AstroClock, U235AstroObservatory, U235AstroTarget, U235AstroService } from 'u235-astro';
 
 @Component({
@@ -34,7 +34,7 @@ export class AssistantPanelComponent implements OnInit, OnDestroy, OnChanges {
   longitude$ = new BehaviorSubject<number>(0);
   equ2000$ = new BehaviorSubject<U235AstroEquatorialCoordinates>({ rightAscension: 0, declination: 0});
 
-  constructor(private utility: UtilityService, private uService: U235AstroService) {}
+  constructor(private utility: U235AstroService, private uService: U235AstroService) {}
 
   ngOnInit() {
     this.clock.date$ = this.date$.asObservable();

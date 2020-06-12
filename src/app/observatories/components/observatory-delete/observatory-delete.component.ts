@@ -1,7 +1,8 @@
 import { Title } from '@angular/platform-browser';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { UserObservatoryService, ObservatoryStored, UtilityService } from '@core/services';
+import { UserObservatoryService, ObservatoryStored } from '@core/services';
+import { U235AstroService } from 'u235-astro';
 
 @Component({
   selector: 'app-observatory-delete',
@@ -30,7 +31,7 @@ export class ObservatoryDeleteComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private observatoryService: UserObservatoryService,
-    private utility: UtilityService) { }
+    private utility: U235AstroService) { }
 
   ngOnInit() {
     this.titleService.setTitle(this.browserTitle);
