@@ -9,7 +9,7 @@
         <app-observatory-picker (notifyChange)="onChangeObservatory($event)"></app-observatory-picker>
     </div>
     <ng-container *ngIf="haveTarget && haveObservatory">
-        <ng-container *ngIf="target.horNow$ | async as horNow">
+        <ng-container *ngIf="target.geoHorNow$ | async as horNow">
             <div class="panel-block">
                 <div class="field">
                     <label class="label">Altitude</label>

@@ -45,11 +45,11 @@ export class AssistantPanelComponent implements OnInit, OnDestroy, OnChanges {
     this.observatory.connect(this.clock);
     this.observatory.init();
 
-    this.target.equ2000$ = this.equ2000$.asObservable();
+    this.target.geoEqu2000$ = this.equ2000$.asObservable();
     this.target.connect(this.observatory);
     this.target.init();
 
-    this.horSubscription = this.target.horNow$
+    this.horSubscription = this.target.geoHorNow$
       .pipe(
         map(value => {
           if (value.altitude >= 15) {

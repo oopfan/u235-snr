@@ -319,14 +319,14 @@ export class ChannelComponent implements OnInit, OnDestroy {
       observatory.init();
 
       const target = new U235AstroTarget();
-      target.equ2000$ = self.utarget.equ2000;
+      target.geoEqu2000$ = self.utarget.equ2000;
       target.connect(observatory);
       target.init();
 
       self.frameCount++;
       self.integrationTime = self.frameCount * self.exposure / 3600;
 
-      const currAltitude$ = target.horNow$.pipe(map(value => value.altitude));
+      const currAltitude$ = target.geoHorNow$.pipe(map(value => value.altitude));
       const currAirmass$ = currAltitude$.pipe(map(value => self.utility.calculateAirmass(value)));
       const extinction = {
         R: currAirmass$.pipe(map(self.utility.calculateRedExtinction)),
