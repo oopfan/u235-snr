@@ -28,7 +28,7 @@
     "@angular/router": "~9.1.0",
     "angular-web-storage": "^7.0.0-beta.1",
     "bulma": "^0.8.0",
-    "chart.js": "^2.9.3",
+    "chart.js": "^2.9.4",
     "fitsjs": "^0.6.6",
     "mapsort": "^1.0.2",
     "ng2-charts": "^2.3.0",
